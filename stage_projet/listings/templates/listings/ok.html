@@ -1,0 +1,14 @@
+{% extends 'listings/gab_base.html' %}
+{% block content %}
+<table border='1 px'>
+  <tr>
+    <th>nom</th>
+    <th>nom</th>
+  </tr>
+  <tr>
+   {% for patient in  patients %}
+        <td>{{patient.nom}}</td>
+   {% endfor %}
+  </tr>
+</table>
+ {% endblock %}

@@ -1,0 +1,501 @@
+body,html{
+    height: 100%;
+}
+header{
+    text-align: center;
+    text-transform:uppercase;
+    font-size: 50px;
+}
+.formcnx{
+    width: 500px;
+}
+.image {
+    background-image: url("chu2.jpg");
+        height: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        opacity: 1;
+  }
+.text {
+    font-weight: bold;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 40%;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color:#f8faf9;
+    opacity: 0.9;
+    width: 400px;
+  }
+.inputformcnx{
+    padding:10px;
+    margin-top: 20px;
+    margin-bottom:20px;
+    display:block;
+ }
+.fieldsetfromcnx{
+    border:none;
+ }
+.afromcnx{
+    text-decoration: none;
+    display:block;
+    margin-bottom: 10px;
+    color:black;
+  }
+.div0{
+    overflow: hidden;
+    padding: 0 30px;
+    margin-bottom: 4px;
+}
+.div0{
+    overflow: hidden;
+}
+
+.div1{
+float: left;
+}
+.div2{
+  float: right;  
+}
+.test{
+display:none;
+}
+
+.formcontenu{
+width:70%;
+border-radius: 5px;
+}
+
+.formcontenu ::first-letter{
+text-transform:capitalize;
+}
+
+.inputcontenu{
+margin:10px;
+display:block;
+width:98%;
+border-top:none;
+border-left:none;
+border-right:none;
+border-bottom:1px solid black;
+background-color:none;
+padding:15px;
+}
+.selectcontenu{
+display:block;
+}
+.selectcontenu>label{
+margin-right:13%;
+}
+.selectcontenu>select{
+width:29%;
+padding:15px;
+background-color:white;
+
+}
+.divcontenunav{
+padding:15px;
+text-align:center;
+width:100%;
+text-transform:Uppercase;
+font-weight:bold;
+font-size:20px;
+border-top-left-radius:5px;
+border-top-right-radius:5px;
+color: black;
+font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.divcontenudate{
+display:block;
+}
+.divcontenudate>input{
+padding:15px;
+margin-left:70px;
+margin-bottom:10px;
+width:70%;
+}
+
+.divcontenusexe{
+display:block;
+}
+.divcontenusexe>input{
+padding:15px;
+margin-left: 15px;
+margin-bottom:10px;
+width:34%;
+border-top:none;
+border-left:none;
+border-right:none;
+border-bottom:1px solid black;
+}
+
+.divfrmconsul{
+display:block;
+overflow:hidden;
+}
+.divfrmconst{
+overflow:hidden;
+display:block;
+}
+
+.leftconts{
+float:left;
+margin-left:28px;
+}
+.rightconts{
+float:right;
+margin-right:1.5%;
+}
+.divfrmconsul>input[type="radio"]{
+width: 20px;  
+height: 20px;
+} 
+.divfrmconsul>input[type="text"]{
+width: 50%; 
+padding:15px;
+border-top:none;
+border-left:none;
+border-right:none;
+border-bottom:1px solid black;
+}  
+#presdiv1{
+display:block;
+margin-right:-1%;
+}
+#presdiv1>input[type="radio"]{
+width: 20px;  
+height: 20px;
+}
+#presdiv2{
+display:block;
+margin-right:5%;
+}
+#presdiv2>input[type="radio"]{
+width: 20px;  
+height: 20px;
+}
+#presdiv3{
+display:block;
+margin-right:22%;
+}
+#presdiv3>input[type="radio"]{
+width: 20px;  
+height: 20px;
+}
+#presdiv4{
+display:block;
+margin-right:-0.5%;
+}
+#presdiv4>input[type="radio"]{
+width: 20px;  
+height: 20px;
+}
+
+
+#presdiv5{
+display:block;
+margin-right:38%;
+}
+
+#presdiv5>input[type="radio"]{
+width: 20px;  
+height: 20px;
+}
+
+.divfrmconsul>label{
+font-size: 20px;
+}
+#div3>label{
+
+margin-right:63%;
+}
+#div4>label{
+
+margin-right:73%;
+}
+#div5>label{
+
+margin-right:72%;
+}
+#div6>label{
+
+margin-right:42%;
+}
+#div7>label{
+
+margin-right:23%;
+}
+#div8>label{
+
+margin-right:-7%;
+}
+
+#div9>label{
+margin-right:62%;
+}
+#div10>label{
+margin-right:72%;
+}
+#div11>label{
+margin-right:62%;
+}
+#div12>label{
+margin-right:30%;
+}
+#div13>label{
+margin-right:-4%;
+}
+#div14>label{
+margin-right:75%;
+}
+#div3>input[type="checkbox"]{
+width: 20px;  
+height: 20px;
+}
+#div4>input[type="checkbox"]{
+width: 20px;  
+height: 20px;
+}
+#div5>input[type="checkbox"]{
+width: 20px;  
+height: 20px;
+}
+#div6>input[type="checkbox"]{
+width: 20px;  
+height: 20px;
+}
+#div7>input[type="checkbox"]{
+width: 20px;  
+height: 20px;
+}
+#div8>input[type="checkbox"]{
+width: 20px;  
+height: 20px;
+}
+#div9>input[type="checkbox"]{
+width: 20px;  
+height: 20px;
+}
+#div10>input[type="checkbox"]{
+width: 20px;  
+height: 20px;
+}
+#div11>input[type="checkbox"]{
+width: 20px;  
+height: 20px;
+}
+#div12>input[type="checkbox"]{
+width: 20px;  
+height: 20px;
+}
+#div13>input[type="checkbox"]{
+width: 20px;  
+height: 20px;
+}
+#div14>input[type="checkbox"]{
+width: 20px;  
+height: 20px;
+}
+#div14>input[type="text"]{
+width:100%;
+padding:15px;
+border-top:none;
+border-left:none;
+border-right:none;
+border-bottom:1px solid black;
+}
+
+.Signesassociesfonctionnels{
+  overflow: hidden;
+}
+.left{
+float:left;
+margin-left:5%;
+}
+.left1{
+float:left;
+margin-left:5.5%;
+}
+.left1>input[type="radio"]{
+width: 20px;  
+height: 20px;
+}
+.left1>label{
+font-size:20px;
+}
+
+#left2{
+float:left;
+margin-left:6%;
+}
+#left2>input[type="radio"]{
+width: 20px;  
+height: 20px;
+}
+
+
+#right2{
+float:right;
+margin-right:24%;
+}
+#right2>input[type="radio"]{
+width: 20px;  
+height: 20px;
+}
+
+.left>input[type="radio"]{
+width: 20px;  
+height: 20px;
+}
+.right{
+float:right;
+margin-right:5%;
+}
+.right>input[type="radio"]{
+width: 20px;  
+height: 20px;
+}
+.right1{
+float:right;
+margin-right:10%;
+}
+.right1>input[type="radio"]{
+width: 20px;  
+height: 20px;
+}
+.right1>label{
+font-size:20px;
+}
+
+#divsag{
+  width:50%;
+  float: left;
+  overflow: hidden;
+}
+#divsag>label{
+margin-right:9%;
+}
+#divsag>input[type="radio"]{
+width: 20px;  
+height: 20px;
+}
+#divsd{
+  width:50%;
+  overflow: hidden;
+  float: left;
+}
+#divsd>label{
+margin-right:78%;
+text-align:justify;
+}
+#divsd>input[type="radio"]{
+width: 20px;  
+height: 20px;
+}
+#divse{
+width:50%;
+overflow: hidden;
+float: left;
+}
+#divse>label{
+margin-right:11.5%;
+}
+#divse>input[type="radio"]{
+width: 20px;  
+height: 20px;
+}
+
+
+.test1>input[type="checkbox"]{
+ width: 17px;  
+height: 17px;
+ }
+ .test1>label{
+font-size:17;
+ }
+ .test4>input[type="checkbox"]{
+ width: 17px;  
+height: 17px;
+ }
+  .test4>label{
+font-size:17;
+ }
+ .test2>input[type="checkbox"]{
+ width: 17px;  
+height: 17px;
+ }
+  .test2>label{
+font-size:17;
+ }
+  .test3>input[type="checkbox"]{
+ width: 17px;  
+height: 17px;
+ }
+  .test3>label{
+font-size:17;
+ }
+ 
+#divse>input[type="text"]{
+width:100%;
+padding:15px;
+border-top:none;
+border-left:none;
+border-right:none;
+border-bottom:1px solid black;
+}
+#divsd>input[type="text"]{
+width:100%;
+padding:15px;
+border-top:none;
+border-left:none;
+border-right:none;
+border-bottom:1px solid black;
+}
+.test0{
+float:left;
+}
+.test5{
+float:right;
+}
+#test1{
+ display:block;
+ }
+#test2{
+ display:block;
+ }
+ #test3{
+ display:block;
+ }
+#test4{
+ display:block;
+ margin-right:53%;
+ }
+
+.class1{
+padding:15px;
+text-align:center;
+color:white;
+background-color:hsl(195,100%,50%);
+width:100%;
+text-transform:Uppercase;
+font-weight:bold;
+font-size:15px;
+border-top-left-radius:5px;
+border-top-right-radius:5px;
+}
+#signeasso{
+  overflow: hidden;
+}
+
+
+
+

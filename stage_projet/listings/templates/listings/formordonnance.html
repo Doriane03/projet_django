@@ -1,0 +1,46 @@
+{% extends 'listings/template.html' %}
+
+{% block formordonnance %}
+<center>
+<form method="post" action=""  class="formcontenu">
+<div>
+<nav class="divcontenunav">ordonnance</nav>
+</div>
+    <fieldset class="fieldsetgd">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputCity">medicament</label>
+                <input type="text" class="inputcontenu" id="inputCity">
+            </div>
+            
+            
+
+
+            <div class="form-group col-md-2">
+                <label for="inputZip">nombre de boite</label>
+                <input type="text" class="inputcontenu" id="inputZip">
+            </div>
+
+            <div class="form-group col-md-2">
+                <label for="inputZip">dossage</label>
+                <input type="text" class="inputcontenu" id="inputZip">
+            </div>
+
+
+
+            <div class="form-group col-md-2">
+                <label > type:</label>
+                <select name="ok"   class="inputcontenu" required>
+                        <option value="ok">sirop</option>
+                        <option>comprime</option>
+                </select>
+              </div>
+            
+        </div>
+            <input type="submit"  name="valideconstante"  value="Enregister" class="btn btn-primary"/>
+
+
+    </fieldset>
+</form>
+</center>
+{% endblock %}

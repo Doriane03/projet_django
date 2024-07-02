@@ -1,0 +1,19 @@
+{% extends 'listings/template.html' %}
+{% block formfacture %}
+<center>
+<form method="post" action="" class="formcontenu">
+<div>
+<nav class="divcontenunav">facture</nav>
+</div>
+    {% csrf_token %}
+    <fieldset>
+            <input type="text"  placeholder="numero de la facture" name="numerofact" class="inputcontenu"/>
+            <input type="text"  placeholder="montant paye" name="montantpaye" class="inputcontenu"/>
+            <input type="text"  placeholder="nom  du patient patient" name="patient" class="inputcontenu"/>
+            <input type="text"  name="date" class="inputcontenu"  id="dateInput" readonly />
+            <input type="submit"  name="validepatient"  value="Enregistrer" class="btn btn-primary"/>
+
+    </fieldset>
+</form>
+</center>
+{% endblock %}

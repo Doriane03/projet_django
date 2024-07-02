@@ -1,0 +1,45 @@
+{% extends 'listings/template.html' %}
+{% block formpatient %}
+<center>
+<form method="post" action=""  class="formcontenu">
+    {% csrf_token %}
+    <fieldset>
+            <div class="selectcontenu">
+              <label > numero de lit:</label>
+              <select name="ok"  required>
+                   {% for lit in lits %}
+                      <option value="{lit.numlit}">{{lit.numlit}}</option>
+                   {% endfor %}
+              </select>
+            </div>
+            <input type="text"   placeholder="nom" name="nom" class="inputcontenu" required/>
+            <input type="tel"   placeholder="numero 1" name="contact1" class="inputcontenu" required/>
+            <input type="tel" placeholder="numero 2" name="contact2" class="inputcontenu" required/>
+            <input type="email"   placeholder="email" name="email" class="inputcontenu" required/>
+            
+             <div class="divcontenudate">
+                  <label>date de naissance:</label>
+                  <input type="date"   name="date_naissance" required/>
+             </div>
+             
+             <div class="divcontenusexe">
+                 <label >sexe:</label>
+                 <input type="radio"   name="sexe" value="M" required />MASCULIN
+                 <input type="radio"   name="sexe" value="F" required />FEMININ 
+             </div>
+             
+            <input type="text"  placeholder="profession" name="profession" class="inputcontenu" required/>
+            <input type="text"   placeholder="Âge" name="age" class="inputcontenu" required/>
+            <input type="text"   placeholder="commune" name="commune" class="inputcontenu"required/>
+            <input type="quartier"   placeholder="quartier" name="quartier" class="inputcontenu"required/>
+            <input type="text"   placeholder="nationalité" name="nationalite" class="inputcontenu" required/>
+            <input type="text"   placeholder="situation matrimoniale" name="situation_matrimoniale" class="inputcontenu" required/>
+            <input type="text"   placeholder="nombre d'enfant" name="nombre_enfant" class="inputcontenu" required/>
+            <input type="text"  placeholder="personne à contacter" name="personne_a_contacter" class="inputcontenu" required/>
+            <input type="tel"  placeholder="contact de la personne à contacter" name=" telephone_cpu" class="inputcontenu" required/>
+            <input type="submit"  name="validepatient"  value="Enregistrer" class="btn btn-primary" class="inputcontenu" required/>
+
+    </fieldset>
+</form>
+</center>
+{% endblock %}

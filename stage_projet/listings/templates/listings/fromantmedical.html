@@ -1,0 +1,31 @@
+{% extends 'listings/template.html' %}
+{% block fromantmedical %}
+<center><form method="post" action="" >
+    {% csrf_token %}
+    <fieldset>
+            <input type="text"   placeholder="nom" name="nom"/>
+            <input type="tel"   placeholder="numero 1" name="contact1"/>
+            <input type="tel" placeholder="numero 2" name="contact2"/>
+            <input type="email"   placeholder="email" name="email"/>
+            <input type="text"  placeholder="personne à contacter" name="personne_a_contacter"/>
+            <input type="tel"  placeholder="contact de la personne à contacter" name=" telephone_cpu"/>
+            <input type="date"  placeholder="date de naissance" name="date_naissance"/>
+            <input type="text"  placeholder="profession" name="profession"/>
+            <input type="text"   placeholder="Âge" name="age"/>
+            <select name="ok">
+                <option value="1">1</option>
+                <option value="2">2</option>
+            <select>
+            <input type="radio"   name="sexe2" value="M"/>MASCULIN
+            <input type="radio"   name="sexe1" value="F"/>FEMININ
+            <input type="text"   placeholder="commune" name="commune"/>
+            <input type="quartier"   placeholder="quartier" name="quartier"/>
+            <input type="text"   placeholder="nationalité" name="nationalite"/>
+            <input type="text"   placeholder="situation matrimoniale" name="situation_matrimoniale"/>
+            <input type="text"   placeholder="nombre d'enfant" name="nombre_enfant"/>
+            <input type="submit"  name="validepatient"  value="Enregistrer" class="btn btn-primary"/>
+
+    </fieldset>
+</form>
+</center>
+{% endblock %}
