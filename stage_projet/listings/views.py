@@ -35,7 +35,7 @@ from listings.models  import bilan_biologique # type: ignore
 #finimport
 
 #import formulaire de ma bd
-#from listings.forms import personnel_soignantForm # type: ignore #pour mon modele from
+from listings.forms import personnel_soignantForm # type: ignore #pour mon modele from
 from listings.forms import cnx_form
 #fin
 
@@ -124,7 +124,7 @@ def connexion(request):
 #fin
 def patient(request):
     lits = lit.objects.all()
-    return render(request,'listings/formpatient.html',context={'lits':lits }) # je retourne contenu.... pour que ce fichier s'affiche dans le fichier entête template.html
+    return render(request,'listings/formpatient.html',context={'lits':lits })
 #fin
 def constante(request):
     return render(request,'listings/formconstante.html')
@@ -139,6 +139,9 @@ def diagnostique(request):
 
 def ordonnance(request):
     return render(request,'listings/formordonnance.html') 
+    
+def antecedantmedical(request):
+    return render(request,'listings/fromantmedical.html') 
     
     
 

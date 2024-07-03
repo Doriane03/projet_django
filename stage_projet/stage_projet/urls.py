@@ -35,5 +35,6 @@ urlpatterns = [
     path ('connexion/',views.connexion,name='connexion'),
     path ('diagnostique/',views.diagnostique,name='diagnostique'),
     path ('ordonnance/',views.ordonnance,name='ordonnance'),
+    path ('antecedantmedical/',views.antecedantmedical,name='antecedantmedical'),
     
 ]

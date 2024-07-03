@@ -1,11 +1,3 @@
-body,html{
-    height: 100%;
-}
-header{
-    text-align: center;
-    text-transform:uppercase;
-    font-size: 50px;
-}
 .formcnx{
     width: 500px;
 }
@@ -77,30 +69,17 @@ border-radius: 5px;
 .formcontenu ::first-letter{
 text-transform:capitalize;
 }
-
 .inputcontenu{
 margin:10px;
 display:block;
 width:98%;
-border-top:none;
-border-left:none;
-border-right:none;
-border-bottom:1px solid black;
 background-color:none;
 padding:15px;
 }
 .selectcontenu{
 display:block;
 }
-.selectcontenu>label{
-margin-right:13%;
-}
-.selectcontenu>select{
-width:29%;
-padding:15px;
-background-color:white;
 
-}
 .divcontenunav{
 padding:15px;
 text-align:center;
@@ -211,50 +190,50 @@ width: 20px;
 height: 20px;
 }
 
-.divfrmconsul>label{
+.divfrmconsul{
 font-size: 20px;
 }
-#div3>label{
+#div3{
 
 margin-right:63%;
 }
-#div4>label{
+#div4{
 
 margin-right:73%;
 }
-#div5>label{
+#div5{
 
 margin-right:72%;
 }
-#div6>label{
+#div6{
 
 margin-right:42%;
 }
-#div7>label{
+#div7{
 
 margin-right:23%;
 }
-#div8>label{
+#div8{
 
 margin-right:-7%;
 }
 
-#div9>label{
+#div9{
 margin-right:62%;
 }
-#div10>label{
+#div10{
 margin-right:72%;
 }
-#div11>label{
+#div11{
 margin-right:62%;
 }
-#div12>label{
+#div12{
 margin-right:30%;
 }
-#div13>label{
+#div13{
 margin-right:-4%;
 }
-#div14>label{
+#div14{
 margin-right:75%;
 }
 #div3>input[type="checkbox"]{
@@ -329,7 +308,7 @@ margin-left:5.5%;
 width: 20px;  
 height: 20px;
 }
-.left1>label{
+.left1{
 font-size:20px;
 }
 
@@ -372,7 +351,7 @@ margin-right:10%;
 width: 20px;  
 height: 20px;
 }
-.right1>label{
+.right1{
 font-size:20px;
 }
 
@@ -381,7 +360,7 @@ font-size:20px;
   float: left;
   overflow: hidden;
 }
-#divsag>label{
+#divsag{
 margin-right:9%;
 }
 #divsag>input[type="radio"]{
@@ -393,7 +372,7 @@ height: 20px;
   overflow: hidden;
   float: left;
 }
-#divsd>label{
+#divsd{
 margin-right:78%;
 text-align:justify;
 }
@@ -406,7 +385,7 @@ width:50%;
 overflow: hidden;
 float: left;
 }
-#divse>label{
+#divse{
 margin-right:11.5%;
 }
 #divse>input[type="radio"]{
@@ -419,28 +398,28 @@ height: 20px;
  width: 17px;  
 height: 17px;
  }
- .test1>label{
+ .test1{
 font-size:17;
  }
  .test4>input[type="checkbox"]{
  width: 17px;  
 height: 17px;
  }
-  .test4>label{
+  .test4{
 font-size:17;
  }
  .test2>input[type="checkbox"]{
  width: 17px;  
 height: 17px;
  }
-  .test2>label{
+  .test2{
 font-size:17;
  }
   .test3>input[type="checkbox"]{
  width: 17px;  
 height: 17px;
  }
-  .test3>label{
+  .test3{
 font-size:17;
  }
  

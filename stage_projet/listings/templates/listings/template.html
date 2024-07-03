@@ -107,6 +107,34 @@
                 }
             }
 
+
+            function antecedantmedical() {
+                var afficheRadio= document.getElementsByName('hepatiteviraleb');
+                for (var i = 0; i < afficheRadio.length; i++) {
+                    if (afficheRadio[i].checked) {
+                        switch(afficheRadio[i].value){
+                            case 'o':
+                            var inputField = document.getElementById("hepatitevirale_b");
+                            inputField.style.display = "block";
+                            break;
+
+                            case 'n':
+                            var inputField = document.getElementById("hepatitevirale_b");
+                            inputField.style.display = "none"; 
+                            break;
+
+                            case 'nsp':
+                            var inputField = document.getElementById("hepatitevirale_b");
+                            inputField.style.display = "none"; 
+                            break;
+                        }
+                    }
+                }
+            }
+
+
+
+
             function pourlecheckbox() {
                 var affichecheckbox= document.getElementsByName('motifdeconsultation[]');
                 var inputField = document.getElementById("motifdeconsultation");
@@ -155,6 +183,12 @@
                     {% block menuinfirmirer %} {% endblock%}
                     <div class="page-sidebar-inner slimscroll">
                         <ul class="accordion-menu">
+                            <li class="nav-item nav-profile dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img src="{% static 'listings/homme.png' %}" width="200px"  alt="logo sante">
+                                    <span>Nancy Moore</span>
+                                </a>
+                            </li>
                             <li>
                                 <a href="#"><i class="material-icons">search</i>RECHERCHE DOSSIER PATIENT</a>
                             </li>
@@ -186,7 +220,7 @@
                             <!--profil image-->
                                 <li class="nav-item nav-profile dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <img src="../../assets/images/avatars/profile-image-1.png" alt="profile image">
+                                        <img src="{% static 'listings/homme.png' %}"  width="105px" alt="profile image">
                                         <span>Nancy Moore</span>
                                     </a>
                                 </li>
@@ -206,9 +240,6 @@
                         </nav>
                     
                     </div>
-                    <div class="page-content">
-                        
-                        <div class="main-wrapper">
                             <!--<div class="row">
 
                                 <div class="col-md-12">
@@ -222,22 +253,17 @@
                                 </div>
 
                             </div>-->
-                            <div class="row">
-                                <div class="col-xl">
-                                    <div class="card">
-                                        <div class="card-body">
+                            
+                                        <section>
                                             {% block formconstnte %} {% endblock %}
                                             {% block formfacture %} {% endblock %}
                                             {% block consultationform %} {% endblock %}
                                             {% block formpatient %} {% endblock %}
                                             {% block formdiagnostique %} {% endblock %}
                                             {% block formordonnance %}  {% endblock %}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                            {% block fromantmedical %}   {% endblock %}
+                                            {% block content %} {% endblock %}
+                                        </section>
                    <!-- <div class="page-footer">
 
                         <div class="row">

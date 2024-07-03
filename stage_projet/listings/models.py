@@ -163,11 +163,11 @@ class antecedant_medical(models.Model):#modifie
         ('n','non'),
     )
     transplanhepatique=models.fields.CharField(max_length=10,choices=MAYBECHOICE16)
-    #MAYBECHOICE17=(
+    MAYBECHOICE17=(
         #('o','oui'),
         #('n','non'),
-    #)
-    #autre=models.fields.CharField(max_length=10,choices=MAYBECHOICE17)
+    )
+    autre=models.fields.CharField(max_length=10,choices=MAYBECHOICE17)
     precisionautre=models.fields.CharField(max_length=200,blank=True,null=True)
     date= models.fields.DateTimeField(default=datetime.now)                                                                                
     patient=models.ForeignKey(patient, on_delete=models.CASCADE)
