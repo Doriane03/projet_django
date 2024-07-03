@@ -1,0 +1,51 @@
+{% extends 'listings/template.html' %}
+{% block formantchirurgical %}
+<center><form method="post" action="" class="formcontenu">
+    <div>
+        <nav class="divcontenunav">antecedant chirurgical</nav>
+    </div>
+
+    {% csrf_token %}
+    <fieldset>     
+        <div class="p-2 g-col-6" >
+           <label  class="form-check-label">Opération chirurgicale</label><br/>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="operachir" id="inlineRadio1" value="o">
+                <label class="form-check-label" for="inlineRadio1">oui</label>
+
+                <div class="test" >
+                    <input class="form-check-input" type="date" name="datoperachir" id="inlineRadio2" >
+                    <label class="form-check-label">date</label>
+                </div>
+
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="operachir" id="inlineRadio2" value="n">
+                <label class="form-check-label" for="inlineRadio2">non</label>
+            </div>
+        </div>
+
+
+        <div class="p-2 g-col-6" >
+            <label  class="form-check-label">avp</label><br/>
+             <div class="form-check form-check-inline">
+                 <input class="form-check-input" type="radio" name="avp" id="inlineRadio1" value="o">
+                 <label class="form-check-label" for="inlineRadio1">oui</label>
+
+                 <div class="test" >
+                        <input class="form-check-input" type="date" name="dateavp" id="inlineRadio2" class="test">
+                        <label class="form-check-label">date</label>
+                </div>
+
+             </div>
+             <div class="form-check form-check-inline">
+                 <input class="form-check-input" type="radio" name="avp" id="inlineRadio2" value="n">
+                 <label class="form-check-label" for="inlineRadio2">non</label>
+             </div>
+         </div>
+
+    </fieldset>
+</form>
+</center>
+{% endblock %}
+

@@ -36,5 +36,6 @@ urlpatterns = [
     path ('diagnostique/',views.diagnostique,name='diagnostique'),
     path ('ordonnance/',views.ordonnance,name='ordonnance'),
     path ('antecedantmedical/',views.antecedantmedical,name='antecedantmedical'),
+    path ('antecedantchirurgical/',views.antecedantchirurgical,name='antecedantchirurgical'),
     
 ]

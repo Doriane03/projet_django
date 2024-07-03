@@ -142,6 +142,9 @@ def ordonnance(request):
     
 def antecedantmedical(request):
     return render(request,'listings/fromantmedical.html') 
+
+def antecedantchirurgical(request):
+    return render(request,'listings/formantchirurgical.html') 
     
     
 
