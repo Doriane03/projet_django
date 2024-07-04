@@ -66,6 +66,7 @@ display:none;
 .divsortie{
   overflow: hidden;
   padding:20px;
+  border: 1px solid black;
 }
 .divsortie>label{
   float:left;
