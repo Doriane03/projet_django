@@ -24,7 +24,7 @@ from listings.models  import pays # type: ignore
 from listings.models  import type_personnel_soignant # type: ignore
 from listings.models  import personnel_soignant # type: ignore
 from listings.models  import facture # type: ignore
-#from listings.models  import constante # type: ignore
+from listings.models  import constante # type: ignore
 from listings.models  import patient # type: ignore
 from listings.models  import lit # type: ignore
 from listings.models  import ordonnance # type: ignore

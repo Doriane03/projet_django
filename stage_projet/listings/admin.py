@@ -21,7 +21,7 @@ from listings.models  import pays # type: ignore
 from listings.models  import type_personnel_soignant # type: ignore
 from listings.models  import personnel_soignant # type: ignore
 from listings.models  import facture # type: ignore
-#from listings.models  import constante # type: ignore
+from listings.models  import constante # type: ignore
 from listings.models  import patient # type: ignore #modifie
 from listings.models  import lit # type: ignore
 from listings.models  import ordonnance # type: ignore
@@ -73,7 +73,7 @@ class serviceAdmin(admin.ModelAdmin):
     list_display=('refservice','nomservice','date') # type: ignore
 
 class personnel_soignantAdmin(admin.ModelAdmin):
-    list_display=('refpersoignant','nom','contact','email') # type: ignore
+    list_display=('refpersoignant','nom','contact','email','date') # type: ignore
 
 class patientAdmin(admin.ModelAdmin):
     list_display=('idpatient', 'nom', 'contact1' ,'contact2', 'profession', 'email', 'age', 'sexe' , 'personne_a_contacter'  ,'ville',  'commune', 'quartier', 'nationalite' , 'nombre_enfant' , 'situation_matrimoniale','telephone_cpu' ,'date_naissance','lit') # type: ignore
@@ -81,8 +81,8 @@ class patientAdmin(admin.ModelAdmin):
 class litAdmin(admin.ModelAdmin):
     list_display=("reflit", "numlit", "categorie")# type: ignore
 
-#class constanteAdmin(admin.ModelAdmin):
-    #list_display=('refconst','poids','taille','temperature','imc','tas','tad','pouls') # type: ignore
+class constanteAdmin(admin.ModelAdmin):
+    list_display=('refconst','poids','taille','temperature','imc','tas','tad','pouls') # type: ignore
 
 class consultationAdmin(admin.ModelAdmin):
     list_display=('Numconsulta', 'motifdeconsultation', 'prescripteur_consultation', 'debut_signe', 'signe_digestifs', 'signe_extra_digestif', 'signe_asso_gene', 'nombredeverre_alcool', 'nombrepaquettabac', 'medoc_en_cours', 'prise_therap_tarditionnelle', 'aghbs', 'acanti_vhc', 'acanti_vhd', 'serologie_retrovi', 'transaminase', 'histoiredemaladie', 'date', 'resultat', 'renseignementclinic', 'patient', 'personnel_soignant') # type: ignore
@@ -123,7 +123,7 @@ admin.site.register(lit,litAdmin)
 admin.site.register(personnel_soignant,personnel_soignantAdmin)
 admin.site.register(type_personnel_soignant,type_personnel_soignantAdmin)
 admin.site.register(facture,factureAdmin)
-#admin.site.register(constante,constanteAdmin)
+admin.site.register(constante,constanteAdmin)
 admin.site.register(ordonnance,ordonnanceAdmin)
 admin.site.register(bilan_biologique,bilan_biologiqueAdmin)
 admin.site.register(bilan_imagerie,bilan_imagerieAdmin)
