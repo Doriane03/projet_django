@@ -63,6 +63,10 @@ float: left;
 display:none;
 }
 
+.divsortie{
+  display: block;
+}
+
 .formcontenu{
 width:70%;
 border-radius: 5px;

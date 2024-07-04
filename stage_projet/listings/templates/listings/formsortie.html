@@ -1,0 +1,39 @@
+{% extends 'listings/template.html' %}
+{% block formsortie %}
+<center><form method="post" action="" >
+
+    <div>
+        <nav class="divcontenunav">SORTIE</nav>
+    </div>
+
+    {% csrf_token %}
+    <fieldset>   
+        
+        <div class="divsortie">
+            <label >PATIENT CONCERNE</label>
+            <input  type="text" name="" >
+        </div>
+
+        <div class="selectcontenu">
+            <label > MOTIF DE SORTIE</label>
+            <select name="ok"  required>
+                 {% for sortie in sorties %}
+                    <option value="{sortie.motifsortie}">{{sortie.motifsortie}}</option>
+                 {% endfor %}
+            </select>
+        </div>
+
+        <div class="divsortie">
+        <label  >DATE DE SORTIE</label>
+        <input  type="date" name="" >
+        </div>
+
+        <div class="divsortie">
+        <label>DATE DE DU RENDEZ-VOUS PROCHAIN</label>
+        <input  type="date" name="" >
+        </div>
+    </fieldset>
+</form>
+</center>
+{% endblock %}
+

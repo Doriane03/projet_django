@@ -190,19 +190,46 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#"><i class="material-icons">search</i>RECHERCHE DOSSIER PATIENT</a>
+                                <a href="{% url 'patient' %}">patient</a>
                             </li>
 
                             <li>
-                                <a  href="#" class="active"><i class="material-icons-outlined"></i>RENDEZ-VOUS</a>
+                                <a  href="{% url 'facture' %}" >facture</a>
                             </li>
                             <li>
-                                <a  href="#"><i class="material-icons-outlined">person-check</i>MEDECIN DISPONIBLE</a>
+                                <a  href="{% url 'consultation' %}">consultation</a>
                             </li>
                             
                             <li>
-                                <a  href="#"><i class="material-icons">logout</i>DECONNEXION</a>
+                                <a  href="{% url 'ordonnance' %}">ordonnance</a>
                             </li>
+
+                            <li>
+                                <a  href="{% url 'antecedantmedical' %}">antecedant medical</a>
+                            </li>
+                            
+                            <li>
+                                <a  href="{% url 'antecedantchirurgical' %}">antecedant chirurgical</a>
+                            </li>
+
+
+                            <li>
+                                <a  href="{% url 'antecedantgenecologique' %}">antecedant gynecologique</a>
+                            </li>
+
+                            <li>
+                                <a  href="{% url 'constante' %}">constante</a>
+                            </li>
+
+                            
+                            <li>
+                                <a  href="{% url 'diagnostique' %}">diagnostique</a>
+                            </li>
+
+                            <li>
+                                <a  href="{% url 'sortie' %}">sortie</a>
+                            </li>
+
                         </ul>
                     </div>
                 </div>
@@ -253,8 +280,11 @@
                                 </div>
 
                             </div>-->
+                            <div class="row">
+                                <div class="col-xl">
+                                    <div class="card">
+                                        <div class="card-body">
                             
-                                        <section>
                                             {% block formconstnte %} {% endblock %}
                                             {% block formfacture %} {% endblock %}
                                             {% block consultationform %} {% endblock %}
@@ -264,7 +294,13 @@
                                             {% block fromantmedical %}   {% endblock %}
                                             {% block content %} {% endblock %}
                                             {% block formantchirurgical %} {% endblock %}
-                                        </section>
+                                            {% block formantgynecologique %} {% endblock %}
+                                            {% block formsortie %} {% endblock %}
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                    <!-- <div class="page-footer">
 
                         <div class="row">

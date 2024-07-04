@@ -145,6 +145,13 @@ def antecedantmedical(request):
 
 def antecedantchirurgical(request):
     return render(request,'listings/formantchirurgical.html') 
+
+def antecedantgenecologique(request):
+    return render(request,'listings/formantgynecologique.html') 
+
+def sortie(request):
+    sorties = sortie.objects.all()
+    return render(request,'listings/formsortie.html',context={'sorties':sorties })
     
     
 

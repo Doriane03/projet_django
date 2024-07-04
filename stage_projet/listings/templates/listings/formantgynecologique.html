@@ -1,0 +1,64 @@
+{% extends 'listings/template.html' %}
+{% block formantgynecologique %}
+<center><form method="post" action="" class="formcontenu">
+    <div>
+        <nav class="divcontenunav">antecedant chirurgical</nav>
+    </div>
+
+    {% csrf_token %}
+    <fieldset>     
+
+            <div>
+                <label  class="form-check-label">Date de dernière règles</label>
+                <input class="form-check-input" type="date" name="datederniereregle" >
+            </div>
+
+            <div>
+                <label  class="form-check-label">gestite</label>
+                <input class="form-check-input" type="date" name="gestite" >
+            </div>
+
+            <div>
+                <input class="form-check-input" type="date" name="parite" >
+                <label  class="form-check-label">parite</label>
+            </div>
+
+            <div class="form-check form-check-inline">
+                <label class="form-check-label">prise de contraceptif</label>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="prisecontraceptif" id="inlineRadio1" value="o">
+                    <label class="form-check-label" for="inlineRadio1">oui</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="prisecontraceptif" id="inlineRadio2" value="n">
+                    <label class="form-check-label" for="inlineRadio2">non</label>
+                </div>
+
+            </div>
+
+
+            <div class="form-check form-check-inline">
+                <label class="form-check-label">cesarienne</label>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="esarienne" id="inlineRadio3" value="o">
+                    <label class="form-check-label" for="inlineRadi3">oui</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="cesarienne" id="inlineRadio4" value="n">
+                    <label class="card-title" for="inlineRadio4">non</label>
+                </div>
+
+                <div class="test" >
+                    <input class="form-check-input" type="date" name="datoperachir" id="inlineRadio2" >
+                    <label class="form-check-label">date</label>
+                </div>
+
+            </div>
+
+    </fieldset>
+</form>
+</center>
+{% endblock %}
+
