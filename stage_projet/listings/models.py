@@ -467,7 +467,7 @@ class medicament(models.Model):
 
 #debut class avec clé secondaire
   
-class constante(models.Model):
+class constante(models.Model): #faire la migration
     refconst=models.fields.AutoField(primary_key=True)
     poids=models.fields.CharField(max_length=30)
     taille=models.fields.CharField(max_length=30)

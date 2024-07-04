@@ -154,10 +154,22 @@ def sortie(request):
     return render(request,'listings/formsortie.html')
     
 def adminform(request):
-    services = service.objects.all()
-    type_personnel_soignants = type_personnel_soignant.objects.all()
-    return render(request,'listings/formadmin.html',context={'services':services ,'type_personnel_soignants':type_personnel_soignants})
-    
+    if request.method == 'POST':
+        nom=request.POST['nom'] 
+        contact=request.POST['contact']
+        email=request.POST['email']
+        mdp=request.POST['mdp']
+        Service=request.POST['service']
+        Type_personnel_soignant=request.POST['type_personnel_soignant']
+        print(mdp)
+        return render(request,'listings/formconsultation.html')
+    else:
+        services = service.objects.all()
+        type_personnel_soignants = type_personnel_soignant.objects.all()
+      
+
+    return render(request,'listings/formadmin.html',context={'services':services,'type_personnel_soignants':type_personnel_soignants})
+        
     
 
 #def create_folder(request):
