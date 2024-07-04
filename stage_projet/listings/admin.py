@@ -21,7 +21,7 @@ from listings.models  import pays # type: ignore
 from listings.models  import type_personnel_soignant # type: ignore
 from listings.models  import personnel_soignant # type: ignore
 from listings.models  import facture # type: ignore
-from listings.models  import constante # type: ignore
+#from listings.models  import constante # type: ignore
 from listings.models  import patient # type: ignore #modifie
 from listings.models  import lit # type: ignore
 from listings.models  import ordonnance # type: ignore
@@ -81,8 +81,8 @@ class patientAdmin(admin.ModelAdmin):
 class litAdmin(admin.ModelAdmin):
     list_display=("reflit", "numlit", "categorie")# type: ignore
 
-class constanteAdmin(admin.ModelAdmin):
-    list_display=('refconst','poids','taille','temperature','imc','tas','tad','pouls') # type: ignore
+#class constanteAdmin(admin.ModelAdmin):
+    #list_display=('refconst','poids','taille','temperature','imc','tas','tad','pouls') # type: ignore
 
 class consultationAdmin(admin.ModelAdmin):
     list_display=('Numconsulta', 'motifdeconsultation', 'prescripteur_consultation', 'debut_signe', 'signe_digestifs', 'signe_extra_digestif', 'signe_asso_gene', 'nombredeverre_alcool', 'nombrepaquettabac', 'medoc_en_cours', 'prise_therap_tarditionnelle', 'aghbs', 'acanti_vhc', 'acanti_vhd', 'serologie_retrovi', 'transaminase', 'histoiredemaladie', 'date', 'resultat', 'renseignementclinic', 'patient', 'personnel_soignant') # type: ignore
