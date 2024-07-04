@@ -8,42 +8,49 @@
     {% csrf_token %}
     <fieldset>     
         <div class="divsortie" >
-           <label  class="form-check-label">Opération chirurgicale</label><br/>
+           <label >Opération chirurgicale</label>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="operachir" id="inlineRadio1" value="o">
                 <label class="form-check-label" for="inlineRadio1">oui</label>
-
-                <div class="test" >
-                    <input class="form-check-input" type="date" name="datoperachir" id="inlineRadio2" >
-                    <label class="form-check-label">date</label>
-                </div>
-
+               
             </div>
+
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="operachir" id="inlineRadio2" value="n">
                 <label class="form-check-label" for="inlineRadio2">non</label>
+            </div>
+
+
+            <div class="test" >
+                <label class="form-check-label">date</label>
+                <input class="form-check-input" type="date" name="datoperachir" id="inlineRadio2" >
+                
             </div>
         </div>
 
 
         <div class="divsortie" >
-            <label  class="form-check-label">avp</label><br/>
+            <label>avp</label>
              <div class="form-check form-check-inline">
                  <input class="form-check-input" type="radio" name="avp" id="inlineRadio1" value="o">
                  <label class="form-check-label" for="inlineRadio1">oui</label>
 
-                 <div class="test" >
-                        <input class="form-check-input" type="date" name="dateavp" id="inlineRadio2" class="test">
-                        <label class="form-check-label">date</label>
-                </div>
 
              </div>
              <div class="form-check form-check-inline">
                  <input class="form-check-input" type="radio" name="avp" id="inlineRadio2" value="n">
                  <label class="form-check-label" for="inlineRadio2">non</label>
              </div>
-         </div>
 
+
+
+             <div class="test" >
+                <label class="form-check-label">date</label>
+                <input class="form-check-input" type="date" name="dateavp" id="inlineRadio2" class="test">
+                
+            </div>
+         </div>
+         <input  type="submit" name="validantchir" value="Valider" class="btn btn-primary" >
     </fieldset>
 </form>
 </center>
