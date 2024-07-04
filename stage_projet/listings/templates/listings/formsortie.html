@@ -1,6 +1,6 @@
 {% extends 'listings/template.html' %}
 {% block formsortie %}
-<center><form method="post" action="" >
+<center><form method="post" action="" class="formcontenu" >
 
     <div>
         <nav class="divcontenunav">SORTIE</nav>
@@ -9,34 +9,29 @@
     {% csrf_token %}
     <fieldset>   
         
-        <div style="display:block;float:left;">
-            <label  style="display:block;
-            float:left;
-            width:150px;">PATIENT CONCERNE</label>
-            <input  type="text" name="patient"  style="float: left;">
+        <div  class="divsortie">
+            <label >PATIENT CONCERNE</label>
+            <input  type="text" name="patient" >
         </div>
 
-            <label style="display:block;
-            float:left;
-            width:150px;" > MOTIF DE SORTIE</label>
+        <div class="divsortie">
+            <label > MOTIF DE SORTIE</label>
             <select name="motifsortie"  required>
                  {% for sortie in sorties %}
                     <option value="{sortie.motifsortie}">{{sortie.motifsortie}}</option>
                  {% endfor %}
             </select>
-    
-       
-        <label style="display:block;
-        float:left;
-        width:150px;">DATE DE SORTIE</label>
-        <input  type="date" name="datesortie" style="float: left;" >
-      
+        </div>
 
-       
-        <label  style="display:block;
-        float:left;
-        width:150px;">DATE DE DU RENDEZ-VOUS PROCHAIN</label>
-        <input  type="date" name="prochaineconsultation" style="float: left;" >
+        <div class="divsortie">
+        <label  >DATE DE SORTIE</label>
+        <input  type="date" name="datesortie" >
+        </div>
+
+        <div class="divsortie">
+        <label>DATE DE DU RENDEZ-VOUS PROCHAIN</label>
+        <input  type="date" name="prochaineconsultation" >
+        </div>
     </fieldset>
 </form>
 </center>

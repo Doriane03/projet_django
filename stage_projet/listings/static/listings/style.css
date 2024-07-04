@@ -62,17 +62,27 @@ float: left;
 .test{
 display:none;
 }
-
+/*formulaire de sortie*/
 .divsortie{
-  display: block;
-  
+  overflow: hidden;
+  padding:20px;
 }
 .divsortie>label{
-  display:block;
   float:left;
-  width:150px;
+  width:400px;
+  padding:10px;
+  
+}
+.divsortie>input{
+float: left;
+width:40%;
+padding: 10px;
 }
 
+.divsortie>select{
+  float: left;
+}
+/*fin*/
 
 .formcontenu{
 width:70%;
