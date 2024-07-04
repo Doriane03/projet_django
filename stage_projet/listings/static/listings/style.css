@@ -65,7 +65,14 @@ display:none;
 
 .divsortie{
   display: block;
+  
 }
+.divsortie>label{
+  display:block;
+  float:left;
+  width:150px;
+}
+
 
 .formcontenu{
 width:70%;
