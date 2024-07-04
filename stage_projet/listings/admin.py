@@ -73,7 +73,7 @@ class serviceAdmin(admin.ModelAdmin):
     list_display=('refservice','nomservice','date') # type: ignore
 
 class personnel_soignantAdmin(admin.ModelAdmin):
-    list_display=('refpersoignant','nom','contact','email','date') # type: ignore
+    list_display=('refpersoignant','nom','contact','email') # type: ignore
 
 class patientAdmin(admin.ModelAdmin):
     list_display=('idpatient', 'nom', 'contact1' ,'contact2', 'profession', 'email', 'age', 'sexe' , 'personne_a_contacter'  ,'ville',  'commune', 'quartier', 'nationalite' , 'nombre_enfant' , 'situation_matrimoniale','telephone_cpu' ,'date_naissance','lit') # type: ignore

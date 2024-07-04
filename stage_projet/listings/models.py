@@ -377,11 +377,11 @@ class personnel_soignant(models.Model):
     nom=models.fields.CharField(max_length=100)
     contact=models.fields.PositiveIntegerField(null=False)
     email=models.fields.EmailField(max_length = 254)
-    date= models.fields.DateTimeField(default=datetime.now)                                                                                
+    #date= models.fields.DateTimeField(default=datetime.now)                                                                                
     service=models.ForeignKey(service, on_delete=models.CASCADE)
     type_personnel_soignant=models.ForeignKey(type_personnel_soignant, on_delete=models.CASCADE)
     def __str__(self):
-        return f'{self.refpersoignant} {self.mdp} {self.nom} {self.contact} {self.date} {self.service} {self.type_personnel_soignant}'     
+        return f'{self.refpersoignant} {self.mdp} {self.nom} {self.contact}  {self.service} {self.type_personnel_soignant}'     
     
 class consultation(models.Model): #modifie
     Numconsulta=models.fields.AutoField(primary_key=True)
