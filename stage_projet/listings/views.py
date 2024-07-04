@@ -153,6 +153,11 @@ def sortie(request):
     #sorties = sortie.objects.all()
     return render(request,'listings/formsortie.html')
     
+def adminform(request):
+    services = service.objects.all()
+    type_personnel_soignants = type_personnel_soignant.objects.all()
+    return render(request,'listings/formadmin.html',context={'services':services ,'type_personnel_soignants':type_personnel_soignants})
+    
     
 
 #def create_folder(request):

@@ -183,12 +183,7 @@
                     {% block menuinfirmirer %} {% endblock%}
                     <div class="page-sidebar-inner slimscroll">
                         <ul class="accordion-menu">
-                            <li class="nav-item nav-profile dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="{% static 'listings/homme.png' %}" width="200px"  alt="logo sante">
-                                    <span>Nancy Moore</span>
-                                </a>
-                            </li>
+                           
                             <li>
                                 <a href="{% url 'patient' %}">patient</a>
                             </li>
@@ -228,6 +223,10 @@
 
                             <li>
                                 <a  href="{% url 'sortie' %}">sortie</a>
+                            </li>
+
+                            <li>
+                                <a  href="{% url 'adminform' %}">admin</a>
                             </li>
 
                         </ul>
@@ -285,7 +284,7 @@
                                     <div class="card">
                                         <div class="card-body">
                             
-                                            {% block formconstnte %} {% endblock %}
+                                            {% block formconstante %} {% endblock %}
                                             {% block formfacture %} {% endblock %}
                                             {% block consultationform %} {% endblock %}
                                             {% block formpatient %} {% endblock %}
@@ -296,6 +295,7 @@
                                             {% block formantchirurgical %} {% endblock %}
                                             {% block formantgynecologique %} {% endblock %}
                                             {% block formsortie %} {% endblock %}
+                                            {% block formadmin %} {% endblock %}
                                         
                                     </div>
                                 </div>

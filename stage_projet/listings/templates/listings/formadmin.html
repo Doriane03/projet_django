@@ -1,0 +1,39 @@
+{% extends 'listings/template.html' %}
+
+{% block formadmin %}
+<center>
+<form method="post" action=""  class="formcontenu">
+<div>
+<nav class="divcontenunav">ajout personnel soignant</nav>
+</div>
+    {% csrf_token %}
+    <fieldset class="fieldsetgd">
+            <input type="text"   placeholder="NOM" name="nom" class="inputcontenu"/>
+            <input type="password"   placeholder="MOT DE PASSE" name="mdp" class="inputcontenu"/>
+            <input type="tel" placeholder="CONTACT" name="contact" class="inputcontenu"/>
+            <input type="email"   placeholder="EMAIL " name="email" class="inputcontenu"/>
+
+            <div class="divsortie">
+            <label > MOTIF DE SORTIE</label>
+            <select name="service"  required>
+                 {% for service in services %}
+                    <option value="{service.nomservice}">{{service.nomservice}}</option>
+                 {% endfor %}
+            </select>
+            </div>
+
+            <div class="divsortie">
+                <label > MOTIF DE SORTIE</label>
+                <select name="type_personnel_soignant"  required>
+                     {% for type_personnel_soignant in type_personnel_soignants %}
+                        <option value="{type_personnel_soignant.nompersog}">{{type_personnel_soignant.nompersog}}</option>
+                     {% endfor %}
+                </select>
+            </div>
+            <input type="submit"  name="ceercompte"  value="CREER LE COMPTE" class="btn btn-primary"/>
+
+
+    </fieldset>
+</form>
+</center>
+{% endblock %}
