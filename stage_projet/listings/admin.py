@@ -1,33 +1,33 @@
 from django.contrib import admin # type: ignore
-from appli_web.models import band # type: ignore
-from appli_web.models import listing # type: ignore
+from listings.models import band # type: ignore
+from listings.models import listing # type: ignore
 
 
 #import de ma bd
 from .models import ordonnancemedicament
-from appli_web.models  import pays # type: ignore
-from appli_web.models  import antecedant_familial # type: ignore #nouveau
-from appli_web.models  import consultation # type: ignore #modifie
-from appli_web.models  import antecedant_chirurgical # type: ignore #nouveau
-from appli_web.models  import antecedant_medical # type: ignore #nouveau
-from appli_web.models  import antecedant_genecologique # type: ignore #nouveau
-from appli_web.models  import medicament # type: ignore
-from appli_web.models  import categorie # type: ignore
-from appli_web.models  import sortie # type: ignore
-from appli_web.models  import hospitalisation # type: ignore
-from appli_web.models  import service # type: ignore
-from appli_web.models  import chu # type: ignore
-from appli_web.models  import pays # type: ignore
-from appli_web.models  import type_personnel_soignant # type: ignore
-from appli_web.models  import personnel_soignant # type: ignore
-from appli_web.models  import facture # type: ignore
-from appli_web.models  import constante # type: ignore
-from appli_web.models  import patient # type: ignore #modifie
-from appli_web.models  import lit # type: ignore
-from appli_web.models  import ordonnance # type: ignore
-from appli_web.models  import diagnostique # type: ignore
-from appli_web.models  import bilan_imagerie # type: ignore
-from appli_web.models  import bilan_biologique # type: ignore
+from listings.models  import pays # type: ignore
+from listings.models  import antecedant_familial # type: ignore #nouveau
+from listings.models  import consultation # type: ignore #modifie
+from listings.models  import antecedant_chirurgical # type: ignore #nouveau
+from listings.models  import antecedant_medical # type: ignore #nouveau
+from listings.models  import antecedant_genecologique # type: ignore #nouveau
+from listings.models  import medicament # type: ignore
+from listings.models  import categorie # type: ignore
+from listings.models  import sortie # type: ignore
+from listings.models  import hospitalisation # type: ignore
+from listings.models  import service # type: ignore
+from listings.models  import chu # type: ignore
+from listings.models  import pays # type: ignore
+from listings.models  import type_personnel_soignant # type: ignore
+from listings.models  import personnel_soignant # type: ignore
+from listings.models  import facture # type: ignore
+from listings.models  import constante # type: ignore
+from listings.models  import patient # type: ignore #modifie
+from listings.models  import lit # type: ignore
+from listings.models  import ordonnance # type: ignore
+from listings.models  import diagnostique # type: ignore
+from listings.models  import bilan_imagerie # type: ignore
+from listings.models  import bilan_biologique # type: ignore
 #fin import
 
 
