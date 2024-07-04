@@ -9,7 +9,6 @@ from django.core.mail import send_mail # type: ignore
 
 #import des class de ma bd
 from .models import ordonnancemedicament
-from .models import categorielit
 from listings.models  import antecedant_familial # type: ignore #nouveau
 from listings.models  import consultation # type: ignore # modifie
 from listings.models  import antecedant_chirurgical # type: ignore #nouveau
