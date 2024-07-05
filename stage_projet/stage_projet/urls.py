@@ -39,6 +39,9 @@ urlpatterns = [
     path ('antecedantchirurgical/',views.antecedantchirurgical,name='antecedantchirurgical'),
     path ('antecedantgenecologique/',views.antecedantgenecologique,name='antecedantgenecologique'),
     path ('sortie/',views.sortie,name='sortie'),
-     path ('adminform/',views.adminform,name='adminform'),
+    path ('adminform/',views.adminform,name='adminform'),
+     
+    #menu
+    #fin
     
 ]

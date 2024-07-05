@@ -6,6 +6,8 @@ from listings.models  import band # type: ignore
 from listings.models  import listing  # type: ignore
 from listings.forms import contact_us # type: ignore
 from django.core.mail import send_mail # type: ignore
+from django.contrib.auth.hashers import make_password
+from django.db.models import Subquery
 
 #import des class de ma bd
 from .models import ordonnancemedicament
@@ -84,21 +86,6 @@ def contact(request):
     
     
 #pour ma bd
-
-def cnx(request):
-    form=personnel_soignantForm() #pour afficher un formulaire modele
-    if request.method =='POST':
-        email=request.POST['email']
-        mdp=request.POST['mdp']
-        user= authenticate(request, email==email,mdp==mdp)
-        if user is not None:
-            login(request,user)
-            return redirect('listings/ok.html')
-        else:
-            messages.error(request,'essaie encore')
-    return render(request,'listings/cnx.html')
-#fin
-
 #recuperation de donnees
 
 def donne(request):
@@ -106,19 +93,35 @@ def donne(request):
      return render(request,'listings/ok.html',context={'patients':patients})
 
 
-
+#def connexion(request):
+    #reg=personnel_soignant.objects.values('mdp', 'nom')
+    #for row in reg:
+       # print(f"mot de passe {row['mdp']}, nom {row['nom']}") 
+        #if request.method =='POST' :
+           # if row['mdp']==request.POST['nom'] and row['nom']==request.POST['mdp']: 
+               # return HttpResponse('yes')
+            #else:
+               # return HttpResponse('no')   
+    #return render(request,'listings/cnx.html')
 def connexion(request):
-    form=personnel_soignantForm() #pour afficher un formulaire modele
-    if  request.method =='POST' :
-        email=request.POST['email']
-        mdp=request.POST['mdp']
-        user =authenticate(request,email=email,mdp=mdp)
-        if user is not None:
-            login (request,user)
-            return HttpResponse('bonsoir')
+    if request.method =='POST':
+        reg=personnel_soignant.objects.filter(nom=request.POST['nom'],mdp=request.POST['mdp'])
+        if reg.exists():
+
+            personnes = type_personnel_soignant.objects.filter(
+            idpersoignant__in=Subquery(
+            personnel_soignant.objects.filter(
+            nom=request.POST['nom']
+            ).values_list('type_personnel_soignant_id')
+            )
+            ).values_list('nompersog', flat=True)#script de recuperation du type 
+            print(personnes)
+
+            #patients =personnel_soignant.objects.filter(nom=request.POST['nom']).values_list('type_personnel_soignant_id')
+            #print(patients)
+            return render(request,'listings/menuinfirmier.html')
         else:
-            print(user)
-            return HttpResponse('bonsoir')
+            return HttpResponse('no') 
     return render(request,'listings/cnx.html')
 #fin
 def patient(request):
@@ -159,7 +162,7 @@ def adminform(request):
         nom=request.POST['nom'] 
         contact=request.POST['contact']
         email=request.POST['email']
-        mdp=request.POST['mdp']
+        mdp= make_password(request.POST['mdp'])
         Service=request.POST['service']
         Type_personnel_soignant=request.POST['type_personnel_soignant']
         Service_id= service.objects.filter(nomservice=Service).values_list('refservice', flat=True).first()
@@ -172,6 +175,9 @@ def adminform(request):
     return render(request,'listings/formadmin.html',context={'services':services,'type_personnel_soignants':type_personnel_soignants})
         
     
+    #menu
+
+    #fin
 
 #def create_folder(request):
     #desktop_path = Path.home() / 'Desktop' / 'ARCHIVE_DOC_PAT'/ 'PAT9' #ceer le fic avec le nom du patient

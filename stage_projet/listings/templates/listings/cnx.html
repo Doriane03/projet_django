@@ -3,7 +3,7 @@
 <center><form method="POST" action="{% url 'connexion' %}" >
     {% csrf_token %}
     <fieldset class="fieldsetfromcnx">
-            <input type="email"   placeholder="email" name="email" class="inputcontenu"/>
+            <input type="text"   placeholder="nom" name="nom" class="inputcontenu"/>
             <input type="password"  placeholder="Password" name="mdp" class="inputcontenu"/>
             <input type="submit"  name="connexion"  value="connexion" class="btn btn-primary"/>
             <a href="#" class="aformcnx">mot de passe oublié?</a>
