@@ -107,19 +107,18 @@ def connexion(request):
     if request.method =='POST':
         reg=personnel_soignant.objects.filter(nom=request.POST['nom'],mdp=request.POST['mdp'])
         if reg.exists():
-
-            personnes = type_personnel_soignant.objects.filter(
+            profil = type_personnel_soignant.objects.filter(
             idpersoignant__in=Subquery(
             personnel_soignant.objects.filter(
             nom=request.POST['nom']
             ).values_list('type_personnel_soignant_id')
             )
             ).values_list('nompersog', flat=True)#script de recuperation du type 
-            print(personnes)
+            if profil=I"NFIRMIERE" or profil="INFIRMIER":
+                return render(request,'listings/menuinfirmier.html')
 
             #patients =personnel_soignant.objects.filter(nom=request.POST['nom']).values_list('type_personnel_soignant_id')
             #print(patients)
-            return render(request,'listings/menuinfirmier.html')
         else:
             return HttpResponse('no') 
     return render(request,'listings/cnx.html')
