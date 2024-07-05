@@ -70,7 +70,7 @@ def contact(request):
 
         if form.is_valid():
             send_mail(
-            subject=f'Message from {form.cleaned_data["name"] or "anonyme"} via MerchEx Contact Us form',
+            subject=f'Message from {form.cleaned_data["name"] or "anonyme"} via MerchEx Contact Us from',
             message=form.cleaned_data['message'],
             from_email=form.cleaned_data['email'],
             recipient_list=['josephinedorianekouadio@gmail.com'],
@@ -86,7 +86,7 @@ def contact(request):
 #pour ma bd
 
 def cnx(request):
-    #form=personnel_soignantForm() #pour afficher un formulaire modele
+    form=personnel_soignantForm() #pour afficher un formulaire modele
     if request.method =='POST':
         email=request.POST['email']
         mdp=request.POST['mdp']
@@ -108,7 +108,7 @@ def donne(request):
 
 
 def connexion(request):
-       #form=personnel_soignantForm() #pour afficher un formulaire modele
+    form=personnel_soignantForm() #pour afficher un formulaire modele
     if  request.method =='POST' :
         email=request.POST['email']
         mdp=request.POST['mdp']
@@ -153,6 +153,8 @@ def sortie(request):
     return render(request,'listings/formsortie.html')
     
 def adminform(request):
+    services = service.objects.all()
+    type_personnel_soignants = type_personnel_soignant.objects.all()
     if request.method == 'POST':
         nom=request.POST['nom'] 
         contact=request.POST['contact']
@@ -160,13 +162,13 @@ def adminform(request):
         mdp=request.POST['mdp']
         Service=request.POST['service']
         Type_personnel_soignant=request.POST['type_personnel_soignant']
-        print(mdp)
+        Service_id= service.objects.filter(nomservice=Service).values_list('refservice', flat=True).first()
+        Type_personnel_soignant_id=type_personnel_soignant.objects.filter( nompersog=Type_personnel_soignant).values_list('idpersoignant', flat=True).first()
+        print(Service_id)
+        print(Type_personnel_soignant_id)
+        reg=personnel_soignant(mdp=mdp,nom=nom,contact=contact,email=email,service_id=Service_id, type_personnel_soignant_id= Type_personnel_soignant_id)
+        reg.save()
         return render(request,'listings/formconsultation.html')
-    else:
-        services = service.objects.all()
-        type_personnel_soignants = type_personnel_soignant.objects.all()
-      
-
     return render(request,'listings/formadmin.html',context={'services':services,'type_personnel_soignants':type_personnel_soignants})
         
     

@@ -486,6 +486,10 @@ class constante(models.Model):
     poids=models.fields.CharField(max_length=30)
     taille=models.fields.CharField(max_length=30)
     temperature=models.fields.CharField(max_length=30)
+    imc=models.fields.CharField(max_length=30)
+    tas=models.fields.CharField(max_length=30)
+    tad=models.fields.CharField(max_length=30)
+    pouls=models.fields.CharField(max_length=30)
     patient=models.ForeignKey(patient, on_delete=models.CASCADE) 
     def __str__(self):
         return f'{self.refconst} {self.poids} {self.taille} {self.temperature} {self.patient}'
