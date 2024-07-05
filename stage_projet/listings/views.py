@@ -114,7 +114,7 @@ def connexion(request):
             ).values_list('type_personnel_soignant_id')
             )
             ).values_list('nompersog', flat=True)#script de recuperation du type 
-            if profil=I"NFIRMIERE" or profil="INFIRMIER":
+            if profil=="INFIRMIERE" or profil=="INFIRMIER":
                 return render(request,'listings/menuinfirmier.html')
 
             #patients =personnel_soignant.objects.filter(nom=request.POST['nom']).values_list('type_personnel_soignant_id')
