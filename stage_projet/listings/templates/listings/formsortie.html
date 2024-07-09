@@ -15,11 +15,10 @@
         </div>
 
         <div class="divsortie">
-            <label > MOTIF DE SORTIE</label>
+            <label> MOTIF DE SORTIE</label>
             <select name="motifsortie"  required>
-                 {% for sortie in sorties %}
-                    <option value='{sortie.motifsortie}'>{{sortie.motifsortie}}</option>
-                 {% endfor %}
+                    <option value="mort">mort</option>
+                    <option value="fuite">fuite</option>
             </select>
         </div>
 

@@ -1,0 +1,28 @@
+{% extends 'listings/template.html' %}
+{% block formmodifmdp %}
+<center><form method="post" action="" class="formcontenu" >
+
+    <div>
+        <nav class="divcontenunav">MODIFIER UN MOT DE PASSE</nav>
+    </div>
+
+    {% csrf_token %}
+    <fieldset>   
+        <div class="divsortie">
+            <label>UTILISATEUR CONCERNE</label>
+                <select name="nom"  required>
+                    {% for personnel_soignant in personnel_soignants %}
+                       <option value="{personnel_soignant.nom}">{{personnel_soignant.nom}}</option>
+                    {% endfor %}
+                </select>
+        </div>
+        <div class="divsortie">
+        <label>NOUVEAU MOT DE PASSE</label>
+        <input  type="text" name="mdp" />
+        </div>
+        <input  type="submit" name="validantchir" value="Valider" class="btn btn-primary" >
+    </fieldset>
+</form>
+</center>
+{% endblock %}
+

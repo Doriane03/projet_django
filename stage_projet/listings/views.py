@@ -168,8 +168,11 @@ def antecedantgenecologique(request):
     return render(request,'listings/formantgynecologique.html') 
 
 def sortie_patient(request):
-    sorties= sortie.objects.all()
-    return render(request,'listings/formsortie.html',context={'sorties':sorties})
+    return render(request,'listings/formsortie.html')
+
+def modificationmdp(request):
+    personnel_soignants =personnel_soignant.objects.all()
+    return render(request,'listings/formmodifmdp.html',context={'personnel_soignants':personnel_soignants})
 
 
 

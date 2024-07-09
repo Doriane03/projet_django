@@ -215,6 +215,10 @@
                             </li>
 
                             <li>
+                                <a  href="{% url 'modificationmdp' %}">modifier un mot de passe</a>
+                            </li>
+
+                            <li>
                                 <a  href="{% url 'constante' %}">constante</a>
                             </li>
 
@@ -287,6 +291,7 @@
                                         <div class="card-body">
                                             {% block content%} {% endblock %}
                                             {% block formconstante %} {% endblock %}
+                                            {% block formmodifmdp %} {% endblock %}
                                             {% block formfacture %} {% endblock %}
                                             {% block consultationform %} {% endblock %}
                                             {% block formpatient %} {% endblock %}

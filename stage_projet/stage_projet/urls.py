@@ -41,6 +41,7 @@ urlpatterns = [
     path ('sortie_patient/',views.sortie_patient,name='sortie_patient'),
     path ('adminform/',views.adminform,name='adminform'),
     path ('deconnexion/',views.deconnexion,name='deconnexion'),
+    path ('modificationmdp/',views.modificationmdp,name='modificationmdp'),
      
     #menu
     #fin
