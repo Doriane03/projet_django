@@ -4,7 +4,7 @@
     {% csrf_token %}
     <fieldset>
            
-        <center><div class="motifdeconsultation">
+        <center><div>
             <div>
               <nav class="divcontenunav">motif de consultation</nav>
             </div>
@@ -216,7 +216,7 @@
                     <div class="left">
                     <div class="divfrmconsul">
                     
-                        <div >
+                        <div>
                             <center><label >buvez-vous de l'alcol? :</label></center>
                             <div  id="left2" class="custom-control custom-radio">
                                 <input type="radio"    name="b1"  value="oui4"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios15"/>
@@ -242,7 +242,8 @@
                                 <input type="radio"    name="b1"  value="non5"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios18"/>
                                 <label class="custom-control-label" for="exampleRadios18">non</label>
                             </div> 
-                            <input type="text"  id="nombredepaquetdetabac" name="nombrepaquettabac"  class="test" placeholder="preciser le nombre de paquet par annnée" />  </div> 
+                            <input type="text"  id="nombredepaquetdetabac" name="nombrepaquettabac"  class="test" placeholder="preciser le nombre de paquet par annnée" />  
+                        </div> 
                         </div> 
   
                     </div> <br/>
@@ -362,9 +363,9 @@
                         </div>
                     </div>
         </div>
-        </div><br/>
-        <input type="submit"  name=""  value="Enregistrer" class="btn btn-primary" class="frominput"/>
+        </div>  
     </fieldset>
+    <input type="submit"  name=""  value="Enregistrer" class="btn btn-primary" class="frominput"/>
 </form>
 </center>
 {% endblock %}

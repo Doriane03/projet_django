@@ -89,6 +89,7 @@ padding: 10px;
 .formcontenu{
 border-radius: 5px;
 width:70%;
+border: 1px solid black;
 }
 
 .formcontenu ::first-letter{
@@ -145,6 +146,7 @@ border-bottom:1px solid black;
 .divfrmconsul{
 display:block;
 overflow:hidden;
+border: 1px solid black;
 }
 
 .leftconts{
@@ -166,7 +168,7 @@ margin-right:12.5%;
   width:40%;
   }
 .divfrmconsul>input[type="text"]{
-width: 50%; 
+width:100%; 
 padding:15px;
 border-top:none;
 border-left:none;
@@ -340,9 +342,8 @@ font-size:20px;
 float:left;
 margin-left:6%;
 }
-#left2>input[type="radio"]{
-width: 20px;  
-height: 20px;
+#left2>input[type="text"]{
+width: 100%;
 }
 
 
