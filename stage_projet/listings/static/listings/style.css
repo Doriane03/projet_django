@@ -59,8 +59,13 @@ float: left;
 .div2{
   float: right;  
 }
+
 .test{
-display:none;
+  display: none;
+  }
+.test > input[type=text]{
+  padding:10px;
+  width: 100%;
 }
 /*formulaire de sortie*/
 .divsortie{
@@ -146,13 +151,11 @@ border-bottom:1px solid black;
 .divfrmconsul{
 display:block;
 overflow:hidden;
-border: 1px solid black;
 }
 
 .divfrmconsul1{
   display:block;
   overflow:hidden;
-  border: 1px solid black;
   display: flex;
   justify-content: center; /* Centre horizontalement */
   align-items: center;     /* Centre verticalement */
@@ -285,11 +288,6 @@ float:left;
 margin-left:6%;
 }
 
-#left2>input[type="radio"]{
- display: block;
-}
-
-
 #right2{
 float:right;
 margin-right:24%;
@@ -311,20 +309,19 @@ font-size:20px;
   width:50%;
   float: left;
   overflow: hidden;
-  border: 1px solid black;
 }
 #divsd{
   width:50%;
   overflow: hidden;
   float: left;
-  border: 1px solid black;
+
 }
 
 #divse{
 width:50%;
 overflow: hidden;
 float: left;
-border: 1px solid black;
+
 }
  .test1{
 font-size:17;
