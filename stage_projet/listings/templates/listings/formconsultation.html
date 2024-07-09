@@ -4,7 +4,8 @@
     {% csrf_token %}
     <fieldset>
            
-        <center><div>
+        <center>
+        <div>
             <div>
               <nav class="divcontenunav">motif de consultation</nav>
             </div>
@@ -131,7 +132,7 @@
               <nav class="divcontenunav">Signes associés fonctionnels </nav>
             </div>
             
-                    <div class="divfrmconsul">
+                    <div class="divfrmconsul1">
                     <div id="divsd">
                         <center> <label>signe digestif </label> </center>
                         <div id="left2" class="custom-control custom-radio">
@@ -146,8 +147,7 @@
                     </div>
                     </div>
          
-                    
-                    <div class="divfrmconsul">
+                    <div class="divfrmconsul1">
 
                         <div id="divse">
                             <center> <label>signe extradigestif </label> </center>
@@ -164,10 +164,9 @@
 
                     </div> 
                     
-                    <div class="divfrmconsul">
+                    <div class="divfrmconsul1">
                         
                         <div id="divsag">
-
                             <center> <label>signe associé généraux</label> </center>
                             <div id="left2" class="custom-control custom-radio">
                                 <input type="radio"  name="b1"  value="oui3"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios12"/>
@@ -192,7 +191,7 @@
                                 </div>
                                 <div   class="right">
 
-                                    <div class="custom-control custom-checkbox form-group" id="test3">
+                                    <div class="custom-control custom-checkbox form-group">
                                         <input type="checkbox"   name="signe_asso_gene[]"  value="Amaigrissement" class="custom-control-input" id="exampleCheck18" />
                                         <label class="custom-control-label" for="exampleCheck18">Amaigrissement</label>
                                     </div>
@@ -203,6 +202,7 @@
 
                                 </div>
                                 
+                         
                             </div>
                         </div>
                     </div> 
@@ -228,7 +228,7 @@
                             </div>
                               <input type="text"  id="nombredeverredalcool" name="nombredeverre_alcool"  class="test" placeholder="preciser le nombre de verre par jour" />
                         </div> <br/>
-
+                    </div>
                     
                     <div class="divfrmconsul">
                     
@@ -242,14 +242,15 @@
                                 <input type="radio"    name="b1"  value="non5"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios18"/>
                                 <label class="custom-control-label" for="exampleRadios18">non</label>
                             </div> 
-                            <input type="text"  id="nombredepaquetdetabac" name="nombrepaquettabac"  class="test" placeholder="preciser le nombre de paquet par annnée" />  
+                            <input type="text"  id="nombredepaquetdetabac" name="nombrepaquettabac"  class="test" placeholder="preciser le nombre de paquet par annnée" /> 
                         </div> 
-                        </div> 
-  
-                    </div> <br/>
+    
+                    </div>
+
+
                     <div class="divfrmconsul">
 
-                          <div >
+                        <div >
                             <center><label >prenez-vous des médicaments en ce moment ? :</label></center>
                             <div   id="left2" class="custom-control custom-radio">
                                 <input type="radio"    name="b1"  value="oui6"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios19"/>
@@ -266,7 +267,7 @@
                     
                     
                     <div class="right">
-                        <div class="divfrmconsul">
+                    <div class="divfrmconsul">
 
                         <div >
                            <center><label >prenez-vous des médicaments traditionnels ? :</label></center> 
@@ -278,10 +279,10 @@
                                 <input type="radio"    name="prise_therap_tarditionnelle"  value="n"   class="custom-control-input" id="exampleRadios22"/>
                                 <label class="custom-control-label" for="exampleRadios22">non</label>
                             </div> 
-                        </div><br/>
-                    
+                        </div>
+                    </div>
 
-                        <div class="divfrmconsul">
+                    <div class="divfrmconsul">
 
                         
                         <div>
@@ -362,8 +363,8 @@
                             </div>
                         </div>
                     </div>
-        </div>
-        </div>  
+         </div> 
+    </div>  
     </fieldset>
     <input type="submit"  name=""  value="Enregistrer" class="btn btn-primary" class="frominput"/>
 </form>

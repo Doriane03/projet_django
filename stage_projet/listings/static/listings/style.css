@@ -149,6 +149,15 @@ overflow:hidden;
 border: 1px solid black;
 }
 
+.divfrmconsul1{
+  display:block;
+  overflow:hidden;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center; /* Centre horizontalement */
+  align-items: center;     /* Centre verticalement */
+  }
+
 .leftconts{
 float:left;
 margin-left:13%;
@@ -179,44 +188,26 @@ border-bottom:1px solid black;
 display:block;
 margin-right:-1%;
 }
-#presdiv1>input[type="radio"]{
-width: 20px;  
-height: 20px;
-}
+
 #presdiv2{
 display:block;
 margin-right:5%;
 }
-#presdiv2>input[type="radio"]{
-width: 20px;  
-height: 20px;
-}
+
 #presdiv3{
 display:block;
 margin-right:22%;
 }
-#presdiv3>input[type="radio"]{
-width: 20px;  
-height: 20px;
-}
+
 #presdiv4{
 display:block;
 margin-right:-0.5%;
-}
-#presdiv4>input[type="radio"]{
-width: 20px;  
-height: 20px;
 }
 
 
 #presdiv5{
 display:block;
 margin-right:38%;
-}
-
-#presdiv5>input[type="radio"]{
-width: 20px;  
-height: 20px;
 }
 
 #div3{
@@ -262,54 +253,9 @@ margin-right:-4%;
 #div14{
 margin-right:75%;
 }
-#div3>input[type="checkbox"]{
-width: 20px;  
-height: 20px;
-}
-#div4>input[type="checkbox"]{
-width: 20px;  
-height: 20px;
-}
-#div5>input[type="checkbox"]{
-width: 20px;  
-height: 20px;
-}
-#div6>input[type="checkbox"]{
-width: 20px;  
-height: 20px;
-}
-#div7>input[type="checkbox"]{
-width: 20px;  
-height: 20px;
-}
-#div8>input[type="checkbox"]{
-width: 20px;  
-height: 20px;
-}
-#div9>input[type="checkbox"]{
-width: 20px;  
-height: 20px;
-}
-#div10>input[type="checkbox"]{
-width: 20px;  
-height: 20px;
-}
-#div11>input[type="checkbox"]{
-width: 20px;  
-height: 20px;
-}
-#div12>input[type="checkbox"]{
-width: 20px;  
-height: 20px;
-}
-#div13>input[type="checkbox"]{
-width: 20px;  
-height: 20px;
-}
-#div14>input[type="checkbox"]{
-width: 20px;  
-height: 20px;
-}
+
+
+
 #div14>input[type="text"]{
 width:100%;
 padding:15px;
@@ -330,10 +276,6 @@ margin-left:5%;
 float:left;
 margin-left:5.5%;
 }
-.left1>input[type="radio"]{
-width: 20px;  
-height: 20px;
-}
 .left1{
 font-size:20px;
 }
@@ -342,39 +284,20 @@ font-size:20px;
 float:left;
 margin-left:6%;
 }
-#left2>input[type="text"]{
-width: 100%;
-}
 
 
 #right2{
 float:right;
 margin-right:24%;
 }
-#right2>input[type="radio"]{
-width: 20px;  
-height: 20px;
-}
 
-.left>input[type="radio"]{
-width: 20px;  
-height: 20px;
-}
 .right{
 float:right;
 margin-right:5%;
 }
-.right>input[type="radio"]{
-width: 20px;  
-height: 20px;
-}
 .right1{
 float:right;
 margin-right:10%;
-}
-.right1>input[type="radio"]{
-width: 20px;  
-height: 20px;
 }
 .right1{
 font-size:20px;
@@ -384,27 +307,15 @@ font-size:20px;
   width:50%;
   float: left;
   overflow: hidden;
-}
-#divsag{
-margin-right:9%;
-}
-#divsag>input[type="radio"]{
-width: 20px;  
-height: 20px;
+  border: 1px solid black;
 }
 #divsd{
   width:50%;
   overflow: hidden;
   float: left;
+  border: 1px solid black;
 }
-#divsd{
-margin-right:78%;
-text-align:justify;
-}
-#divsd>input[type="radio"]{
-width: 20px;  
-height: 20px;
-}
+
 #divse{
 width:50%;
 overflow: hidden;
@@ -413,40 +324,21 @@ float: left;
 #divse{
 margin-right:11.5%;
 }
-#divse>input[type="radio"]{
-width: 20px;  
-height: 20px;
-}
-
-
-.test1>input[type="checkbox"]{
- width: 17px;  
-height: 17px;
- }
  .test1{
 font-size:17;
  }
- .test4>input[type="checkbox"]{
- width: 17px;  
-height: 17px;
- }
+
   .test4{
 font-size:17;
  }
- .test2>input[type="checkbox"]{
- width: 17px;  
-height: 17px;
- }
+
   .test2{
 font-size:17;
  }
-.test3>input[type="checkbox"]{
- width: 17px;  
-height: 17px;
- }
+
   .test3{
 font-size:17;
- }
+}
  
 #divse>input[type="text"]{
 width:100%;
