@@ -87,8 +87,9 @@ padding: 10px;
 /*fin*/
 
 .formcontenu{
-width:70%;
 border-radius: 5px;
+width:95%;
+border: 1px solid black;
 }
 
 .formcontenu ::first-letter{
@@ -97,7 +98,7 @@ text-transform:capitalize;
 .inputcontenu{
 margin:10px;
 display:block;
-width:98%;
+width:95%;
 background-color:none;
 padding:15px;
 }
