@@ -6,9 +6,9 @@ from listings.models  import band # type: ignore
 from listings.models  import listing  # type: ignore
 from listings.forms import contact_us # type: ignore
 from django.core.mail import send_mail # type: ignore
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password,check_password
 from django.db.models import Subquery
-
+from django.contrib import messages
 #import des class de ma bd
 from .models import ordonnancemedicament
 from listings.models  import antecedant_familial # type: ignore #nouveau
@@ -105,23 +105,40 @@ def donne(request):
     #return render(request,'listings/cnx.html')
 def connexion(request):
     if request.method =='POST':
-        reg=personnel_soignant.objects.filter(nom=request.POST['nom'],mdp=request.POST['mdp'])
-        if reg.exists():
-            profil = type_personnel_soignant.objects.filter(
-            idpersoignant__in=Subquery(
-            personnel_soignant.objects.filter(
-            nom=request.POST['nom']
-            ).values_list('type_personnel_soignant_id')
-            )
-            ).values_list('nompersog', flat=True)#script de recuperation du type 
-            if profil=="INFIRMIERE" or profil=="INFIRMIER":
-                return render(request,'listings/menuinfirmier.html')
+        mothash=personnel_soignant.objects.filter(nom=request.POST['nom']).values_list('mdp', flat=True).first()
+        if mothash and check_password(request.POST['mdp'],mothash):
+            reg=personnel_soignant.objects.filter(nom=request.POST['nom'],mdp=mothash)
+            if reg.exists():
+                profil = type_personnel_soignant.objects.filter(
+                idpersoignant__in=Subquery(
+                personnel_soignant.objects.filter(
+                nom=request.POST['nom']
+                ).values_list('type_personnel_soignant_id')
+                )
+                ).values_list('nompersog', flat=True)#script de recuperation du type ``
+                if profil.exists():
+                    if "INFIRMIERE" in  profil:
+                        valeur = request.session['profil']
+                        return render(request,'listings/menuinfirmier.html','listings/formpatient.html')
+                    elif "INFIRMIER" in  profil:
+                        request.session['profil'] ='INFIRMIER'
+                        return render(request,'listings/menuinfirmier.html')
+                    elif "MEDECIN" in  profil:
+                        request.session['profil'] ='MEDECIN'
+                        return render(request,'listings/menudocteur.html')
+                    elif "ADMIN" in  profil:
+                        request.session['profil'] ='ADMIN'
+                        return render(request,'listings/menuadmin.html')
 
             #patients =personnel_soignant.objects.filter(nom=request.POST['nom']).values_list('type_personnel_soignant_id')
             #print(patients)
         else:
-            return HttpResponse('no') 
-    return render(request,'listings/cnx.html')
+            error_message = "Nom d'utilisateur ou mot de passe incorrect."
+            return render(request, 'listings/index.html', {'error_message': error_message})
+    return render(request,'listings/index.html')
+
+
+
 #fin
 def patient(request):
     lits = lit.objects.all()
@@ -153,7 +170,12 @@ def antecedantgenecologique(request):
 def sortie(request):
     #sorties = sortie.objects.all()
     return render(request,'listings/formsortie.html')
-    
+
+
+
+def index(request):
+    return render(request,'listings/index.html')
+
 def adminform(request):
     services = service.objects.all()
     type_personnel_soignants = type_personnel_soignant.objects.all()
@@ -173,7 +195,10 @@ def adminform(request):
         return render(request,'listings/formconsultation.html')
     return render(request,'listings/formadmin.html',context={'services':services,'type_personnel_soignants':type_personnel_soignants})
         
-    
+
+def deconnexion(request):
+    request.session['profil'] = None
+    return render(request,'listings/index.html')
     #menu
 
     #fin
