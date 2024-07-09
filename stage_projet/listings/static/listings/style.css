@@ -493,12 +493,6 @@ border-top-right-radius:5px;
 #signeasso{
   overflow: hidden;
 }
-#untest{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
 
 
 
