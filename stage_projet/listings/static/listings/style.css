@@ -158,7 +158,8 @@ overflow:hidden;
   overflow:hidden;
   display: flex;
   justify-content: center; /* Centre horizontalement */
-  align-items: center;     /* Centre verticalement */
+  align-items: center;  
+  width:354px;   /* Centre verticalement */
   }
 
 .leftconts{
@@ -256,9 +257,6 @@ margin-right:-4%;
 #div14{
 margin-right:75%;
 }
-
-
-
 #div14>input[type="text"]{
 width:100%;
 padding:15px;
@@ -306,22 +304,20 @@ font-size:20px;
 }
 
 #divsag{
-  width:50%;
-  float: left;
+  width:100%;
   overflow: hidden;
+  border: 1px solid black;
 }
 #divsd{
-  width:50%;
+  width:100%;
   overflow: hidden;
-  float: left;
-
+  border: 1px solid black;
 }
 
 #divse{
-width:50%;
+width:100%;
 overflow: hidden;
-float: left;
-
+border: 1px solid black;
 }
  .test1{
 font-size:17;
@@ -394,6 +390,10 @@ border-top-right-radius:5px;
   display: block;
 
 }
+.ok{
+  overflow: hidden;
+}
+
 
 
 
