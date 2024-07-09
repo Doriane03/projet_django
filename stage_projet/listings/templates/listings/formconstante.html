@@ -7,15 +7,21 @@
 <nav class="divcontenunav">constante</nav>
 </div>
     {% csrf_token %}
-    <fieldset class="fieldsetgd">
+    <fieldset>
             <input type="text"   placeholder="poids en  kg" name="poids" class="inputcontenu"/>
             <input type="text"   placeholder="taille en  cm" name="taille" class="inputcontenu"/>
             <input type="text" placeholder="température en C°" name="temperature" class="inputcontenu"/>
             <input type="text"   placeholder="imc kg/m2 " name="imc" class="inputcontenu"/>
-            <div class="divfrmconst">
-              <div class="leftconts"><label>tension artérielle :<label/>
-              <input type="text"   placeholder="TAS" name="tas" class="inputcontenu"/></div>
-              <div class="rightconts"><input type="text"   placeholder="TAD" name="tad" class="inputcontenu"/></div>
+
+            <div >
+              
+                  <div class="leftconts">
+                    <label>tension artérielle :</label>
+                  <input type="text"   placeholder="TAS" name="tas"  />
+                  </div>
+                  <div class="rightconts">
+                    <input type="text"   placeholder="TAD" name="tad"/>
+                  </div>
             </div>
             <input type="text" placeholder="pouls en  battements/mn " name="pouls" class="inputcontenu"/>
             <input type="submit"  name="valideconstante"  value="Enregister" class="btn btn-primary"/>

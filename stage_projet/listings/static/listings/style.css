@@ -75,21 +75,20 @@ display:none;
 }
 .divsortie>input{
 float: left;
-width:40%;
+width:29%;
 padding: 10px;
 }
 
 .divsortie>select{
   float: left;
-  width:40%;
+  width:29%;
   padding: 10px;
 }
 /*fin*/
 
 .formcontenu{
 border-radius: 5px;
-width:95%;
-border: 1px solid black;
+width:70%;
 }
 
 .formcontenu ::first-letter{
@@ -98,7 +97,7 @@ text-transform:capitalize;
 .inputcontenu{
 margin:10px;
 display:block;
-width:95%;
+width:60%;
 background-color:none;
 padding:15px;
 }
@@ -126,7 +125,7 @@ display:block;
 padding:15px;
 margin-left:70px;
 margin-bottom:10px;
-width:70%;
+width:36%;
 }
 
 .divcontenusexe{
@@ -136,7 +135,7 @@ display:block;
 padding:15px;
 margin-left: 15px;
 margin-bottom:10px;
-width:34%;
+width:17%;
 border-top:none;
 border-left:none;
 border-right:none;
@@ -147,19 +146,25 @@ border-bottom:1px solid black;
 display:block;
 overflow:hidden;
 }
-.divfrmconst{
-overflow:hidden;
-display:block;
-}
 
 .leftconts{
 float:left;
-margin-left:28px;
+margin-left:13%;
 }
+.leftconts>input{
+padding: 10px;
+width:30%;
+}
+
 .rightconts{
 float:right;
-margin-right:1.5%;
+margin-right:12.5%;
 }
+
+.rightconts>input{
+  padding: 10px;
+  width:40%;
+  }
 .divfrmconsul>input[type="text"]{
 width: 50%; 
 padding:15px;
@@ -434,7 +439,7 @@ height: 17px;
   .test2{
 font-size:17;
  }
-  .test3>input[type="checkbox"]{
+.test3>input[type="checkbox"]{
  width: 17px;  
 height: 17px;
  }
