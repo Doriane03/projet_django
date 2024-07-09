@@ -119,7 +119,7 @@ def connexion(request):
                 if profil.exists():
                     if "INFIRMIERE" in  profil:
                         valeur = request.session['profil']
-                        return render(request,'listings/menuinfirmier.html','listings/formpatient.html')
+                        return render(request,'listings/menuinfirmier.html')
                     elif "INFIRMIER" in  profil:
                         request.session['profil'] ='INFIRMIER'
                         return render(request,'listings/menuinfirmier.html')

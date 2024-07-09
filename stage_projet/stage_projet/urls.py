@@ -20,7 +20,6 @@ from django.urls import path,include # type: ignore
 from listings import views  # type: ignore
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index, name='index'),
     path('bands/',views.band_list),
     path('listings/',views.listing_list,name='listing-list'),
     path('listings/<int:id>/',views.listing_details, name='listing-details'),
