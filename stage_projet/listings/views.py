@@ -135,7 +135,7 @@ def connexion(request):
         else:
             error_message = "Nom d'utilisateur ou mot de passe incorrect."
             return render(request, 'listings/index.html', {'error_message': error_message})
-    return render(request,'listings/cnxcontent.html')
+    return render(request,'listings/index.html')
 
 
 
@@ -202,14 +202,6 @@ def adminform(request):
 def deconnexion(request):
     request.session['profil'] = None
     return render(request,'listings/index.html')
-
-
-
-def cnxcontent(request):
-    return render(request,'listings/cnxcontent.html')
-    
-def templatecontent(request):
-    return render(request,'listings/templatecontent.html')
     #menu
 
     #fin

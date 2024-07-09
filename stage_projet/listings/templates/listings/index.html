@@ -1,15 +1,15 @@
-{% extends 'listings/cnxcontent.html' %}
+{% extends 'listings/head.html' %}
 {% block content %}
 <center><form method="POST" action="{% url 'connexion' %}" >
     {% csrf_token %}
-    <fieldset class="fieldsetfromcnx">
-            <input type="text"   placeholder="nom" name="nom" class="inputcontenu"/>
-            <input type="password"  placeholder="Password" name="mdp" class="inputcontenu"/>
+    <fieldset>
+            <input type="text"   placeholder="nom" name="nom" class="inputcontenucnx"/>
+            <input type="password"  placeholder="Password" name="mdp" class="inputcontenucnx"/>
             {% if error_message %}
                 <p style="color: red;">{{ error_message }}</p>
             {% endif %}
     </fieldset>
     <input type="submit"  name="connexion"  value="connexion" class="btn btn-primary"/>
-    <a href="#" class="aformcnx">mot de passe oublié?</a>
+   <!-- <a href="#" class="aformcnx">mot de passe oublié?</a>-->
 </form></center>
 {% endblock %}

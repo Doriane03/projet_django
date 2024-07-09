@@ -390,7 +390,12 @@ border-top-right-radius:5px;
 .ok{
   overflow: hidden;
 }
-
+.inputcontenucnx{
+  display:block;
+  width:80%;
+  background-color:none;
+  padding:10px; 
+}
 
 
 
