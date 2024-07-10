@@ -142,12 +142,12 @@ width:17%;
 border-top:none;
 border-left:none;
 border-right:none;
-border-bottom:1px solid black;
 }
 
 .divfrmconsul{
 display:block;
 overflow:hidden;
+border-bottom:1px solid black;
 }
 
 .divfrmconsul1{
