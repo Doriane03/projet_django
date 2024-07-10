@@ -43,7 +43,8 @@ urlpatterns = [
     path ('adminform/',views.adminform,name='adminform'),
     path ('deconnexion/',views.deconnexion,name='deconnexion'),
     path ('modificationmdp/',views.modificationmdp,name='modificationmdp'),
-    path ('bilanimg/',views.bilanimg,name='bilanimg'),
+    path ('bilanimg/',views.bilanimg,name='bilanimg'), 
+    path ('bilanbio/',views.bilanbio,name='bilanbio'),
      
     #menu
     #fin

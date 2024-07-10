@@ -77,15 +77,15 @@ float: left;
   
 }
 .divsortie>input{
-float: left;
+float:left;
 width:29%;
-padding: 10px;
+padding:10px;
 }
 
 .divsortie>select{
-  float: left;
+  float:left;
   width:29%;
-  padding: 10px;
+  padding:10px;
 }
 /*fin*/
 

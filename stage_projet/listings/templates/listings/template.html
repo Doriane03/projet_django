@@ -238,7 +238,11 @@
                             </li>
 
                             <li>
-                                <a  href="{% url 'bilanimg' %}">bilan</a>
+                                <a  href="{% url 'bilanimg' %}">bilan img</a>
+                            </li>
+
+                            <li>
+                                <a  href="{% url 'bilanbio' %}">bilan bio</a>
                             </li>
 
                             <li>
@@ -299,6 +303,7 @@
                                 <div class="col-xl">
                                     <div class="card">
                                         <div class="card-body">
+                                            {% block formbilanbio %} {% endblock %}
                                             {% block content%} {% endblock %}
                                             {% block formbilanimg %} {% endblock %}
                                             {% block formconstante %} {% endblock %}

@@ -204,6 +204,9 @@ def bilanimg(request):
     return render(request,'listings/formbilanimg.html')
     #menu
 
+def bilanbio(request):
+    return render(request,'listings/bilanbio.html')
+
     #fin
 
 #def create_folder(request):
