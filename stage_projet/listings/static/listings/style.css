@@ -92,6 +92,7 @@ padding:10px;
 .formcontenu{
 border-radius: 5px;
 width:70%;
+border:1px solid black;
 }
 
 .formcontenu ::first-letter{
@@ -142,6 +143,7 @@ width:17%;
 border-top:none;
 border-left:none;
 border-right:none;
+border-bottom:1px solid black;
 }
 
 .divfrmconsul{
@@ -182,6 +184,7 @@ padding:15px;
 border-top:none;
 border-left:none;
 border-right:none;
+border-bottom:1px solid black;
 }  
 #presdiv1{
 display:block;
@@ -213,42 +216,33 @@ margin-right:38%;
 margin-right:63%;
 }
 #div4{
-margin-right:80%;
+margin-right:73%;
 }
 #div5{
 
 margin-right:72%;
 }
 #div6{
-
-margin-right:42%;
+margin-right:44%;
 }
 #div7{
-
-margin-right:23%;
-}
-#div8{
-
-margin-right:-7%;
+margin-right:29%;
 }
 
 #div9{
 margin-right:62%;
 }
 #div10{
-margin-right:72%;
+margin-right:71%;
 }
 #div11{
 margin-right:62%;
 }
 #div12{
-margin-right:30%;
-}
-#div13{
-margin-right:-4%;
+margin-right:33%;
 }
 #div14{
-margin-right:75%;
+margin-right:74%;
 }
 #div14>input[type="text"]{
 width:100%;
@@ -265,7 +259,6 @@ border-bottom:1px solid black;
 .left{
 float:left;
 margin-left:5%;
-border: 1px solid black;
 }
 .left1{
 float:left;
@@ -288,7 +281,6 @@ margin-right:24%;
 .right{
 float:right;
 margin-right:5%;
-border: 1px solid black;
 }
 .right1{
 float:right;
@@ -387,6 +379,17 @@ border-top-right-radius:5px;
 }
 p{
 color: red;
+}
+
+.untest1{
+  margin-right:140px;
+}
+.untest2{
+  margin-right:140px;
+}
+
+.untest3{
+  margin-left:27px;
 }
 
 
