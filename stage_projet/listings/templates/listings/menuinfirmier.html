@@ -1,10 +1,9 @@
 {% extends 'listings/template.html' %}
 {% block menuinfirmirer %}
-<div class="page-sidebar-inner slimscroll">
                         <ul class="accordion-menu">
                             
                             <li>
-                                <a href="#"><i class="material-icons">search</i>RECHERCHE DOSSIER PATIENT</a>
+                                <a href="#" ><i class="material-icons">search</i>RECHERCHE DOSSIER PATIENT</a>
                             </li>
 
                             <li>
@@ -12,12 +11,15 @@
                             </li>
 
                             <li>
-                                <a  href="#"><i class="material-icons-outlined">person-check</i>MEDECIN DISPONIBLE</a>
+                                <a  href="#" ><i class="material-icons-outlined">person-check</i>MEDECIN DISPONIBLE</a>
+                            </li>
+
+                            <li>
+                                <a  href="{% url 'patient' %}" id="lien1"><i class="material-icons-outlined">person-check</i>ENREGISTRER UN PATIENT</a>
                             </li>
                             
                             <li>
-                                <a  href="{% url 'deconnexion'%}"><i class="material-icons">logout</i>DECONNEXION</a>
+                                <a  href="{% url 'deconnexion' %}"><i class="material-icons">logout</i>DECONNEXION</a>
                             </li>
                         </ul>
-</div>
 {% endblock %}

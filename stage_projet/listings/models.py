@@ -444,11 +444,18 @@ class sortie(models.Model):#migration
 class facture(models.Model):
     idfact=models.fields.AutoField(primary_key=True)
     numerofact=models.fields.PositiveIntegerField(null=True, blank=True)
+    caution_versee=models.fields.CharField(max_length=30)
+    date_versement=models.fields.DateTimeField(null=True, blank=True)
+    duree_sejour=models.fields.PositiveIntegerField(null=True, blank=True)
+    modepaiment=models.fields.CharField(max_length=100,null=True, blank=True)
+    cout_sejour=models.fields.CharField(max_length=100,null=True, blank=True)
+    remboursement=models.fields.CharField(max_length=100,null=True, blank=True)
+    rest_a_payer=models.fields.CharField(max_length=100,null=True, blank=True)
     montantpaye=models.fields.PositiveIntegerField(null=False)
     date= models.fields.DateTimeField(default=datetime.now)
     patient=models.ForeignKey(patient, on_delete=models.CASCADE)                                                                              
     def __str__(self):
-        return f'{self.idfact} {self.numerofact} {self.montantpaye} {self.date} {self.patient}'
+        return f'{self.idfact} {self.numerofact} {self.montantpaye}  {self.caution_versee} {self.date_versement} {self.duree_sejour} {self.modepaiment} {self.cout_sejour} {self.remboursement} {self.rest_a_payer} {self.date} {self.patient}'
     
 class medicament(models.Model):#migration
     idmedicament=models.fields.AutoField(primary_key=True)

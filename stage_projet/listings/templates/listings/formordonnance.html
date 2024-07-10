@@ -6,12 +6,17 @@
 <div>
 <nav class="divcontenunav">ordonnance</nav>
 </div>
-    <fieldset class="fieldsetgd">
+    <fieldset>
         <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="inputCity">medicament</label>
-                <input type="text" class="inputcontenu" id="inputCity">
+            <div class="form-group col-md-2">
+                <label for="inputZip">dossage</label>
+                   <select name="nommedicament"   class="inputcontenu" required>
+                    {% for medicament in medicaments %}
+                    <option value="{medicament.nommedicament}">{{medicament.nommedicament}}</option>
+                    {% endfor %}
+                    </select>
             </div>
+
             
             
 
@@ -23,7 +28,11 @@
 
             <div class="form-group col-md-2">
                 <label for="inputZip">dossage</label>
-                <input type="text" class="inputcontenu" id="inputZip">
+                   <select name="dosage"   class="inputcontenu" required>
+                    {% for medicament in medicaments %}
+                    <option value="{medicament.dosage}">{{medicament.dosage}}</option>
+                    {% endfor %}
+                    </select>
             </div>
 
 

@@ -61,7 +61,7 @@ class sortieAdmin(admin.ModelAdmin):
     list_display=('refsortie','patient','datesortie','motifsortie','prochaineconsultation') # type: ignore
 
 class factureAdmin(admin.ModelAdmin):
-    list_display=('idfact','numerofact','montantpaye','date','patient') # type: ignore
+    list_display=('idfact', 'numerofact', 'montantpaye',  'caution_versee', 'date_versement', 'duree_sejour', 'modepaiment', 'cout_sejour', 'remboursement', 'rest_a_payer', 'date', 'patient') # type: ignore
 
 class medicamentAdmin(admin.ModelAdmin):
     list_display=('idmedicament','nommedicament','dosage','dateprescription') # type: ignore

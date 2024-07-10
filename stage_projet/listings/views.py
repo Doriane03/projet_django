@@ -115,19 +115,15 @@ def connexion(request):
                 nom=request.POST['nom']
                 ).values_list('type_personnel_soignant_id')
                 )
-                ).values_list('nompersog', flat=True)#script de recuperation du type ``
+                ).values_list('nompersog',flat=True)#script de recuperation du type ``
                 if profil.exists():
                     if "INFIRMIERE" in  profil:
-                        valeur = request.session['profil']
                         return render(request,'listings/menuinfirmier.html')
                     elif "INFIRMIER" in  profil:
-                        request.session['profil'] ='INFIRMIER'
                         return render(request,'listings/menuinfirmier.html')
                     elif "MEDECIN" in  profil:
-                        request.session['profil'] ='MEDECIN'
                         return render(request,'listings/menudocteur.html')
                     elif "ADMIN" in  profil:
-                        request.session['profil'] ='ADMIN'
                         return render(request,'listings/menuadmin.html')
 
             #patients =personnel_soignant.objects.filter(nom=request.POST['nom']).values_list('type_personnel_soignant_id')
@@ -156,7 +152,8 @@ def diagnostique(request):
     return render(request,'listings/formdiagnostiaue.html')
 
 def ordonnance(request):
-    return render(request,'listings/formordonnance.html') 
+    medicaments=medicament.objects.all()
+    return render(request,'listings/formordonnance.html',context={'medicaments':medicaments}) 
     
 def antecedantmedical(request):
     return render(request,'listings/fromantmedical.html') 
@@ -202,6 +199,9 @@ def adminform(request):
 def deconnexion(request):
     request.session['profil'] = None
     return render(request,'listings/index.html')
+
+def bilanimg(request):
+    return render(request,'listings/formbilanimg.html')
     #menu
 
     #fin

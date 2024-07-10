@@ -34,9 +34,7 @@
     margin-top: 20px;
     margin-bottom:20px;
     display:block;
- }
-.fieldsetfromcnx{
-    border:none;
+    width: 300px;
  }
 .afromcnx{
     text-decoration: none;
@@ -94,7 +92,6 @@ padding: 10px;
 .formcontenu{
 border-radius: 5px;
 width:70%;
-border: 1px solid black;
 }
 
 .formcontenu ::first-letter{
@@ -390,11 +387,8 @@ border-top-right-radius:5px;
 .ok{
   overflow: hidden;
 }
-.inputcontenucnx{
-  display:block;
-  width:80%;
-  background-color:none;
-  padding:10px; 
+p{
+color: red;
 }
 
 

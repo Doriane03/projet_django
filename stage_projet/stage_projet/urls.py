@@ -30,7 +30,7 @@ urlpatterns = [
     #fin
     path ('constante/',views.constante,name='constante'),
     path ('patient/',views.patient,name='patient'),
-     path ('consultation/',views.consultation,name='consultation'),
+    path ('consultation/',views.consultation,name='consultation'),
     path ('facture/',views.facture,name='facture'),
     #pour ma bd
     path ('connexion/',views.connexion,name='connexion'),
@@ -43,6 +43,7 @@ urlpatterns = [
     path ('adminform/',views.adminform,name='adminform'),
     path ('deconnexion/',views.deconnexion,name='deconnexion'),
     path ('modificationmdp/',views.modificationmdp,name='modificationmdp'),
+    path ('bilanimg/',views.bilanimg,name='bilanimg'),
      
     #menu
     #fin
