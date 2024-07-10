@@ -90,11 +90,8 @@ padding:10px;
 /*fin*/
 
 .formcontenu{
-border-radius: 5px;
 width:70%;
 background-color: #f8faf9;
-border:1px solid black;
-border-style: groove;
 }
 
 .formcontenu ::first-letter{
