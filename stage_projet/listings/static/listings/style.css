@@ -147,7 +147,6 @@ border-right:none;
 .divfrmconsul{
 display:block;
 overflow:hidden;
-border-bottom:1px solid black;
 }
 
 .divfrmconsul1{
@@ -183,7 +182,6 @@ padding:15px;
 border-top:none;
 border-left:none;
 border-right:none;
-border-bottom:1px solid black;
 }  
 #presdiv1{
 display:block;
