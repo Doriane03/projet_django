@@ -11,15 +11,19 @@
         <div class="divsortie">
             <label>UTILISATEUR CONCERNE</label>
                 <select name="nom"  required>
+                    <option>choisir l'utilisateur</option>
                     {% for personnel_soignant in personnel_soignants %}
-                       <option value="{personnel_soignant.nom}">{{personnel_soignant.nom}}</option>
+                        <option value="{{ personnel_soignant.nom }}">{{ personnel_soignant.nom }}</option>
                     {% endfor %}
                 </select>
         </div>
         <div class="divsortie">
         <label>NOUVEAU MOT DE PASSE</label>
-        <input  type="text" name="mdp" />
+        <input  type="password" name="mdp" required/>
         </div>
+        {% if error_message %}
+                <p class="p2">{{ error_message }}</p>
+        {% endif %}
     </fieldset>
     <input  type="submit" name="validantchir" value="Valider" class="btn btn-primary" >
 </form>

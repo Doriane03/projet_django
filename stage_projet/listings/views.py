@@ -111,20 +111,34 @@ def connexion(request):
             if reg.exists():
                 profil = type_personnel_soignant.objects.filter(
                 idpersoignant__in=Subquery(
-                personnel_soignant.objects.filter(
-                nom=request.POST['nom']
-                ).values_list('type_personnel_soignant_id')
+                personnel_soignant.objects.filter(nom=request.POST['nom']).values('type_personnel_soignant_id')
                 )
-                ).values_list('nompersog',flat=True)#script de recuperation du type ``
-                if profil.exists():
-                    if "INFIRMIERE" in  profil:
+                ).values_list('nompersog', flat=True).first()
+
+                if profil=='INFIRMIERE':
+                    request.session['titre']=profil
+                    if 'titre' in request.session:
                         return render(request,'listings/menuinfirmier.html')
-                    elif "INFIRMIER" in  profil:
+                    else:
+                        return render(request,'listings/index.html')
+                elif profil=='INFIRMIER':
+                    request.session['titre']=profil
+                    if 'titre' in request.session:
                         return render(request,'listings/menuinfirmier.html')
-                    elif "MEDECIN" in  profil:
+                    else:
+                        return render(request,'listings/index.html')
+                elif profil=='MEDECIN':
+                    request.session['titre']=profil
+                    if 'titre' in request.session:
                         return render(request,'listings/menudocteur.html')
-                    elif "ADMIN" in  profil:
+                    else:
+                        return render(request,'listings/index.html')
+                elif profil=='ADMIN':
+                    request.session['titre']=profil
+                    if 'titre' in request.session:
                         return render(request,'listings/menuadmin.html')
+                    else:
+                        return render(request,'listings/index.html')
 
             #patients =personnel_soignant.objects.filter(nom=request.POST['nom']).values_list('type_personnel_soignant_id')
             #print(patients)
@@ -132,7 +146,9 @@ def connexion(request):
             error_message = "Nom d'utilisateur ou mot de passe incorrect."
             return render(request, 'listings/index.html', {'error_message': error_message})
     return render(request,'listings/index.html')
-
+    
+def index(request):
+    return render(request,'listings/index.html')
 
 
 #fin
@@ -169,12 +185,16 @@ def sortie_patient(request):
 
 def modificationmdp(request):
     personnel_soignants =personnel_soignant.objects.all()
+    if request.method =='POST':
+        mdp= make_password(request.POST['mdp'])
+        modifmdp= personnel_soignant.objects.filter(nom=request.POST['nom'])
+        resultat=modifmdp.update(mdp=mdp)
+        if resultat >  0:
+            error_message = "mot de passe modifié avec succès."
+            return render(request,'listings/formmodifmdp.html',{'error_message': error_message})
     return render(request,'listings/formmodifmdp.html',context={'personnel_soignants':personnel_soignants})
 
-
-
-def index(request):
-    return render(request,'listings/index.html')
+    
 
 def adminform(request):
     services = service.objects.all()
@@ -197,8 +217,10 @@ def adminform(request):
         
 
 def deconnexion(request):
-    request.session['profil'] = None
-    return render(request,'listings/index.html')
+    if 'titre' in request.session:
+        del request.session['titre'] 
+
+    return render(request, 'listings/index.html', {'session': request.session})
 
 def bilanimg(request):
     return render(request,'listings/formbilanimg.html')

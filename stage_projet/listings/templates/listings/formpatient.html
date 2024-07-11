@@ -1,4 +1,4 @@
-{% extends 'listings/template.html' %}
+ {% extends 'listings/template.html' %}
 {% block formpatient %}
 <center>
 <form method="post" action=""  class="formcontenu">
@@ -8,7 +8,7 @@
               <label > numero de lit:</label>
               <select name="numlit"  required>
                    {% for lit in lits %}
-                      <option value="{lit.numlit}">{{lit.numlit}}</option>
+                      <option value="{ lit.numlit }">{{ lit.numlit }}</option>
                    {% endfor %}
               </select>
             </div>

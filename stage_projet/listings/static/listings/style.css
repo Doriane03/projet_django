@@ -377,8 +377,11 @@ border-top-right-radius:5px;
 .ok{
   overflow: hidden;
 }
-p{
+.p1{
 color: red;
+}
+.p2{
+  color: green; 
 }
 
 .untest1{
