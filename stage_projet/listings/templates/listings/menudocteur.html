@@ -3,11 +3,6 @@
 {% block menudocteur %}
 <div class="page-sidebar-inner slimscroll">
                         <ul class="accordion-menu">
-
-                            <li>
-                                <a href="#"><i class="material-icons">visibility</i>CONSULTATION EN COURS</a>
-                            </li>
-
                             <li>
                                 <a  href="#" class="active"><i class="material-icons-outlined"></i>RENDEZ-VOUS</a>
                             </li>
@@ -21,7 +16,7 @@
                             </li>
 
                             <li>
-                                <a  href="#"><i class="material-icons-outlined">directions_walk</i>AUTORISER UNE SORTIE</a>
+                                <a  href="{% url 'sortie_patient' %}"><i class="material-icons-outlined">directions_walk</i>AUTORISER UNE SORTIE</a>
                             </li>
                             
                             <li>
