@@ -45,6 +45,7 @@ urlpatterns = [
     path ('modificationmdp/',views.modificationmdp,name='modificationmdp'),
     path ('bilanimg/',views.bilanimg,name='bilanimg'), 
     path ('bilanbio/',views.bilanbio,name='bilanbio'),
+    path ('tableauconsultation/',views.tableauconsultation,name='tableauconsultation'),
      
     #menu
     #fin

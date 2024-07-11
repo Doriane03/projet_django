@@ -4,11 +4,11 @@
 <div class="page-sidebar-inner slimscroll">
                         <ul class="accordion-menu">
                             <li>
-                                <a  href="#" class="active"><i class="material-icons-outlined"></i>RENDEZ-VOUS</a>
+                                <a  href="#" class="active"><i class="material-icons-outlined">visibility</i>RENDEZ-VOUS</a>
                             </li>
                             
                             <li>
-                                <a  href="#"><i class="material-icons-outlined">visibility</i>CONSULTATION</a>
+                                <a  href="{% url 'tableauconsultation' %}"><i class="material-icons-outlined">visibility</i>CONSULTATION</a>
                             </li>
 
                             <li>
@@ -20,7 +20,7 @@
                             </li>
                             
                             <li>
-                                <a  href="#"><i class="material-icons">logout</i>DECONNEXION</a>
+                                <a  href="{% url 'deconnexion' %}" ><i class="material-icons">logout</i>DECONNEXION</a>
                             </li>
                         </ul>
 </div>

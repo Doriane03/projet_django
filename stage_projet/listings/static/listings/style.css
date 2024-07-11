@@ -391,8 +391,17 @@ color: red;
 .untest3{
   margin-left:27px;
 }
-
-
+.card-body{
+  background-color: white;
+  flex: 1; /* Take the remaining space */
+  overflow-y: auto; /* Enable vertical scrolling if needed */
+  padding: 20px;
+}
+.card{
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
 
 
 

@@ -4,7 +4,7 @@
 <div class="page-sidebar-inner slimscroll">
                         <ul class="accordion-menu">
                             <li>
-                                <a href=""><i class="material-icons">person_edit</i>CREER UN UTILISATEUR</a>
+                                <a href="{% url 'adminform' %}"><i class="material-icons">person_edit</i>CREER UN UTILISATEUR</a>
                             </li>
 
                             <li>
@@ -23,7 +23,7 @@
                             </li>
                             
                             <li>
-                                <a  href="#"><i class="material-icons">logout</i>DECONNEXION</a>
+                                <a  href="{% url 'deconnexion' %}" ><i class="material-icons">logout</i>DECONNEXION</a>
                             </li>
                         </ul>
 </div>

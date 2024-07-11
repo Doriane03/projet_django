@@ -202,12 +202,14 @@ def deconnexion(request):
 
 def bilanimg(request):
     return render(request,'listings/formbilanimg.html')
-    #menu
+#menu
 
 def bilanbio(request):
     return render(request,'listings/bilanbio.html')
 
-    #fin
+def tableauconsultation(request):
+    return render(request,'listings/tableauconsultation.html')
+#fin
 
 #def create_folder(request):
     #desktop_path = Path.home() / 'Desktop' / 'ARCHIVE_DOC_PAT'/ 'PAT9' #ceer le fic avec le nom du patient
