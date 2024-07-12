@@ -378,7 +378,7 @@ color: red;
 }
 
 .untest1{
-  margin-right:140px;
+  margin-right:144px;
 }
 .untest2{
   margin-right:140px;
@@ -386,6 +386,9 @@ color: red;
 
 .untest3{
   margin-left:27px;
+}
+.untest4{
+  margin-right:90px;
 }
 .card-body{
   background-color: white;
@@ -405,5 +408,52 @@ align-items: center;
 }
 .content>label{
 margin-left:158px;
+}
+#divg{
+  margin-right:56px; 
+}
+
+#divd{
+  margin-right:53px; 
+}
+
+#divg1{
+  margin-right:77px; 
+}
+
+#divd1{
+  margin-right:73px; 
+}
+
+#divg2{
+  margin-right:50px; 
+}
+
+#divd2{
+  margin-right:47px; 
+}
+
+#divg3{
+  margin-right:6.5px; 
+}
+
+#divd3{
+  margin-right:3px; 
+}
+
+#divg4{
+  margin-right:4px; 
+}
+
+#divd4{
+  margin-left:5px; 
+}
+
+#divg4{
+  margin-right:4px; 
+}
+
+#divd4{
+  margin-left:5px; 
 }
 
