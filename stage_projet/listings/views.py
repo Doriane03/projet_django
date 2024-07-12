@@ -154,6 +154,12 @@ def index(request):
 #fin
 def patient(request):
     lits = lit.objects.all()
+    if request.method == 'POST':
+        var=request.POST['numlit']
+        #Lit_id= lit.objects.filter(numlit=request.POST['numlit']).values_list('reflit', flat=True).first()
+        print(var)
+        #reg=personnel_soignant(mdp=mdp,nom=nom,contact=contact,email=email,service_id=Service_id, type_personnel_soignant_id= Type_personnel_soignant_id)
+        #reg.save()
     return render(request,'listings/formpatient.html',context={'lits':lits })
 #fin
 def constante(request):
