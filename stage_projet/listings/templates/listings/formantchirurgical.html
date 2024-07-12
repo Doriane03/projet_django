@@ -2,54 +2,53 @@
 {% block formantchirurgical %}
 <center><form method="post" action="" class="formcontenu">
     <div>
-        <nav class="divcontenunav">antecedant chirurgical</nav>
+        <nav class="divcontenunav">antécédant chirurgical</nav>
     </div>
 
     {% csrf_token %}
-    <fieldset>     
+    <fieldset>    
+        
         <div class="divsortie" >
-           <label >Opération chirurgicale</label>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="operachir" id="inlineRadio1" value="o">
-                <label class="form-check-label" for="inlineRadio1">oui</label>
+            <label>avp</label>
+             <div class="custom-control custom-radio">
+                 <input class="custom-control-input" type="radio" name="avp" id="inlineRadio1" value="o" onclick="antecedantchiravp()"/>
+                 <label class="custom-control-label" for="inlineRadio1">oui</label>
+             </div>
+             <div class="custom-control custom-radio">
+                 <input class="custom-control-input" type="radio" name="avp" id="inlineRadio2" value="n" onclick="antecedantchiravp()"/>
+                 <label class="custom-control-label" for="inlineRadio2">non</label>
+             </div>
+
+             <div class="test"  id="resultat2">
+                <label class="form-check-label">date avp</label>
+                <input  type="date" name="dateavp" id="inlineRadio2" style="padding:10px;"/>  
+            </div>
+
+         </div>
+
+
+        <div class="divsortie" >
+           <label >opération chirurgicale</label>
+            <div class="custom-control custom-radio">
+                <input class="custom-control-input" type="radio" name="operachir" id="inlineRadio3" value="o" onclick="antecedantchiroperachir()"/>
+                <label class="custom-control-label" for="inlineRadio3">oui</label>
                
             </div>
 
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="operachir" id="inlineRadio2" value="n">
-                <label class="form-check-label" for="inlineRadio2">non</label>
+            <div class="custom-control custom-radio">
+                <input class="custom-control-input" type="radio" name="operachir" id="inlineRadio4" value="n" onclick="antecedantchiroperachir()"/>
+                <label class="custom-control-label" for="inlineRadio4">non</label>
             </div>
 
-
-            <div class="test" >
-                <label class="form-check-label">date</label>
-                <input class="form-check-input" type="date" name="datoperachir" id="inlineRadio2" >
+            <div class="test" id="resultat3" style="margin-right:20px" >
+                <label class="form-check-label">date de l'opération </label>
+                <input  type="date" name="datoperachir" id="inlineRadio2" style="padding:10px;margin-right:50px"/>
                 
             </div>
         </div>
 
 
-        <div class="divsortie" >
-            <label>avp</label>
-             <div class="form-check form-check-inline">
-                 <input class="form-check-input" type="radio" name="avp" id="inlineRadio1" value="o">
-                 <label class="form-check-label" for="inlineRadio1">oui</label>
-
-
-             </div>
-             <div class="form-check form-check-inline">
-                 <input class="form-check-input" type="radio" name="avp" id="inlineRadio2" value="n">
-                 <label class="form-check-label" for="inlineRadio2">non</label>
-             </div>
-
-
-
-             <div class="test" >
-                <label class="form-check-label">date</label>
-                <input class="form-check-input" type="date" name="dateavp" id="inlineRadio2" class="test">
-                
-            </div>
-         </div>
+       
     </fieldset>
     <input  type="submit" name="validmdp" value="Modifier" class="btn btn-primary" />
 </form>

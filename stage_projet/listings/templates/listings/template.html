@@ -51,8 +51,6 @@
 
                             break;
 
-
-
                             case 'oui6':
 
                             var inputField = document.getElementById("medocencours");
@@ -70,8 +68,6 @@
                             inputField.style.display = "block";
 
                             break;
-
-
 
                             case 'non1':
 
@@ -133,6 +129,67 @@
             }
 
 
+
+            function antecedantgyn(){
+                var afficheRadio= document.getElementsByName("cesarienne");
+                for (var i = 0; i < afficheRadio.length; i++) {
+                    if (afficheRadio[i].checked) {
+                        switch(afficheRadio[i].value){
+                            case 'o':
+                            var inputField = document.getElementById("resultat1");
+                                inputField.style.display = "block";
+                            break;
+
+                            case 'n':
+                            var inputField = document.getElementById("resultat1");
+                                inputField.style.display = "none"; 
+                            break;
+                        }
+                    }
+                }
+            }
+
+
+            function antecedantchiravp(){
+                var afficheRadio= document.getElementsByName("avp");
+                for (var i = 0; i < afficheRadio.length; i++) {
+                    if (afficheRadio[i].checked) {
+                        switch(afficheRadio[i].value){
+                            case 'o':
+                            var inputField = document.getElementById("resultat2");
+                                inputField.style.display = "block";
+                            break;
+
+                            case 'n':
+                            var inputField = document.getElementById("resultat2");
+                                inputField.style.display = "none"; 
+                            break;
+                        }
+                    }
+                }
+            }
+
+
+
+            
+            function antecedantchiroperachir(){
+                var afficheRadio= document.getElementsByName("operachir");
+                for (var i = 0; i < afficheRadio.length; i++) {
+                    if (afficheRadio[i].checked) {
+                        switch(afficheRadio[i].value){
+                            case 'o':
+                            var inputField = document.getElementById("resultat3");
+                                inputField.style.display = "block";
+                            break;
+
+                            case 'n':
+                            var inputField = document.getElementById("resultat3");
+                                inputField.style.display = "none"; 
+                            break;
+                        }
+                    }
+                }
+            }
 
 
             function pourlecheckbox() {

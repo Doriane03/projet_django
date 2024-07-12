@@ -219,8 +219,7 @@ def adminform(request):
 def deconnexion(request):
     if 'titre' in request.session:
         del request.session['titre'] 
-
-    return render(request, 'listings/index.html', {'session': request.session})
+    return render(request, 'listings/index.html')
 
 def bilanimg(request):
     return render(request,'listings/formbilanimg.html')

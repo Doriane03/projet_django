@@ -2,60 +2,62 @@
 {% block formantgynecologique %}
 <center><form method="post" action="" class="formcontenu">
     <div>
-        <nav class="divcontenunav">antecedant chirurgical</nav>
+        <nav class="divcontenunav">antécédant gynécologique</nav>
     </div>
 
     {% csrf_token %}
     <fieldset>     
 
             <div class="divsortie">
-                <label  >Date de dernière règles</label>
-                <input  type="date" name="datederniereregle" >
+                <label  >parite</label>
+                <input  type="date" name="parite" />
             </div>
+
 
             <div class="divsortie">
                 <label  >gestite</label>
-                <input  type="date" name="gestite" >
+                <input  type="date" name="gestite" />
             </div>
 
             <div class="divsortie">
-                <label  >parite</label>
-                <input  type="date" name="parite" >
+                <label  >Date de dernière règles</label>
+                <input  type="date" name="datederniereregle" />
             </div>
+
+
+            <div class="divsortie">
+                <label class="form-check-label">césarienne</label>
+                <div class="custom-control custom-radio">
+                    <input class="custom-control-input" type="radio" name="cesarienne" id="inlineRadio3" value="o" onclick="antecedantgyn()" />
+                    <label class="custom-control-label" for="inlineRadio3">oui</label>                   
+                </div>
+                <div class="custom-control custom-radio">
+                    <input class="custom-control-input" type="radio" name="cesarienne" id="inlineRadio4" value="n" onclick="antecedantgyn()" />
+                    <label class="custom-control-label" for="inlineRadio4">non</label>
+                </div>
+                <div class="test" id="resultat1" style="margin-left:200px">
+                    <label class="form-check-label" for="inlineRadio5">date de la cesarienne</label>
+                    <input  type="date" name="datecesarienne" id="inlineRadio5" style="padding:10px"/>
+                </div>
+            </div>
+
 
             <div class="divsortie">
                 <label >prise de contraceptif</label>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="prisecontraceptif" id="inlineRadio1" value="o">
-                    <label class="form-check-label" for="inlineRadio1">oui</label>
+                <div class="custom-control custom-radio">
+                    <input class="custom-control-input" type="radio" name="prisecontraceptif" id="inlineRadio1" value="o"/>
+                    <label class="custom-control-label" for="inlineRadio1">oui</label>
                 </div>
 
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="prisecontraceptif" id="inlineRadio2" value="n">
-                    <label class="form-check-label" for="inlineRadio2">non</label>
-                </div>
-
-            </div>
-
-
-            <div class="divsortie">
-                <label class="form-check-label">cesarienne</label>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="cesarienne" id="inlineRadio3" value="o">
-                    <label class="form-check-label" for="inlineRadi3">oui</label>
-                </div>
-
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="cesarienne" id="inlineRadio3" value="n">
-                    <label class="form-check-label" for="inlineRadi3">non</label>
-                </div>
-
-                <div class="test">
-                    <input  type="date" name="datecesarienne" id="inlineRadio5" >
-                    <label class="form-check-label" for="inlineRadi3">date de la cesarienne</label>
+                <div class="custom-control custom-radio">
+                    <input class="custom-control-input" type="radio" name="prisecontraceptif" id="inlineRadio2" value="n"/>
+                    <label class="custom-control-label" for="inlineRadio2">non</label>
                 </div>
 
             </div>
+
+
+           
     </fieldset>
     <input  type="submit" name="validantgyn" value="Valider" class="btn btn-primary" >
 </form>

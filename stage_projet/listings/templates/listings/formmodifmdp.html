@@ -3,13 +3,13 @@
 <center><form method="post" action="" class="formcontenu" >
 
     <div>
-        <nav class="divcontenunav">MODIFIER UN MOT DE PASSE</nav>
+        <nav class="divcontenunav">modifier un mot de passe</nav>
     </div>
 
     {% csrf_token %}
     <fieldset>   
         <div class="divsortie">
-            <label>UTILISATEUR CONCERNE</label>
+            <label>utilisateur concerné</label>
                 <select name="nom"  required>
                     <option>choisir l'utilisateur</option>
                     {% for personnel_soignant in personnel_soignants %}
@@ -18,7 +18,7 @@
                 </select>
         </div>
         <div class="divsortie">
-        <label>NOUVEAU MOT DE PASSE</label>
+        <label>nouveau mot de passe</label>
         <input  type="password" name="mdp" required/>
         </div>
         {% if error_message %}

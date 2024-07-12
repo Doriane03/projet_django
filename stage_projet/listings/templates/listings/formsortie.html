@@ -3,32 +3,33 @@
 <center><form method="post" action="" class="formcontenu" >
 
     <div>
-        <nav class="divcontenunav">SORTIE</nav>
+        <nav class="divcontenunav">sortie</nav>
     </div>
 
     {% csrf_token %}
     <fieldset>   
         
         <div  class="divsortie">
-            <label >PATIENT CONCERNE</label>
+            <label >patient concerné</label>
             <input  type="text" name="patient" >
         </div>
 
         <div class="divsortie">
-            <label> MOTIF DE SORTIE</label>
+            <label> motif de sortie</label>
             <select name="motifsortie"  required>
+                    <option value="mort">choisir un motif</option>
                     <option value="mort">mort</option>
                     <option value="fuite">fuite</option>
             </select>
         </div>
 
         <div class="divsortie">
-        <label  >DATE DE SORTIE</label>
+        <label  >date de sortie</label>
         <input  type="date" name="datesortie" >
         </div>
 
         <div class="divsortie">
-        <label>DATE DE DU RENDEZ-VOUS PROCHAIN</label>
+        <label>date du prochain rendez-vous </label>
         <input  type="date" name="prochaineconsultation" >
         </div>
     </fieldset>

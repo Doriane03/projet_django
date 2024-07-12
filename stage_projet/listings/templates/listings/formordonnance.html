@@ -7,10 +7,12 @@
 <nav class="divcontenunav">ordonnance</nav>
 </div>
     <fieldset>
-        <div class="form-row">
-            <div class="form-group col-md-2">
-                <label for="inputZip">dossage</label>
+        <div >
+            <div >
+                <label for="inputZip">nom du médicament</label>
+                    
                    <select name="nommedicament"   class="inputcontenu" required>
+                    <option>choisir un médicament</option>
                     {% for medicament in medicaments %}
                     <option value="{medicament.nommedicament}">{{medicament.nommedicament}}</option>
                     {% endfor %}
@@ -21,14 +23,16 @@
             
 
 
-            <div class="form-group col-md-2">
+            <div >
                 <label for="inputZip">nombre de boite</label>
                 <input type="text" class="inputcontenu" id="inputZip">
             </div>
 
-            <div class="form-group col-md-2">
+            <div>
                 <label for="inputZip">dossage</label>
+                     
                    <select name="dosage"   class="inputcontenu" required>
+                    <option>choisir le dossage</option>
                     {% for medicament in medicaments %}
                     <option value="{medicament.dosage}">{{medicament.dosage}}</option>
                     {% endfor %}
@@ -37,11 +41,12 @@
 
 
 
-            <div class="form-group col-md-2">
-                <label > type:</label>
+            <div>
+                <label > type</label>
                 <select name="ok"   class="inputcontenu" required>
+                        <option>choisir un type</option>
                         <option value="ok">sirop</option>
-                        <option>comprime</option>
+                        <option>comprimé</option>
                 </select>
               </div>
             

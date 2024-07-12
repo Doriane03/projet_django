@@ -21,19 +21,19 @@ from listings import views  # type: ignore
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('bands/',views.band_list),
-    path('',views.index,name='index'),
+    path('index',views.index,name='index'),
     path('listings/',views.listing_list,name='listing-list'),
     path('listings/<int:id>/',views.listing_details, name='listing-details'),
     path ('contact/',views.contact,name='contact'),
     #pour ma bd
     path ('donne/',views.donne,name='affiche'),
     #fin
+    #pour ma bd
+    path ('',views.connexion,name='connexion'),
     path ('constante/',views.constante,name='constante'),
     path ('patient/',views.patient,name='patient'),
     path ('consultation/',views.consultation,name='consultation'),
     path ('facture/',views.facture,name='facture'),
-    #pour ma bd
-    path ('connexion/',views.connexion,name='connexion'),
     path ('diagnostique/',views.diagnostique,name='diagnostique'),
     path ('ordonnance/',views.ordonnance,name='ordonnance'),
     path ('antecedantmedical/',views.antecedantmedical,name='antecedantmedical'),

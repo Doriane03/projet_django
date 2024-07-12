@@ -8,6 +8,18 @@
 <nav class="divcontenunav">bilan biologique</nav>
 </div>
     <fieldset>
+
+
+      <div class="divsortie">
+        <label >unités</label>
+        <select name="unite"  required>
+                <option value="UI/ ml">UI/ ml</option>
+                <option value="mmol/ l">mmol/ l</option>
+                <option value="g/l">g/l</option>
+                <option value="/mm3">/mm3</option>
+        </select>
+      </div>
+
         <div class="divsortie">
             <label >marqueur viral</label>
             <select name="marqueurVir"  required>
@@ -22,15 +34,7 @@
 
 
 
-          <div class="divsortie">
-            <label >unités</label>
-            <select name="unite"  required>
-                    <option value="UI/ ml">UI/ ml</option>
-                    <option value="mmol/ l">mmol/ l</option>
-                    <option value="g/l">g/l</option>
-                    <option value="/mm3">/mm3</option>
-            </select>
-          </div>
+          
 
           <div class="divsortie">
             <label >date de remise des résultats</label>
@@ -47,7 +51,6 @@
             <input type="text"    name="consultation"  required/>
           </div>
 
-
           <div>
             <div class="divsortie">
                 <label>  resultat</label>
@@ -61,6 +64,8 @@
                     </div>
             </div>
         </div>
+
+        
 
     </fieldset>
     <input type="submit"  name="validbilanimg"  value="Enregister" class="btn btn-primary"/>
