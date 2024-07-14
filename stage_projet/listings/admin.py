@@ -58,7 +58,7 @@ class categorieAdmin(admin.ModelAdmin):
     list_display=('refcat','numcat') # type: ignore
 
 class sortieAdmin(admin.ModelAdmin):
-    list_display=('refsortie','patient','datesortie','motifsortie','prochaineconsultation') # type: ignore
+    list_display=('refsortie','datesortie','motifsortie','prochaineconsultation','personnel_soignant') # type: ignore
 
 class factureAdmin(admin.ModelAdmin):
     list_display=('idfact', 'numerofact', 'montantpaye',  'caution_versee', 'date_versement', 'duree_sejour', 'modepaiment', 'cout_sejour', 'remboursement', 'rest_a_payer', 'date', 'patient') # type: ignore

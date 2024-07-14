@@ -434,10 +434,9 @@ class sortie(models.Model):#migration
     )
     motifsortie=models.fields.CharField(max_length=10,choices=MAYBECHOICE1)
     prochaineconsultation=models.fields.DateField()
-    patient=models.ForeignKey(patient, on_delete=models.CASCADE) 
-                                                                                   
+    personnel_soignant=models.ForeignKey(personnel_soignant,on_delete=models.CASCADE)                                                                                
     def __str__(self):
-        return f'{self.refsortie} {self.datesortie} {self.patient} {self.motifsortie} {self.prochaineconsultation} '
+        return f'{self.refsortie} {self.datesortie}  {self.motifsortie} {self.prochaineconsultation} {self.personnel_soignant} '
     
 
 
