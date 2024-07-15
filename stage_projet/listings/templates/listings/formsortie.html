@@ -87,9 +87,44 @@
                 <label class="custom-control-label" for="exampleRadios2">perdu de vue</label>
                     <div class="test" id="motif2"> 
                         <div class="divsortie">
-                            <label  >date de sortie</label>
+                            <label  >Date dernière visite</label>
                             <input  type="date" name="datesortie" >
                         </div>
+
+                        <div class="divsortie">
+                            <label  >Date dernière relance</label>
+                            <input  type="date" name="datesortie" >
+                        </div>
+
+                        <div class="divsortie">
+                            <label>Type de relance</label>
+                            <div>
+                                <input type="checkbox"   name="lieudeces[]"  value="domicile" />
+                                <label class="custom-control-label">domicile</label>
+                            </div>
+                            <div>
+                                <input type="checkbox"   name="lieudeces[]"  value="centre de santé"/>
+                                <label class="custom-control-label">centre de santé</label>
+                            </div>
+                        </div>
+
+                        <div class="divsortie">
+                            <label>Type de nouvelle</label>
+                            <div>
+                                <input type="checkbox"   name="lieudeces[]"  value="domicile" />
+                                <label class="custom-control-label">domicile</label>
+                            </div>
+                            <div>
+                                <input type="checkbox"   name="lieudeces[]"  value="centre de santé"/>
+                                <label class="custom-control-label">centre de santé</label>
+                            </div>
+                        </div>
+
+                        <div  class="divsortie">
+                            <label >Raison notifiée</label>
+                            <input  type="text" name="raison" >
+                        </div>
+
                     </div>
             </div>
 
