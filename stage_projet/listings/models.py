@@ -3,7 +3,7 @@ from typing import __all__
 from django.db import models # type: ignore
 from django.forms import ModelForm # type: ignore
 from django.core.validators import MaxValueValidator,MinValueValidator # type: ignore
-from datetime import datetime
+from datetime import datetime,date
 class band (models.Model):
     name=models.fields.CharField(max_length=100)
     class Genre(models.TextChoices):
@@ -426,7 +426,7 @@ class hospitalisation(models.Model):
 
 class sortie(models.Model):#migration
     refsortie=models.fields.AutoField(primary_key=True)
-    datesortie=models.DateTimeField(default=datetime.now)  
+    datesortie=models.DateField(default=date.today)
     motifsortie=models.fields.CharField(max_length=50,)
     remplipar=models.fields.CharField(max_length=100)
 
