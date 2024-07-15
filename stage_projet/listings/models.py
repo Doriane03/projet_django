@@ -420,30 +420,30 @@ class hospitalisation(models.Model):
 class sortie(models.Model):#migration
     refsortie=models.fields.AutoField(primary_key=True)
     datesortie=models.fields.DateTimeField(default=datetime.now) 
-    motifsortie=models.fields.CharField(max_length=50,)
-    remplipar=models.fields.CharField(max_length=100)
+    motifsortie=models.fields.CharField(max_length=50)
+    remplipar=models.fields.CharField(max_length=100,null=True, blank=True)
 
 #pour le deces
-    datedeces=models.fields.DateField()
-    causedudeces=models.fields.CharField(max_length=100)
-    lieudeces=models.fields.CharField(max_length=10)
-    decesliea=models.fields.CharField(max_length=4)
+    datedeces=models.fields.DateField(null=True, blank=True)
+    causedudeces=models.fields.CharField(max_length=100,null=True, blank=True)
+    lieudeces=models.fields.CharField(max_length=10,null=True, blank=True)
+    decesliea=models.fields.CharField(max_length=4,null=True, blank=True)
 #fin
 #pour refus de suivi
-    daterefus=models.fields.DateField()
+    daterefus=models.fields.DateField(null=True, blank=True)
 #fin
 #pour perdu de vue
-    datedernierevisite=models.fields.DateField()
-    datederniererelance=models.fields.DateField()
-    typederelance=models.fields.CharField(max_length=100)
-    typedenouvelle=models.fields.CharField(max_length=100)
-    raison=models.fields.CharField(max_length=255)
+    datedernierevisite=models.fields.DateField(null=True, blank=True)
+    datederniererelance=models.fields.DateField(null=True, blank=True)
+    typederelance=models.fields.CharField(max_length=100,null=True, blank=True)
+    typedenouvelle=models.fields.CharField(max_length=100,null=True, blank=True)
+    raison=models.fields.CharField(max_length=255,null=True, blank=True)
 #fin
-    commentaire=models.fields.CharField(max_length=255)
+    commentaire=models.fields.CharField(max_length=255,null=True, blank=True)
 #pour transfert de dossier
-    datedetransfert=models.fields.DateField()
-    nouveaucentredesuivi=models.fields.CharField(max_length=100)
-    numerodedossierdanslecentredetransfert=models.fields.CharField(max_length=255)
+    datedetransfert=models.fields.DateField(null=True, blank=True)
+    nouveaucentredesuivi=models.fields.CharField(max_length=100,null=True, blank=True)
+    numerodedossierdanslecentredetransfert=models.fields.CharField(max_length=255,null=True, blank=True)
 #fin
     personnel_soignant=models.ForeignKey(personnel_soignant,on_delete=models.CASCADE)                                                                                
     def __str__(self):
@@ -576,6 +576,6 @@ class bilan_biologique(models.Model):
     dateremiseresultat= models.fields.DateTimeField(null=True, blank=True)                                                                               
     consultation=models.ForeignKey(consultation, on_delete=models.CASCADE)
     def __str__(self):
-        return f'{self.numbilanbio} {self.typeexamen}  {self.resultatmodalite} {self. unite} {self.datereceptionechantillon}  {self.dateremiseresultat} {self.consultation}  {self.resultatnumerique}'
+        return f'{self.numbilanbio} {self.typeexamen}  {self.resultatmodalite} {self.unite} {self.datereceptionechantillon}  {self.dateremiseresultat} {self.consultation}  {self.resultatnumerique}'
 #fin class avec cle secondaire
 # Create your models here.

@@ -192,6 +192,50 @@
             }
 
 
+            function sortie(){
+                var afficheRadio= document.getElementsByName("motifsortie");
+                var inputField1= document.getElementById("motif1");
+                var inputField2= document.getElementById("motif2");
+                var inputField3= document.getElementById("motif3");
+                var inputField4= document.getElementById("motif4");
+                for (var i = 0; i < afficheRadio.length; i++) {
+                    if (afficheRadio[i].checked) {
+                        switch(afficheRadio[i].value){
+                            case 'décès':
+                                inputField1.style.display = "block";
+                                inputField2.style.display = "none";
+                                inputField3.style.display = "none";
+                                inputField4.style.display = "none";
+
+                            break;
+
+                            case 'perdu de vue':
+                                inputField4.style.display = "none";
+                                inputField1.style.display = "none";
+                                inputField3.style.display = "none";
+                                inputField2.style.display = "block"; 
+                            break;
+
+
+                            case 'transfert de dossier':
+                                inputField4.style.display = "none";
+                                inputField1.style.display = "none";
+                                inputField2.style.display = "none";
+                                inputField3.style.display = "block"; 
+                            break;
+
+                            case 'refus de suivi':
+                                inputField3.style.display = "none";
+                                inputField1.style.display = "none";
+                                inputField2.style.display = "none";
+                                inputField4.style.display = "block"; 
+                            break;
+                        }
+                    }
+                }
+            }
+
+
             function pourlecheckbox() {
                 var affichecheckbox= document.getElementsByName('motifdeconsultation[]');
                 var inputField = document.getElementById("motifdeconsultation");
@@ -244,60 +288,60 @@
                         <ul class="accordion-menu">
                            
                             <li>
-                                <a href="{% url 'patient' %}">patient</a>
+                                <a href="{% url 'patient' %}">Patient</a>
                             </li>
 
                             <li>
-                                <a  href="{% url 'facture' %}" >facture</a>
+                                <a  href="{% url 'facture' %}" >Facture</a>
                             </li>
                             <li>
-                                <a  href="{% url 'consultation' %}">consultation</a>
+                                <a  href="{% url 'consultation' %}">Consultation</a>
                             </li>
                             
                             <li>
-                                <a  href="{% url 'ordonnance' %}">ordonnance</a>
+                                <a  href="{% url 'ordonnance' %}">Ordonnance</a>
                             </li>
 
                             <li>
-                                <a  href="{% url 'antecedantmedical' %}">antecedant medical</a>
+                                <a  href="{% url 'antecedantmedical' %}">Antécédant Medical</a>
                             </li>
                             
                             <li>
-                                <a  href="{% url 'antecedantchirurgical' %}">antecedant chirurgical</a>
+                                <a  href="{% url 'antecedantchirurgical' %}">Antécédant Chirurgical</a>
                             </li>
 
 
                             <li>
-                                <a  href="{% url 'antecedantgenecologique' %}">antecedant gynecologique</a>
+                                <a  href="{% url 'antecedantgenecologique' %}">Antécédant Gynécologique</a>
                             </li>
 
                             <li>
-                                <a  href="{% url 'modificationmdp' %}">modifier un mot de passe</a>
+                                <a  href="{% url 'modificationmdp' %}">Modifier un mot de passe</a>
                             </li>
 
                             <li>
-                                <a  href="{% url 'constante' %}">constante</a>
+                                <a  href="{% url 'constante' %}">Constante</a>
                             </li>
 
                             
                             <li>
-                                <a  href="{% url 'diagnostique' %}">diagnostique</a>
+                                <a  href="{% url 'diagnostique' %}">Diagnostique</a>
                             </li>
 
                             <li>
-                                <a  href="{% url 'sortie_patient' %}">sortie</a>
+                                <a  href="{% url 'sortie_patient' %}">Sortie</a>
                             </li>
 
                             <li>
-                                <a  href="{% url 'bilanimg' %}">bilan img</a>
+                                <a  href="{% url 'bilanimg' %}">Bilan Imagérie</a>
                             </li>
 
                             <li>
-                                <a  href="{% url 'bilanbio' %}">bilan bio</a>
+                                <a  href="{% url 'bilanbio' %}">Bilan Biologique</a>
                             </li>
 
                             <li>
-                                <a  href="{% url 'adminform' %}">admin</a>
+                                <a  href="{% url 'adminform' %}">Admin</a>
                             </li>
 
                         </ul>

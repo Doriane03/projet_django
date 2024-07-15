@@ -2,13 +2,40 @@
 {% block formsortie %}
 <center><form method="post" action="" class="formcontenu" >
 
+
+
+    refsortie=models.fields.AutoField(primary_key=True)
+    datesortie=models.fields.DateTimeField(default=datetime.now) 
+    motifsortie=models.fields.CharField(max_length=50)
+    remplipar=models.fields.CharField(max_length=100,null=True, blank=True)
+
+#pour refus de suivi
+    daterefus=models.fields.DateField(null=True, blank=True)
+#fin
+#pour perdu de vue
+    datedernierevisite=models.fields.DateField(null=True, blank=True)
+    datederniererelance=models.fields.DateField(null=True, blank=True)
+    typederelance=models.fields.CharField(max_length=100,null=True, blank=True)
+    typedenouvelle=models.fields.CharField(max_length=100,null=True, blank=True)
+    raison=models.fields.CharField(max_length=255,null=True, blank=True)
+#fin
+    commentaire=models.fields.CharField(max_length=255,null=True, blank=True)
+#pour transfert de dossier
+    datedetransfert=models.fields.DateField(null=True, blank=True)
+    nouveaucentredesuivi=models.fields.CharField(max_length=100,null=True, blank=True)
+    numerodedossierdanslecentredetransfert=models.fields.CharField(max_length=255,null=True, blank=True)
+#fin
     <div>
         <nav class="divcontenunav">sortie</nav>
     </div>
 
     {% csrf_token %}
     <fieldset>   
-        
+        <div  class="divsortie">
+            <label > fiche remplie par</label>
+            <input  type="text" name="remplipar"/ >
+        </div>
+       
         <div  class="divsortie">
             <label >patient concerné</label>
             <input  type="text" name="patient" >
@@ -16,24 +43,92 @@
 
         <div class="divsortie">
             <label> motif de sortie</label>
-            <select name="motifsortie"  required>
-                    <option value="mort">choisir un motif</option>
-                    <option value="mort">mort</option>
-                    <option value="fuite">fuite</option>
-            </select>
+            <div  class="custom-control custom-radio">
+                <input type="radio"  name="motifsortie"  value="décès"   onclick="sortie()" class="custom-control-input" id="exampleRadios1"/>
+                <label class="custom-control-label" for="exampleRadios1">décès</label>
+                    <div class="test" id="motif1"> 
+                             <div class="divsortie">
+                                <label  >Date du décès</label>
+                                <input  type="date" name="datedeces"/>
+                            </div>
+                                <div class="divsortie">
+                                    <label>lieu du décès</label>
+                                    <div>
+                                        <input type="checkbox"   name="lieudeces[]"  value="domicile" />
+                                        <label class="custom-control-label">domicile</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox"   name="lieudeces[]"  value="centre de santé"/>
+                                        <label class="custom-control-label">centre de santé</label>
+                                    </div>
+                                </div>
+
+                                <div  class="divsortie">
+                                    <label >cause du décès</label>
+                                    <input  type="text" name="causedudeces"/>
+                                </div>
+
+                            <div class="divsortie">
+                                <label>décès lié a l'hépatite </label>
+                                <div  class="custom-control custom-radio">
+                                    <input type="radio"  name="decesliea"  value="oui"    class="custom-control-input" id="exampleRadios5"/>
+                                    <label class="custom-control-label" for="exampleRadios5">oui</label>
+                                </div>
+
+                                <div  class="custom-control custom-radio">
+                                    <input type="radio"  name="decesliea"  value="non"    class="custom-control-input" id="exampleRadios6"/>
+                                    <label class="custom-control-label" for="exampleRadios6">non</label>
+                                </div>
+                            </div>
+                    </div>
+            </div>
+            <div  class="custom-control custom-radio">
+                <input type="radio"  name="motifsortie"  value="perdu de vue"   onclick="sortie()" class="custom-control-input" id="exampleRadios2"/>
+                <label class="custom-control-label" for="exampleRadios2">perdu de vue</label>
+                    <div class="test" id="motif2"> 
+                        <div class="divsortie">
+                            <label  >date de sortie</label>
+                            <input  type="date" name="datesortie" >
+                        </div>
+                    </div>
+            </div>
+
+            <div  class="custom-control custom-radio">
+                <input type="radio"  name="motifsortie"  value="transfert de dossier"   onclick="sortie()" class="custom-control-input" id="exampleRadios3"/>
+                <label class="custom-control-label" for="exampleRadios3">transfert de dossier</label>
+                    <div class="test" id="motif3"> 
+                        puff
+                    </div>
+            </div>
+
+            <div  class="custom-control custom-radio">
+                <input type="radio"  name="motifsortie"  value="refus de suivi"   onclick="sortie()" class="custom-control-input" id="exampleRadios4"/>
+                <label class="custom-control-label" for="exampleRadios4">refus de suivi</label>
+                    <div class="test" id="motif4"> 
+                        <div class="divsortie">
+                            <label  >Date de refus</label>
+                            <input  type="date" name="daterefus" >
+                        </div>
+
+                        <div class="divsortie">
+                            <label  >Date de dernière visite</label>
+                            <input  type="date" name="datedernierevisite" >
+                        </div>
+
+                        <div  class="divsortie">
+                            <label >Raison notifiée</label>
+                            <input  type="text" name="raison" >
+                        </div>
+                    </div>
+            </div>
         </div>
 
-        <div class="divsortie">
-        <label  >date de sortie</label>
-        <input  type="date" name="datesortie" >
-        </div>
-
-        <div class="divsortie">
-        <label>date du prochain rendez-vous </label>
-        <input  type="date" name="prochaineconsultation" >
+        <div>
+        <label> Commentaire/Observation</label>
+        <textarea name="commentaire" placeholder="commentaire" class="inputcontenu" rows="4" cols="50"></textarea>
         </div>
     </fieldset>
-    <input  type="submit" name="validesortie" value="Valider" class="btn btn-primary" >
+    <input  type="submit" name="validesortie" value="Valider" class="btn btn-primary"/ >
 </form>
 </center>
 {% endblock %}
