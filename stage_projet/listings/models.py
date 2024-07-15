@@ -565,13 +565,12 @@ class bilan_biologique(models.Model):
         ('Ac anti HBe ','Ac anti HBe '),
         ('Ag HBe ','Ag HBe '),
     )
-    marqueurVir=models.fields.CharField(max_length=100,choices=MAYBECHOICE1)
+    typeexamen=models.fields.CharField(max_length=100,choices=MAYBECHOICE1)
     MAYBECHOICE2=(
         ('positif','positif'),
         ('négatif ','négatif '),
     )
-    resultat=models.fields.CharField(max_length=100,choices=MAYBECHOICE2)
-    
+    resultatmodalite=models.fields.CharField(max_length=100,choices=MAYBECHOICE2) 
     MAYBECHOICE3=(
         ('UI/ ml  ','UI/ ml'),
         ('mmol/ l','mmol/ l'),
@@ -579,10 +578,11 @@ class bilan_biologique(models.Model):
         ('/mm3','/mm3'),
     )
     unite=models.fields.CharField(max_length=100,choices=MAYBECHOICE3)
+    resultatnumerique=models.fields.CharField(max_length=100)
     datereceptionechantillon= models.fields.DateTimeField(null=True, blank=True) 
     dateremiseresultat= models.fields.DateTimeField(null=True, blank=True)                                                                               
     consultation=models.ForeignKey(consultation, on_delete=models.CASCADE)
     def __str__(self):
-        return f'{self.numbilanbio} {self.marqueurVir}  {self.resultat} {self. unite} {self.datereceptionechantillon}  {self.dateremiseresultat}{self.consultation}'
+        return f'{self.numbilanbio} {self.typeexamen}  {self.resultatmodalite} {self. unite} {self.datereceptionechantillon}  {self.dateremiseresultat} {self.consultation}  {self.resultatnumerique}'
 #fin class avec cle secondaire
 # Create your models here.

@@ -10,29 +10,29 @@ from django.contrib.auth.hashers import make_password,check_password
 from django.db.models import Subquery
 from django.contrib import messages
 #import des class de ma bd
-from .models import ordonnancemedicament
-from listings.models  import antecedant_familial # type: ignore #nouveau
-from listings.models  import consultation # type: ignore # modifie
-from listings.models  import antecedant_chirurgical # type: ignore #nouveau
-from listings.models  import antecedant_medical # type: ignore #nouveau
-from listings.models  import antecedant_genecologique # type: ignore #nouveau
-from listings.models  import medicament # type: ignore
-from listings.models  import categorie # type: ignore
+#from .models import ordonnancemedicament
+#from listings.models  import antecedant_familial # type: ignore #nouveau
+#from listings.models  import consultation # type: ignore # modifie
+#from listings.models  import antecedant_chirurgical # type: ignore #nouveau
+#from listings.models  import antecedant_medical # type: ignore #nouveau
+#from listings.models  import antecedant_genecologique # type: ignore #nouveau
+#from listings.models  import medicament # type: ignore
+#from listings.models  import categorie # type: ignore
 #from listings.models  import sortie # type: ignore
-from listings.models  import hospitalisation # type: ignore
-from listings.models  import service # type: ignore 
-from listings.models  import chu # type: ignore
-from listings.models  import pays # type: ignore
-from listings.models  import type_personnel_soignant # type: ignore
-from listings.models  import personnel_soignant # type: ignore
-from listings.models  import facture # type: ignore
-from listings.models  import constante # type: ignore
-from listings.models  import patient # type: ignore
-from listings.models  import lit # type: ignore
-from listings.models  import ordonnance # type: ignore
-from listings.models  import diagnostique # type: ignore
-from listings.models  import bilan_imagerie # type: ignore
-from listings.models  import bilan_biologique # type: ignore
+#from listings.models  import hospitalisation # type: ignore
+#from listings.models  import service # type: ignore 
+#from listings.models  import chu # type: ignore
+#from listings.models  import pays # type: ignore
+#from listings.models  import type_personnel_soignant # type: ignore
+#from listings.models  import personnel_soignant # type: ignore
+#from listings.models  import facture # type: ignore
+#from listings.models  import constante # type: ignore
+#from listings.models  import patient # type: ignore
+#from listings.models  import lit # type: ignore
+#from listings.models  import ordonnance # type: ignore
+#from listings.models  import diagnostique # type: ignore
+#from listings.models  import bilan_imagerie # type: ignore
+#from listings.models  import bilan_biologique # type: ignore
 #finimport
 
 #import formulaire de ma bd
