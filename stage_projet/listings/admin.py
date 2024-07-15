@@ -90,7 +90,7 @@ class consultationAdmin(admin.ModelAdmin):
 class diagnostiqueAdmin(admin.ModelAdmin):
     list_display=('iddiag','libdiag','date') # type: ignore
 
-class ordonnanceAdmin(admin.ModelAdmin):
+#class ordonnanceAdmin(admin.ModelAdmin):
     #list_display=('reford','consulation') # type: ignore
     #inlines = [ordonnancemedicamentInline]
 
