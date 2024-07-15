@@ -41,14 +41,14 @@
             <input  type="text" name="patient" >
         </div>
 
-        <div class="divsortie">
+        <div>
             <label> motif de sortie</label>
-            <div  class="custom-control custom-radio">
+            <div  class="custom-control custom-radio" id="presdiv6">
                 <input type="radio"  name="motifsortie"  value="décès"   onclick="sortie()" class="custom-control-input" id="exampleRadios1"/>
                 <label class="custom-control-label" for="exampleRadios1">décès</label>
                     <div class="test" id="motif1"> 
                              <div class="divsortie">
-                                <label  >Date du décès</label>
+                                <label>Date du décès</label>
                                 <input  type="date" name="datedeces"/>
                             </div>
                                 <div class="divsortie">
@@ -82,7 +82,7 @@
                             </div>
                     </div>
             </div>
-            <div  class="custom-control custom-radio">
+            <div  class="custom-control custom-radio" id="presdiv2">
                 <input type="radio"  name="motifsortie"  value="perdu de vue"   onclick="sortie()" class="custom-control-input" id="exampleRadios2"/>
                 <label class="custom-control-label" for="exampleRadios2">perdu de vue</label>
                     <div class="test" id="motif2"> 
@@ -93,7 +93,7 @@
                     </div>
             </div>
 
-            <div  class="custom-control custom-radio">
+            <div  class="custom-control custom-radio" >
                 <input type="radio"  name="motifsortie"  value="transfert de dossier"   onclick="sortie()" class="custom-control-input" id="exampleRadios3"/>
                 <label class="custom-control-label" for="exampleRadios3">transfert de dossier</label>
                     <div class="test" id="motif3"> 
@@ -101,7 +101,7 @@
                     </div>
             </div>
 
-            <div  class="custom-control custom-radio">
+            <div  class="custom-control custom-radio" id="presdiv2">
                 <input type="radio"  name="motifsortie"  value="refus de suivi"   onclick="sortie()" class="custom-control-input" id="exampleRadios4"/>
                 <label class="custom-control-label" for="exampleRadios4">refus de suivi</label>
                     <div class="test" id="motif4"> 
@@ -123,7 +123,7 @@
             </div>
         </div>
 
-        <div>
+        <div class="divsortie">
         <label> Commentaire/Observation</label>
         <textarea name="commentaire" placeholder="commentaire" class="inputcontenu" rows="4" cols="50"></textarea>
         </div>

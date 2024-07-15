@@ -235,6 +235,10 @@ def bilanbio(request):
 
 def tableauconsultation(request):
     return render(request,'listings/tableauconsultation.html')
+
+
+def chart(request):
+    return render(request,'listings/chart.html')
 #fin
 
 #def create_folder(request):

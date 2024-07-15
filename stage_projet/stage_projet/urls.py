@@ -31,6 +31,7 @@ urlpatterns = [
     #pour ma bd
     path ('',views.connexion,name='connexion'),
     path ('constante/',views.constante,name='constante'),
+    path ('chart/',views.constante,name='chart'),
     path ('patient/',views.patient,name='patient'),
     path ('consultation/',views.consultation,name='consultation'),
     path ('facture/',views.facture,name='facture'),
