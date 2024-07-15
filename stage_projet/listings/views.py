@@ -18,7 +18,7 @@ from listings.models  import antecedant_medical # type: ignore #nouveau
 from listings.models  import antecedant_genecologique # type: ignore #nouveau
 from listings.models  import medicament # type: ignore
 from listings.models  import categorie # type: ignore
-from listings.models  import sortie # type: ignore
+#from listings.models  import sortie # type: ignore
 from listings.models  import hospitalisation # type: ignore
 from listings.models  import service # type: ignore 
 from listings.models  import chu # type: ignore

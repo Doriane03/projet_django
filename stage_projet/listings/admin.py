@@ -13,7 +13,7 @@ from listings.models  import antecedant_medical # type: ignore #nouveau
 from listings.models  import antecedant_genecologique # type: ignore #nouveau
 from listings.models  import medicament # type: ignore
 from listings.models  import categorie # type: ignore
-from listings.models  import sortie # type: ignore
+#from listings.models  import sortie # type: ignore
 from listings.models  import hospitalisation # type: ignore
 from listings.models  import service # type: ignore
 from listings.models  import chu # type: ignore
@@ -57,8 +57,8 @@ class hospitalisationAdmin(admin.ModelAdmin):
 class categorieAdmin(admin.ModelAdmin):
     list_display=('refcat','numcat') # type: ignore
 
-class sortieAdmin(admin.ModelAdmin):
-    list_display=('refsortie', 'datesortie',  'motifsortie', 'personnel_soignant', 'datedetransfert',  'numerodedossierdanslecentredetransfert', 'nouveaucentredesuivi', 'raison', 'commentaire',  'typedenouvelle', 'typederelance',  'datederniererelance',  'datedernierevisite', 'daterefus',  'remplipar',   'datedeces',  'causedudeces', 'lieudeces',  'decesliea') # type: ignore
+#class sortieAdmin(admin.ModelAdmin):
+    #list_display=('refsortie', 'datesortie',  'motifsortie', 'personnel_soignant', 'datedetransfert',  'numerodedossierdanslecentredetransfert', 'nouveaucentredesuivi', 'raison', 'commentaire',  'typedenouvelle', 'typederelance',  'datederniererelance',  'datedernierevisite', 'daterefus',  'remplipar',   'datedeces',  'causedudeces', 'lieudeces',  'decesliea') # type: ignore
 
 class factureAdmin(admin.ModelAdmin):
     list_display=('idfact', 'numerofact', 'montantpaye',  'caution_versee', 'date_versement', 'duree_sejour', 'modepaiment', 'cout_sejour', 'remboursement', 'rest_a_payer', 'date', 'patient') # type: ignore
