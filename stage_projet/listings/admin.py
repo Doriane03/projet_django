@@ -41,8 +41,8 @@ admin.site.register(listing,listingAdmin)
 #class de ma base de donnees
 
 class ordonnancemedicamentInline(admin.TabularInline):#cherche à comprendre pourquoi
-    model = ordonnancemedicament
-    extra = 1
+    #model = ordonnancemedicament
+    #extra = 1
     
 
 class paysAdmin(admin.ModelAdmin):
@@ -91,8 +91,8 @@ class diagnostiqueAdmin(admin.ModelAdmin):
     list_display=('iddiag','libdiag','date') # type: ignore
 
 class ordonnanceAdmin(admin.ModelAdmin):
-    list_display=('reford','consulation') # type: ignore
-    inlines = [ordonnancemedicamentInline]
+    #list_display=('reford','consulation') # type: ignore
+    #inlines = [ordonnancemedicamentInline]
 
 class bilan_imagerieAdmin(admin.ModelAdmin):
     list_display=('numbilimg','echographie_ou_radiograpgie','renseignementclinique') # type: ignore
