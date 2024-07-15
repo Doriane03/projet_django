@@ -419,7 +419,7 @@ class hospitalisation(models.Model):
 
 class sortie(models.Model):#migration
     refsortie=models.fields.AutoField(primary_key=True)
-    datesortie=models.DateField(default=date.today)
+    datesortie=models.fields.DateTimeField(default=datetime.now) 
     motifsortie=models.fields.CharField(max_length=50,)
     remplipar=models.fields.CharField(max_length=100)
 
