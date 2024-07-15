@@ -40,7 +40,7 @@ admin.site.register(listing,listingAdmin)
 
 #class de ma base de donnees
 
-class ordonnancemedicamentInline(admin.TabularInline):#cherche à comprendre pourquoi
+#class ordonnancemedicamentInline(admin.TabularInline):#cherche à comprendre pourquoi
     #model = ordonnancemedicament
     #extra = 1
     
