@@ -289,13 +289,6 @@ class antecedant_familial(models.Model):#nouvel ajout
         ('nsp','ne sait pas'),
     ) 
     cpf_COL=models.fields.CharField(max_length=3,choices=MAYBECHOICE9)
-    
-    poids=models.fields.IntegerField(blank=True)
-    taille=models.fields.IntegerField(blank=True)
-    imc=models.fields.IntegerField(blank=True)
-    tension_art=models.fields.IntegerField(blank=True)
-    pouls=models.fields.IntegerField(blank=True)
-    temperature=models.fields.IntegerField(blank=True,null=True)
     conscience=models.fields.CharField(max_length=50,blank=True,null=True)
     statutoms=models.fields.CharField(max_length=50,blank=True,null=True)
     MAYBECHOICE4=(
