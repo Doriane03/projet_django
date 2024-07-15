@@ -204,8 +204,24 @@ margin-right:-0.5%;
 display:block;
 margin-right:38%;
 }
-.leftnotif{
-  border: 1px solid black;
+
+#presdiv6{
+  display:block;
+  margin-right:3%;
+}
+
+#presdiv7{
+    display:block;
+    margin-left:2%;
+}
+#presdiv8{
+      display:block;
+      margin-left:2.5%;
+}
+
+#presdiv9{
+  display:block;
+  margin-left:7%;
 }
 
 #div3{
