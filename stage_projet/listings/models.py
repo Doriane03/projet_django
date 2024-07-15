@@ -426,17 +426,35 @@ class hospitalisation(models.Model):
 
 class sortie(models.Model):#migration
     refsortie=models.fields.AutoField(primary_key=True)
-    datesortie=models.fields.DateField(null=True, blank=True)
-    MAYBECHOICE1=(
-        ('déces','déces'),
-        ('fuite','fuite'),
-        ('guérit','guérit'),
-    )
-    motifsortie=models.fields.CharField(max_length=10,choices=MAYBECHOICE1)
-    prochaineconsultation=models.fields.DateField()
+    datesortie=models.DateTimeField(default=datetime.now)  
+    motifsortie=models.fields.CharField(max_length=50,)
+    remplipar=models.fields.CharField(max_length=100)
+
+#pour le deces
+    datedeces=models.fields.DateField()
+    causedudeces=models.fields.CharField(max_length=100)
+    lieudeces=models.fields.CharField(max_length=10)
+    decesliea=models.fields.CharField(max_length=4)
+#fin
+#pour refus de suivi
+    daterefus=models.fields.DateField()
+#fin
+#pour perdu de vue
+    datedernierevisite=models.fields.DateField()
+    datederniererelance=models.fields.DateField()
+    typederelance=models.fields.CharField(max_length=100)
+    typedenouvelle=models.fields.CharField(max_length=100)
+    raison=models.fields.CharField(max_length=255)
+#fin
+    commentaire=models.fields.CharField(max_length=255)
+#pour transfert de dossier
+    datedetransfert=models.fields.DateField()
+    nouveaucentredesuivi=models.fields.CharField(max_length=100)
+    numerodedossierdanslecentredetransfert=models.fields.CharField(max_length=255)
+#fin
     personnel_soignant=models.ForeignKey(personnel_soignant,on_delete=models.CASCADE)                                                                                
     def __str__(self):
-        return f'{self.refsortie} {self.datesortie}  {self.motifsortie} {self.prochaineconsultation} {self.personnel_soignant} '
+        return f'{self.refsortie} {self.datesortie}  {self.motifsortie} {self.personnel_soignant} {self.datedetransfert}  {self.numerodedossierdanslecentredetransfert} {self.nouveaucentredesuivi} {self.raison} {self.commentaire}  {self.typedenouvelle} {self.typederelance}  {self.datederniererelance}  {self.datedernierevisite} {self.daterefus}  {self.remplipar}   {self.datedeces}  {self.causedudeces} {self.lieudeces}  {self.decesliea}'
     
 
 
