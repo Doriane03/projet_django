@@ -9,9 +9,16 @@
 {% csrf_token %}
     <fieldset>
         <table id="true">
-            <tr> <div >
-                <td> <div >
-                        <label for="inputZip">nom du médicament</label>  
+            <tr>
+                <th>nom du médicament</th>
+                <th>nombre de boite</th>
+                <th>dossage</th>
+                <th>type</th>
+            </tr>
+            <tr> 
+                <div >
+                <td> 
+                    <div >
                         <select name="nommedicament"  required>
                             <option>choisir un médicament</option>
                             {% for medicament in medicaments %}
@@ -23,14 +30,12 @@
 
                 <td>
                      <div>
-                        <label for="inputZip">nombre de boite</label>
                         <input type="text"  id="inputZip" >
                     </div>
                 </td>
+
                 <td>
                     <div>
-                        <label for="inputZip">dossage</label>
-                            
                         <select name="dosage"  required>
                             <option>choisir le dossage</option>
                             {% for medicament in medicaments %}
@@ -40,20 +45,20 @@
                     </div>
 
                 </td>
+
                 <td>
                     <div>
-                        <label > type</label>
                         <select name="ok"  required>
                                 <option>choisir un type</option>
                                 <option value="ok">sirop</option>
                                 <option>comprimé</option>
                         </select>
                     </div>
-                </div>
                 </td>
+            </div>
                 </tr>   
     </table>
-        <input type="checkbox" name="ajouter" value="ajouter un médicament"  onclick="ajouter()" />ajouter un médicament
+    <input type="checkbox"   name="ajout"  value="oui" onclick="ajouter()"/>ajouter un médicament
     </fieldset>
     <input type="submit"  name="valideconstante"  value="Enregister" class="btn btn-primary"/>
 </form>
