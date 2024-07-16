@@ -1,4 +1,4 @@
-#fromdjango.contrib import admin # type: ignore
+from django.contrib import admin # type: ignore
 from  listings.models import band # type: ignore
 from  listings.models import listing # type: ignore
 
@@ -35,6 +35,7 @@ class bandAdmin(admin.ModelAdmin):
     list_display=('name','genre','year_formed','biography','active','off_homepage') # type: ignore
 class listingAdmin(admin.ModelAdmin):
     list_display=('title','description','sold','year','type') # type: ignore
+
 admin.site.register(band,bandAdmin)
 admin.site.register(listing,listingAdmin)
 
