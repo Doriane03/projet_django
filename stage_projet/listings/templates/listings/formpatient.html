@@ -1,7 +1,7 @@
 {% extends 'listings/template.html' %}
 {% block formpatient %}
 <center>
-<form method="post" action=""  class="formcontenu">
+<form method="post" action="{% url 'patient' %}"  class="formcontenu">
     {% csrf_token %}
     <fieldset>
             <div class="divsortie">
