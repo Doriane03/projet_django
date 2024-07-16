@@ -156,8 +156,7 @@ def patient(request):
     lits = lit.objects.all()
     Lit_id= lit.objects.filter(numlit=request.POST['numlit']).values_list('reflit', flat=True).first()
     if request.method=='POST':
-        reg=patient()
-        reg.save()  
+        print('hur') 
     return render(request,'listings/formpatient.html',context={'lits':lits})
 #fin
 def constante(request):
