@@ -156,7 +156,8 @@ def patient(request):
     lits = lit.objects.all()
     if request.method=='POST':
         Lit_id= lit.objects.filter(numlit=request.POST['numlit']).values_list('reflit', flat=True).first()
-        reg=patient(nom=request.POST['nom'],
+        nom = request.POST['nom']
+        reg=patient(nom=nom,
         contact1=request.POST['contact1'],
         contact2=request.POST['contact2'],
         email=request.POST['email'],
