@@ -49,7 +49,7 @@ class lit(models.Model):
         
 class patient(models.Model): #modifie
     idpatient=models.fields.AutoField(primary_key=True)
-    nom=models.fields.CharField(max_length=120)
+    nom=models.fields.CharField(max_length=255)
     contact1=models.fields.PositiveIntegerField(blank=True,null=True)
     contact2=models.fields.PositiveIntegerField(blank=True,null=True)
     email=models.fields.EmailField(max_length=254,blank=True,null=True)
@@ -68,7 +68,7 @@ class patient(models.Model): #modifie
     nationalite=models.fields.CharField(max_length=100)
     situation_matrimoniale=models.fields.CharField(max_length=100)
     nombre_enfant=models.fields.PositiveIntegerField(null=False)
-    lit=models.OneToOneField(lit, on_delete=models.CASCADE)    
+    lit=models.OneToOneField(lit,on_delete=models.CASCADE)    
     def __str__(self):
         return f'{self.idpatient} {self.nom} {self.contact1} {self.contact2} {self.profession} {self.email} {self.age} {self.sexe}  {self.personne_a_contacter}  {self.ville}  {self.commune} {self.quartier}{self.nationalite}  {self.nombre_enfant}  {self.situation_matrimoniale} {self.telephone_cpu} {self.date_naissance} {self.lit}'
 
