@@ -10,7 +10,7 @@ from django.contrib.auth.hashers import make_password,check_password
 from django.db.models import Subquery
 from django.contrib import messages
 #import des class de ma bd
-from .models import ordonnancemedicament
+from listings.models import ordonnancemedicament
 from listings.models  import antecedant_familial # type: ignore #nouveau
 from listings.models  import consultation # type: ignore # modifie
 from listings.models  import antecedant_chirurgical # type: ignore #nouveau
@@ -156,8 +156,10 @@ def patient(request):
     lits = lit.objects.all()
     Lit_id= lit.objects.filter(numlit=request.POST['numlit']).values_list('reflit', flat=True).first()
     if request.method=='POST':
+        Nom=request.POST['nom']
+        print(Nom)
         reg=patient(nom=request.POST['nom'],contact1=request.POST['contact1'],contact2=request.POST['contact2'],email=request.POST['email'],personne_a_contacter=request.POST['personne_a_contacter'],telephone_cpu=request.POST['telephone_cpu'],date_naissance=request.POST['date_naissance'],profession=request.POST['profession'],ville=request.POST['ville'],age=request.POST['age'],sexe=request.POST['sexe'],commune=request.POST['commune'],quartier=request.POST['quartier'],nationalite=request.POST['nationalite'],situation_matrimoniale=request.POST['situation_matrimoniale'],nombre_enfant=request.POST['nombre_enfant'],lit_id=Lit_id)
-        print(nom)
+       
         reg.save()  
     return render(request,'listings/formpatient.html',context={'lits':lits})
 #fin
