@@ -98,7 +98,7 @@ class bilan_imagerieAdmin(admin.ModelAdmin):
     list_display=('numbilimg','echographie_ou_radiograpgie','renseignementclinique') # type: ignore
 
 class bilan_biologiqueAdmin(admin.ModelAdmin):
-    list_display=('numbilanbio', 'typeexamen',  'resultatmodalite', 'unite', 'datereceptionechantillon',  'dateremiseresultat', 'consultation',  'resultatnumerique') # type: ignore
+    list_display=('numbilanbio', 'typeexamen',  'resultatmodalite', 'unite', 'datereceptionechantillon',  'dateremiseresultat', 'consultation',  'resultatnumerique','prix') # type: ignore
     
 class antecedant_familialAdmin(admin.ModelAdmin): #nouveau
     list_display=('refantfam', 'hepatie_vir_ASC', 'cirrhose_ASC', 'cpf_ASC','hepatie_vir_DSC', 'cirrhose_DSC', 'cpf_DSC','hepatie_vir_COL', 'cirrhose_COL', 'cpf_COL','conscience', 'statutoms',  'hippocraismdigital', 'oncleblanc', 'autre', 'ascite', 'cvc', 'splenomegalie', 'flechehepatique', 'autresignephysique','patient')

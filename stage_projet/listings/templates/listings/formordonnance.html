@@ -6,51 +6,54 @@
 <div>
 <nav class="divcontenunav">ordonnance</nav>
 </div>
+{% csrf_token %}
     <fieldset>
-        <div >
-            <div >
-                <label for="inputZip">nom du médicament</label>
-                    
-                   <select name="nommedicament"   class="inputcontenu" required>
-                    <option>choisir un médicament</option>
-                    {% for medicament in medicaments %}
-                    <option value="{medicament.nommedicament}">{{medicament.nommedicament}}</option>
-                    {% endfor %}
-                    </select>
-            </div>
+        <table id="true">
+            <tr> <div >
+                <td> <div >
+                        <label for="inputZip">nom du médicament</label>  
+                        <select name="nommedicament"  required>
+                            <option>choisir un médicament</option>
+                            {% for medicament in medicaments %}
+                            <option value="{medicament.nommedicament}">{{medicament.nommedicament}}</option>
+                            {% endfor %}
+                            </select>
+                    </div>
+                </td>
 
-            
-            
+                <td>
+                     <div>
+                        <label for="inputZip">nombre de boite</label>
+                        <input type="text"  id="inputZip" >
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <label for="inputZip">dossage</label>
+                            
+                        <select name="dosage"  required>
+                            <option>choisir le dossage</option>
+                            {% for medicament in medicaments %}
+                            <option value="{medicament.dosage}">{{medicament.dosage}}</option>
+                            {% endfor %}
+                            </select>
+                    </div>
 
-
-            <div >
-                <label for="inputZip">nombre de boite</label>
-                <input type="text" class="inputcontenu" id="inputZip">
-            </div>
-
-            <div>
-                <label for="inputZip">dossage</label>
-                     
-                   <select name="dosage"   class="inputcontenu" required>
-                    <option>choisir le dossage</option>
-                    {% for medicament in medicaments %}
-                    <option value="{medicament.dosage}">{{medicament.dosage}}</option>
-                    {% endfor %}
-                    </select>
-            </div>
-
-
-
-            <div>
-                <label > type</label>
-                <select name="ok"   class="inputcontenu" required>
-                        <option>choisir un type</option>
-                        <option value="ok">sirop</option>
-                        <option>comprimé</option>
-                </select>
-              </div>
-            
-        </div>
+                </td>
+                <td>
+                    <div>
+                        <label > type</label>
+                        <select name="ok"  required>
+                                <option>choisir un type</option>
+                                <option value="ok">sirop</option>
+                                <option>comprimé</option>
+                        </select>
+                    </div>
+                </div>
+                </td>
+                </tr>   
+    </table>
+        <input type="checkbox" name="ajouter" value="ajouter un médicament"  onclick="ajouter()" />ajouter un médicament
     </fieldset>
     <input type="submit"  name="valideconstante"  value="Enregister" class="btn btn-primary"/>
 </form>

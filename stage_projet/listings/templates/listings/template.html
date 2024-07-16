@@ -235,6 +235,51 @@
                 }
             }
 
+            function sortieautre(){
+                var afficheRadio= document.getElementsByName("lieudeces");
+                var inputField1= document.getElementById("motif5");
+                for (var i = 0; i < afficheRadio.length; i++) {
+                    if (afficheRadio[i].checked) {
+                        switch(afficheRadio[i].value){
+                            case 'autre':
+                            inputField1.style.display = "block";
+                            break;
+
+                            case 'domicile':
+                            inputField1.style.display = "none";
+                            break;
+
+                            case 'centre de santé':
+                            inputField1.style.display = "none";
+                            break;
+                         }
+                    }
+                }
+            }
+
+
+            function ajouter(){
+                var affichecheckbox= document.getElementsByName("ajouter");
+                var inputField= document.getElementById("true");
+                for (var i = 0; i < affichecheckbox.length; i++) {
+                    if (affichecheckbox[i].checked) {
+                        if (affichecheckbox[i].value=="ajouter un médicament") {
+                        alert('ok');
+                        var newRow = inputField.insertRow(-1);
+                        var cell1 = newRow.insertCell(0);
+                        var cell2 = newRow.insertCell(1);
+                        var cell3 = newRow.insertCell(2);
+                        var cell4 = newRow.insertCell(3);
+                        cell1.innerHTML = "Nouveau Nom";
+                        cell2.innerHTML = "Nouvel Âge";
+                        cell3.innerHTML = "Nouveau Nom";
+                        cell4.innerHTML = "Nouvel Âge";.
+                    }
+                }
+            }
+            }
+
+
 
             function pourlecheckbox() {
                 var affichecheckbox= document.getElementsByName('motifdeconsultation[]');
@@ -268,17 +313,6 @@
         <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet"/>
         <link href="{% static 'listings/assets/plugins/bootstrap/css/bootstrap.min.css'%}" rel="stylesheet"/>
         <link href="{% static 'listings/assets/plugins/font-awesome/css/all.min.css'%}" rel="stylesheet"/>
-
-        <link rel="apple-touch-icon" sizes="76x76" href="{% static 'listings/docchart/assets/img/apple-icon.png' %}">
-        <link rel="icon" type="image/png" href="{% static 'listings/docchart/assets/img/favicon.png' %}">
-        <!--     Fonts and icons     -->
-        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
-        <!-- CSS Files -->
-        <link href="{% static 'listings/docchart/assets/css/bootstrap.min.css' %}" rel="stylesheet" />
-        <link href="{% static 'listings/docchart/assets/css/paper-dashboard.css?v=2.0.1' %}" rel="stylesheet" />
-        <!-- CSS Just for demo purpose, don't include it in your project -->
-        <link href="{% static 'listings/docchart/assets/demo/demo.css" rel="stylesheet' %}" />
         <!-- Theme Styles -->
         <link href="{% static 'listings/connect.min.css' %}" rel="stylesheet"/>
         <link href="{% static 'listings/admin3.css' %}" rel="stylesheet"/>
@@ -405,8 +439,8 @@
                             </div>-->
                             <div class="row">
                                 <div class="col-xl">
-                                    <div class="card">
-                                        <div class="card-body">
+                                    <div class="card1">
+                                        <div class="card-body1">
                                             {% block chart %}{% endblock %}
                                             {% block tableauconsultation %} {% endblock %}
                                             {% block formbilanbio %} {% endblock %}
@@ -451,26 +485,15 @@
         <script src="{% static 'listings/assets/plugins/jquery.slimscroll/jquery.slimscroll.min.js' %}"></script>
         <script src="{% static 'listings/assets/js/connect.min.js' %}"></script>
 
-                <!--   Core JS Files   -->
-        <script src="{% static 'listings/docchart/assets/js/core/jquery.min.js' %}"></script>
-        <script src="{% static 'listings/docchart/assets/js/core/popper.min.js' %}"></script>
-        <script src="{% static 'listings/docchart/assets/js/core/bootstrap.min.js' %}"></script>
-        <script src="{% static 'listings/docchart/assets/js/plugins/perfect-scrollbar.jquery.min.js' %}"></script>
-        <!--  Google Maps Plugin    -->
-        <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-        <!-- Chart JS -->
-        <script src="{% static 'listings/docchart/assets/js/plugins/chartjs.min.js' %}"></script>
-        <!--  Notifications Plugin    -->
-        <script src="{% static 'listings/docchart/assets/js/plugins/bootstrap-notify.js ' %}"></script>
-        <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-        <script src="{% static 'listings/docchart/assets/js/paper-dashboard.min.js?v=2.0.1' %}" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
-        <script src="{% static 'listings/docchart/assets/demo/demo.js' %}"></script>
-        <script>
-            $(document).ready(function() {
-            // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
-            demo.initChartsPages();
-            });
-        </script>
+        <script src="{% static 'listings/assets/plugins/jquery-sparkline/jquery.sparkline.min.js' %}"></script>
+        <script src="{% static 'listings/assets/plugins/apexcharts/dist/apexcharts.min.js' %}"></script>
+        <script src="{% static 'listings/assets/plugins/blockui/jquery.blockUI.js' %}"></script>
+        <script src="{% static 'listings/assets/plugins/flot/jquery.flot.min.js' %}"></script>
+        <script src="{% static 'listings/assets/plugins/flot/jquery.flot.time.min.js' %}"></script>
+        <script src="{% static 'listings/assets/plugins/flot/jquery.flot.symbol.min.js' %}"></script>
+        <script src="{% static 'listings/assets/plugins/flot/jquery.flot.resize.min.js' %}"></script>
+        <script src="{% static 'listings/assets/plugins/flot/jquery.flot.tooltip.min.js' %}"></script>
+        <script src="{% static 'listings/assets/js/pages/dashboard.js' %}"></script>
 
     </body>
 </html>

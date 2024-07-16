@@ -30,13 +30,22 @@
                             <div class="divsortie">
                                 <label>lieu du décès</label>
                                 <div  class="custom-control custom-radio" id="presdiv11">
-                                    <input type="radio"  name="lieudeces"  value="domicile"    class="custom-control-input" id="exampleRadios7"/>
+                                    <input type="radio"  name="lieudeces"  value="domicile"    class="custom-control-input" id="exampleRadios7" onclick="sortieautre()"/>
                                     <label class="custom-control-label" for="exampleRadios7">domicile</label>
                                 </div>
     
                                 <div  class="custom-control custom-radio" id="presdiv10">
-                                    <input type="radio"  name="lieudeces"  value="centre de santé"    class="custom-control-input" id="exampleRadios8"/>
+                                    <input type="radio"  name="lieudeces"  value="centre de santé"    class="custom-control-input" id="exampleRadios8" onclick="sortieautre()"/>
                                     <label class="custom-control-label" for="exampleRadios8">centre de santé</label>
+                                </div>
+
+
+                                <div  class="custom-control custom-radio" id="presdiv17">
+                                    <input type="radio"  name="lieudeces"  value="autre"    class="custom-control-input" id="exampleRadios20" onclick="sortieautre()"/>
+                                    <label class="custom-control-label" for="exampleRadios20">autre</label>
+                                </div>
+                                <div class="test" id="motif5">
+                                    <input  type="text" name="lieudeces" class="inputcontenu" placeholder"préciser"/>
                                 </div>
                             </div>
 
