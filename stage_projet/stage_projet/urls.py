@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('bands/',views.band_list),
     path('index',views.index,name='index'),
+    path('patient1',views.patient1,name='patient1'),
     path('listings/',views.listing_list,name='listing-list'),
     path('listings/<int:id>/',views.listing_details, name='listing-details'),
     path ('contact/',views.contact,name='contact'),

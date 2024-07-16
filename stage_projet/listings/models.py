@@ -60,8 +60,8 @@ class patient(models.Model): #modifie
     ville=models.fields.CharField(max_length=100)
     age=models.fields.PositiveIntegerField(null=False)
     class typesexe(models.TextChoices):
-        féminin="f"
-        masculin="m"
+        féminin="féminin"
+        masculin="masculin"
     sexe=models.fields.CharField(choices=typesexe.choices, max_length=100)
     commune=models.fields.CharField(max_length=100)
     quartier=models.fields.CharField(max_length=100)
