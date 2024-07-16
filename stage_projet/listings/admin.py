@@ -1,33 +1,33 @@
 #fromdjango.contrib import admin # type: ignore
-#fromlistings.models import band # type: ignore
-#fromlistings.models import listing # type: ignore
+from  listings.models import band # type: ignore
+from  listings.models import listing # type: ignore
 
 
 #import de ma bd
-#from.models import ordonnancemedicament
-#fromlistings.models  import pays # type: ignore
-#fromlistings.models  import antecedant_familial # type: ignore #nouveau
-#fromlistings.models  import consultation # type: ignore #modifie
-#fromlistings.models  import antecedant_chirurgical # type: ignore #nouveau
-#fromlistings.models  import antecedant_medical # type: ignore #nouveau
-#fromlistings.models  import antecedant_genecologique # type: ignore #nouveau
-#fromlistings.models  import medicament # type: ignore
-#fromlistings.models  import categorie # type: ignore
-#fromlistings.models  import sortie # type: ignore
-#fromlistings.models  import hospitalisation # type: ignore
-#fromlistings.models  import service # type: ignore
-#fromlistings.models  import chu # type: ignore
-#fromlistings.models  import pays # type: ignore
-#fromlistings.models  import type_personnel_soignant # type: ignore
-#fromlistings.models  import personnel_soignant # type: ignore
-#fromlistings.models  import facture # type: ignore
-#fromlistings.models  import constante # type: ignore
-#fromlistings.models  import patient # type: ignore #modifie
-#fromlistings.models  import lit # type: ignore
-#fromlistings.models  import ordonnance # type: ignore
-#fromlistings.models  import diagnostique # type: ignore
-#fromlistings.models  import bilan_imagerie # type: ignore
-#fromlistings.models  import bilan_biologique # type: ignore
+from.models import ordonnancemedicament
+from  listings.models  import pays # type: ignore
+from  listings.models  import antecedant_familial # type: ignore #nouveau
+from  listings.models  import consultation # type: ignore #modifie
+from  listings.models  import antecedant_chirurgical # type: ignore #nouveau
+from  listings.models  import antecedant_medical # type: ignore #nouveau
+from  listings.models  import antecedant_genecologique # type: ignore #nouveau
+from  listings.models  import medicament # type: ignore
+from  listings.models  import categorie # type: ignore
+from  listings.models  import sortie # type: ignore
+from  listings.models  import hospitalisation # type: ignore
+from  listings.models  import service # type: ignore
+from  listings.models  import chu # type: ignore
+from  listings.models  import pays # type: ignore
+from  listings.models  import type_personnel_soignant # type: ignore
+from  listings.models  import personnel_soignant # type: ignore
+from  listings.models  import facture # type: ignore
+from  listings.models  import constante # type: ignore
+from  listings.models  import patient # type: ignore #modifie
+from  listings.models  import lit # type: ignore
+from  listings.models  import ordonnance # type: ignore
+from  listings.models  import diagnostique # type: ignore
+from  listings.models  import bilan_imagerie # type: ignore
+from  listings.models  import bilan_biologique # type: ignore
 #fin import
 
 
@@ -41,8 +41,8 @@ admin.site.register(listing,listingAdmin)
 #class de ma base de donnees
 
 class ordonnancemedicamentInline(admin.TabularInline):#cherche à comprendre pourquoi
-    #model = ordonnancemedicament
-    #extra = 1
+    model = ordonnancemedicament
+    extra = 1
     
 
 class paysAdmin(admin.ModelAdmin):
