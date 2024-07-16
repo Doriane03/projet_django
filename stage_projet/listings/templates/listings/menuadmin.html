@@ -4,19 +4,19 @@
 <div class="page-sidebar-inner slimscroll">
                         <ul class="accordion-menu">
                             <li>
-                                <a href="{% url 'adminform' %}"><i class="material-icons">person_edit</i>CREER UN UTILISATEUR</a>
+                                <a href="{% url 'adminform' %}"><i class="material-icons">person_edit</i>Créer un utilisateur</a>
                             </li>
 
                             <li>
-                                <a  href="{% url 'modificationmdp' %} " class="active"><i class="material-icons-outlined">update</i>CHANGER UN MOT DE PASSE</a>
+                                <a  href="{% url 'modificationmdp' %} " class="active"><i class="material-icons-outlined">update</i>Changer un mot de passe</a>
                             </li>
                             
                             <li>
-                                <a  href="#"><i class="material-icons-outlined">show_chart</i>AFFICHER LE TABLEAU DE BORD</a>
+                                <a  href="{% url 'chart' %}"><i class="material-icons-outlined">show_chart</i>Afficher le tableau de bord</a>
                             </li>
                             
                             <li>
-                                <a  href="{% url 'deconnexion' %}" ><i class="material-icons">logout</i>DECONNEXION</a>
+                                <a  href="{% url 'deconnexion' %}" ><i class="material-icons">logout</i>Déconnexion</a>
                             </li>
                         </ul>
 </div>

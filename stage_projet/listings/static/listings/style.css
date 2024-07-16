@@ -105,7 +105,7 @@ display:block;
 }
 
 .divcontenunav{
-padding:15px;
+padding:10px;
 text-align:center;
 width:100%;
 text-transform:capitalize;
@@ -121,7 +121,7 @@ font-family: Georgia, 'Times New Roman', Times, serif;
 display:block;
 }
 .divcontenudate>input{
-padding:15px;
+padding:10px;
 margin-left:70px;
 margin-bottom:10px;
 width:36%;
@@ -131,7 +131,7 @@ width:36%;
 display:block;
 }
 .divcontenusexe>input{
-padding:15px;
+padding:10px;
 margin-left: 15px;
 margin-bottom:10px;
 width:17%;
@@ -173,7 +173,7 @@ margin-left:25px;
   }
 .divfrmconsul>input[type="text"]{
 width:100%; 
-padding:15px;
+padding:10px;
 border-top:none;
 border-left:none;
 border-right:none;
@@ -293,7 +293,7 @@ margin-right:74%;
 }
 #div14>input[type="text"]{
 width:100%;
-padding:15px;
+padding:10px;
 border-top:none;
 border-left:none;
 border-right:none;
@@ -368,7 +368,7 @@ font-size:17;
  
 #divse>input[type="text"]{
 width:100%;
-padding:15px;
+padding:10px;
 border-top:none;
 border-left:none;
 border-right:none;
@@ -376,7 +376,7 @@ border-bottom:1px solid black;
 }
 #divsd>input[type="text"]{
 width:100%;
-padding:15px;
+padding:10px;
 border-top:none;
 border-left:none;
 border-right:none;
@@ -403,7 +403,7 @@ float:right;
  }
 
 .class1{
-padding:15px;
+padding:10px;
 text-align:center;
 color:white;
 background-color:hsl(195,100%,50%);
@@ -433,17 +433,49 @@ color: red;
 
 .untest1{
   margin-right:144px;
+  border: 1px solid black;
 }
+.untest1> input[type="text"]{
+  width:100%;
+  padding:10px;
+  border-top:none;
+  border-left:none;
+  border-right:none;
+  border-bottom:1px solid black;
+  }
+
 .untest2{
   margin-right:140px;
+  border: 1px solid black;
 }
+.untest2> input[type="text"]{
+  width:100%;
+  padding:10px;
+  border-top:none;
+  border-left:none;
+  border-right:none;
+  border-bottom:1px solid black;
+  }
+
 
 .untest3{
   margin-left:27px;
 }
+
 .untest4{
-  margin-right:90px;
+  margin-right:40px;
+  width: 100%;
+  border: 1px solid black;
 }
+.untest4> input[type="text"]{
+  width:100%;
+  padding:10px;
+  border-top:none;
+  border-left:none;
+  border-right:none;
+  border-bottom:1px solid black;
+  }
+
 .card-body1{
   background-color: white;
   flex: 1; /* Take the remaining space */
@@ -511,21 +543,21 @@ margin-left:158px;
   margin-left:5px; 
 }
 /*mise en forme tableau*/
-table {
+.table1 {
   width: 100%;
   border-collapse: collapse;
-  border: 1px solid black;
 }
-th,td{
-  border: 1px solid #ddd;
+.table1  th,td{
   text-align: center; /* Centrer horizontalement */
   vertical-align: middle; /* Centrer verticalement */
   padding: 8px;
 }
-th{
+.table1 th{
   background-color: #f2f2f2;
+  border: 1px solid #ddd;
 }
-select {
+.table1 select {
   width: 100%;
   border: none;
+  background-color:rgb(238, 238, 238);
 }

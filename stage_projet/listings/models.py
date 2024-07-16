@@ -572,11 +572,11 @@ class bilan_biologique(models.Model):
     )
     unite=models.fields.CharField(max_length=100,choices=MAYBECHOICE3)
     resultatnumerique=models.fields.CharField(max_length=100)
-    datereceptionechantillon= models.fields.DateTimeField(null=True, blank=True) 
-    dateremiseresultat= models.fields.DateTimeField(null=True, blank=True)  
+    #datereceptionechantillon= models.fields.DateTimeField(null=True, blank=True) 
+    #dateremiseresultat= models.fields.DateTimeField(null=True, blank=True)  
     prix=models.fields.CharField(max_length=100)                                                                          
     consultation=models.ForeignKey(consultation, on_delete=models.CASCADE)
     def __str__(self):
-        return f'{self.numbilanbio} {self.typeexamen}  {self.resultatmodalite} {self.unite} {self.datereceptionechantillon}  {self.dateremiseresultat} {self.consultation}  {self.resultatnumerique} {self.prix}'
+        return f'{self.numbilanbio} {self.typeexamen}  {self.resultatmodalite} {self.unite} {self.consultation}  {self.resultatnumerique} {self.prix}'
 #fin class avec cle secondaire
 # Create your models here.

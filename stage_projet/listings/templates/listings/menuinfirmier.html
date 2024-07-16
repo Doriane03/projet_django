@@ -3,23 +3,23 @@
                         <ul class="accordion-menu">
                             
                             <li>
-                                <a href="#" ><i class="material-icons">search</i>RECHERCHE DOSSIER PATIENT</a>
+                                <a href="#" ><i class="material-icons">search</i>Rechercher un dossier patient</a>
                             </li>
 
                             <li>
-                                <a  href="#" class="active"><i class="material-icons-outlined">calendar_today</i>RENDEZ-VOUS</a>
+                                <a  href="#" class="active"><i class="material-icons-outlined">calendar_today</i>Rendez-vous</a>
                             </li>
 
                             <li>
-                                <a  href="#" ><i class="material-icons-outlined">person-check</i>MEDECIN DISPONIBLE</a>
+                                <a  href="#" ><i class="material-icons-outlined">person-check</i>Médecin disponible</a> <!--faire une requete pour afficher une liste de tous les medecins connectes-->
                             </li>
 
                             <li>
-                                <a  href="{% url 'patient' %}" id="lien1"><i class="material-icons-outlined">save</i>ENREGISTRER UN PATIENT</a>
+                                <a  href="{% url 'patient' %}" id="lien1"><i class="material-icons-outlined">save</i>Enregister un patient</a>
                             </li>
                             
                             <li>
-                                <a  href="{% url 'deconnexion' %}"><i class="material-icons">logout</i>DECONNEXION</a>
+                                <a  href="{% url 'deconnexion' %}"><i class="material-icons">logout</i>Déconnexion</a>
                             </li>
                         </ul>
 {% endblock %}
