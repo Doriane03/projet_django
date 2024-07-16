@@ -154,8 +154,15 @@ def index(request):
 #fin
 def patient(request):
     lits = lit.objects.all()
-    Lit_id= lit.objects.filter(numlit=request.POST['numlit']).values_list('reflit', flat=True).first()
+    return render(request,'listings/formpatient.html',context={'lits':lits})
+
+
+
+def patient1(request):
+    lits = lit.objects.all()
+   
     if request.method=='POST':
+         Lit_id= lit.objects.filter(numlit=request.POST['numlit']).values_list('reflit', flat=True).first()
         Nom=request.POST['nom']
         print(Nom)
         reg=patient(nom=request.POST['nom'],contact1=request.POST['contact1'],contact2=request.POST['contact2'],email=request.POST['email'],personne_a_contacter=request.POST['personne_a_contacter'],telephone_cpu=request.POST['telephone_cpu'],date_naissance=request.POST['date_naissance'],profession=request.POST['profession'],ville=request.POST['ville'],age=request.POST['age'],sexe=request.POST['sexe'],commune=request.POST['commune'],quartier=request.POST['quartier'],nationalite=request.POST['nationalite'],situation_matrimoniale=request.POST['situation_matrimoniale'],nombre_enfant=request.POST['nombre_enfant'],lit_id=Lit_id)
