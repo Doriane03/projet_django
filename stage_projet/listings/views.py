@@ -72,7 +72,7 @@ def contact(request):
 
         if form.is_valid():
             send_mail(
-            subject=f'Message #from{form.cleaned_data["name"] or "anonyme"} via MerchEx Contact Us from',
+            subject=f'Message from{form.cleaned_data["name"] or "anonyme"} via MerchEx Contact Us from',
             message=form.cleaned_data['message'],
             from_email=form.cleaned_data['email'],
             recipient_list=['josephinedorianekouadio@gmail.com'],
