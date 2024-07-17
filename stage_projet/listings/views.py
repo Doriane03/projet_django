@@ -161,12 +161,12 @@ def Patient(request):
         reg.save()  
     return render(request,'listings/formpatient.html',context={'lits':lits})
 #fin
-def constante(request):
+def Constante(request):
     return render(request,'listings/formconstante.html')
-def consultation(request):
+def Consultation(request):
     return render(request,'listings/formconsultation.html')
 
-def facture(request):
+def Facture(request):
     return render(request,'listings/formfacture.html')
 
 def Diagnostique(request):
@@ -178,20 +178,20 @@ def Diagnostique(request):
         reg1.save()
     return render(request,'listings/formdiagnostiaue.html')
 
-def ordonnance(request):
+def Ordonnance(request):
     medicaments=medicament.objects.all()
     return render(request,'listings/formordonnance.html',context={'medicaments':medicaments}) 
     
-def antecedantmedical(request):
+def Antecedantmedical(request):
     return render(request,'listings/fromantmedical.html') 
 
-def antecedantchirurgical(request):
+def Antecedantchirurgical(request):
     return render(request,'listings/formantchirurgical.html') 
 
-def antecedantgenecologique(request):
+def Antecedantgenecologique(request):
     return render(request,'listings/formantgynecologique.html') 
 
-def sortie_patient(request):
+def Sortie_patient(request):
     return render(request,'listings/formsortie.html')
 
 def modificationmdp(request):
@@ -232,18 +232,18 @@ def deconnexion(request):
         del request.session['titre'] 
     return render(request, 'listings/index.html')
 
-def bilanimg(request):
+def Bilanimg(request):
     return render(request,'listings/formbilanimg.html')
 #menu
 
-def bilanbio(request):
+def Bilanbio(request):
     return render(request,'listings/bilanbio.html')
 
-def tableauconsultation(request):
+def Tableauconsultation(request):
     return render(request,'listings/tableauconsultation.html')
 
 
-def chart(request):
+def Chart(request):
     return render(request,'listings/chart.html')
 #fin
 
