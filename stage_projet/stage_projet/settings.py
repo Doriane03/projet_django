@@ -11,8 +11,12 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
 from pathlib import Path
+import environ
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR =os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+env = environ.Env()
+environ.Env.read_env()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -25,6 +29,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1','localhost']
 
+env = environ.Env()
+environ.Env.read_env()
 
 # Application definition
 
@@ -79,10 +85,10 @@ WSGI_APPLICATION = 'stage_projet.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'projet',
-        'USER': 'postgres',
-        'PASSWORD': 'stage',
-        'HOST': 'localhost',
+        'NAME':env('DB_NAME'),
+        'USER': env('DB_USER'),
+        'PASSWORD':env('PASSWORD'),
+        'HOST':env('DB_HOST'),
         'PORT': '5432'
     }
 }
@@ -134,7 +140,6 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS=[
     os.path.join(BASE_DIR,'listings') #pour les images
 ]
-STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-

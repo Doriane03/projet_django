@@ -7,4 +7,5 @@ include             0.2.2
 pip                 24.0
 psycopg2-binary     2.9.9
 soupsieve           2.5
+django-environ==0.11.2
 
