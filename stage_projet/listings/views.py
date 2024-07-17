@@ -152,7 +152,7 @@ def index(request):
 
 
 #fin
-def Patient1(request):
+def Patient(request):
     lits = lit.objects.all()
     if request.method=='POST':
         Lit_id= lit.objects.filter(numlit=request.POST['numlit']).values_list('reflit', flat=True).first()
