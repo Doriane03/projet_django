@@ -4,14 +4,7 @@
 <form method="post" action="{% url 'Patient1' %}"  class="formcontenu">
     {% csrf_token %}
     <fieldset>
-            <div class="divsortie">
-              <label > numero de lit:</label>
-              <select name="numlit"  required>
-                   {% for lit in lits %}
-                      <option value='{{ lit.numlit }}'>{{ lit.numlit }}</option>
-                   {% endfor %}
-              </select>
-            </div>
+            
             <input type="text"   placeholder="nom" name="nom" class="inputcontenu" required/>
             <input type="tel"   placeholder="numéro 1" name="contact1" class="inputcontenu" required/>
             <input type="tel" placeholder="numéro 2" name="contact2" class="inputcontenu" required/>
