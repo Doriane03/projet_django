@@ -434,7 +434,6 @@ color: red;
 .untest1{
   width:100%;
   margin-right:144px;
-  border: 1px solid black;
 }
 .untest1> input[type="text"]{
   width:100%;
@@ -448,7 +447,7 @@ color: red;
 .untest2{
   margin-right:140px;
   width: 100%;
-  border: 1px solid black;
+
 }
 .untest2> input[type="text"]{
   width:100%;
@@ -467,7 +466,6 @@ color: red;
 .untest4{
   width:100%;
   margin-right:150px;
-  border: 1px solid black;
 }
 .untest4> input[type="text"]{
   width:100%;
