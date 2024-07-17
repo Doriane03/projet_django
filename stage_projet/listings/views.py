@@ -37,8 +37,8 @@ from  listings.models  import Bilan_biologique # type: ignore
 #finimport
 
 #import formulaire de ma bd
-from  listings.forms import personnel_soignantForm # type: ignore #pour mon modele from
-from  listings.forms import cnx_form
+#from  listings.forms import personnel_soignantForm # type: ignore #pour mon modele from
+#from  listings.forms import cnx_form
 #fin
 from django.contrib.auth.decorators import login_required
 # Create your views here.
