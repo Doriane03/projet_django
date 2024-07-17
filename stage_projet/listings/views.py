@@ -183,8 +183,6 @@ def Diagnostique(request):
         Nom3=request.POST['consultation']
         reg1=diagnostique(libdiag=Nom1,date=Nom2,consultation_id=Nom3)
         reg1.save()
-        print(type(diagnostique))
-        return HttpResponse('Diagnostique enregistré avec succès')
     return render(request,'listings/formdiagnostiaue.html')
 
 def ordonnance(request):
