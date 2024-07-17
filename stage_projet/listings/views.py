@@ -105,7 +105,6 @@ def donne(request):
                # return HttpResponse('no')   
     #return render(request,'listings/cnx.html')
 
-@login_required(login_url="/")   
 def index(request):
     return render(request,'listings/index.html')
 
