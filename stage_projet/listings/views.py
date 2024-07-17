@@ -1,46 +1,46 @@
-from  django.http import HttpResponse # type: ignore
-from  django.shortcuts import render,redirect # type: ignore
-from  django.contrib.auth import  login , logout, authenticate # type: ignore
-from  django.contrib import messages # type: ignore
-from  listings.models  import band # type: ignore
-from  listings.models  import listing  # type: ignore
-from  listings.forms import contact_us # type: ignore
-from  django.core.mail import send_mail # type: ignore
-from  django.contrib.auth.hashers import make_password,check_password
-from  django.db.models import Subquery
-from  django.contrib import messages
-from django.contrib.auth.decorators import login_required
+#from  django.http import HttpResponse # type: ignore
+#from  django.shortcuts import render,redirect # type: ignore
+#from  django.contrib.auth import  login , logout, authenticate # type: ignore
+#from  django.contrib import messages # type: ignore
+#from  listings.models  import band # type: ignore
+#from  listings.models  import listing  # type: ignore
+#from  listings.forms import contact_us # type: ignore
+#from  django.core.mail import send_mail # type: ignore
+#from  django.contrib.auth.hashers import make_password,check_password
+#from  django.db.models import Subquery
+#from  django.contrib import messages
+#from django.contrib.auth.decorators import login_required
 #import des class de ma bd
-from  listings.models import ordonnancemedicament
-from  listings.models  import antecedant_familial # type: ignore #nouveau
-from  listings.models  import consultation # type: ignore # modifie
-from  listings.models  import antecedant_chirurgical # type: ignore #nouveau
-from  listings.models  import antecedant_medical # type: ignore #nouveau
-from  listings.models  import antecedant_genecologique # type: ignore #nouveau
-from  listings.models  import medicament # type: ignore
-from  listings.models  import categorie # type: ignore
-from  listings.models  import sortie # type: ignore
-from  listings.models  import hospitalisation # type: ignore
-from  listings.models  import service # type: ignore 
-from  listings.models  import chu # type: ignore
-from  listings.models  import pays # type: ignore
-from  listings.models  import type_personnel_soignant # type: ignore
-from  listings.models  import personnel_soignant # type: ignore
-from  listings.models  import facture # type: ignore
-from  listings.models  import constante # type: ignore
-from  listings.models  import patient # type: ignore
-from  listings.models  import lit # type: ignore
-from  listings.models  import ordonnance # type: ignore
-from  listings.models  import diagnostique # type: ignore
-from  listings.models  import bilan_imagerie # type: ignore
-from  listings.models  import bilan_biologique # type: ignore
+#from  listings.models import  Ordonnancemedicament
+#from  listings.models  import Antecedant_familial # type: ignore #nouveau
+#from  listings.models  import Consultation # type: ignore #modifie
+#from  listings.models  import Antecedant_chirurgical # type: ignore #nouveau
+#from  listings.models  import Antecedant_medical # type: ignore #nouveau
+#from  listings.models  import Antecedant_genecologique # type: ignore #nouveau
+#from  listings.models  import Medicament # type: ignore
+#from  listings.models  import Categorie # type: ignore
+#from  listings.models  import Sortie # type: ignore
+#from  listings.models  import Hospitalisation # type: ignore
+#from  listings.models  import Service # type: ignore
+#from  listings.models  import Chu # type: ignore
+#from  listings.models  import Pays # type: ignore
+#from  listings.models  import Type_personnel_soignant # type: ignore
+#from  listings.models  import Personnel_soignant # type: ignore
+#from  listings.models  import Pacture # type: ignore
+#from  listings.models  import Constante # type: ignore
+#from  listings.models  import Patient # type: ignore #modifie
+#from  listings.models  import Lit # type: ignore
+#from  listings.models  import Ordonnance # type: ignore
+#from  listings.models  import Diagnostique # type: ignore
+#from  listings.models  import Bilan_imagerie # type: ignore
+#from  listings.models  import Bilan_biologique # type: ignore
 #finimport
 
 #import formulaire de ma bd
-from  listings.forms import personnel_soignantForm # type: ignore #pour mon modele from
-from  listings.forms import cnx_form
+#from  listings.forms import personnel_soignantForm # type: ignore #pour mon modele #from
+#from  listings.forms import cnx_form
 #fin
-
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 def hello(request):
     return(HttpResponse('bonjour'))
@@ -73,9 +73,9 @@ def contact(request):
 
         if form.is_valid():
             send_mail(
-            subject=f'Message from{form.cleaned_data["name"] or "anonyme"} via MerchEx Contact Us from',
+            subject=f'Message #from{form.cleaned_data["name"] or "anonyme"} via MerchEx Contact Us #from',
             message=form.cleaned_data['message'],
-            from_email=form.cleaned_data['email'],
+            #from_email=form.cleaned_data['email'],
             recipient_list=['josephinedorianekouadio@gmail.com'],
         )       
     else:
@@ -90,8 +90,8 @@ def contact(request):
 #recuperation de donnees
 
 def donne(request):
-     patients =patient.objects.all()
-     return render(request,'listings/ok.html',context={'patients':patients})
+     Patients =patient.objects.all()
+     return render(request,'listings/ok.html',context={'Patients':Patients})
 
 
 #def connexion(request):
@@ -110,62 +110,62 @@ def index(request):
 
 #fin
 @login_required(login_url="listings/")
-def Patient(request):
-    lits = lit.objects.all()
+def patient(request):
+    Lits = Lit.objects.all()
     if request.method=='POST':
         Lit_id= lit.objects.filter(numlit=request.POST['numlit']).values_list('reflit', flat=True).first()
         Nom=request.POST['nom']
-        reg=patient(nom=Nom,contact1=request.POST['contact1'],contact2=request.POST['contact2'],email=request.POST['email'],personne_a_contacter=request.POST['personne_a_contacter'],telephone_cpu=request.POST['telephone_cpu'],date_naissance=request.POST['date_naissance'],profession=request.POST['profession'],ville=request.POST['ville'],age=request.POST['age'],sexe=request.POST['sexe'],commune=request.POST['commune'],quartier=request.POST['quartier'],nationalite=request.POST['nationalite'],situation_matrimoniale=request.POST['situation_matrimoniale'],nombre_enfant=request.POST['nombre_enfant'],lit_id=Lit_id)
+        reg=Patient(nom=Nom,contact1=request.POST['contact1'],contact2=request.POST['contact2'],email=request.POST['email'],personne_a_contacter=request.POST['personne_a_contacter'],telephone_cpu=request.POST['telephone_cpu'],date_naissance=request.POST['date_naissance'],profession=request.POST['profession'],ville=request.POST['ville'],age=request.POST['age'],sexe=request.POST['sexe'],commune=request.POST['commune'],quartier=request.POST['quartier'],nationalite=request.POST['nationalite'],situation_matrimoniale=request.POST['situation_matrimoniale'],nombre_enfant=request.POST['nombre_enfant'],Lit_id=Lit_id)
         reg.save()  
-    return render(request,'listings/formpatient.html',context={'lits':lits})
+    return render(request,'listings/formpatient.html',context={'Lits':Lits})
 #fin
 @login_required(login_url="listings/")
-def Constante(request):
+def constante(request):
     return render(request,'listings/formconstante.html')
 
 @login_required(login_url="listings/")
-def Consultation(request):
+def consultation(request):
     return render(request,'listings/formconsultation.html')
 
 
 @login_required(login_url="listings/")
-def Facture(request):
+def facture(request):
     return render(request,'listings/formfacture.html')
 
 @login_required(login_url="listings/")
-def Diagnostique(request):
+def diagnostique(request):
     if request.method=='POST':
         Nom1=request.POST['libdiag']
         Nom2=request.POST['date']
         Nom3=request.POST['consultation']
-        reg1=diagnostique(libdiag=Nom1,date=Nom2,consultation_id=Nom3)
+        reg1=Diagnostique(libdiag=Nom1,date=Nom2,Consultation_id=Nom3)
         reg1.save()
     return render(request,'listings/formdiagnostiaue.html')
 
 
 @login_required(login_url="listings/")
-def Ordonnance(request):
-    medicaments=medicament.objects.all()
-    return render(request,'listings/formordonnance.html',context={'medicaments':medicaments}) 
+def ordonnance(request):
+    Medicaments=Medicament.objects.all()
+    return render(request,'listings/formordonnance.html',context={'Medicaments':Medicaments}) 
 
 
 @login_required(login_url="listings/")
-def Antecedantmedical(request):
-    return render(request,'listings/fromantmedical.html') 
+def antecedantmedical(request):
+    return render(request,'listings/#fromantmedical.html') 
 
 
 @login_required(login_url="listings/")
-def Antecedantchirurgical(request):
+def antecedantchirurgical(request):
     return render(request,'listings/formantchirurgical.html') 
 
 
 @login_required(login_url="listings/")
-def Antecedantgenecologique(request):
+def antecedantgenecologique(request):
     return render(request,'listings/formantgynecologique.html') 
 
 
 @login_required(login_url="listings/")
-def Sortie_patient(request):
+def sortie_patient(request):
     return render(request,'listings/formsortie.html')
 
 @login_required(login_url="listings/")
@@ -208,29 +208,24 @@ def deconnexion(request):
     return render(request, 'listings/index.html')
 
 @login_required(login_url="listings/")
-def Bilanimg(request):
+def bilanimg(request):
     return render(request,'listings/formbilanimg.html')
 
 
 #menu
 @login_required(login_url="listings/")
-def Bilanbio(request):
+def bilanbio(request):
     return render(request,'listings/bilanbio.html')
 
 
 @login_required(login_url="listings/")
-def Tableauconsultation(request):
+def tableauconsultation(request):
     return render(request,'listings/tableauconsultation.html')
 
 
 @login_required(login_url="listings/")
-def Chart(request):
+def chart(request):
     return render(request,'listings/chart.html')
-#fin
-
-@login_required(login_url="listings/")
-def template(request):
-    return render(request,'listings/template.html')
 #fin
 
 #def create_folder(request):

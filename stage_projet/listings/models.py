@@ -35,19 +35,19 @@ class listing(models.Model):
     
     #class de mon projet de stage 
 #class sans clé secondaire
-class categorie(models.Model):
+class Categorie(models.Model):
     refcat=models.fields.AutoField(primary_key=True)
     numcat=models.fields.PositiveIntegerField(null=False)
     def __str__(self):
         return f'{self.refcat} {self.numcat}'
-class lit(models.Model):
+class Lit(models.Model):
     reflit=models.fields.AutoField(primary_key=True)
     numlit=models.fields.PositiveIntegerField(null=False)
-    categorie =models.ForeignKey(categorie, on_delete=models.CASCADE)
+    Categorie =models.ForeignKey(Categorie, on_delete=models.CASCADE)
     def __str__(self):
-        return f'{self.reflit} {self.numlit} {self.categorie}'
+        return f'{self.reflit} {self.numlit} {self.Categorie}'
         
-class patient(models.Model): #modifie
+class Patient(models.Model): #modifie
     idpatient=models.fields.AutoField(primary_key=True)
     nom=models.fields.CharField(max_length=255)
     contact1=models.fields.PositiveIntegerField(blank=True,null=True)
@@ -68,11 +68,11 @@ class patient(models.Model): #modifie
     nationalite=models.fields.CharField(max_length=100)
     situation_matrimoniale=models.fields.CharField(max_length=100)
     nombre_enfant=models.fields.PositiveIntegerField(null=False)
-    lit=models.OneToOneField(lit,on_delete=models.CASCADE)    
+    Lit=models.OneToOneField(Lit,on_delete=models.CASCADE)    
     def __str__(self):
-        return f'{self.idpatient} {self.nom} {self.contact1} {self.contact2} {self.profession} {self.email} {self.age} {self.sexe}  {self.personne_a_contacter}  {self.ville}  {self.commune} {self.quartier}{self.nationalite}  {self.nombre_enfant}  {self.situation_matrimoniale} {self.telephone_cpu} {self.date_naissance} {self.lit}'
+        return f'{self.idpatient} {self.nom} {self.contact1} {self.contact2} {self.profession} {self.email} {self.age} {self.sexe}  {self.personne_a_contacter}  {self.ville}  {self.commune} {self.quartier}{self.nationalite}  {self.nombre_enfant}  {self.situation_matrimoniale} {self.telephone_cpu} {self.date_naissance} {self.Lit}'
 
-class antecedant_medical(models.Model):#modifie
+class Antecedant_medical(models.Model):#modifie
     refant=models.fields.AutoField(primary_key=True)
     MAYBECHOICE1=(
         ('o','oui'),
@@ -176,11 +176,11 @@ class antecedant_medical(models.Model):#modifie
     #autre=models.fields.CharField(max_length=10,choices=MAYBECHOICE17)
     precisionautre=models.fields.CharField(max_length=200,blank=True,null=True)
     date= models.fields.DateTimeField(default=datetime.now)                                                                                
-    patient=models.ForeignKey(patient, on_delete=models.CASCADE)
+    Patient=models.ForeignKey(Patient, on_delete=models.CASCADE)
     def __str__(self):
-        return f'{self.refant} {self.dyslipidemie} {self.cirrhose}  {self.hepatiteviraleb} {self.datehepvirb} {self.hepatiteviralec}  {self.datehepvirc} {self.hepatiteviraled} {self.datehepvird} {self.vaccination_vhb} {self.dosevhb}  {self.vaccination_vha}  {self.dosevha} {self.transfusion_sanguine}   {self.ictere} {self.rapportsexuelnonprotege} {self.partageobjettoilette} {self.accidexposang} {self.toxicomanie} {self.diabete} {self.hta}  {self.transplanhepatique}  {self.precisionautre}  {self.date} {self.patient}'
+        return f'{self.refant} {self.dyslipidemie} {self.cirrhose}  {self.hepatiteviraleb} {self.datehepvirb} {self.hepatiteviralec}  {self.datehepvirc} {self.hepatiteviraled} {self.datehepvird} {self.vaccination_vhb} {self.dosevhb}  {self.vaccination_vha}  {self.dosevha} {self.transfusion_sanguine}   {self.ictere} {self.rapportsexuelnonprotege} {self.partageobjettoilette} {self.accidexposang} {self.toxicomanie} {self.diabete} {self.hta}  {self.transplanhepatique}  {self.precisionautre}  {self.date} {self.Patient}'
 
-class antecedant_chirurgical(models.Model):#nouvel ajout 
+class Antecedant_chirurgical(models.Model):#nouvel ajout 
     refantchir=models.fields.AutoField(primary_key=True)
     MAYBECHOICE1=(
         ('o','oui'),
@@ -195,12 +195,12 @@ class antecedant_chirurgical(models.Model):#nouvel ajout
     avp=models.fields.CharField(max_length=1,choices=MAYBECHOICE2)
     dateavp=models.fields.DateField(blank=True,null=True)
     date= models.fields.DateTimeField(default=datetime.now)  
-    patient=models.ForeignKey(patient, on_delete=models.CASCADE)                                                                            
+    Patient=models.ForeignKey(Patient, on_delete=models.CASCADE)                                                                            
     def __str__(self):
-        return f'{self.refantchir} {self.operachir} {self.datoperachir} {self.avp} {self.dateavp} {self.date} {self.patient}'
+        return f'{self.refantchir} {self.operachir} {self.datoperachir} {self.avp} {self.dateavp} {self.date} {self.Patient}'
       
     
-class antecedant_genecologique(models.Model):#nouvel ajout 
+class Antecedant_genecologique(models.Model):#nouvel ajout 
     refantgen=models.fields.AutoField(primary_key=True)
     datederniereregle=models.fields.DateField(blank=True,null=True)
     gestite=models.fields.CharField(max_length=100,blank=True,null=True)
@@ -217,12 +217,12 @@ class antecedant_genecologique(models.Model):#nouvel ajout
     cesarienne=models.fields.CharField(max_length=1,choices=MAYBECHOICE2)
     datecesarienne=models.fields.DateField(blank=True,null=True)
     date= models.fields.DateTimeField(default=datetime.now)    
-    patient=models.ForeignKey(patient, on_delete=models.CASCADE)                                                                                 
+    Patient=models.ForeignKey(Patient, on_delete=models.CASCADE)                                                                                 
     def __str__(self):
-        return f'{self.refantgen} {self.datederniereregle} {self.gestite} {self.parite} {self.prisecontraceptif} {self.cesarienne} {self.datecesarienne} {self.date} {self.patient}'   
+        return f'{self.refantgen} {self.datederniereregle} {self.gestite} {self.parite} {self.prisecontraceptif} {self.cesarienne} {self.datecesarienne} {self.date} {self.Patient}'   
 
 
-class antecedant_familial(models.Model):#nouvel ajout
+class Antecedant_familial(models.Model):#nouvel ajout
     
     refantfam=models.fields.AutoField(primary_key=True)
     MAYBECHOICE1=(
@@ -321,62 +321,77 @@ class antecedant_familial(models.Model):#nouvel ajout
     flechehepatique=models.fields.CharField(max_length=10,blank=True,null=True)
     autresignephysique=models.fields.CharField(max_length=254,blank=True,null=True)
     date= models.fields.DateTimeField(default=datetime.now) 
-    patient=models.ForeignKey(patient, on_delete=models.CASCADE)                                                                          
+    Patient=models.ForeignKey(Patient, on_delete=models.CASCADE)                                                                          
     def __str__(self):
-        return f'{self.refantfam} {self.hepatie_vir_ASC} {self.cirrhose_ASC} {self.cpf_ASC} {self.hepatie_vir_DSC} {self.cirrhose_DSC} {self.cpf_DSC}  {self.hepatie_vir_COL} {self.cirrhose_COL} {self.cpf_COL} {self.poids} {self.taille} {self.imc} {self.tension_art} {self.pouls} {self.temperature} {self.conscience} {self.statutoms}  {self.hippocraismdigital} {self.oncleblanc} {self.autre} {self.ascite} {self.cvc} {self.splenomegalie} {self.flechehepatique} {self.autresignephysique} {self.patient}'
+        return f'{self.refantfam} {self.hepatie_vir_ASC} {self.cirrhose_ASC} {self.cpf_ASC} {self.hepatie_vir_DSC} {self.cirrhose_DSC} {self.cpf_DSC}  {self.hepatie_vir_COL} {self.cirrhose_COL} {self.cpf_COL} {self.poids} {self.taille} {self.imc} {self.tension_art} {self.pouls} {self.temperature} {self.conscience} {self.statutoms}  {self.hippocraismdigital} {self.oncleblanc} {self.autre} {self.ascite} {self.cvc} {self.splenomegalie} {self.flechehepatique} {self.autresignephysique} {self.Patient}'
 
-class pays(models.Model):
+class Pays(models.Model):
     idpays=models.fields.AutoField(primary_key=True)
     nompays=models.fields.CharField(max_length=100)
     def __str__(self):
         return f'{self.idpays} {self.nompays}'
     
     
-class chu(models.Model):
+class Chu(models.Model):
     numchu=models.fields.AutoField(primary_key=True)
     nomchu=models.fields.CharField(max_length=100)
     datecreation=models.fields.DateField()
-    pays=models.ForeignKey(pays, on_delete=models.CASCADE)
+    Pays=models.ForeignKey(Pays, on_delete=models.CASCADE)
     def __str__(self):
-        return f'{self.numchu} {self.nomchu} {self.datecreation} {self.pays}'  
+        return f'{self.numchu} {self.nomchu} {self.datecreation} {self.Pays}'  
     
     
     
-class service(models.Model):
+class Service(models.Model):
     refservice=models.fields.AutoField(primary_key=True)
     class typeservice(models.TextChoices):
         gastro_enterologie="gastro-entérologie"
         chirurgie="chirurgie"
     nomservice=models.fields.CharField(choices=typeservice.choices, max_length=100)
     date= models.fields.DateTimeField(default=datetime.now)                                                                                
-    chu=models.ForeignKey(chu, on_delete=models.CASCADE)
+    Chu=models.ForeignKey(Chu, on_delete=models.CASCADE)
     def __str__(self):
-        return f'{self.refservice} {self.nomservice} {self.date} {self.chu}' 
+        return f'{self.refservice} {self.nomservice} {self.date} {self.Chu}' 
     
    
    
-class type_personnel_soignant(models.Model):
+class Type_personnel_soignant(models.Model):
     idpersoignant=models.fields.AutoField(primary_key=True)
     nompersog=models.fields.CharField(max_length=100)
     date= models.fields.DateTimeField(default=datetime.now)                                                                                
     def __str__(self):
         return f'{self.idpersoignant} {self.nompersog} {self.date}'
     
+from django.contrib.auth.models import AbstractUser
+class CustomUser(AbstractUser):
+    refpersoignant=models.fields.AutoField(primary_key=True)
+    mdp=models.fields.CharField(max_length=253, null=True, blank=True,unique=True)
+    nom=models.fields.CharField(max_length=100, null=True, blank=True,unique=True)
+    contact=models.fields.PositiveIntegerField(null=True, blank=True)
+    email=models.fields.EmailField(max_length = 254, null=True, blank=True,unique=True)
+    date= models.fields.DateTimeField(default=datetime.now, null=True, blank=True)                                                                                
+    Service=models.ForeignKey(Service, on_delete=models.CASCADE, null=True, blank=True)
+    Type_personnel_soignant=models.ForeignKey(Type_personnel_soignant, on_delete=models.CASCADE, null=True, blank=True)
+
+    USERNAME_FIELD='nom'
+    REQUIRED_FIELDS=['username']
+
+    def __str__(self):
+        return self.nom 
     
-    
-class personnel_soignant(models.Model):
+class Personnel_soignant(models.Model):
     refpersoignant=models.fields.AutoField(primary_key=True)
     mdp=models.fields.CharField(max_length=253)
     nom=models.fields.CharField(max_length=100)
     contact=models.fields.PositiveIntegerField(null=False)
     email=models.fields.EmailField(max_length = 254)
     date= models.fields.DateTimeField(default=datetime.now)                                                                                
-    service=models.ForeignKey(service, on_delete=models.CASCADE)
-    type_personnel_soignant=models.ForeignKey(type_personnel_soignant, on_delete=models.CASCADE)
+    Service=models.ForeignKey(Service, on_delete=models.CASCADE)
+    Type_personnel_soignant=models.ForeignKey(Type_personnel_soignant, on_delete=models.CASCADE)
     def __str__(self):
-        return f'{self.refpersoignant} {self.mdp} {self.nom} {self.contact} {self.date} {self.service} {self.type_personnel_soignant}'     
+        return f'{self.refpersoignant} {self.mdp} {self.nom} {self.contact} {self.date} {self.Service} {self.Type_personnel_soignant}'     
     
-class consultation(models.Model): #modifie
+class Consultation(models.Model): #modifie
     Numconsulta=models.fields.AutoField(primary_key=True)
     motifdeconsultation=models.fields.CharField(max_length=254, null=True, blank=True)
     prescripteur_consultation=models.fields.CharField(max_length=100, null=True, blank=True)
@@ -401,23 +416,23 @@ class consultation(models.Model): #modifie
     date= models.fields.DateTimeField(default=datetime.now)                                                                                
     resultat=models.fields.CharField(max_length=254, null=True, blank=True)
     renseignementclinic=models.fields.CharField(max_length=254, null=True, blank=True)
-    patient=models.ForeignKey(patient, on_delete=models.CASCADE,null=False) 
-    personnel_soignant=models.ForeignKey(personnel_soignant, on_delete=models.CASCADE)
+    Patient=models.ForeignKey(Patient, on_delete=models.CASCADE,null=False) 
+    Personnel_soignant=models.ForeignKey(Personnel_soignant, on_delete=models.CASCADE)
     def __str__(self):
-        return f'{self.Numconsulta} {self.motifdeconsultation} {self.prescripteur_consultation} {self.debut_signe} {self.signe_digestifs} {self.signe_extra_digestif} {self.signe_asso_gene} {self.nombredeverre_alcool} {self.nombrepaquettabac} {self.medoc_en_cours} {self.prise_therap_tarditionnelle} {self.aghbs} {self.acanti_vhc} {self.acanti_vhd} {self.serologie_retrovi} {self.transaminase} {self.histoiredemaladie} {self.date} {self.resultat} {self.renseignementclinic} {self.patient}  {self.personnel_soignant} '
+        return f'{self.Numconsulta} {self.motifdeconsultation} {self.prescripteur_consultation} {self.debut_signe} {self.signe_digestifs} {self.signe_extra_digestif} {self.signe_asso_gene} {self.nombredeverre_alcool} {self.nombrepaquettabac} {self.medoc_en_cours} {self.prise_therap_tarditionnelle} {self.aghbs} {self.acanti_vhc} {self.acanti_vhd} {self.serologie_retrovi} {self.transaminase} {self.histoiredemaladie} {self.date} {self.resultat} {self.renseignementclinic} {self.Patient}  {self.Personnel_soignant} '
    
-class hospitalisation(models.Model):
+class Hospitalisation(models.Model):
     idhospitalisation=models.fields.AutoField(primary_key=True)
     class enum(models.TextChoices):
         gastro_enterologie="gastro-entérologie"
         chirurgie="chirurgie"
     service=models.fields.CharField(choices=enum.choices, max_length=100)
     datehospitalisation= models.fields.DateTimeField(default=datetime.now)    
-    consultation=models.ForeignKey(consultation, on_delete=models.CASCADE)                                                                             
+    Consultation=models.ForeignKey(Consultation, on_delete=models.CASCADE)                                                                             
     def __str__(self):
-        return f'{self.idhospitalisation} {self.service} {self.datehospitalisation} {self.consultation}'
+        return f'{self.idhospitalisation} {self.service} {self.datehospitalisation} {self.Consultation}'
 
-class sortie(models.Model):#migration
+class Sortie(models.Model):#migration
     refsortie=models.fields.AutoField(primary_key=True)
     datesortie=models.fields.DateTimeField(default=datetime.now) 
     motifsortie=models.fields.CharField(max_length=50)
@@ -445,13 +460,13 @@ class sortie(models.Model):#migration
     nouveaucentredesuivi=models.fields.CharField(max_length=100,null=True, blank=True)
     numerodedossierdanslecentredetransfert=models.fields.CharField(max_length=255,null=True, blank=True)
 #fin
-    personnel_soignant=models.ForeignKey(personnel_soignant,on_delete=models.CASCADE)                                                                                
+    Personnel_soignant=models.ForeignKey(Personnel_soignant,on_delete=models.CASCADE)                                                                                
     def __str__(self):
-        return f'{self.refsortie} {self.datesortie}  {self.motifsortie} {self.personnel_soignant} {self.datedetransfert}  {self.numerodedossierdanslecentredetransfert} {self.nouveaucentredesuivi} {self.raison} {self.commentaire}  {self.typedenouvelle} {self.typederelance}  {self.datederniererelance}  {self.datedernierevisite} {self.daterefus}  {self.remplipar}   {self.datedeces}  {self.causedudeces} {self.lieudeces}  {self.decesliea}'
+        return f'{self.refsortie} {self.datesortie}  {self.motifsortie} {self.Personnel_soignant} {self.datedetransfert}  {self.numerodedossierdanslecentredetransfert} {self.nouveaucentredesuivi} {self.raison} {self.commentaire}  {self.typedenouvelle} {self.typederelance}  {self.datederniererelance}  {self.datedernierevisite} {self.daterefus}  {self.remplipar}   {self.datedeces}  {self.causedudeces} {self.lieudeces}  {self.decesliea}'
     
 
 
-class facture(models.Model):
+class Facture(models.Model):
     idfact=models.fields.AutoField(primary_key=True)
     numerofact=models.fields.PositiveIntegerField(null=True, blank=True)
     caution_versee=models.fields.CharField(max_length=30)
@@ -463,11 +478,11 @@ class facture(models.Model):
     rest_a_payer=models.fields.CharField(max_length=100,null=True, blank=True)
     montantpaye=models.fields.PositiveIntegerField(null=False)
     date= models.fields.DateTimeField(default=datetime.now)
-    patient=models.ForeignKey(patient, on_delete=models.CASCADE)                                                                              
+    Patient=models.ForeignKey(Patient, on_delete=models.CASCADE)                                                                              
     def __str__(self):
-        return f'{self.idfact} {self.numerofact} {self.montantpaye}  {self.caution_versee} {self.date_versement} {self.duree_sejour} {self.modepaiment} {self.cout_sejour} {self.remboursement} {self.rest_a_payer} {self.date} {self.patient}'
+        return f'{self.idfact} {self.numerofact} {self.montantpaye}  {self.caution_versee} {self.date_versement} {self.duree_sejour} {self.modepaiment} {self.cout_sejour} {self.remboursement} {self.rest_a_payer} {self.date} {self.Patient}'
     
-class medicament(models.Model):#migration
+class Medicament(models.Model):#migration
     idmedicament=models.fields.AutoField(primary_key=True)
     MAYBECHOICE1=(
         ('TDF','TDF') ,
@@ -498,7 +513,7 @@ class medicament(models.Model):#migration
 
 #debut class avec clé secondaire
   
-class constante(models.Model):
+class Constante(models.Model):
     refconst=models.fields.AutoField(primary_key=True)
     poids=models.fields.CharField(max_length=30)
     taille=models.fields.CharField(max_length=30)
@@ -507,48 +522,48 @@ class constante(models.Model):
     tas=models.fields.CharField(max_length=30)
     tad=models.fields.CharField(max_length=30)
     pouls=models.fields.CharField(max_length=30)
-    patient=models.ForeignKey(patient, on_delete=models.CASCADE) 
+    Patient=models.ForeignKey(Patient, on_delete=models.CASCADE) 
     def __str__(self):
-        return f'{self.refconst} {self.poids} {self.taille} {self.temperature} {self.patient}'
+        return f'{self.refconst} {self.poids} {self.taille} {self.temperature} {self.Patient}'
     
 
-class diagnostique(models.Model):
+class Diagnostique(models.Model):
     iddiag=models.fields.AutoField(primary_key=True)
     libdiag=models.fields.CharField(max_length=254)
     date= models.fields.DateTimeField(default=datetime.now)                                                                                
-    consultation=models.ForeignKey(consultation, on_delete=models.CASCADE) 
+    Consultation=models.ForeignKey(Consultation, on_delete=models.CASCADE) 
     def __str__(self):
-        return f'{self.iddiag} {self.libdiag} {self.date} {self.consultation}'
+        return f'{self.iddiag} {self.libdiag} {self.date} {self.Consultation}'
 
 
 
-class ordonnance(models.Model):
+class Ordonnance(models.Model):
     reford=models.fields.AutoField(primary_key=True) 
-    consulation=models.ForeignKey(consultation, on_delete=models.CASCADE) 
-    peut_contenir=models.ManyToManyField(medicament, through="ordonnancemedicament")
+    Consulation=models.ForeignKey(Consultation, on_delete=models.CASCADE) 
+    peut_contenir=models.ManyToManyField(Medicament, through="Ordonnancemedicament")
     def __str__(self):
-        return f'{self.reford} {self.consulation} {self.peut_contenir}'
+        return f'{self.reford} {self.Consulation} {self.peut_contenir}'
     
-class ordonnancemedicament(models.Model):# nouvel ajout c'est la table de liaison deordonnance et medicament
-    ordonnance = models.ForeignKey(ordonnance, on_delete=models.CASCADE)
-    medicament = models.ForeignKey(medicament, on_delete=models.CASCADE)
+class Ordonnancemedicament(models.Model):# nouvel ajout c'est la table de liaison deordonnance et medicament
+    ordonnance = models.ForeignKey(Ordonnance, on_delete=models.CASCADE)
+    Medicament = models.ForeignKey(Medicament, on_delete=models.CASCADE)
     quantite = models.PositiveIntegerField(null=True, blank=True)
 
     def __str__(self):
-        return f"{self.medicament} x {self.quantite} dans {self.ordonnance}"
+        return f"{self.Medicament} x {self.quantite} dans {self.Ordonnance}"
     
 
-class bilan_imagerie(models.Model):
+class Bilan_imagerie(models.Model):
     numbilimg=models.fields.AutoField(primary_key=True)
     echographie_ou_radiograpgie=models.FileField(upload_to="uploads/", null=True, blank=True)
     renseignementclinique=models.fields.CharField(max_length=254,null=True, blank=True)
-    consultation=models.ForeignKey(consultation, on_delete=models.CASCADE) 
+    Consultation=models.ForeignKey(Consultation, on_delete=models.CASCADE) 
     def __str__(self):
-        return f'{self.numbilimg} {self.echographie_ou_radiograpgie} {self.renseignementclinique} {self.consultation}'
+        return f'{self.numbilimg} {self.echographie_ou_radiograpgie} {self.renseignementclinique} {self.Consultation}'
 
 
 
-class bilan_biologique(models.Model):
+class Bilan_biologique(models.Model):
     numbilanbio=models.fields.AutoField(primary_key=True)
     MAYBECHOICE1=(
         ('Sérologie rétroviral','Sérologie rétroviral'),
@@ -575,8 +590,8 @@ class bilan_biologique(models.Model):
     #datereceptionechantillon= models.fields.DateTimeField(null=True, blank=True) 
     #dateremiseresultat= models.fields.DateTimeField(null=True, blank=True)  
     prix=models.fields.CharField(max_length=100)                                                                          
-    consultation=models.ForeignKey(consultation, on_delete=models.CASCADE)
+    Consultation=models.ForeignKey(Consultation, on_delete=models.CASCADE)
     def __str__(self):
-        return f'{self.numbilanbio} {self.typeexamen}  {self.resultatmodalite} {self.unite} {self.consultation}  {self.resultatnumerique} {self.prix}'
+        return f'{self.numbilanbio} {self.typeexamen}  {self.resultatmodalite} {self.unite} {self.Consultation}  {self.resultatnumerique} {self.prix}'
 #fin class avec cle secondaire
 # Create your models here.

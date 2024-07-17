@@ -17,8 +17,8 @@
             <label >service</label>
             <select name="service"  required>
                 <option >choisir le service</option>
-                 {% for service in services %}
-                    <option value='{{service.nomservice}}'>{{service.nomservice}}</option>
+                 {% for Service in Services %}
+                    <option value='{{Service.nomservice}}'>{{Service.nomservice}}</option>
                  {% endfor %}
 
             </select>
@@ -28,8 +28,8 @@
                 <label >fonction</label>
                 <select name="type_personnel_soignant" required>
                     <option >choisir la fonction</option>
-                     {% for type_personnel_soignant in type_personnel_soignants %}
-                        <option value="{{type_personnel_soignant.nompersog}}">{{type_personnel_soignant.nompersog}}</option>
+                     {% for Type_personnel_soignant in type_personnel_soignants %}
+                        <option value="{{Type_personnel_soignant.nompersog}}">{{Type_personnel_soignant.nompersog}}</option>
                      {% endfor %}
                 </select>
             </div>

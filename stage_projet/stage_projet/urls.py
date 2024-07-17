@@ -30,11 +30,9 @@ urlpatterns = [
     #django admin
     path('admin/', admin.site.urls),
     #fin
-    path('template/',views.template,name='template'),
-
     path('bands/',views.band_list),
     path('',views.index,name='index'),
-    path('Patient/',views.Patient,name='Patient'),
+    path('patient/',views.patient,name='patient'),
     path('listings/',views.listing_list,name='listing-list'),
     path('listings/<int:id>/',views.listing_details, name='listing-details'),
     path ('contact/',views.contact,name='contact'),
@@ -42,21 +40,21 @@ urlpatterns = [
     path ('donne/',views.donne,name='affiche'),
     #fin
     #pour ma bd
-    path ('Constante/',views.constante,name='Constante'),
-    path ('Chart/',views.Chart,name='Chart'),
-    path ('Consultation/',views.Consultation,name='Consultation'),
-    path ('Facture/',views.Facture,name='Facture'),
-    path ('Diagnostique/',views.Diagnostique,name='Diagnostique'),
-    path ('Ordonnance/',views.Ordonnance,name='Ordonnance'),
-    path ('Antecedantmedical/',views.Antecedantmedical,name='Antecedantmedical'),
-    path ('Antecedantchirurgical/',views.Antecedantchirurgical,name='Antecedantchirurgical'),
-    path ('Antecedantgenecologique/',views.Antecedantgenecologique,name='Antecedantgenecologique'),
-    path ('Sortie_patient/',views.Sortie_patient,name='Sortie_patient'),
+    path ('constante/',views.constante,name='constante'),
+    path ('chart/',views.chart,name='chart'),
+    path ('consultation/',views.consultation,name='consultation'),
+    path ('facture/',views.facture,name='facture'),
+    path ('diagnostique/',views.diagnostique,name='diagnostique'),
+    path ('ordonnance/',views.ordonnance,name='ordonnance'),
+    path ('antecedantmedical/',views.antecedantmedical,name='antecedantmedical'),
+    path ('antecedantchirurgical/',views.antecedantchirurgical,name='antecedantchirurgical'),
+    path ('antecedantgenecologique/',views.antecedantgenecologique,name='antecedantgenecologique'),
+    path ('sortie_patient/',views.sortie_patient,name='sortie_patient'),
     path ('adminform/',views.adminform,name='adminform'),
     path ('modificationmdp/',views.modificationmdp,name='modificationmdp'),
-    path ('Bilanimg/',views.Bilanimg,name='Bilanimg'), 
-    path ('Bilanbio/',views.Bilanbio,name='Bilanbio'),
-    path ('Tableauconsultation/',views.Tableauconsultation,name='Tableauconsultation'),
+    path ('bilanimg/',views.bilanimg,name='bilanimg'), 
+    path ('bilanbio/',views.bilanbio,name='bilanbio'),
+    path ('tableauconsultation/',views.tableauconsultation,name='tableauconsultation'),
      
     #menu
     #fin
