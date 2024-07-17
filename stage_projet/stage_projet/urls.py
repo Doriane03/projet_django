@@ -19,9 +19,18 @@ from django.contrib import admin # type: ignore
 from django.urls import path,include # type: ignore
 from listings import views  # type: ignore
 urlpatterns = [
+    #connexion
+    path("", LoginView.as_view(template_name="index.html"), name="index"),
+    path("logout/", LogoutView.as_view(template_name="index.html"), name="index"),
+    #fin
+
+    #django admin
     path('admin/', admin.site.urls),
+    #fin
+
+    
     path('bands/',views.band_list),
-    path('index/',views.index,name='index'),
+    path('',views.index,name='index'),
     path('Patient/',views.Patient,name='Patient'),
     path('listings/',views.listing_list,name='listing-list'),
     path('listings/<int:id>/',views.listing_details, name='listing-details'),
