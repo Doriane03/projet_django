@@ -165,7 +165,6 @@ def patient1(request):
         Nom=request.POST['nom']
         print(Nom)
         reg=patient(nom=Nom,contact1=request.POST['contact1'],contact2=request.POST['contact2'],email=request.POST['email'],personne_a_contacter=request.POST['personne_a_contacter'],telephone_cpu=request.POST['telephone_cpu'],date_naissance=request.POST['date_naissance'],profession=request.POST['profession'],ville=request.POST['ville'],age=request.POST['age'],sexe=request.POST['sexe'],commune=request.POST['commune'],quartier=request.POST['quartier'],nationalite=request.POST['nationalite'],situation_matrimoniale=request.POST['situation_matrimoniale'],nombre_enfant=request.POST['nombre_enfant'],lit_id=Lit_id)
-       
         reg.save()  
     return render(request,'listings/formpatient.html',context={'lits':lits})
 #fin
@@ -178,6 +177,13 @@ def facture(request):
     return render(request,'listings/formfacture.html')
 
 def diagnostique(request):
+    if request.method=='POST':
+        Nom1=request.POST['libdiag']
+        Nom2=request.POST['date']
+        Nom3=request.POST['consultation']
+        reg1=diagnostique(libdiag=Nom1,date=Nom2,consultation_id=Nom3)
+        reg1.save()
+        return HttpResponse('Diagnostique enregistré avec succès')
     return render(request,'listings/formdiagnostiaue.html')
 
 def ordonnance(request):
