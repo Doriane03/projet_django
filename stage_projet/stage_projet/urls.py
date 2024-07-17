@@ -19,6 +19,7 @@ from django.contrib import admin # type: ignore
 from django.urls import path,include # type: ignore
 from listings import views  # type: ignore
 from django.contrib.auth.views import LoginView, LogoutView
+from django.conf import settings
 
 
 urlpatterns = [
