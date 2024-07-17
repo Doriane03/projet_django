@@ -158,7 +158,7 @@ def patient(request):
 
 
 
-def patient1(request):
+def Patient1(request):
     lits = lit.objects.all()
     if request.method=='POST':
         Lit_id= lit.objects.filter(numlit=request.POST['numlit']).values_list('reflit', flat=True).first()
@@ -176,13 +176,14 @@ def consultation(request):
 def facture(request):
     return render(request,'listings/formfacture.html')
 
-def diagnostique(request):
+def Diagnostique(request):
     if request.method=='POST':
         Nom1=request.POST['libdiag']
         Nom2=request.POST['date']
         Nom3=request.POST['consultation']
         reg1=diagnostique(libdiag=Nom1,date=Nom2,consultation_id=Nom3)
         reg1.save()
+        print(type(diagnostique))
         return HttpResponse('Diagnostique enregistré avec succès')
     return render(request,'listings/formdiagnostiaue.html')
 
