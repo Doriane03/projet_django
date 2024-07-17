@@ -23,14 +23,13 @@ from django.contrib.auth.views import LoginView, LogoutView
 
 urlpatterns = [
     #connexion
-    path("", LoginView.as_view(template_name="listings/template.html"), name="login"),
+    path("", LoginView.as_view(template_name="listings/index.html"), name="login"),
     path("logout/", LogoutView.as_view(template_name="listings/index.html"), name="deconnexion"),
     #fin
-
     #django admin
     path('admin/', admin.site.urls),
     #fin
-
+    path('template/',views.template,name='template'),
 
     path('bands/',views.band_list),
     path('',views.index,name='index'),

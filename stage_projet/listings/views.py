@@ -228,6 +228,11 @@ def Chart(request):
     return render(request,'listings/chart.html')
 #fin
 
+@login_required(login_url="/")
+def template(request):
+    return render(request,'listings/template.html')
+#fin
+
 #def create_folder(request):
     #desktop_path = Path.home() / 'Desktop' / 'ARCHIVE_DOC_PAT'/ 'PAT9' #ceer le fic avec le nom du patient
     #if not os.path.exists(desktop_path):
