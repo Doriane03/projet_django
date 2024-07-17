@@ -108,7 +108,6 @@ def donne(request):
 def index(request):
     return render(request,'listings/index.html')
 
-
 #fin
 @login_required(login_url="/")
 def Patient(request):
