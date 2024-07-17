@@ -12,14 +12,14 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 import os
 from pathlib import Path
 import environ
-
+ 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR =os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 env = environ.Env()
 environ.Env.read_env()
 LOGIN_URL=""
-LOGIN_REDIRECT_URL="template/"
+LOGIN_REDIRECT_URL="Patient"
 LOGOUT_REDIRECT_URL=""
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/

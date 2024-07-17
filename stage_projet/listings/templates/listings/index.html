@@ -3,10 +3,11 @@
 <center><form method="POST" action="{% url 'login' %}" class="formcnx">
     {% csrf_token %}
     <fieldset>
-            <input type="text"   placeholder="nom" name="nom" class="inputformcnx" required/>
-            <input type="password"  placeholder="Password" name="mdp" class="inputformcnx" required/>
-            {% if error_message %}
-                <p class="p1">{{ error_message }}</p>
+            <input type="text"   placeholder="nom" name="username" class="inputformcnx" required/>
+            <input type="password"  placeholder="Password" name="password" class="inputformcnx" required/>
+            {% if form.errors %}
+                <p class="p1">{{ form.errors }}</p>
+                <p class="p1">Erreur</p>
             {% endif %}
     </fieldset>
     <input type="submit"  name="connexion"  value="connexion" class="btn btn-primary"/>

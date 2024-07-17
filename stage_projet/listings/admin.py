@@ -30,7 +30,6 @@ from  listings.models  import bilan_imagerie # type: ignore
 from  listings.models  import bilan_biologique # type: ignore
 #fin import
 
-
 class bandAdmin(admin.ModelAdmin):
     list_display=('name','genre','year_formed','biography','active','off_homepage') # type: ignore
 class listingAdmin(admin.ModelAdmin):

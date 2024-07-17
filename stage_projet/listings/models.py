@@ -4,6 +4,8 @@ from django.db import models # type: ignore
 from django.forms import ModelForm # type: ignore
 from django.core.validators import MaxValueValidator,MinValueValidator # type: ignore
 from datetime import datetime,date
+
+
 class band (models.Model):
     name=models.fields.CharField(max_length=100)
     class Genre(models.TextChoices):
@@ -362,8 +364,20 @@ class type_personnel_soignant(models.Model):
     def __str__(self):
         return f'{self.idpersoignant} {self.nompersog} {self.date}'
     
-    
-    
+#cunstomiser 
+from django.contrib.auth.models import AbstractUser
+class CustomUser(AbstractUser):
+    refpersoignant=models.fields.AutoField(primary_key=True)
+    mdp=models.fields.CharField(max_length=253)
+    nom=models.fields.CharField(max_length=100)
+    contact=models.fields.PositiveIntegerField(null=False)
+    email=models.fields.EmailField(max_length = 254)
+    date= models.fields.DateTimeField(default=datetime.now)                                                                                
+    service=models.ForeignKey(service, on_delete=models.CASCADE)
+    type_personnel_soignant=models.ForeignKey(type_personnel_soignant, on_delete=models.CASCADE)
+    def __str__(self):
+        return f'{self.refpersoignant} {self.mdp} {self.nom} {self.contact} {self.date} {self.service} {self.type_personnel_soignant}'
+#fin   
 class personnel_soignant(models.Model):
     refpersoignant=models.fields.AutoField(primary_key=True)
     mdp=models.fields.CharField(max_length=253)

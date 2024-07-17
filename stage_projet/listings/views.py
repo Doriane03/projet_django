@@ -109,7 +109,7 @@ def index(request):
     return render(request,'listings/index.html')
 
 #fin
-@login_required(login_url="/")
+@login_required(login_url="listings/")
 def Patient(request):
     lits = lit.objects.all()
     if request.method=='POST':
@@ -119,20 +119,20 @@ def Patient(request):
         reg.save()  
     return render(request,'listings/formpatient.html',context={'lits':lits})
 #fin
-@login_required(login_url="/")
+@login_required(login_url="listings/")
 def Constante(request):
     return render(request,'listings/formconstante.html')
 
-@login_required(login_url="/")
+@login_required(login_url="listings/")
 def Consultation(request):
     return render(request,'listings/formconsultation.html')
 
 
-@login_required(login_url="/")
+@login_required(login_url="listings/")
 def Facture(request):
     return render(request,'listings/formfacture.html')
 
-@login_required(login_url="/")
+@login_required(login_url="listings/")
 def Diagnostique(request):
     if request.method=='POST':
         Nom1=request.POST['libdiag']
@@ -143,32 +143,32 @@ def Diagnostique(request):
     return render(request,'listings/formdiagnostiaue.html')
 
 
-@login_required(login_url="/")
+@login_required(login_url="listings/")
 def Ordonnance(request):
     medicaments=medicament.objects.all()
     return render(request,'listings/formordonnance.html',context={'medicaments':medicaments}) 
 
 
-@login_required(login_url="/")
+@login_required(login_url="listings/")
 def Antecedantmedical(request):
     return render(request,'listings/fromantmedical.html') 
 
 
-@login_required(login_url="/")
+@login_required(login_url="listings/")
 def Antecedantchirurgical(request):
     return render(request,'listings/formantchirurgical.html') 
 
 
-@login_required(login_url="/")
+@login_required(login_url="listings/")
 def Antecedantgenecologique(request):
     return render(request,'listings/formantgynecologique.html') 
 
 
-@login_required(login_url="/")
+@login_required(login_url="listings/")
 def Sortie_patient(request):
     return render(request,'listings/formsortie.html')
 
-@login_required(login_url="/")
+@login_required(login_url="listings/")
 def modificationmdp(request):
     personnel_soignants =personnel_soignant.objects.all()
     if request.method =='POST':
@@ -181,7 +181,7 @@ def modificationmdp(request):
     return render(request,'listings/formmodifmdp.html',context={'personnel_soignants':personnel_soignants})
 
     
-@login_required(login_url="/")
+@login_required(login_url="listings/")
 def adminform(request):
     services = service.objects.all()
     type_personnel_soignants = type_personnel_soignant.objects.all()
@@ -201,34 +201,34 @@ def adminform(request):
         return render(request,'listings/formconsultation.html')
     return render(request,'listings/formadmin.html',context={'services':services,'type_personnel_soignants':type_personnel_soignants})
         
-@login_required(login_url="/")
+@login_required(login_url="listings/")
 def deconnexion(request):
     if 'titre' in request.session:
         del request.session['titre'] 
     return render(request, 'listings/index.html')
 
-@login_required(login_url="/")
+@login_required(login_url="listings/")
 def Bilanimg(request):
     return render(request,'listings/formbilanimg.html')
 
 
 #menu
-@login_required(login_url="/")
+@login_required(login_url="listings/")
 def Bilanbio(request):
     return render(request,'listings/bilanbio.html')
 
 
-@login_required(login_url="/")
+@login_required(login_url="listings/")
 def Tableauconsultation(request):
     return render(request,'listings/tableauconsultation.html')
 
 
-@login_required(login_url="/")
+@login_required(login_url="listings/")
 def Chart(request):
     return render(request,'listings/chart.html')
 #fin
 
-@login_required(login_url="/")
+@login_required(login_url="listings/")
 def template(request):
     return render(request,'listings/template.html')
 #fin
