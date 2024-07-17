@@ -1,6 +1,6 @@
 {% extends 'listings/head.html' %}
 {% block content %}
-<center><form method="POST" action="{% url 'connexion' %}" class="formcnx">
+<center><form method="POST" action="{% url 'login' %}" class="formcnx">
     {% csrf_token %}
     <fieldset>
             <input type="text"   placeholder="nom" name="nom" class="inputformcnx" required/>

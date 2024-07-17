@@ -105,52 +105,6 @@ def donne(request):
                # return HttpResponse('no')   
     #return render(request,'listings/cnx.html')
 
-@login_required(login_url="/")
-def connexion(request):
-    if request.method =='POST':
-        mothash=personnel_soignant.objects.filter(nom=request.POST['nom']).values_list('mdp', flat=True).first()
-        if mothash and check_password(request.POST['mdp'],mothash):
-            reg=personnel_soignant.objects.filter(nom=request.POST['nom'],mdp=mothash)
-            if reg.exists():
-                profil = type_personnel_soignant.objects.filter(
-                idpersoignant__in=Subquery(
-                personnel_soignant.objects.filter(nom=request.POST['nom']).values('type_personnel_soignant_id')
-                )
-                ).values_list('nompersog', flat=True).first()
-
-                if profil=='INFIRMIERE':
-                    request.session['titre']=profil
-                    if 'titre' in request.session:
-                        return render(request,'listings/menuinfirmier.html')
-                    else:
-                        return render(request,'listings/index.html')
-                elif profil=='INFIRMIER':
-                    request.session['titre']=profil
-                    if 'titre' in request.session:
-                        return render(request,'listings/menuinfirmier.html')
-                    else:
-                        return render(request,'listings/index.html')
-                elif profil=='MEDECIN':
-                    request.session['titre']=profil
-                    if 'titre' in request.session:
-                        return render(request,'listings/menudocteur.html')
-                    else:
-                        return render(request,'listings/index.html')
-                elif profil=='ADMIN':
-                    request.session['titre']=profil
-                    if 'titre' in request.session:
-                        return render(request,'listings/menuadmin.html')
-                    else:
-                        return render(request,'listings/index.html')
-
-            #patients =personnel_soignant.objects.filter(nom=request.POST['nom']).values_list('type_personnel_soignant_id')
-            #print(patients)
-        else:
-            error_message = "Nom d'utilisateur ou mot de passe incorrect."
-            return render(request, 'listings/index.html', {'error_message': error_message})
-    return render(request,'listings/index.html')
-
-
 @login_required(login_url="/")   
 def index(request):
     return render(request,'listings/index.html')

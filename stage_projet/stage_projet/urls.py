@@ -23,8 +23,8 @@ from django.contrib.auth.views import LoginView, LogoutView
 
 urlpatterns = [
     #connexion
-    path("", LoginView.as_view(template_name="index.html"), name="index"),
-    path("logout/", LogoutView.as_view(template_name="index.html"), name="index"),
+    path("", LoginView.as_view(template_name="listings/index.html"), name="login"),
+    path("logout/", LogoutView.as_view(template_name="listings/index.html"), name="deconnexion"),
     #fin
 
     #django admin
@@ -42,7 +42,6 @@ urlpatterns = [
     path ('donne/',views.donne,name='affiche'),
     #fin
     #pour ma bd
-    path ('connexion/',views.connexion,name='connexion'),
     path ('Constante/',views.constante,name='Constante'),
     path ('Chart/',views.Chart,name='Chart'),
     path ('Consultation/',views.Consultation,name='Consultation'),
@@ -54,7 +53,6 @@ urlpatterns = [
     path ('Antecedantgenecologique/',views.Antecedantgenecologique,name='Antecedantgenecologique'),
     path ('Sortie_patient/',views.Sortie_patient,name='Sortie_patient'),
     path ('adminform/',views.adminform,name='adminform'),
-    path ('deconnexion/',views.deconnexion,name='deconnexion'),
     path ('modificationmdp/',views.modificationmdp,name='modificationmdp'),
     path ('Bilanimg/',views.Bilanimg,name='Bilanimg'), 
     path ('Bilanbio/',views.Bilanbio,name='Bilanbio'),
