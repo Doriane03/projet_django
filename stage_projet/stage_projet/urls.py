@@ -18,6 +18,9 @@ Including another URLconf
 from django.contrib import admin # type: ignore
 from django.urls import path,include # type: ignore
 from listings import views  # type: ignore
+from django.contrib.auth.views import LoginView, LogoutView
+
+
 urlpatterns = [
     #connexion
     path("", LoginView.as_view(template_name="index.html"), name="index"),
@@ -28,7 +31,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     #fin
 
-    
+
     path('bands/',views.band_list),
     path('',views.index,name='index'),
     path('Patient/',views.Patient,name='Patient'),

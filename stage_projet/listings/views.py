@@ -9,6 +9,7 @@ from  django.core.mail import send_mail # type: ignore
 from  django.contrib.auth.hashers import make_password,check_password
 from  django.db.models import Subquery
 from  django.contrib import messages
+from django.contrib.auth.decorators import login_required
 #import des class de ma bd
 from  listings.models import ordonnancemedicament
 from  listings.models  import antecedant_familial # type: ignore #nouveau
