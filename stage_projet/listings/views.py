@@ -1,44 +1,44 @@
-#from  django.http import HttpResponse # type: ignore
-#from  django.shortcuts import render,redirect # type: ignore
-#from  django.contrib.auth import  login , logout, authenticate # type: ignore
-#from  django.contrib import messages # type: ignore
-#from  listings.models  import band # type: ignore
-#from  listings.models  import listing  # type: ignore
-#from  listings.forms import contact_us # type: ignore
-#from  django.core.mail import send_mail # type: ignore
-#from  django.contrib.auth.hashers import make_password,check_password
-#from  django.db.models import Subquery
-#from  django.contrib import messages
-#from django.contrib.auth.decorators import login_required
+from  django.http import HttpResponse # type: ignore
+from  django.shortcuts import render,redirect # type: ignore
+from  django.contrib.auth import  login , logout, authenticate # type: ignore
+from  django.contrib import messages # type: ignore
+from  listings.models  import band # type: ignore
+from  listings.models  import listing  # type: ignore
+from  listings.forms import contact_us # type: ignore
+from  django.core.mail import send_mail # type: ignore
+from  django.contrib.auth.hashers import make_password,check_password
+from  django.db.models import Subquery
+from  django.contrib import messages
+from django.contrib.auth.decorators import login_required
 #import des class de ma bd
-#from  listings.models import  Ordonnancemedicament
-#from  listings.models  import Antecedant_familial # type: ignore #nouveau
-#from  listings.models  import Consultation # type: ignore #modifie
-#from  listings.models  import Antecedant_chirurgical # type: ignore #nouveau
-#from  listings.models  import Antecedant_medical # type: ignore #nouveau
-#from  listings.models  import Antecedant_genecologique # type: ignore #nouveau
-#from  listings.models  import Medicament # type: ignore
-#from  listings.models  import Categorie # type: ignore
-#from  listings.models  import Sortie # type: ignore
-#from  listings.models  import Hospitalisation # type: ignore
-#from  listings.models  import Service # type: ignore
-#from  listings.models  import Chu # type: ignore
-#from  listings.models  import Pays # type: ignore
-#from  listings.models  import Type_personnel_soignant # type: ignore
-#from  listings.models  import Personnel_soignant # type: ignore
-#from  listings.models  import Pacture # type: ignore
-#from  listings.models  import Constante # type: ignore
-#from  listings.models  import Patient # type: ignore #modifie
-#from  listings.models  import Lit # type: ignore
-#from  listings.models  import Ordonnance # type: ignore
-#from  listings.models  import Diagnostique # type: ignore
-#from  listings.models  import Bilan_imagerie # type: ignore
-#from  listings.models  import Bilan_biologique # type: ignore
+from  listings.models import  Ordonnancemedicament
+from  listings.models  import Antecedant_familial # type: ignore #nouveau
+from  listings.models  import Consultation # type: ignore #modifie
+from  listings.models  import Antecedant_chirurgical # type: ignore #nouveau
+from  listings.models  import Antecedant_medical # type: ignore #nouveau
+from  listings.models  import Antecedant_genecologique # type: ignore #nouveau
+from  listings.models  import Medicament # type: ignore
+from  listings.models  import Categorie # type: ignore
+from  listings.models  import Sortie # type: ignore
+from  listings.models  import Hospitalisation # type: ignore
+from  listings.models  import Service # type: ignore
+from  listings.models  import Chu # type: ignore
+from  listings.models  import Pays # type: ignore
+from  listings.models  import Type_personnel_soignant # type: ignore
+from  listings.models  import Personnel_soignant # type: ignore
+from  listings.models  import Facture # type: ignore
+from  listings.models  import Constante # type: ignore
+from  listings.models  import Patient # type: ignore #modifie
+from  listings.models  import Lit # type: ignore
+from  listings.models  import Ordonnance # type: ignore
+from  listings.models  import Diagnostique # type: ignore
+from  listings.models  import Bilan_imagerie # type: ignore
+from  listings.models  import Bilan_biologique # type: ignore
 #finimport
 
 #import formulaire de ma bd
-#from  listings.forms import personnel_soignantForm # type: ignore #pour mon modele #from
-#from  listings.forms import cnx_form
+from  listings.forms import personnel_soignantForm # type: ignore #pour mon modele from
+from  listings.forms import cnx_form
 #fin
 from django.contrib.auth.decorators import login_required
 # Create your views here.
@@ -73,7 +73,7 @@ def contact(request):
 
         if form.is_valid():
             send_mail(
-            subject=f'Message #from{form.cleaned_data["name"] or "anonyme"} via MerchEx Contact Us #from',
+            subject=f'Message from{form.cleaned_data["name"] or "anonyme"} via MerchEx Contact Us from',
             message=form.cleaned_data['message'],
             #from_email=form.cleaned_data['email'],
             recipient_list=['josephinedorianekouadio@gmail.com'],
