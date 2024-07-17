@@ -366,6 +366,7 @@ class type_personnel_soignant(models.Model):
     
 #cunstomiser 
 from django.contrib.auth.models import AbstractUser
+
 class CustomUser(AbstractUser):
     refpersoignant=models.fields.AutoField(primary_key=True)
     mdp=models.fields.CharField(max_length=253)
