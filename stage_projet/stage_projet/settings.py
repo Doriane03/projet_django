@@ -87,10 +87,10 @@ WSGI_APPLICATION = 'stage_projet.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': projet_stage,
-        'USER': postgres,
-        'PASSWORD':stage,
-        'HOST':localhost,
+        'NAME': 'projet_stage',
+        'USER': 'postgres',
+        'PASSWORD': 'stage',
+        'HOST':'localhost',
         'PORT': '5432'
     }
 }
