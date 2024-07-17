@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'stage_projet.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'projet_stage',
+        'NAME': 'projet',
         'USER': 'postgres',
         'PASSWORD': 'stage',
         'HOST': 'localhost',
