@@ -1,0 +1,16 @@
+{% extends 'listings/head.html' %}
+{% block content %}
+<center><form method="POST" action="{% url 'login' %}" class="formcnx">
+    {% csrf_token %}
+    <fieldset>
+            <input type="text"   placeholder="nom" name="username" class="inputformcnx" required/>
+            <input type="password"  placeholder="Password" name="password" class="inputformcnx" required/>
+            {% if form.errors %}
+                <p class="p1">{{ form.errors }}</p>
+                <p class="p1">Erreur</p>
+            {% endif %}
+    </fieldset>
+    <input type="submit"  name="connexion"  value="connexion" class="btn btn-primary"/>
+   <!-- <a href="#" class="aformcnx">mot de passe oublié?</a>-->
+</form></center>
+{% endblock %}

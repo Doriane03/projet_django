@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mon site</title>
+        <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900&display=swap" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700&display=swap" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet"/>
+        <link href="{% static 'listings/assets/plugins/bootstrap/css/bootstrap.min.css'%}" rel="stylesheet"/>
+        <link href="{% static 'listings/assets/plugins/font-awesome/css/all.min.css'%}" rel="stylesheet"/>
+
+      
+        <!-- Theme Styles -->
+        <link href="{% static 'listings/connect.min.css' %}" rel="stylesheet"/>
+        <link href="{% static 'listings/admin3.css' %}" rel="stylesheet"/>
+        <link href="{% static 'listings/dark_theme.css' %}" rel="stylesheet"/>
+        <link href="{% static 'listings/custom.css' %}" rel="stylesheet"/>
+        <link rel="stylesheet" href="{% static 'listings/style.css' %}"/>
+</head>
+
+<body>
+  <header>
+    <nav></nav>
+  </header>
+  
+  <div class="image">  <div class="div0">
+    <div class="div1"><img src="{% static 'listings/homme.png'  %}" width="100" alt="photo1"/></div>
+    <div class="div2"><img src="{% static 'listings/homme.png' %}"  width="100"  alt="photo2"/></div>
+  </div></div>
+      <section class="text">
+          {% block content %} {% endblock %}
+      </section>
+    <!--<footer>
+
+        <div>
+
+          <span>ouiiii</span>
+
+        </div>
+
+      </footer>-->
+      <script src="{% static 'listings/assets/plugins/jquery/jquery-3.4.1.min.js' %} "></script>
+      <script src="{% static 'listings/assets/plugins/bootstrap/popper.min.js' %}"></script>
+      <script src="{% static 'listings/assets/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+      <script src="{% static 'listings/assets/plugins/jquery.slimscroll/jquery.slimscroll.min.js' %}"></script>
+      <script src="{% static 'listings/assets/js/connect.min.js' %}"></script>
+</body>
+</html>

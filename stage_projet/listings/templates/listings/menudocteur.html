@@ -1,0 +1,27 @@
+{% extends 'listings/template.html' %}
+
+{% block menudocteur %}
+<div class="page-sidebar-inner slimscroll">
+                        <ul class="accordion-menu">
+                            <li>
+                                <a  href="#" class="active"><i class="material-icons-outlined">visibility</i>Rendez-vous</a>
+                            </li>
+                            
+                            <li>
+                                <a  href="{% url 'tableauconsultation' %}"><i class="material-icons-outlined">visibility</i>Consultation</a>
+                            </li>
+
+                            <li>
+                                <a  href="#"><i class="material-icons-outlined">folder</i>Consulter un dossier patient</a>
+                            </li>
+
+                            <li>
+                                <a  href="{% url 'sortie_patient' %}"><i class="material-icons-outlined">directions_walk</i>Autoriser une sortie</a>
+                            </li>
+                            
+                            <li>
+                                <a  href="{% url 'deconnexion' %}" ><i class="material-icons">logout</i>Déconnexion</a>
+                            </li>
+                        </ul>
+</div>
+{% endblock %}

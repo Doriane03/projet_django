@@ -1,0 +1,68 @@
+{% extends 'listings/template.html' %}
+
+{% block formordonnance %}
+<center>
+<form method="post" action=""  class="formcontenu">
+<div>
+<nav class="divcontenunav">ordonnance</nav>
+</div>
+{% csrf_token %}
+    <fieldset>
+        <table id="true" class="table1">
+            <tr>
+                <th>nom du médicament</th>
+                <th>nombre de boite</th>
+                <th>dossage</th>
+                <th>type</th>
+            </tr>
+            <tr> 
+                <div>
+                <td> 
+                    <div >
+                        <select name="nommedicament"  required>
+                            <option>choisir un médicament</option>
+                            {% for medicament in medicaments %}
+                            <option value="{medicament.nommedicament}">{{medicament.nommedicament}}</option>
+                            {% endfor %}
+                            </select>
+                    </div>
+                </td>
+
+                <td>
+                     <div>
+                        <input type="text"  id="inputZip" >
+                    </div>
+                </td>
+
+                <td>
+                    <div>
+                        <select name="dosage"  required>
+                            <option>choisir le dossage</option>
+                            {% for medicament in medicaments %}
+                            <option value="{medicament.dosage}">{{medicament.dosage}}</option>
+                            {% endfor %}
+                            </select>
+                    </div>
+
+                </td>
+
+                <td>
+                    <div>
+                        <select name="ok"  required>
+                                <option>choisir un type</option>
+                                <option value="ok">sirop</option>
+                                <option>comprimé</option>
+                        </select>
+                    </div>
+                </td>
+            </div>
+                </tr>   
+    </table>
+    <div style="margin-left:620px">
+        <input type="checkbox"   name="ajout"  value="oui" onclick="ajouter()"/>Ajouter un médicament
+    </div>
+    </fieldset>
+    <input type="submit"  name="valideconstante"  value="Enregister" class="btn btn-primary"/>
+</form>
+</center>
+{% endblock %}

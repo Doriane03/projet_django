@@ -1,0 +1,32 @@
+{% extends 'listings/template.html' %}
+{% block formmodifmdp %}
+<center><form method="post" action="" class="formcontenu" >
+
+    <div>
+        <nav class="divcontenunav">modifier un mot de passe</nav>
+    </div>
+
+    {% csrf_token %}
+    <fieldset>   
+        <div class="divsortie">
+            <label>utilisateur concerné</label>
+                <select name="nom"  required>
+                    <option>choisir l'utilisateur</option>
+                    {% for personnel_soignant in personnel_soignants %}
+                        <option value="{{ personnel_soignant.nom }}">{{ personnel_soignant.nom }}</option>
+                    {% endfor %}
+                </select>
+        </div>
+        <div class="divsortie">
+        <label>nouveau mot de passe</label>
+        <input  type="password" name="mdp" required/>
+        </div>
+        {% if error_message %}
+                <p class="p2">{{ error_message }}</p>
+        {% endif %}
+    </fieldset>
+    <input  type="submit" name="validantchir" value="Valider" class="btn btn-primary" >
+</form>
+</center>
+{% endblock %}
+

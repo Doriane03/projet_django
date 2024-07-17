@@ -1,0 +1,18 @@
+
+{% extends 'listings/template.html' %}
+
+{% block formbilanimg %}
+<center>
+<form method="post" action=""  class="formcontenu">
+<div>
+<nav class="divcontenunav">bilan imagerie</nav>
+</div>
+    <fieldset>
+        <input type="file"   placeholder="image" name="echographie_ou_radiograpgie" class="inputcontenu"  accept="image/*" required/>
+
+        <textarea name="renseignementclinique" placeholder="renseignement clinique" class="inputcontenu" rows="4" cols="50"></textarea>   
+    </fieldset>
+    <input type="submit"  name="validbilanimg"  value="Enregister" class="btn btn-primary"/>
+</form>
+</center>
+{% endblock %}

@@ -1,0 +1,717 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <!-- The above 6 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        
+        <!-- Title -->
+        <title>Connect - Responsive Admin Dashboard Template</title>
+        <script>
+            function signedigstif() {
+                var afficheRadio= document.getElementsByName('b1');
+                for (var i = 0; i < afficheRadio.length; i++) {
+                    if (afficheRadio[i].checked) {
+                        switch(afficheRadio[i].value){
+                            case 'oui1':
+                            var inputField = document.getElementById("signedigestifs");
+                            inputField.style.display = "block";
+                            break;
+
+                            case 'oui2':
+                            var inputField = document.getElementById("signeextradigestif");
+                            inputField.style.display = "block";
+                            break;
+
+                            case 'oui3':
+                            var inputField = document.getElementById("signeasso");
+                            inputField.style.display = "block";
+
+                            break;
+
+
+                            case 'oui4':
+
+                            var inputField = document.getElementById("nombredeverredalcool");
+                            inputField.style.display = "block";
+
+                            break;
+
+
+
+                            case 'oui5':
+
+                            var inputField = document.getElementById("nombredepaquetdetabac");
+
+                            inputField.style.display = "block";
+
+
+                            break;
+
+                            case 'oui6':
+
+                            var inputField = document.getElementById("medocencours");
+
+                            inputField.style.display = "block";
+
+                            break;
+
+
+
+                            case 'oui7':
+
+                            var inputField = document.getElementById("Bilanbiologiqueanterieur");
+
+                            inputField.style.display = "block";
+
+                            break;
+
+                            case 'non1':
+
+                            var inputField = document.getElementById("signedigestifs");
+                            inputField.style.display = "none"; 
+                            break;
+                            case 'non2':
+                            var inputField = document.getElementById("signeextradigestif");
+                            inputField.style.display = "none"; 
+                            break;
+                            case 'non3':
+                            var inputField = document.getElementById("signeasso");
+                            inputField.style.display = "none"; 
+                            break;
+                            case 'non4':
+                            var inputField = document.getElementById("nombredeverredalcool");
+                            inputField.style.display = "none"; 
+                            break;
+                            case 'non5':
+                            var inputField = document.getElementById("nombredepaquetdetabac");
+                            inputField.style.display = "none"; 
+                            break;
+                            case 'non6':
+                            var inputField = document.getElementById("medocencours");
+                            inputField.style.display = "none"; 
+                            break;
+                            case 'non7':
+                                var inputField = document.getElementById("Bilanbiologiqueanterieur");
+                                inputField.style.display = "none"; 
+                            break;
+                        }
+                    }
+                }
+            }
+
+
+            function antecedantmedical() {
+                var afficheRadio1= document.getElementsByName('hepatiteviraleb');
+                var afficheRadio2= document.getElementsByName('hepatiteviralec');
+                var afficheRadio3= document.getElementsByName('hepatiteviraled');
+                var afficheRadio4= document.getElementsByName('vaccination_vhb');
+                var afficheRadio5= document.getElementsByName('vaccination_vha');
+                var afficheRadio6= document.getElementsByName('transfusion_sanguine');
+                var afficheRadio7= document.getElementsByName('autre');
+                for (var i = 0; i < afficheRadio1.length; i++) {
+                    if (afficheRadio1[i].checked) {
+                        switch(afficheRadio1[i].value){
+                            case 'o':
+                            var inputField = document.getElementById("affich1");
+                            inputField.style.display = "block";
+                            break;
+
+                            case 'n':
+                            var inputField = document.getElementById("affich1");
+                            inputField.style.display = "none"; 
+                            break;
+
+                            case 'nsp':
+                            var inputField = document.getElementById("affich1");
+                            inputField.style.display = "none"; 
+                            break;
+                        }
+                    }
+                }
+                for (var i = 0; i < afficheRadio2.length; i++) {
+                    if (afficheRadio2[i].checked) {
+                        switch(afficheRadio2[i].value){
+                            case 'o':
+                            var inputField = document.getElementById("affich2");
+                            inputField.style.display = "block";
+                            break;
+
+                            case 'n':
+                            var inputField = document.getElementById("affich2");
+                            inputField.style.display = "none"; 
+                            break;
+
+                            case 'nsp':
+                            var inputField = document.getElementById("affich2");
+                            inputField.style.display = "none"; 
+                            break;
+                        }
+                    }
+                }
+
+                for (var i = 0; i < afficheRadio3.length; i++) {
+                    if (afficheRadio3[i].checked) {
+                        switch(afficheRadio3[i].value){
+                            case 'o':
+                            var inputField = document.getElementById("affich3");
+                            inputField.style.display = "block";
+                            break;
+
+                            case 'n':
+                            var inputField = document.getElementById("affich3");
+                            inputField.style.display = "none"; 
+                            break;
+
+                            case 'nsp':
+                            var inputField = document.getElementById("affich3");
+                            inputField.style.display = "none"; 
+                            break;
+                        }
+                    }
+                }
+
+
+                for (var i = 0; i < afficheRadio4.length; i++) {
+                    if (afficheRadio4[i].checked) {
+                        switch(afficheRadio4[i].value){
+                            case 'o':
+                            var inputField = document.getElementById("affich4");
+                            inputField.style.display = "block";
+                            break;
+
+                            case 'n':
+                            var inputField = document.getElementById("affich4");
+                            inputField.style.display = "none"; 
+                            break;
+
+                            case 'nsp':
+                            var inputField = document.getElementById("affich4");
+                            inputField.style.display = "none"; 
+                            break;
+                        }
+                    }
+                }
+
+
+                for (var i = 0; i < afficheRadio5.length; i++) {
+                    if (afficheRadio5[i].checked) {
+                        switch(afficheRadio5[i].value){
+                            case 'o':
+                            var inputField = document.getElementById("affich5");
+                            inputField.style.display = "block";
+                            break;
+
+                            case 'n':
+                            var inputField = document.getElementById("affich5");
+                            inputField.style.display = "none"; 
+                            break;
+
+                            case 'nsp':
+                            var inputField = document.getElementById("affich5");
+                            inputField.style.display = "none"; 
+                            break;
+                        }
+                    }
+                }
+
+
+                for (var i = 0; i < afficheRadio6.length; i++) {
+                    if (afficheRadio6[i].checked) {
+                        switch(afficheRadio6[i].value){
+                            case 'o':
+                            var inputField = document.getElementById("affich6");
+                            inputField.style.display = "block";
+                            break;
+
+                            case 'n':
+                            var inputField = document.getElementById("affich6");
+                            inputField.style.display = "none"; 
+                            break;
+
+                            case 'nsp':
+                            var inputField = document.getElementById("affich6");
+                            inputField.style.display = "none"; 
+                            break;
+                        }
+                    }
+                }
+
+
+                for (var i = 0; i < afficheRadio7.length; i++) {
+                    if (afficheRadio7[i].checked) {
+                        switch(afficheRadio7[i].value){
+                            case 'o':
+                            var inputField = document.getElementById("affich7");
+                            inputField.style.display = "block";
+                            break;
+
+                            case 'n':
+                            var inputField = document.getElementById("affich7");
+                            inputField.style.display = "none"; 
+                            break;
+
+                            case 'nsp':
+                            var inputField = document.getElementById("affich7");
+                            inputField.style.display = "none"; 
+                            break;
+                        }
+                    }
+                }
+
+
+
+            }
+
+
+
+            function antecedantgyn(){
+                var afficheRadio= document.getElementsByName("cesarienne");
+                for (var i = 0; i < afficheRadio.length; i++) {
+                    if (afficheRadio[i].checked) {
+                        switch(afficheRadio[i].value){
+                            case 'o':
+                            var inputField = document.getElementById("resultat1");
+                                inputField.style.display = "block";
+                            break;
+
+                            case 'n':
+                            var inputField = document.getElementById("resultat1");
+                                inputField.style.display = "none"; 
+                            break;
+                        }
+                    }
+                }
+            }
+
+
+            function antecedantchiravp(){
+                var afficheRadio= document.getElementsByName("avp");
+                for (var i = 0; i < afficheRadio.length; i++) {
+                    if (afficheRadio[i].checked) {
+                        switch(afficheRadio[i].value){
+                            case 'o':
+                            var inputField = document.getElementById("resultat2");
+                                inputField.style.display = "block";
+                            break;
+
+                            case 'n':
+                            var inputField = document.getElementById("resultat2");
+                                inputField.style.display = "none"; 
+                            break;
+                        }
+                    }
+                }
+            }
+
+
+
+            
+            function antecedantchiroperachir(){
+                var afficheRadio= document.getElementsByName("operachir");
+                for (var i = 0; i < afficheRadio.length; i++) {
+                    if (afficheRadio[i].checked) {
+                        switch(afficheRadio[i].value){
+                            case 'o':
+                            var inputField = document.getElementById("resultat3");
+                                inputField.style.display = "block";
+                            break;
+
+                            case 'n':
+                            var inputField = document.getElementById("resultat3");
+                                inputField.style.display = "none"; 
+                            break;
+                        }
+                    }
+                }
+            }
+
+
+            function sortie(){
+                var afficheRadio= document.getElementsByName("motifsortie");
+                var inputField1= document.getElementById("motif1");
+                var inputField2= document.getElementById("motif2");
+                var inputField3= document.getElementById("motif3");
+                var inputField4= document.getElementById("motif4");
+                for (var i = 0; i < afficheRadio.length; i++) {
+                    if (afficheRadio[i].checked) {
+                        switch(afficheRadio[i].value){
+                            case 'décès':
+                                inputField1.style.display = "block";
+                                inputField2.style.display = "none";
+                                inputField3.style.display = "none";
+                                inputField4.style.display = "none";
+
+                            break;
+
+                            case 'perdu de vue':
+                                inputField4.style.display = "none";
+                                inputField1.style.display = "none";
+                                inputField3.style.display = "none";
+                                inputField2.style.display = "block"; 
+                            break;
+
+
+                            case 'transfert de dossier':
+                                inputField4.style.display = "none";
+                                inputField1.style.display = "none";
+                                inputField2.style.display = "none";
+                                inputField3.style.display = "block"; 
+                            break;
+
+                            case 'refus de suivi':
+                                inputField3.style.display = "none";
+                                inputField1.style.display = "none";
+                                inputField2.style.display = "none";
+                                inputField4.style.display = "block"; 
+                            break;
+                        }
+                    }
+                }
+            }
+
+
+            function sortieautre(){
+                var afficheRadio= document.getElementsByName("lieudeces");
+                var inputField1= document.getElementById("motif5");
+                for (var i = 0; i < afficheRadio.length; i++) {
+                    if (afficheRadio[i].checked) {
+                        switch(afficheRadio[i].value){
+                            case 'autre':
+                            inputField1.style.display = "block";
+                            break;
+
+                            case 'domicile':
+                            inputField1.style.display = "none";
+                            break;
+
+                            case 'centre de santé':
+                            inputField1.style.display = "none";
+                            break;
+                         }
+                    }
+                }
+            }
+
+//pour mon tableau ordonnance
+function ajouter(){
+    var affichecheckbox = document.getElementsByName("ajout");
+    var inputField= document.getElementById("true");
+    var inputField1= document.getElementById("yes");
+    for (var i = 0; i < affichecheckbox.length; i++){
+    if (affichecheckbox[i].checked){
+        if (affichecheckbox[i].value == "oui") {
+            var initialRowCount = inputField.rows.length;
+            var newRow = inputField.insertRow(-1);
+            var cell1 = newRow.insertCell(0);
+            var cell2 = newRow.insertCell(1);
+            var cell3 = newRow.insertCell(2);
+            var cell4 = newRow.insertCell(3);
+            cell1.innerHTML =`<div> 
+            <select name="nommedicament"  required>
+            <option>choisir un médicament</option>
+            {% for medicament in medicaments %}
+             <option value="{medicament.nommedicament}">{{medicament.nommedicament}}</option>
+             {% endfor %}
+            </select>
+            </div>`;
+
+            cell2.innerHTML =`<div><input type="text"  id="inputZip" ></div>`;
+
+            cell3.innerHTML =`<div>
+            <select name="dosage"  required>
+                <option>choisir le dossage</option>
+                {% for medicament in medicaments %}
+                <option value="{medicament.dosage}">{{medicament.dosage}}</option>
+                {% endfor %}
+            </select>
+            </div>`;
+
+            cell4.innerHTML =`
+            <div>
+            <select name="ok" required>
+                <option>choisir un type</option>
+                <option value="ok">sirop</option>
+                <option>comprimé</option>
+            </select>
+            </div>`;
+
+            var finalRowCount = inputField.rows.length;
+            if (finalRowCount > initialRowCount) {
+                affichecheckbox[i].checked = false;
+            }
+            
+        }else if(affichecheckbox[i].value =="oui1"){
+            var initialRowCount = inputField1.rows.length;
+            var newRow = inputField1.insertRow(-1);
+            var cell1 = newRow.insertCell(0);
+            var cell2 = newRow.insertCell(1);
+            var cell3 = newRow.insertCell(2);
+            var cell4 = newRow.insertCell(3);
+            var cell5 = newRow.insertCell(4);
+            cell1.innerHTML =`<div >
+                <select name="typeexamen" required>
+                        <option>choisir</option>
+                        <option value="Sérologie rétroviral">Sérologie rétroviral</option>
+                        <option value="IgG anti VHE">IgG anti VHE</option>
+                        <option value="IgM anti VHE">IgM anti VHE</option>
+                        <option value="Ac anti VHD">Ac anti VHD</option>
+                        <option value="Ac anti HBe">Ac anti HBe</option>
+                        <option value="Ag HBe">Ag HBe</option>
+                </select>
+              </div>`;
+            cell2.innerHTML =`<div >
+              <input  type="text" name="resultatnumerique">
+            </div>`;
+            cell3.innerHTML =`<div  class="custom-control custom-radio" id="presdiv11">
+                  <input type="radio"  name="resultatmodalite"  value="Positif" class="custom-control-input"/>
+                  <label class="custom-control-label">Positif</label>
+              </div>
+              <div  class="custom-control custom-radio" id="presdiv10">
+                  <input type="radio"  name="resultatmodalite"  value="Négatif" class="custom-control-input"/>
+                  <label class="custom-control-label" >Négatif</label>
+              </div>`;
+            cell4.innerHTML =`<div >
+              <select name="unite"  required>
+                      <option>choisir</option>
+                      <option value="UI/ ml">UI/ ml</option>
+                      <option value="mmol/ l">mmol/ l</option>
+                      <option value="g/l">g/l</option>
+                      <option value="/mm3">/mm3</option>
+                      <option value="mmol/l">mmol/l</option>
+                      <option value="%">%</option>
+              </select>
+            </div>`;
+            cell5.innerHTML =`<div>
+            <input  type="text" name="prix">
+          </div>`;
+            var finalRowCount = inputField1.rows.length;
+            if (finalRowCount > initialRowCount) {
+                affichecheckbox[i].checked = false;
+            }  
+        }
+    }
+    }
+}
+
+//fin
+
+            function pourlecheckbox() {
+                var affichecheckbox= document.getElementsByName('motifdeconsultation[]');
+                var inputField = document.getElementById("motifdeconsultation");
+                for (var i = 0; i < affichecheckbox.length; i++) {
+                    if (affichecheckbox[i].checked) {
+                        if (affichecheckbox[i].value=='Autre motif') {
+                            inputField.style.display = "block";
+                        }else if(affichecheckbox[i].value !='Autre motif') {
+                            inputField.style.display="none";
+                        }
+                        break; // Sortir de la boucle une fois le bouton coché trouvé
+                    }
+                }
+            }
+            
+            
+         function datefacture(){
+            var date = new Date();
+            var jour = date.getDate();
+            var mois = date.getMonth() + 1;
+            var annee = date.getFullYear();
+            var dateAffichee = jour + '/' + mois + '/' + annee;
+            document.getElementById('dateInput').value = dateAffichee;
+            }
+            
+        </script>
+        <!-- Styles -->
+        <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900&display=swap" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700&display=swap" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet"/>
+        <link href="{% static 'listings/assets/plugins/bootstrap/css/bootstrap.min.css'%}" rel="stylesheet"/>
+        <link href="{% static 'listings/assets/plugins/font-awesome/css/all.min.css'%}" rel="stylesheet"/>
+        <!-- Theme Styles -->
+        <link href="{% static 'listings/connect.min.css' %}" rel="stylesheet"/>
+        <link href="{% static 'listings/admin3.css' %}" rel="stylesheet"/>
+        <link href="{% static 'listings/dark_theme.css' %}" rel="stylesheet"/>
+        <link href="{% static 'listings/custom.css' %}" rel="stylesheet"/>
+        <link rel="stylesheet" href="{% static 'listings/style.css' %}"/>
+
+        <body onload="datefacture()" >
+            <!--debut menu-->
+            <div class="connect-container align-content-stretch d-flex flex-wrap">
+                <div class="page-sidebar">
+                    <div class="page-sidebar-inner slimscroll">
+                        {% block menuinfirmirer %} {% endblock%}
+                        {% block menudocteur %} {% endblock%}
+                        {% block menuadmin %} {% endblock%}
+                        <ul class="accordion-menu">
+                           
+                            <li>
+                                <a href="{% url 'Patient' %}">Patient</a>
+                            </li>
+
+                            <li>
+                                <a  href="{% url 'Facture' %}" >Facture</a>
+                            </li>
+                            <li>
+                                <a  href="{% url 'Consultation' %}">Consultation</a>
+                            </li>
+                            
+                            <li>
+                                <a  href="{% url 'Ordonnance' %}">Ordonnance</a>
+                            </li>
+
+                            <li>
+                                <a  href="{% url 'Antecedantmedical' %}">Antécédant Medical</a>
+                            </li>
+                            
+                            <li>
+                                <a  href="{% url 'Antecedantchirurgical' %}">Antécédant Chirurgical</a>
+                            </li>
+
+
+                            <li>
+                                <a  href="{% url 'Antecedantgenecologique' %}">Antécédant Gynécologique</a>
+                            </li>
+
+                            <li>
+                                <a  href="{% url 'modificationmdp' %}">Modifier un mot de passe</a>
+                            </li>
+
+                            <li>
+                                <a  href="{% url 'Constante' %}">Constante</a>
+                            </li>
+
+                            
+                            <li>
+                                <a  href="{% url 'Diagnostique' %}">Diagnostique</a>
+                            </li>
+
+                            <li>
+                                <a  href="{% url 'Sortie_patient' %}">Sortie</a>
+                            </li>
+
+                            <li>
+                                <a  href="{% url 'Bilanimg' %}">Bilan Imagérie</a>
+                            </li>
+
+                            <li>
+                                <a  href="{% url 'Bilanbio' %}">Bilan Biologique</a>
+                            </li>
+
+                            <li>
+                                <a  href="{% url 'adminform' %}">Admin</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+                <!--fin menu-->
+                <div class="page-container">
+                    <div class="page-header">
+                        <nav class="navbar navbar-expand">
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <ul class="navbar-nav">
+                                <li class="nav-item small-screens-sidebar-link">
+                                    <a href="#" class="nav-link"><i class="material-icons-outlined">menu</i></a>
+                                </li>
+                            <!--profil image-->
+                                <li class="nav-item nav-profile dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <img src="{% static 'listings/homme.png' %}"  width="105px" alt="profile image">
+                                        <span>Nancy Moore</span>
+                                    </a>
+                                </li>
+                                <!--profil image fin-->
+                            </ul>
+                             <!--rechercher-->
+                        <div class="collapse navbar-collapse" id="navbarNav"></div>
+                            <div class="navbar-search">
+                                <form>
+                                    <div class="form-group">
+                                        <input type="text" name="search" id="nav-search" placeholder="Search...">
+                                    </div>
+                                </form>
+                            </div>
+                       
+                        <!--rechercher fin-->
+                        </nav>
+                    
+                    </div>
+                            <!--<div class="row">
+
+                                <div class="col-md-12">
+
+                                    <div class="page-title">
+
+                                        <p class="page-desc">Push notifications to your visitors with a toast, a lightweight and easily customizable alert message.</p>
+
+                                    </div>
+
+                                </div>
+
+                            </div>-->
+                            <div class="row">
+                                <div class="col-xl">
+                                    <div class="card1">
+                                        <div class="card-body1">
+                                            {% block chart %}{% endblock %}
+                                            {% block tableauconsultation %} {% endblock %}
+                                            {% block formbilanbio %} {% endblock %}
+                                            {% block content%} {% endblock %}
+                                            {% block formbilanimg %} {% endblock %}
+                                            {% block formconstante %} {% endblock %}
+                                            {% block formmodifmdp %} {% endblock %}
+                                            {% block formfacture %} {% endblock %}
+                                            {% block consultationform %} {% endblock %}
+                                            {% block formpatient %} {% endblock %}
+                                            {% block formdiagnostique %} {% endblock %}
+                                            {% block formordonnance %}  {% endblock %}
+                                            {% block fromantmedical %}   {% endblock %}
+                                            {% block formantchirurgical %} {% endblock %}
+                                            {% block formantgynecologique %} {% endblock %}
+                                            {% block formsortie %} {% endblock %}
+                                            {% block formadmin %} {% endblock %}
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                   <!-- <div class="page-footer">
+
+                        <div class="row">
+
+                            <div class="col-md-12">
+
+                                <span class="footer-text">2019 © stacks</span>
+
+                            </div>
+
+                        </div>
+
+                    </div>-->
+                </div>
+            </div>
+        <!-- Javascripts -->
+        <script src="{% static 'listings/assets/plugins/jquery/jquery-3.4.1.min.js' %} "></script>
+        <script src="{% static 'listings/assets/plugins/bootstrap/popper.min.js' %}"></script>
+        <script src="{% static 'listings/assets/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'listings/assets/plugins/jquery.slimscroll/jquery.slimscroll.min.js' %}"></script>
+        <script src="{% static 'listings/assets/js/connect.min.js' %}"></script>
+
+        <script src="{% static 'listings/assets/plugins/jquery-sparkline/jquery.sparkline.min.js' %}"></script>
+        <script src="{% static 'listings/assets/plugins/apexcharts/dist/apexcharts.min.js' %}"></script>
+        <script src="{% static 'listings/assets/plugins/blockui/jquery.blockUI.js' %}"></script>
+        <script src="{% static 'listings/assets/plugins/flot/jquery.flot.min.js' %}"></script>
+        <script src="{% static 'listings/assets/plugins/flot/jquery.flot.time.min.js' %}"></script>
+        <script src="{% static 'listings/assets/plugins/flot/jquery.flot.symbol.min.js' %}"></script>
+        <script src="{% static 'listings/assets/plugins/flot/jquery.flot.resize.min.js' %}"></script>
+        <script src="{% static 'listings/assets/plugins/flot/jquery.flot.tooltip.min.js' %}"></script>
+        <script src="{% static 'listings/assets/js/pages/dashboard.js' %}"></script>
+
+    </body>
+</html>

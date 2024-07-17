@@ -1,0 +1,84 @@
+
+{% extends 'listings/template.html' %}
+
+{% block formbilanbio %}
+<center>
+<form method="post" action=""  class="formcontenu">
+<div>
+<nav class="divcontenunav">bilan biologique</nav>
+</div>
+{% csrf_token %}
+  <fieldset>
+    <table id="yes" class="table1">
+        <tr>
+            <th>Type d'examen</th>
+            <th>Résultat numérique</th>
+            <th>Résultat modalité</th>
+            <th>unités</th>
+            <th>prix</th>
+        </tr>
+
+      <tr> 
+          <td>  
+            <div >
+                <select name="typeexamen" required>
+                        <option>choisir</option>
+                        <option value="Sérologie rétroviral">Sérologie rétroviral</option>
+                        <option value="IgG anti VHE">IgG anti VHE</option>
+                        <option value="IgM anti VHE">IgM anti VHE</option>
+                        <option value="Ac anti VHD">Ac anti VHD</option>
+                        <option value="Ac anti HBe">Ac anti HBe</option>
+                        <option value="Ag HBe">Ag HBe</option>
+                </select>
+              </div>
+          </td> 
+
+
+          <td> 
+            <div >
+              <input  type="text" name="resultatnumerique">
+            </div>
+         </td> 
+
+          <td> 
+              <div  class="custom-control custom-radio" id="presdiv11">
+                  <input type="radio"  name="resultatmodalite"  value="Positif"    class="custom-control-input" id="exampleRadios1"/>
+                  <label class="custom-control-label" for="exampleRadios1">Positif</label>
+              </div>
+              <div  class="custom-control custom-radio" id="presdiv10">
+                  <input type="radio"  name="resultatmodalite"  value="Négatif"    class="custom-control-input" id="exampleRadios2"/>
+                  <label class="custom-control-label" for="exampleRadios2">Négatif</label>
+              </div>
+          </td> 
+
+
+          <td> 
+            <div>
+              <select name="unite"  required>
+                      <option>choisir</option>
+                      <option value="UI/ ml">UI/ ml</option>
+                      <option value="mmol/ l">mmol/ l</option>
+                      <option value="g/l">g/l</option>
+                      <option value="/mm3">/mm3</option>
+                      <option value="mmol/l">mmol/l</option>
+                      <option value="%">%</option>
+              </select>
+            </div>
+          </td> 
+
+        <td> 
+          <div>
+            <input  type="text" name="prix">
+          </div>
+        </td> 
+
+      </tr> 
+    </table>
+    <div style="margin-left:620px">
+      <input type="checkbox"   name="ajout"  value="oui1" onclick="ajouter()"/>Ajouter un nouvel examen
+    </div>
+    </fieldset>
+    <input type="submit"  name="validbilanimg"  value="Enregister" class="btn btn-primary"/>
+</form>
+</center>
+{% endblock %}                                                                           

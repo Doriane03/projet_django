@@ -1,0 +1,18 @@
+{% extends 'listings/template.html' %}
+
+{% block formdiagnostique %}
+<center>
+<form method="post" action="{% url 'diagnostique' %}" class="formcontenu">
+<div>
+<nav class="divcontenunav">diagnostique</nav>
+</div>
+{% csrf_token %}
+    <fieldset class="fieldsetgd">
+            <input type="text"   placeholder="diagnostique retenu" name="libdiag" class="inputcontenu"/>
+            <input type="text"   placeholder="date" name="date" class="inputcontenu"/>
+            <input type="text" placeholder="consultation" name="consultation" class="inputcontenu"/> <!--on va afficher la consultation en cours et griser le champs et ce formulaire s'affichera apres enregistrement de la consultation -->
+    </fieldset>
+    <input type="submit"  name="valideconstante"  value="Enregister" class="btn btn-primary"/>
+</form>
+</center>
+{% endblock %}

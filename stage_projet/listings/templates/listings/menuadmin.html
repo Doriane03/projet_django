@@ -1,0 +1,23 @@
+{% extends 'listings/template.html' %}
+
+{% block menuadmin %}
+<div class="page-sidebar-inner slimscroll">
+                        <ul class="accordion-menu">
+                            <li>
+                                <a href="{% url 'adminform' %}"><i class="material-icons">person_edit</i>Créer un utilisateur</a>
+                            </li>
+
+                            <li>
+                                <a  href="{% url 'modificationmdp' %} " class="active"><i class="material-icons-outlined">update</i>Changer un mot de passe</a>
+                            </li>
+                            
+                            <li>
+                                <a  href="{% url 'chart' %}"><i class="material-icons-outlined">show_chart</i>Afficher le tableau de bord</a>
+                            </li>
+                            
+                            <li>
+                                <a  href="{% url 'deconnexion' %}" ><i class="material-icons">logout</i>Déconnexion</a>
+                            </li>
+                        </ul>
+</div>
+{% endblock %}
