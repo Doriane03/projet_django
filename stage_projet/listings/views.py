@@ -120,12 +120,11 @@ def donne(request):
             #else:
                # return HttpResponse('no')   
     #return render(request,'listings/cnx.html')
-@login_required
 def index(request):
     return render(request,'listings/index.html')
 
 #fin
-@login_required
+@login_required(login_url="/")
 def patient(request):
     Lits = Lit.objects.all()
     if request.method=='POST':
@@ -135,20 +134,20 @@ def patient(request):
         reg.save()  
     return render(request,'listings/formpatient.html',context={'Lits':Lits})
 #fin
-@login_required
+@login_required(login_url="/")
 def constante(request):
     return render(request,'listings/formconstante.html')
 
-@login_required
+@login_required(login_url="/")
 def consultation(request):
     return render(request,'listings/formconsultation.html')
 
 
-@login_required
+@login_required(login_url="/")
 def facture(request):
     return render(request,'listings/formfacture.html')
 
-@login_required
+@login_required(login_url="/")
 def diagnostique(request):
     if request.method=='POST':
         Nom1=request.POST['libdiag']
@@ -159,18 +158,18 @@ def diagnostique(request):
     return render(request,'listings/formdiagnostiaue.html')
 
 
-@login_required
+@login_required(login_url="/")
 def ordonnance(request):
     Medicaments=Medicament.objects.all()
     return render(request,'listings/formordonnance.html',context={'Medicaments':Medicaments}) 
 
 
-@login_required
+@login_required(login_url="/")
 def antecedantmedical(request):
     return render(request,'listings/fromantmedical.html') 
 
 
-@login_required
+@login_required(login_url="/")
 def antecedantchirurgical(request):
     if request.method == 'POST':
         Operachir = request.POST['operachir']
@@ -194,16 +193,16 @@ def antecedantchirurgical(request):
     return render(request,'listings/formantchirurgical.html') 
 
 
-@login_required
+@login_required(login_url="/")
 def antecedantgenecologique(request):
     return render(request,'listings/formantgynecologique.html') 
 
 
-@login_required
+@login_required(login_url="/")
 def sortie_patient(request):
     return render(request,'listings/formsortie.html')
 
-@login_required
+@login_required(login_url="/")
 def modificationmdp(request):
     Personnel_soignants =Personnel_soignant.objects.all()
     if request.method =='POST':
@@ -216,7 +215,7 @@ def modificationmdp(request):
     return render(request,'listings/formmodifmdp.html',context={'Personnel_soignants':Personnel_soignants})
 
     
-@login_required
+@login_required(login_url="/")
 def adminform(request):
     Services = Service.objects.all()
     Type_personnel_soignants = Type_personnel_soignant.objects.all()
@@ -251,28 +250,28 @@ def adminform(request):
         #return render(request,'listings/formconsultation.html')
     return render(request,'listings/formadmin.html',context={'Services':Services,'Type_personnel_soignants':Type_personnel_soignants})
 
-@login_required
+@login_required(login_url="/")
 def bilanimg(request):
     return render(request,'listings/formbilanimg.html')
 
 
 #menu
-@login_required
+@login_required(login_url="/")
 def bilanbio(request):
     return render(request,'listings/bilanbio.html')
 
 
-@login_required
+@login_required(login_url="/")
 def tableauconsultation(request):
     return render(request,'listings/tableauconsultation.html')
 
 
-@login_required
+@login_required(login_url="/")
 def chart(request):
     return render(request,'listings/chart.html')
 
 
-@login_required
+@login_required(login_url="/")
 def menu(request):
     return render(request,'listings/chart.html')
 #fin
