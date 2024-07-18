@@ -280,7 +280,7 @@ def chart(request):
 
 @login_required
 def menu(request):
-    return render(request,'listings/chart.html')
+    return render(request,'')
 #fin
 #def create_folder(request):
     #desktop_path = Path.home() / 'Desktop' / 'ARCHIVE_DOC_PAT'/ 'PAT9' #ceer le fic avec le nom du patient
