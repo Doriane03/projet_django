@@ -280,7 +280,7 @@ def chart(request):
 
 @login_required
 def menu(request):
-    return render(request,'listings/rightaffiche.html')
+    return render(request,'listings/chart.html')
 #fin
 #def create_folder(request):
     #desktop_path = Path.home() / 'Desktop' / 'ARCHIVE_DOC_PAT'/ 'PAT9' #ceer le fic avec le nom du patient
@@ -291,5 +291,3 @@ def menu(request):
         #return HttpResponse(f'Le dossier existe déjà sur le bureau : {desktop_path}')
 #fin
 #fin
-
-

@@ -541,7 +541,7 @@ function ajouter(){
         <link href="{% static 'listings/dark_theme.css' %}" rel="stylesheet"/>
         <link href="{% static 'listings/custom.css' %}" rel="stylesheet"/>
         <link rel="stylesheet" href="{% static 'listings/style.css' %}"/>
-
+    </head>
         <body onload="datefacture()" >
             <!--debut menu-->
             <div class="connect-container align-content-stretch d-flex flex-wrap">
@@ -565,7 +565,7 @@ function ajouter(){
                                         </li>
 
                                         <li>
-                                            <a  href="{% url 'patient' %}" ><i class="material-icons-outlined">save</i>Enregister un patient</a>
+                                            <a  href="{% url 'patient' %}" id="myLink" ><i class="material-icons-outlined">save</i>Enregister un patient</a>
                                         </li>
                                         
                                         <li>
