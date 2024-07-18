@@ -277,10 +277,6 @@ def tableauconsultation(request):
 def chart(request):
     return render(request,'listings/chart.html')
 
-
-@login_required
-def menu(request):
-    return render(request,'listings/chart.html')
 #fin
 #def create_folder(request):
     #desktop_path = Path.home() / 'Desktop' / 'ARCHIVE_DOC_PAT'/ 'PAT9' #ceer le fic avec le nom du patient
@@ -291,3 +287,14 @@ def menu(request):
         #return HttpResponse(f'Le dossier existe déjà sur le bureau : {desktop_path}')
 #fin
 #fin
+@login_required
+def menu(request):
+    if request.user.is_authenticated:
+        if request.user.Type_personnel_soignant.nompersog == "INFIRMIERE":
+            return redirect('page_infirmiere')
+        elif request.user.Type_personnel_soignant.nompersog == "MEDECIN":
+            return redirect('page_medecin')
+        else:
+            return redirect('page_default')  # Redirection par défaut si le type n'est pas spécifié
+
+    return redirect('login') 

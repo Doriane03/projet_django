@@ -19,6 +19,9 @@ BASE_DIR =os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 env = environ.Env()
 environ.Env.read_env()
 LOGIN_URL ='login'
+
+LOGIN_REDIRECT_URL= "menu"
+
 AUTH_USER_MODEL = "listings.CustomUser"
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
