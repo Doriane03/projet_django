@@ -543,10 +543,18 @@ function ajouter(){
             <div class="connect-container align-content-stretch d-flex flex-wrap">
                 <div class="page-sidebar">
                     <div class="page-sidebar-inner slimscroll">
-                        {% block menuinfirmirer %} {% endblock%}
-                        {% block menudocteur %} {% endblock%}
-                        {% block menuadmin %} {% endblock%}
-                        <ul class="accordion-menu">
+
+                        {% if request.user.is_authenticated %}
+
+                                {% block menuinfirmirer %} {% endblock%}
+
+                        {% endif %}
+
+
+                       
+                        <!--<ul class="accordion-menu">
+                         {% block menudocteur %} {% endblock%}
+                         {% block menuadmin %} {% endblock%}
                            
                             <li>
                                 <a href="{% url 'patient' %}">Patient</a>
@@ -605,7 +613,7 @@ function ajouter(){
                                 <a  href="{% url 'adminform' %}">Admin</a>
                             </li>
 
-                        </ul>
+                        </ul>-->
                     </div>
                 </div>
                 <!--fin menu-->
@@ -623,7 +631,7 @@ function ajouter(){
                                 <li class="nav-item nav-profile dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <img src="{% static 'listings/homme.png' %}"  width="105px" alt="profile image">
-                                        <span>Nancy Moore</span>
+                                        <span>{{ user.nom}}</span>
                                     </a>
                                 </li>
                                 <!--profil image fin-->

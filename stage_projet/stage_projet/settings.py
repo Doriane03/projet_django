@@ -20,7 +20,7 @@ env = environ.Env()
 environ.Env.read_env()
 LOGIN_URL ='login'
 
-LOGIN_REDIRECT_URL='patient'
+LOGIN_REDIRECT_URL= "memu"
 
 AUTH_USER_MODEL = "listings.CustomUser"
 # Quick-start development settings - unsuitable for production

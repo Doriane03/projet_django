@@ -30,8 +30,11 @@ urlpatterns = [
     #django admin
     path('admin/', admin.site.urls),
     #fin
+
+    
     path('bands/',views.band_list),
     path('',views.index,name='index'),
+    path('menu',views.menu,name='menu'),
     #path('cnx/',views.cnx,name='cnx'),
     path('patient/',views.patient,name='patient'),
     path('listings/',views.listing_list,name='listing-list'),
