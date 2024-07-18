@@ -120,7 +120,7 @@ def donne(request):
             #else:
                # return HttpResponse('no')   
     #return render(request,'listings/cnx.html')
-
+@login_required
 def index(request):
     return render(request,'listings/index.html')
 
@@ -250,12 +250,6 @@ def adminform(request):
         #reg.save()
         #return render(request,'listings/formconsultation.html')
     return render(request,'listings/formadmin.html',context={'Services':Services,'Type_personnel_soignants':Type_personnel_soignants})
-        
-@login_required
-def deconnexion(request):
-    if 'titre' in request.session:
-        del request.session['titre'] 
-    return render(request, 'listings/index.html')
 
 @login_required
 def bilanimg(request):

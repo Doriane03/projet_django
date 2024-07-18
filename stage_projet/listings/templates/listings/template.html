@@ -525,7 +525,11 @@ function ajouter(){
             }
             
 
-            //pour faire un click automatique
+            pour faire un click automatique
+            document.addEventListener('DOMContentLoaded', function() {
+                var button = document.getElementById('myButton');
+                button.click();
+            });
 
 
         </script>
@@ -565,11 +569,11 @@ function ajouter(){
                                         </li>
 
                                         <li>
-                                            <a  href="{% url 'patient' %}" id="myLink" ><i class="material-icons-outlined">save</i>Enregister un patient</a>
+                                            <a  href="{% url 'patient' %}" id="myButton" ><i class="material-icons-outlined">save</i>Enregister un patient</a>
                                         </li>
                                         
                                         <li>
-                                            <a  href="{% url 'deconnexion' %}"><i class="material-icons">logout</i>Déconnexion</a>
+                                            <a  href="{% url 'logout' %}"><i class="material-icons">logout</i>Déconnexion</a>
                                         </li>
                                     </ul>
 
@@ -589,11 +593,11 @@ function ajouter(){
                                         </li>
 
                                         <li>
-                                            <a  href="{% url 'patient' %}" ><i class="material-icons-outlined">save</i>Enregister un patient</a>
+                                            <a  href="{% url 'patient' %}" id="myButton" ><i class="material-icons-outlined">save</i>Enregister un patient</a>
                                         </li>
                                         
                                         <li>
-                                            <a  href="{% url 'deconnexion' %}"><i class="material-icons">logout</i>Déconnexion</a>
+                                            <a  href="{% url 'logout' %}"><i class="material-icons">logout</i>Déconnexion</a>
                                         </li>
                                     </ul>
 
@@ -605,7 +609,7 @@ function ajouter(){
                                         </li>
                                         
                                         <li>
-                                            <a  href="{% url 'tableauconsultation' %}"><i class="material-icons-outlined">visibility</i>Consultation</a>
+                                            <a  href="{% url 'tableauconsultation' %}" id="myButton"><i class="material-icons-outlined">visibility</i>Consultation</a>
                                         </li>
             
                                         <li>
@@ -617,7 +621,7 @@ function ajouter(){
                                         </li>
                                         
                                         <li>
-                                            <a  href="{% url 'deconnexion' %}" ><i class="material-icons">logout</i>Déconnexion</a>
+                                            <a  href="{% url 'logout' %}" ><i class="material-icons">logout</i>Déconnexion</a>
                                         </li>
                                     </ul>
 
@@ -633,11 +637,11 @@ function ajouter(){
                                         </li>
                                         
                                         <li>
-                                            <a  href="{% url 'chart' %}" ><i class="material-icons-outlined">show_chart</i>Afficher le tableau de bord</a>
+                                            <a  href="{% url 'chart' %}" id="myButton"><i class="material-icons-outlined">show_chart</i>Afficher le tableau de bord</a>
                                         </li>
                                         
                                         <li>
-                                            <a  href="{% url 'deconnexion' %}" ><i class="material-icons">logout</i>Déconnexion</a>
+                                            <a  href="{% url 'logout' %}" ><i class="material-icons">logout</i>Déconnexion</a>
                                         </li>
                                     </ul>
                             {% endif %}
@@ -707,7 +711,93 @@ function ajouter(){
                     </div>
                 </div>
                 <!--fin menu-->
-                {% block rightaffiche %}{% endblock %}
+                <div class="page-container">
+                    <div class="page-header">
+                        <nav class="navbar navbar-expand">
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <ul class="navbar-nav">
+                                <li class="nav-item small-screens-sidebar-link">
+                                    <a href="#" class="nav-link"><i class="material-icons-outlined">menu</i></a>
+                                </li>
+                            <!--profil image-->
+                                <li class="nav-item nav-profile dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <img src="{% static 'listings/homme.png' %}"  width="105px" alt="profile image">
+                                        <span> {{user.Type_personnel_soignant.nompersog }} {{ user.nom }}</span>
+                                    </a>
+                                </li>
+                                <!--profil image fin-->
+                            </ul>
+                             <!--rechercher-->
+                        <div class="collapse navbar-collapse" id="navbarNav"></div>
+                            <div class="navbar-search">
+                                <form>
+                                    <div class="form-group">
+                                        <input type="text" name="search" id="nav-search" placeholder="Search...">
+                                    </div>
+                                </form>
+                            </div>
+                       
+                        <!--rechercher fin-->
+                        </nav>
+                    
+                    </div>
+                            <!--<div class="row">
+
+                                <div class="col-md-12">
+
+                                    <div class="page-title">
+
+                                        <p class="page-desc">Push notifications to your visitors with a toast, a lightweight and easily customizable alert message.</p>
+
+                                    </div>
+
+                                </div>
+
+                            </div>-->
+                            <div class="row">
+                                <div class="col-xl">
+                                    <div class="card1">
+                                        <div class="card-body1">
+                                            {% block chart %}{% endblock %}
+                                            {% block tableauconsultation %} {% endblock %}
+                                            {% block formbilanbio %} {% endblock %}
+                                            {% block content%} {% endblock %}
+                                            {% block formbilanimg %} {% endblock %}
+                                            {% block formconstante %} {% endblock %}
+                                            {% block formmodifmdp %} {% endblock %}
+                                            {% block formfacture %} {% endblock %}
+                                            {% block consultationform %} {% endblock %}
+                                            {% block formpatient %} {% endblock %}
+                                            {% block formdiagnostique %} {% endblock %}
+                                            {% block formordonnance %}  {% endblock %}
+                                            {% block fromantmedical %}   {% endblock %}
+                                            {% block formantchirurgical %} {% endblock %}
+                                            {% block formantgynecologique %} {% endblock %}
+                                            {% block formsortie %} {% endblock %}
+                                            {% block formadmin %} {% endblock %}
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                   <!-- <div class="page-footer">
+
+                        <div class="row">
+
+                            <div class="col-md-12">
+
+                                <span class="footer-text">2019 © stacks</span>
+
+                            </div>
+
+                        </div>
+
+                    </div>-->
+                </div>
+            </div>
         <!-- Javascripts -->
         <script src="{% static 'listings/assets/plugins/jquery/jquery-3.4.1.min.js' %} "></script>
         <script src="{% static 'listings/assets/plugins/bootstrap/popper.min.js' %}"></script>

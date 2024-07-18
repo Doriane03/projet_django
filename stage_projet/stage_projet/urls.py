@@ -24,8 +24,8 @@ from django.conf import settings
 
 urlpatterns = [
     #connexion
-    path("", LoginView.as_view(template_name="listings/index.html"), name="login"),
-    path("logout/", LogoutView.as_view(template_name="listings/index.html"), name="deconnexion"),
+    path("login/", LoginView.as_view(template_name="listings/index.html"), name="login"),
+    path("logout/", LogoutView.as_view(template_name="listings/index.html"), name="logout"),
     #fin
     #django admin
     path('admin/', admin.site.urls),
