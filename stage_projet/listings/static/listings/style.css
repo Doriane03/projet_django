@@ -61,6 +61,13 @@ float: left;
 .test{
   display: none;
 }
+.test>input[type='text']{
+  padding:8px;
+}
+
+.test>input[type='date']{
+  padding:8px;
+}
 /*formulaire de sortie*/
 .divsortie{
   overflow: hidden;
@@ -293,7 +300,6 @@ margin-right:74%;
 }
 #div14>input[type="text"]{
 width:100%;
-padding:10px;
 border-top:none;
 border-left:none;
 border-right:none;
@@ -367,7 +373,7 @@ font-size:17;
 }
  
 #divse>input[type="text"]{
-width:100%;
+width:55%;
 padding:10px;
 border-top:none;
 border-left:none;
@@ -375,7 +381,7 @@ border-right:none;
 border-bottom:1px solid black;
 }
 #divsd>input[type="text"]{
-width:100%;
+width:55%;
 padding:10px;
 border-top:none;
 border-left:none;
@@ -432,7 +438,6 @@ color: red;
 }
 
 .untest1{
-  width:100%;
   margin-right:144px;
 }
 .untest1> input[type="text"]{
@@ -446,7 +451,6 @@ color: red;
 
 .untest2{
   margin-right:140px;
-  width: 100%;
 
 }
 .untest2> input[type="text"]{
@@ -464,8 +468,7 @@ color: red;
 }
 
 .untest4{
-  width:100%;
-  margin-right:150px;
+  margin-right:100px;
 }
 .untest4> input[type="text"]{
   width:100%;
@@ -544,7 +547,7 @@ margin-left:158px;
 }
 /*mise en forme tableau*/
 .table1 {
-  width: 100%;
+  width:100%;
   border-collapse: collapse;
 }
 .table1  th,td{
@@ -561,3 +564,20 @@ margin-left:158px;
   border: none;
   background-color:rgb(238, 238, 238);
 }
+
+.table2{
+  width:100%;
+  border-collapse: collapse;
+}
+.table2  th,td{
+  text-align: center; /* Centrer horizontalement */
+  vertical-align: middle; /* Centrer verticalement */
+  padding: 10px;
+}
+.table2 th{
+  background-color: #f2f2f2;
+}
+.table2 tr{
+  border-bottom: 1px solid  #ddd;
+}
+
