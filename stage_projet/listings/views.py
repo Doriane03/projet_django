@@ -35,6 +35,7 @@ from  listings.models  import Ordonnance # type: ignore
 from  listings.models  import Diagnostique # type: ignore
 from  listings.models  import Bilan_imagerie # type: ignore
 from  listings.models  import Bilan_biologique # type: ignore
+from  listings.models  import CustomUser # type: ignore
 #finimport
 
 #import formulaire de ma bd
@@ -224,17 +225,30 @@ def adminform(request):
         contact=request.POST['contact']
         email=request.POST['email']
         mdp= make_password(request.POST['mdp'])
+        #mdp=request.POST['mdp']
         service=request.POST['Service']
-
         type_personnel_soignant=request.POST['Type_personnel_soignant']
+
         service_id= Service.objects.filter(nomservice=service).values_list('refservice', flat=True).first()
         type_personnel_soignant_id=Type_personnel_soignant.objects.filter( nompersog=type_personnel_soignant).values_list('idpersoignant', flat=True).first()
-
-        print(service)
-        print(type_personnel_soignant)
-        reg=Personnel_soignant(mdp=mdp,nom=nom,contact=contact,email=email,Service_id=service_id, Type_personnel_soignant_id= type_personnel_soignant_id)
-        reg.save()
-        return render(request,'listings/formconsultation.html')
+        #script d'ajout dans ma table user de django admin
+        if service_id and type_personnel_soignant_id:
+            CustomUser.objects.create(
+            username=nom,
+            nom=nom,
+            password=mdp,
+            contact=contact,
+            email=email,
+            Service_id=service_id,
+            Type_personnel_soignant_id=type_personnel_soignant_id
+            )
+        return redirect('chart')
+        #fin
+        #print(service)
+        #print(type_personnel_soignant)
+        #reg=Personnel_soignant(mdp=mdp,nom=nom,contact=contact,email=email,Service_id=service_id, Type_personnel_soignant_id= type_personnel_soignant_id)
+        #reg.save()
+        #return render(request,'listings/formconsultation.html')
     return render(request,'listings/formadmin.html',context={'Services':Services,'Type_personnel_soignants':Type_personnel_soignants})
         
 @login_required

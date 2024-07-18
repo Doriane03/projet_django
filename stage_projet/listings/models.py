@@ -374,9 +374,6 @@ class CustomUser(AbstractUser):
 
     USERNAME_FIELD='nom'
     REQUIRED_FIELDS=['username']
-    def save(self, *args, **kwargs):
-        self.set_password(self.mdp)  # Hash le mot de passe
-        super().save(*args, **kwargs)
     def __str__(self):
         return self.nom 
     
