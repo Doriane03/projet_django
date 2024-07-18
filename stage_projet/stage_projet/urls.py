@@ -24,8 +24,10 @@ from django.conf import settings
 
 urlpatterns = [
     #connexion
-    path("login/", LoginView.as_view(template_name="listings/index.html"), name="login"),
-    path("logout/", LogoutView.as_view(template_name="listings/index.html"), name="logout"),
+    path('login/', auth_views.LoginView.as_view(), name='login'),
+    #path("", LoginView.as_view(template_name="listings/index.html"), name="login"),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    #path("logout/", LogoutView.as_view(template_name="listings/index.html"), name="logout"),
     #fin
     #django admin
     path('admin/', admin.site.urls),
@@ -33,8 +35,8 @@ urlpatterns = [
 
     
     path('bands/',views.band_list),
-    path('',views.index,name='index'),
-    path('menu',views.menu,name='menu'),
+    path('index/',views.index,name='index'),
+    path('menu/',views.menu,name='menu'),
     #path('cnx/',views.cnx,name='cnx'),
     path('patient/',views.patient,name='patient'),
     path('listings/',views.listing_list,name='listing-list'),

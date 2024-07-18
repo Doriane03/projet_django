@@ -120,7 +120,6 @@ def donne(request):
             #else:
                # return HttpResponse('no')   
     #return render(request,'listings/cnx.html')
-@login_required
 def index(request):
     return render(request,'listings/index.html')
 
