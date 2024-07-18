@@ -365,7 +365,6 @@ class Type_personnel_soignant(models.Model):
 from django.contrib.auth.models import AbstractUser
 class CustomUser(AbstractUser):
     refpersoignant=models.fields.AutoField(primary_key=True)
-    mdp=models.fields.CharField(max_length=253, null=True, blank=True,unique=True)
     nom=models.fields.CharField(max_length=100, null=True, blank=True,unique=True)
     contact=models.fields.PositiveIntegerField(null=True, blank=True)
     email=models.fields.EmailField(max_length = 254, null=True, blank=True,unique=True)
@@ -375,7 +374,9 @@ class CustomUser(AbstractUser):
 
     USERNAME_FIELD='nom'
     REQUIRED_FIELDS=['username']
-
+    def save(self, *args, **kwargs):
+        self.set_password(self.mdp)  # Hash le mot de passe
+        super().save(*args, **kwargs)
     def __str__(self):
         return self.nom 
     
