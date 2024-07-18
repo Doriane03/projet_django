@@ -24,9 +24,12 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     #connexion
-    path('login/', auth_views.LoginView.as_view(), name='login'),
-    #path("", LoginView.as_view(template_name="listings/index.html"), name="login"),
+
+    path('', auth_views.LoginView.as_view(template_name='listings/index.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    #path('', auth_views.LoginView.as_view(), name='login'),
+    #path("", LoginView.as_view(template_name="listings/index.html"), name="login"),
+    #path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     #path("logout/", LogoutView.as_view(template_name="listings/index.html"), name="logout"),
     #fin
     #django admin
