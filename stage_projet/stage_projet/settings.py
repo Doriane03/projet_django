@@ -19,7 +19,7 @@ BASE_DIR =os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 env = environ.Env()
 environ.Env.read_env()
 
-LOGIN_URL = "/"
+LOGIN_URL = "index"
 LOGIN_REDIRECT_URL = "menu"
 LOGOUT_REDIRECT_URL = "index"
 
