@@ -20,7 +20,7 @@ from django.urls import path,include # type: ignore
 from listings import views  # type: ignore
 from django.contrib.auth.views import LoginView, LogoutView
 from django.conf import settings
-
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     #connexion
