@@ -18,6 +18,12 @@ BASE_DIR =os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 env = environ.Env()
 environ.Env.read_env()
+
+LOGIN_URL = '/'  # URL pour la connexion
+LOGOUT_URL = '/'  # URL pour la déconnexion
+LOGIN_REDIRECT_URL = 'menu'  # URL de redirection après connexion réussie
+LOGOUT_REDIRECT_URL = 'index'
+
 AUTH_USER_MODEL = "listings.CustomUser"
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -53,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+   
 ]
 
 ROOT_URLCONF = 'stage_projet.urls'
@@ -135,11 +142,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "listings"),
+STATIC_URL = 'static/'
+
+STATICFILES_DIRS=[
+    os.path.join(BASE_DIR,'listings') #pour les images
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-

@@ -92,19 +92,18 @@ def contact(request):
 #recuperation de donnees
 
 
-def cnx(request):
-    if request.method == 'POST':
-        nom=request.POST['nom']
-        mdph= make_password(request.POST['mdp'])
-        resultats = Personnel_soignant.objects.values('nom', 'mdp') 
-        
-        for resultat in resultats:
-            if check_password(mdph, resultat.mdp) and resultat.nom == nom:
-                return render(request, 'listings/chart.html')
-            else:
-                return render(request,'listings/index.html')
-        print(resultats)
-    return render(request,'listings/index.html')
+#def cnx(request):
+    #if request.method == 'POST':
+       # username = request.POST['nom']
+       # password = request.POST['mdp']
+       # user = authenticate(request, username=username, password=password)
+        #if user is not None:
+           # login(request, user)
+            #return redirect('listings/menuinfirmier.html')  # Redirigez vers la page d'accueil ou une autre page appropriée
+        #else:
+           # form.add_error(None, 'Invalid username or password')
+    #else:
+       # return render(request, 'listings/index.html')
 
 def donne(request):
     Patients =patient.objects.all()
@@ -121,11 +120,12 @@ def donne(request):
             #else:
                # return HttpResponse('no')   
     #return render(request,'listings/cnx.html')
-#def index(request):
-    #return render(request,'listings/index.html')
+@login_required
+def index(request):
+    return render(request,'listings/index.html')
 
 #fin
- 
+@login_required
 def patient(request):
     Lits = Lit.objects.all()
     if request.method=='POST':
@@ -135,20 +135,20 @@ def patient(request):
         reg.save()  
     return render(request,'listings/formpatient.html',context={'Lits':Lits})
 #fin
- 
+@login_required
 def constante(request):
     return render(request,'listings/formconstante.html')
 
- 
+@login_required
 def consultation(request):
     return render(request,'listings/formconsultation.html')
 
 
- 
+@login_required
 def facture(request):
     return render(request,'listings/formfacture.html')
 
- 
+@login_required
 def diagnostique(request):
     if request.method=='POST':
         Nom1=request.POST['libdiag']
@@ -159,18 +159,18 @@ def diagnostique(request):
     return render(request,'listings/formdiagnostiaue.html')
 
 
- 
+@login_required
 def ordonnance(request):
     Medicaments=Medicament.objects.all()
     return render(request,'listings/formordonnance.html',context={'Medicaments':Medicaments}) 
 
 
- 
+@login_required
 def antecedantmedical(request):
     return render(request,'listings/fromantmedical.html') 
 
 
- 
+@login_required
 def antecedantchirurgical(request):
     if request.method == 'POST':
         Operachir = request.POST['operachir']
@@ -194,16 +194,16 @@ def antecedantchirurgical(request):
     return render(request,'listings/formantchirurgical.html') 
 
 
- 
+@login_required
 def antecedantgenecologique(request):
     return render(request,'listings/formantgynecologique.html') 
 
 
- 
+@login_required
 def sortie_patient(request):
     return render(request,'listings/formsortie.html')
 
- 
+@login_required
 def modificationmdp(request):
     Personnel_soignants =Personnel_soignant.objects.all()
     if request.method =='POST':
@@ -216,7 +216,7 @@ def modificationmdp(request):
     return render(request,'listings/formmodifmdp.html',context={'Personnel_soignants':Personnel_soignants})
 
     
- 
+@login_required
 def adminform(request):
     Services = Service.objects.all()
     Type_personnel_soignants = Type_personnel_soignant.objects.all()
@@ -232,47 +232,47 @@ def adminform(request):
         service_id= Service.objects.filter(nomservice=service).values_list('refservice', flat=True).first()
         type_personnel_soignant_id=Type_personnel_soignant.objects.filter( nompersog=type_personnel_soignant).values_list('idpersoignant', flat=True).first()
         #script d'ajout dans ma table user de django admin
-        #if service_id and type_personnel_soignant_id:
-           # CustomUser.objects.create(
-            #username=nom,
-            #nom=nom,
-            #password=mdp,
-            #contact=contact,
-            #email=email,
-            #Service_id=service_id,
-            #Type_personnel_soignant_id=type_personnel_soignant_id
-            #)
-        #return redirect('chart')
+        if service_id and type_personnel_soignant_id:
+            CustomUser.objects.create(
+            username=nom,
+            nom=nom,
+            password=mdp,
+            contact=contact,
+            email=email,
+            Service_id=service_id,
+            Type_personnel_soignant_id=type_personnel_soignant_id
+            )
+        return redirect('chart')
         #fin
         #print(service)
         #print(type_personnel_soignant)
-        reg=Personnel_soignant(mdp=mdp,nom=nom,contact=contact,email=email,Service_id=service_id, Type_personnel_soignant_id= type_personnel_soignant_id)
-        reg.save()
-        return render(request,'listings/formconsultation.html')
+        #reg=Personnel_soignant(mdp=mdp,nom=nom,contact=contact,email=email,Service_id=service_id, Type_personnel_soignant_id= type_personnel_soignant_id)
+        #reg.save()
+        #return render(request,'listings/formconsultation.html')
     return render(request,'listings/formadmin.html',context={'Services':Services,'Type_personnel_soignants':Type_personnel_soignants})
 
- 
+@login_required
 def bilanimg(request):
     return render(request,'listings/formbilanimg.html')
 
 
 #menu
- 
+@login_required
 def bilanbio(request):
     return render(request,'listings/bilanbio.html')
 
 
- 
+@login_required
 def tableauconsultation(request):
     return render(request,'listings/tableauconsultation.html')
 
 
- 
+@login_required
 def chart(request):
     return render(request,'listings/chart.html')
 
 
- 
+@login_required
 def menu(request):
     return render(request,'listings/chart.html')
 #fin
