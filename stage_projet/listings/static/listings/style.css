@@ -54,8 +54,10 @@
 .div1{
 float: left;
 }
+
 .div2{
-  float: right;  
+  margin-top: 30px;
+  float: right; 
 }
 
 .test{

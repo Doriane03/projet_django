@@ -543,18 +543,104 @@ function ajouter(){
             <div class="connect-container align-content-stretch d-flex flex-wrap">
                 <div class="page-sidebar">
                     <div class="page-sidebar-inner slimscroll">
-
                         {% if request.user.is_authenticated %}
 
-                                {% block menuinfirmirer %} {% endblock%}
 
+                            {% if   user.Type_personnel_soignant.nompersog == "INFIRMIERE" %}
+                                    <ul class="accordion-menu">
+                                        <li>
+                                            <a href="#" ><i class="material-icons">search</i>Rechercher un dossier patient</a>
+                                        </li>
+
+                                        <li>
+                                            <a  href="#" class="active"><i class="material-icons-outlined">calendar_today</i>Rendez-vous</a>
+                                        </li>
+
+                                        <li>
+                                            <a  href="#" ><i class="material-icons-outlined">person-check</i>Médecin disponible</a> <!--faire une requete pour afficher une liste de tous les medecins connectes-->
+                                        </li>
+
+                                        <li>
+                                            <a  href="{% url 'patient' %}" ><i class="material-icons-outlined">save</i>Enregister un patient</a>
+                                        </li>
+                                        
+                                        <li>
+                                            <a  href="{% url 'deconnexion' %}"><i class="material-icons">logout</i>Déconnexion</a>
+                                        </li>
+                                    </ul>
+
+
+                            {% elif  user.Type_personnel_soignant.nompersog == "INFIRMIER" %}
+                                    <ul class="accordion-menu">
+                                        <li>
+                                            <a href="#" ><i class="material-icons">search</i>Rechercher un dossier patient</a>
+                                        </li>
+
+                                        <li>
+                                            <a  href="#" class="active"><i class="material-icons-outlined">calendar_today</i>Rendez-vous</a>
+                                        </li>
+
+                                        <li>
+                                            <a  href="#" ><i class="material-icons-outlined">person-check</i>Médecin disponible</a> <!--faire une requete pour afficher une liste de tous les medecins connectes-->
+                                        </li>
+
+                                        <li>
+                                            <a  href="{% url 'patient' %}" ><i class="material-icons-outlined">save</i>Enregister un patient</a>
+                                        </li>
+                                        
+                                        <li>
+                                            <a  href="{% url 'deconnexion' %}"><i class="material-icons">logout</i>Déconnexion</a>
+                                        </li>
+                                    </ul>
+
+
+                            {% elif user.Type_personnel_soignant.nompersog == "MEDECIN" %}
+                                    <ul class="accordion-menu">
+                                        <li>
+                                            <a  href="#" class="active"><i class="material-icons-outlined">visibility</i>Rendez-vous</a>
+                                        </li>
+                                        
+                                        <li>
+                                            <a  href="{% url 'tableauconsultation' %}"><i class="material-icons-outlined">visibility</i>Consultation</a>
+                                        </li>
+            
+                                        <li>
+                                            <a  href="#"><i class="material-icons-outlined">folder</i>Consulter un dossier patient</a>
+                                        </li>
+            
+                                        <li>
+                                            <a  href="{% url 'sortie_patient' %}"><i class="material-icons-outlined">directions_walk</i>Autoriser une sortie</a>
+                                        </li>
+                                        
+                                        <li>
+                                            <a  href="{% url 'deconnexion' %}" ><i class="material-icons">logout</i>Déconnexion</a>
+                                        </li>
+                                    </ul>
+
+
+                            {% elif user.Type_personnel_soignant.nompersog == "ADMIN" %}
+                                    <ul class="accordion-menu">
+                                        <li>
+                                            <a href="{% url 'adminform' %}"><i class="material-icons">person_edit</i>Créer un utilisateur</a>
+                                        </li>
+            
+                                        <li>
+                                            <a  href="{% url 'modificationmdp' %} " class="active"><i class="material-icons-outlined">update</i>Changer un mot de passe</a>
+                                        </li>
+                                        
+                                        <li>
+                                            <a  href="{% url 'chart' %}"><i class="material-icons-outlined">show_chart</i>Afficher le tableau de bord</a>
+                                        </li>
+                                        
+                                        <li>
+                                            <a  href="{% url 'deconnexion' %}" ><i class="material-icons">logout</i>Déconnexion</a>
+                                        </li>
+                                    </ul>
+                            {% endif %}
                         {% endif %}
 
 
-                       
                         <!--<ul class="accordion-menu">
-                         {% block menudocteur %} {% endblock%}
-                         {% block menuadmin %} {% endblock%}
                            
                             <li>
                                 <a href="{% url 'patient' %}">Patient</a>
@@ -631,7 +717,7 @@ function ajouter(){
                                 <li class="nav-item nav-profile dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <img src="{% static 'listings/homme.png' %}"  width="105px" alt="profile image">
-                                        <span>{{ user.nom}}</span>
+                                        <span> {{user.Type_personnel_soignant.nompersog }} {{ user.nom }}</span>
                                     </a>
                                 </li>
                                 <!--profil image fin-->
