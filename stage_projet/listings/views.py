@@ -178,14 +178,17 @@ def antecedantchirurgical(request):
         Datoperachir = request.POST['datoperachir']
         patient_id ='3' 
         print(Operachir,Avp,Dateavp,Datoperachir)
-        if Operachir == 'n' and Dateavp == 'n':
-            reg = Antecedant_chirurgical(operachir=Operachir, avp=Avp, Patient_id=patient_id)
+        if Operachir == 'n' and Avp == 'n':
+            reg =Antecedant_chirurgical(operachir=Operachir, avp=Avp, Patient_id=patient_id)
             reg.save()
-        elif Operachir == 'o' and Dateavp == 'n':
-            reg = Antecedant_chirurgical(operachir=Operachir, avp=Avp, datoperachir=Datoperachir, Patient_id=patient_id)
+        elif Operachir == 'o' and Avp == 'n':
+            reg =Antecedant_chirurgical(operachir=Operachir, avp=Avp, datoperachir=Datoperachir, Patient_id=patient_id)
             reg.save()
-        elif Operachir == 'n' and Dateavp == 'o':
-            reg = Antecedant_chirurgical(operachir=Operachir, avp=Avp, dateavp=Dateavp, Patient_id=patient_id)
+        elif Operachir == 'n' and Avp == 'o':
+            reg =Antecedant_chirurgical(operachir=Operachir, avp=Avp, dateavp=Dateavp, Patient_id=patient_id)
+            reg.save()
+        elif Operachir == 'o' and Avp == 'o':
+            reg =Antecedant_chirurgical(operachir=Operachir, avp=Avp, dateavp=Dateavp, Patient_id=patient_id,datoperachir=Datoperachir)
             reg.save()
     return render(request,'listings/formantchirurgical.html') 
 
