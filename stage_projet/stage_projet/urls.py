@@ -32,6 +32,7 @@ urlpatterns = [
     #fin
     path('bands/',views.band_list),
     path('',views.index,name='index'),
+    #path('cnx/',views.cnx,name='cnx'),
     path('patient/',views.patient,name='patient'),
     path('listings/',views.listing_list,name='listing-list'),
     path('listings/<int:id>/',views.listing_details, name='listing-details'),

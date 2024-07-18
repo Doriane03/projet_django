@@ -58,7 +58,7 @@ class Patient(models.Model): #modifie
     date_naissance=models.fields.DateField()
     profession=models.fields.CharField(max_length=100)
     ville=models.fields.CharField(max_length=100)
-    age=models.fields.PositiveIntegerField(null=False)
+    age=models.fields.CharField(max_length=100,null=False)
     class typesexe(models.TextChoices):
         féminin="féminin"
         masculin="masculin"

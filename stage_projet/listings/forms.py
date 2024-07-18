@@ -7,11 +7,11 @@ class contact_us (forms.Form):
 
 #FORMULAIRE DE MA BASE DE DONNEE
 from django.forms import ModelForm # type: ignore # import pour mon modele form
-from listings.models import personnel_soignant# import pour mon modele form
+from listings.models import Personnel_soignant# import pour mon modele form
 class personnel_soignantForm(ModelForm):
 
    class  Meta:
-        model=personnel_soignant
+        model=Personnel_soignant
         fields=["nom","email","mdp",] #pour afficher tous les champs du model
         labels={
             "nom":"NOM",

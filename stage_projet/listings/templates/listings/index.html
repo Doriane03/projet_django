@@ -4,7 +4,7 @@
     {% csrf_token %}
     <fieldset>
             <input type="text"   placeholder="nom" name="username" class="inputformcnx" required/>
-            <input type="password"  placeholder="Password" name="password" class="inputformcnx" required/>
+            <input type="password"  placeholder="mot de passe" name="password" class="inputformcnx" required/>
             {% if form.errors %}
                 <p class="p1">{{ form.errors }}</p>
                 <p class="p1">Erreur</p>

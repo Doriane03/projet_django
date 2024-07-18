@@ -10,6 +10,7 @@ from  django.contrib.auth.hashers import make_password,check_password
 from  django.db.models import Subquery
 from  django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login
 #import des class de ma bd
 from  listings.models import  Ordonnancemedicament
 from  listings.models  import Antecedant_familial # type: ignore #nouveau
@@ -89,9 +90,23 @@ def contact(request):
 #pour ma bd
 #recuperation de donnees
 
+
+def cnx(request):
+    if request.method == 'POST':
+        username = request.POST['nom']
+        password = request.POST['mdp']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('listings/menuinfirmier.html')  # Redirigez vers la page d'accueil ou une autre page appropriée
+        else:
+            form.add_error(None, 'Invalid username or password')
+    else:
+        return render(request, 'listings/index.html')
+
 def donne(request):
-     Patients =patient.objects.all()
-     return render(request,'listings/ok.html',context={'Patients':Patients})
+    Patients =patient.objects.all()
+    return render(request,'listings/ok.html',context={'Patients':Patients})
 
 
 #def connexion(request):
@@ -113,9 +128,9 @@ def index(request):
 def patient(request):
     Lits = Lit.objects.all()
     if request.method=='POST':
-        Lit_id= lit.objects.filter(numlit=request.POST['numlit']).values_list('reflit', flat=True).first()
+        lit_id= Lit.objects.filter(numlit=request.POST['numlit']).values_list('reflit', flat=True).first()
         Nom=request.POST['nom']
-        reg=Patient(nom=Nom,contact1=request.POST['contact1'],contact2=request.POST['contact2'],email=request.POST['email'],personne_a_contacter=request.POST['personne_a_contacter'],telephone_cpu=request.POST['telephone_cpu'],date_naissance=request.POST['date_naissance'],profession=request.POST['profession'],ville=request.POST['ville'],age=request.POST['age'],sexe=request.POST['sexe'],commune=request.POST['commune'],quartier=request.POST['quartier'],nationalite=request.POST['nationalite'],situation_matrimoniale=request.POST['situation_matrimoniale'],nombre_enfant=request.POST['nombre_enfant'],Lit_id=Lit_id)
+        reg=Patient(nom=Nom,contact1=request.POST['contact1'],contact2=request.POST['contact2'],email=request.POST['email'],personne_a_contacter=request.POST['personne_a_contacter'],telephone_cpu=request.POST['telephone_cpu'],date_naissance=request.POST['date_naissance'],profession=request.POST['profession'],ville=request.POST['ville'],age=request.POST['age'],sexe=request.POST['sexe'],commune=request.POST['commune'],quartier=request.POST['quartier'],nationalite=request.POST['nationalite'],situation_matrimoniale=request.POST['situation_matrimoniale'],nombre_enfant=request.POST['nombre_enfant'],Lit_id=lit_id)
         reg.save()  
     return render(request,'listings/formpatient.html',context={'Lits':Lits})
 #fin
@@ -151,11 +166,27 @@ def ordonnance(request):
 
 @login_required(login_url="listings/")
 def antecedantmedical(request):
-    return render(request,'listings/#fromantmedical.html') 
+    return render(request,'listings/fromantmedical.html') 
 
 
 @login_required(login_url="listings/")
 def antecedantchirurgical(request):
+    if request.method == 'POST':
+        Operachir = request.POST['operachir']
+        Avp = request.POST['avp']
+        Dateavp = request.POST['dateavp']
+        Datoperachir = request.POST['datoperachir']
+        patient_id ='3' 
+        print(Operachir,Avp,Dateavp,Datoperachir)
+        if Operachir == 'n' and Dateavp == 'n':
+            reg = Antecedant_chirurgical(operachir=Operachir, avp=Avp, Patient_id=patient_id)
+            reg.save()
+        elif Operachir == 'o' and Dateavp == 'n':
+            reg = Antecedant_chirurgical(operachir=Operachir, avp=Avp, datoperachir=Datoperachir, Patient_id=patient_id)
+            reg.save()
+        elif Operachir == 'n' and Dateavp == 'o':
+            reg = Antecedant_chirurgical(operachir=Operachir, avp=Avp, dateavp=Dateavp, Patient_id=patient_id)
+            reg.save()
     return render(request,'listings/formantchirurgical.html') 
 
 
@@ -170,36 +201,38 @@ def sortie_patient(request):
 
 @login_required(login_url="listings/")
 def modificationmdp(request):
-    personnel_soignants =personnel_soignant.objects.all()
+    Personnel_soignants =Personnel_soignant.objects.all()
     if request.method =='POST':
         mdp= make_password(request.POST['mdp'])
-        modifmdp= personnel_soignant.objects.filter(nom=request.POST['nom'])
+        modifmdp= Personnel_soignant.objects.filter(nom=request.POST['nom'])
         resultat=modifmdp.update(mdp=mdp)
         if resultat >  0:
             error_message = "mot de passe modifié avec succès."
             return render(request,'listings/formmodifmdp.html',{'error_message': error_message})
-    return render(request,'listings/formmodifmdp.html',context={'personnel_soignants':personnel_soignants})
+    return render(request,'listings/formmodifmdp.html',context={'Personnel_soignants':Personnel_soignants})
 
     
 @login_required(login_url="listings/")
 def adminform(request):
-    services = service.objects.all()
-    type_personnel_soignants = type_personnel_soignant.objects.all()
+    Services = Service.objects.all()
+    Type_personnel_soignants = Type_personnel_soignant.objects.all()
     if request.method == 'POST':
         nom=request.POST['nom'] 
         contact=request.POST['contact']
         email=request.POST['email']
         mdp= make_password(request.POST['mdp'])
-        Service=request.POST['service']
-        Type_personnel_soignant=request.POST['type_personnel_soignant']
-        Service_id= service.objects.filter(nomservice=Service).values_list('refservice', flat=True).first()
-        Type_personnel_soignant_id=type_personnel_soignant.objects.filter( nompersog=Type_personnel_soignant).values_list('idpersoignant', flat=True).first()
-        print(Service_id)
-        print(Type_personnel_soignant_id)
-        reg=personnel_soignant(mdp=mdp,nom=nom,contact=contact,email=email,service_id=Service_id, type_personnel_soignant_id= Type_personnel_soignant_id)
+        service=request.POST['Service']
+
+        type_personnel_soignant=request.POST['Type_personnel_soignant']
+        service_id= Service.objects.filter(nomservice=service).values_list('refservice', flat=True).first()
+        type_personnel_soignant_id=Type_personnel_soignant.objects.filter( nompersog=type_personnel_soignant).values_list('idpersoignant', flat=True).first()
+
+        print(service)
+        print(type_personnel_soignant)
+        reg=Personnel_soignant(mdp=mdp,nom=nom,contact=contact,email=email,Service_id=service_id, Type_personnel_soignant_id= type_personnel_soignant_id)
         reg.save()
         return render(request,'listings/formconsultation.html')
-    return render(request,'listings/formadmin.html',context={'services':services,'type_personnel_soignants':type_personnel_soignants})
+    return render(request,'listings/formadmin.html',context={'Services':Services,'Type_personnel_soignants':Type_personnel_soignants})
         
 @login_required(login_url="listings/")
 def deconnexion(request):
