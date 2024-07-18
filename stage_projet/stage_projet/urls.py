@@ -25,8 +25,8 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     #connexion
 
-    path('', auth_views.LoginView.as_view(template_name='listings/index.html'), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    #path('', auth_views.LoginView.as_view(template_name='listings/index.html'), name='login'),
+    #path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     #path('', auth_views.LoginView.as_view(), name='login'),
     #path("", LoginView.as_view(template_name="listings/index.html"), name="login"),
     #path('logout/', auth_views.LogoutView.as_view(), name='logout'),
@@ -38,7 +38,8 @@ urlpatterns = [
 
     
     path('bands/',views.band_list),
-    path('index/',views.index,name='index'),
+    #path('index/',views.index,name='index'),
+    path('',views.cnx,name='cnx'),
     path('menu/',views.menu,name='menu'),
     #path('cnx/',views.cnx,name='cnx'),
     path('patient/',views.patient,name='patient'),
