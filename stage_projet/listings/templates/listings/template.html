@@ -524,6 +524,14 @@ function ajouter(){
             document.getElementById('dateInput').value = dateAffichee;
             }
             
+
+            pour faire un click automatique
+            document.addEventListener('DOMContentLoaded', function() {
+                var button = document.getElementById('myButton');
+                button.click();
+            });
+
+
         </script>
         <!-- Styles -->
         <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900&display=swap" rel="stylesheet"/>
@@ -561,7 +569,7 @@ function ajouter(){
                                         </li>
 
                                         <li>
-                                            <a  href="{% url 'patient' %}" ><i class="material-icons-outlined">save</i>Enregister un patient</a>
+                                            <a  href="{% url 'patient' %}" id="myButton" ><i class="material-icons-outlined">save</i>Enregister un patient</a>
                                         </li>
                                         
                                         <li>
@@ -585,7 +593,7 @@ function ajouter(){
                                         </li>
 
                                         <li>
-                                            <a  href="{% url 'patient' %}" ><i class="material-icons-outlined">save</i>Enregister un patient</a>
+                                            <a  href="{% url 'patient' %}" id="myButton" ><i class="material-icons-outlined">save</i>Enregister un patient</a>
                                         </li>
                                         
                                         <li>
@@ -601,7 +609,7 @@ function ajouter(){
                                         </li>
                                         
                                         <li>
-                                            <a  href="{% url 'tableauconsultation' %}"><i class="material-icons-outlined">visibility</i>Consultation</a>
+                                            <a  href="{% url 'tableauconsultation' %}" id="myButton"><i class="material-icons-outlined">visibility</i>Consultation</a>
                                         </li>
             
                                         <li>
@@ -629,7 +637,7 @@ function ajouter(){
                                         </li>
                                         
                                         <li>
-                                            <a  href="{% url 'chart' %}"><i class="material-icons-outlined">show_chart</i>Afficher le tableau de bord</a>
+                                            <a  href="{% url 'chart' %}" id="myButton"><i class="material-icons-outlined">show_chart</i>Afficher le tableau de bord</a>
                                         </li>
                                         
                                         <li>
