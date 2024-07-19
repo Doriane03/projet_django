@@ -538,8 +538,26 @@ function ajouter(){
 
             //pour faire un click automatique
             document.addEventListener('DOMContentLoaded', function() {
-                var lien = document.getElementById('mon-lien');
-                lien.click();
+                // Liste des IDs des éléments que vous voulez cibler
+                var ids = ['lien-1', 'lien-2', 'lien-3','lien-4'];
+            
+                ids.forEach(function(id) {
+                    var lien = document.getElementById(id);
+                    if (lien) {
+                        // Assurez-vous que le clic ne sera pas déclenché plusieurs fois
+                        if (!lien.dataset.clicked) {
+                            lien.dataset.clicked = 'true'; // Marque l'élément comme déjà cliqué
+                            lien.addEventListener('click', function(event) {
+                                event.preventDefault(); // Empêche le comportement par défaut
+                                console.log('Lien cliqué :', lien.textContent);
+                                // Ajoutez ici la logique que vous souhaitez appliquer lors du clic
+                            });
+                            lien.click(); // Déclenche le clic programmatique
+                        }
+                    } else {
+                        console.log('Élément avec ID "' + id + '" non trouvé');
+                    }
+                });
             });
 
 
@@ -579,7 +597,7 @@ function ajouter(){
                                         </li>
 
                                         <li>
-                                            <a  href="{% url 'patient' %}" id="mon-lien" ><i class="material-icons-outlined">save</i>Enregister un patient</a>
+                                            <a  href="{% url 'patient' %}" id="lien-1" ><i class="material-icons-outlined">save</i>Enregister un patient</a>
                                         </li>
                                         
                                         <li>
@@ -603,7 +621,7 @@ function ajouter(){
                                         </li>
 
                                         <li>
-                                            <a  href="{% url 'patient' %}" id="mon-lien" ><i class="material-icons-outlined">save</i>Enregister un patient</a>
+                                            <a  href="{% url 'patient' %}" id="lien-2" ><i class="material-icons-outlined">save</i>Enregister un patient</a>
                                         </li>
                                         
                                         <li>
@@ -619,7 +637,7 @@ function ajouter(){
                                         </li>
                                         
                                         <li>
-                                            <a  href="{% url 'tableauconsultation' %}" id="mon-lien"><i class="material-icons-outlined">visibility</i>Consultation</a>
+                                            <a  href="{% url 'tableauconsultation' %}" id="lien-3"><i class="material-icons-outlined">visibility</i>Consultation</a>
                                         </li>
             
                                         <li>
@@ -647,7 +665,7 @@ function ajouter(){
                                         </li>
                                         
                                         <li>
-                                            <a  href="{% url 'chart' %}" id="mon-lien"><i class="material-icons-outlined">show_chart</i>Afficher le tableau de bord</a>
+                                            <a  href="{% url 'chart' %}" id="lien-4"><i class="material-icons-outlined">show_chart</i>Afficher le tableau de bord</a>
                                         </li>
                                         
                                         <li>
