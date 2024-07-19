@@ -308,8 +308,8 @@ def modificationmdp(request):
     
 @login_required(login_url="/")
 def adminform(request):
-    Services = Service.objects.all()
-    Type_personnel_soignants = Type_personnel_soignant.objects.all()
+    services = Service.objects.all()
+    type_personnel_soignants = Type_personnel_soignant.objects.all()
     if request.method == 'POST':
         nom=request.POST['nom'] 
         contact=request.POST['contact']
@@ -339,7 +339,7 @@ def adminform(request):
         #reg=Personnel_soignant(mdp=mdp,nom=nom,contact=contact,email=email,Service_id=service_id, Type_personnel_soignant_id= type_personnel_soignant_id)
         #reg.save()
         #return render(request,'listings/formconsultation.html')
-    return render(request,'listings/formadmin.html',context={'Services':Services,'Type_personnel_soignants':Type_personnel_soignants})
+    return render(request,'listings/formadmin.html',context={'services':services,'type_personnel_soignants':type_personnel_soignants})
 
 @login_required(login_url="/")
 def bilanimg(request):
