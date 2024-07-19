@@ -564,7 +564,6 @@ function ajouter(){
                     <div class="page-sidebar-inner slimscroll">
                         {% if request.user.is_authenticated %}
 
-
                             {% if   user.Type_personnel_soignant.nompersog == "INFIRMIERE" %}
                                     <ul class="accordion-menu">
                                         <li>
@@ -772,6 +771,7 @@ function ajouter(){
                                 <div class="col-xl">
                                     <div class="card1">
                                         <div class="card-body1">
+                                            
                                             {% block chart %}{% endblock %}
                                             {% block tableauconsultation %} {% endblock %}
                                             {% block formbilanbio %} {% endblock %}
