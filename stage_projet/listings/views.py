@@ -306,7 +306,6 @@ def modificationmdp(request):
     return render(request,'listings/formmodifmdp.html',context={'customUsers':customUsers})
 
     
-@login_required(login_url="/")
 def adminform(request):
     Services = Service.objects.all()
     Type_personnel_soignants = Type_personnel_soignant.objects.all()
