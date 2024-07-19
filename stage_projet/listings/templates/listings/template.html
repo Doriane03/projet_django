@@ -565,7 +565,7 @@ function ajouter(){
                         {% if request.user.is_authenticated %}
 
 
-                            {% if   user.Type_personnel_soignant.nompersog == "INFIRMIERE" %}
+                            {% if   user.type_personnel_soignant.nompersog == "INFIRMIERE" %}
                                     <ul class="accordion-menu">
                                         <li>
                                             <a href="#" ><i class="material-icons">search</i>Rechercher un dossier patient</a>
@@ -589,7 +589,7 @@ function ajouter(){
                                     </ul>
 
 
-                            {% elif  user.Type_personnel_soignant.nompersog == "INFIRMIER" %}
+                            {% elif  user.type_personnel_soignant.nompersog == "INFIRMIER" %}
                                     <ul class="accordion-menu">
                                         <li>
                                             <a href="#" ><i class="material-icons">search</i>Rechercher un dossier patient</a>
@@ -613,7 +613,7 @@ function ajouter(){
                                     </ul>
 
 
-                            {% elif user.Type_personnel_soignant.nompersog == "MEDECIN" %}
+                            {% elif user.type_personnel_soignant.nompersog == "MEDECIN" %}
                                     <ul class="accordion-menu">
                                         <li>
                                             <a  href="#" class="active"><i class="material-icons-outlined">visibility</i>Rendez-vous</a>
@@ -637,7 +637,7 @@ function ajouter(){
                                     </ul>
 
 
-                            {% elif user.Type_personnel_soignant.nompersog == "ADMIN" %}
+                            {% elif user.type_personnel_soignant.nompersog == "ADMIN" %}
                                     <ul class="accordion-menu">
                                         <li>
                                             <a href="{% url 'adminform' %}"><i class="material-icons">person_edit</i>Créer un utilisateur</a>
@@ -736,7 +736,7 @@ function ajouter(){
                                 <li class="nav-item nav-profile dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <img src="{% static 'listings/homme.png' %}"  width="105px" alt="profile image">
-                                        <span> {{user.Type_personnel_soignant.nompersog }} {{ user.nom }}</span>
+                                        <span> {{user.type_personnel_soignant.nompersog }} {{ user.nom }}</span>
                                     </a>
                                 </li>
                                 <!--profil image fin-->

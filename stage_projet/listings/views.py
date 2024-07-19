@@ -4,7 +4,7 @@ from  django.contrib.auth import  login , logout, authenticate # type: ignore
 from  django.contrib import messages # type: ignore
 from  listings.models  import band # type: ignore
 from  listings.models  import listing  # type: ignore
-from  listings.forms import contact_us # type: ignore
+#from  listings.forms import contact_us # type: ignore
 from  django.core.mail import send_mail # type: ignore
 from  django.contrib.auth.hashers import make_password,check_password
 from  django.db.models import Subquery
