@@ -155,6 +155,14 @@ def constante(request):
 
 @login_required(login_url="/")
 def consultation(request):
+    if request.method=='POST':
+        form = ConsultationForm(request.POST)
+        if form.is_valid():
+            form.save()
+                # Redirect to a list of posts or any other page
+            return render(request,'listings/chart.html')
+        else:
+            print(form.errors)
     return render(request,'listings/formconsultation.html')
 
 
