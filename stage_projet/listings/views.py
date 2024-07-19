@@ -128,6 +128,7 @@ def index(request):
 #fin
 @login_required(login_url="/")
 def patient(request):
+    Lits = Lit.objects.all()
     form = PatientForm(request.POST)
     if form.is_valid():
         form.save()
