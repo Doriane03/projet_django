@@ -16,6 +16,7 @@ from django.contrib.auth import authenticate, login
 from  listings.models import  PatientForm
 #fin
 import os
+from pathlib import Path
 
 from  listings.models import  Ordonnancemedicament
 from  listings.models  import Antecedant_familial # type: ignore #nouveau
@@ -131,16 +132,17 @@ def index(request):
 #fin
 @login_required(login_url="/")
 def patient(request):
+    lits = Lit.objects.all()
     if request.method == "POST":
         form = PatientForm(request.POST)
         if form.is_valid():
             form.save()
-            desktop_path = Path.home() / 'Desktop' / 'ARCHIVE_DOC_PAT' / f'PAT{patient.nom}'
+            desktop_path = Path.home() / 'Desktop' / 'ARCHIVE_DOC_PAT' / f'PAT{Patient.nom}'
             if not os.path.exists(desktop_path):
                 os.makedirs(desktop_path)
-                message = f'Le dossier pour le patient {patient.prenom} {patient.nom} a été créé à : {desktop_path}'
+                message = f'Le dossier pour le patient {Patient.nom}  a été créé à : {desktop_path}'
             else:
-                message = f'Le dossier existe déjà pour le patient {patient.prenom} {patient.nom} : {desktop_path}'
+                message = f'Le dossier existe déjà pour le patient {Patient.nom} : {desktop_path}'
             return render(request,'listings/formpatient.html',context={'lits':lits,'message': message})
         else:
             print(form.errors)
@@ -151,7 +153,7 @@ def patient(request):
         #Nom=request.POST['nom']
         #reg=Patient(nom=Nom,contact1=request.POST['contact1'],contact2=request.POST['contact2'],email=request.POST['email'],personne_a_contacter=request.POST['personne_a_contacter'],telephone_cpu=request.POST['telephone_cpu'],date_naissance=request.POST['date_naissance'],profession=request.POST['profession'],ville=request.POST['ville'],age=request.POST['age'],sexe=request.POST['sexe'],commune=request.POST['commune'],quartier=request.POST['quartier'],nationalite=request.POST['nationalite'],situation_matrimoniale=request.POST['situation_matrimoniale'],nombre_enfant=request.POST['nombre_enfant'],Lit_id=lit_id)
         #reg.save()  
-    return render(request,'listings/formpatient.html',context={'Lits':Lits})
+    return render(request,'listings/formpatient.html',context={'lits':lits})
 #fin
 @login_required(login_url="/")
 def constante(request):
