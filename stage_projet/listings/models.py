@@ -70,7 +70,7 @@ class Patient(models.Model): #modifie
     nombre_enfant=models.fields.PositiveIntegerField(null=False)
     lit=models.OneToOneField(Lit,on_delete=models.CASCADE)    
     def __str__(self):
-        return f'{self.idpatient} {self.nom} {self.contact1} {self.contact2} {self.profession} {self.email} {self.age} {self.sexe}  {self.personne_a_contacter}  {self.ville}  {self.commune} {self.quartier}{self.nationalite}  {self.nombre_enfant}  {self.situation_matrimoniale} {self.telephone_cpu} {self.date_naissance} {self.Lit}'
+        return f'{self.idpatient} {self.nom} {self.contact1} {self.contact2} {self.profession} {self.email} {self.age} {self.sexe}  {self.personne_a_contacter}  {self.ville}  {self.commune} {self.quartier}{self.nationalite}  {self.nombre_enfant}  {self.situation_matrimoniale} {self.telephone_cpu} {self.date_naissance} {self.lit}'
 
 class PatientForm(ModelForm):
     class Meta:

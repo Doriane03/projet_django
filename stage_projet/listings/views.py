@@ -131,30 +131,54 @@ def index(request):
 #fin
 @login_required(login_url="/")
 def patient(request):
+    lits = Lit.objects.all()
     if request.method == "POST":
         form = PatientForm(request.POST)
         if form.is_valid():
-            form.save()
-            desktop_path = Path.home() / 'Desktop' / 'ARCHIVE_DOC_PAT' / f'PAT{patient.nom}'
-            if not os.path.exists(desktop_path):
-                os.makedirs(desktop_path)
-                message = f'Le dossier pour le patient {patient.prenom} {patient.nom} a été créé à : {desktop_path}'
-            else:
-                message = f'Le dossier existe déjà pour le patient {patient.prenom} {patient.nom} : {desktop_path}'
-            
-            # Passer le message à la template
-            return render(request, 'appli_web/contenuTemplate.html', {'message': message})
-            return render(request,'listings/formpatient.html',context={'lits':lits,'message': message})
-        else:
-            print(form.errors)
+        # Extraire le nom du patient avant de sauvegarder
+            patient_nom = form.cleaned_data['nom']
 
-    #Lits = Lit.objects.all()
-    #if request.method=='POST':
-        #lit_id= Lit.objects.filter(numlit=request.POST['numlit']).values_list('reflit', flat=True).first()
-        #Nom=request.POST['nom']
-        #reg=Patient(nom=Nom,contact1=request.POST['contact1'],contact2=request.POST['contact2'],email=request.POST['email'],personne_a_contacter=request.POST['personne_a_contacter'],telephone_cpu=request.POST['telephone_cpu'],date_naissance=request.POST['date_naissance'],profession=request.POST['profession'],ville=request.POST['ville'],age=request.POST['age'],sexe=request.POST['sexe'],commune=request.POST['commune'],quartier=request.POST['quartier'],nationalite=request.POST['nationalite'],situation_matrimoniale=request.POST['situation_matrimoniale'],nombre_enfant=request.POST['nombre_enfant'],Lit_id=lit_id)
-        #reg.save()  
-    return render(request,'listings/formpatient.html',context={'Lits':Lits})
+        # Définition du chemin du dossier
+            desktop_path = Path.home() / 'Desktop' / 'ARCHIVE_DOC_PAT' / f'{patient_nom}'
+        
+        # Création du dossier s'il n'existe pas déjà
+            if not os.path.exists(desktop_path):
+                try:
+                    os.makedirs(desktop_path)
+                    file_path = desktop_path / 'InformationsPersonnels.txt'
+                
+                # Création et écriture dans le fichier texte
+                    with open(file_path, 'w') as file:
+                        file.write(f"Nom: {patient_nom}\n")
+                        file.write(f"Contact1: {form.cleaned_data['contact1']}\n")
+                        file.write(f"Contact2: {form.cleaned_data['contact2']}\n")
+                        file.write(f"Email: {form.cleaned_data['email']}\n")
+                        file.write(f"Nom de la personne à contacter: {form.cleaned_data['personne_a_contacter']}\n")
+                        file.write(f"Téléphone de la personne à contacter: {form.cleaned_data['telephone_cpu']}\n")
+                        file.write(f"Date de naissance: {form.cleaned_data['date_naissance']}\n")
+                        file.write(f"Profession: {form.cleaned_data['profession']}\n")
+                        file.write(f"Ville: {form.cleaned_data['ville']}\n")
+                        file.write(f"Age: {form.cleaned_data['age']}\n")
+                        file.write(f"Sexe: {form.cleaned_data['sexe']}\n")
+                        file.write(f"Commune: {form.cleaned_data['commune']}\n")
+                        file.write(f"Quartier: {form.cleaned_data['quartier']}\n")
+                        file.write(f"Nationalité: {form.cleaned_data['nationalite']}\n")
+                        file.write(f"Situation matrimoniale: {form.cleaned_data['situation_matrimoniale']}\n")
+                        file.write(f"Nombre d'enfants: {form.cleaned_data['nombre_enfant']}\n")
+                        file.write(f"Numéro de lit: {form.cleaned_data['lit']}\n")
+                    
+                # Sauvegarde des données du formulaire
+                    Patient = form.save()
+                    message = f'Le dossier pour le patient {patient_nom} a été créé à : {desktop_path}'
+                except Exception as e:
+                    message = f'Erreur lors de la création du dossier: {str(e)}'
+        else:
+            message = f'Le dossier existe déjà pour le patient {patient_nom} : {desktop_path}'
+        
+        # Passer le message à la template
+            return render(request, 'listings/formpatient.html', context={'lits': lits, 'message': message})
+    else:
+        return render(request, 'listings/formpatient.html', context={'lits': lits})
 #fin
 @login_required(login_url="/")
 def constante(request):
