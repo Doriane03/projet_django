@@ -4,26 +4,7 @@ from  django.contrib.auth import  login , logout, authenticate # type: ignore
 from  django.contrib import messages # type: ignore
 from  listings.models  import band # type: ignore
 from  listings.models  import listing  # type: ignore
-#pour la verification
-from  listings.models  import PatientForm
-from  listings.models  import ConsultationForm
-from  listings.models  import DiagnostiqueForm
-from  listings.models  import Antecedant_familialForm # type: ignore #nouveau
-from  listings.models  import Antecedant_chirurgicalForm # type: ignore #nouveau
-from  listings.models  import Antecedant_medicalForm # type: ignore #nouveau
-from  listings.models  import Antecedant_genecologiqueForm # type: ignore #nouveau
-from  listings.models  import MedicamentForm # type: ignore
-from  listings.models  import SortieForm # type: ignore
-from  listings.models  import HospitalisationForm # type: ignore
-from  listings.models  import FactureForm # type: ignore
-from  listings.models  import ConstanteForm # type: ignore
-from  listings.models  import Bilan_imagerieForm # type: ignore
-from  listings.models  import Bilan_biologiqueForm # type: ignore
-from  listings.models  import CustomUserForm # type: ignore
-#fin
-
-
-#from  listings.forms import contact_us # type: ignore
+from  listings.forms import contact_us # type: ignore
 from  django.core.mail import send_mail # type: ignore
 from  django.contrib.auth.hashers import make_password,check_password
 from  django.db.models import Subquery
@@ -45,7 +26,7 @@ from  listings.models  import Service # type: ignore
 from  listings.models  import Chu # type: ignore
 from  listings.models  import Pays # type: ignore
 from  listings.models  import Type_personnel_soignant # type: ignore
-#from  listings.models  import Personnel_soignant # type: ignore
+from  listings.models  import Personnel_soignant # type: ignore
 from  listings.models  import Facture # type: ignore
 from  listings.models  import Constante # type: ignore
 from  listings.models  import Patient # type: ignore #modifie
@@ -115,9 +96,9 @@ def contact(request):
     #if request.method == 'POST':
        # username = request.POST['nom']
        # password = request.POST['mdp']
-       # CustomUser = authenticate(request, username=username, password=password)
-        #if CustomUser is not None:
-           # login(request, CustomUser)
+       # user = authenticate(request, username=username, password=password)
+        #if user is not None:
+           # login(request, user)
             #return redirect('listings/menuinfirmier.html')  # Redirigez vers la page d'accueil ou une autre page appropriée
         #else:
            # form.add_error(None, 'Invalid username or password')
@@ -144,76 +125,37 @@ def index(request):
 
 #fin
 @login_required(login_url="/")
-def patient(request): #fait
-    lits = Lit.objects.all()
-    categories=Categorie.objects.all()
+def patient(request):
+    Lits = Lit.objects.all()
     if request.method=='POST':
-        form = PatientForm(request.POST)
-        if form.is_valid():
-            form.save()
-                # Redirect to a list of posts or any other page
-            return render(request,'listings/chart.html')
-        else:
-            print(form.errors)
-
-    #Lits = Lit.objects.all()
-    #if request.method=='POST':
-        #lit_id= Lit.objects.filter(numlit=request.POST['numlit']).values_list('reflit', flat=True).first()
-       # Nom=request.POST['nom']
-        #reg=Patient(nom=Nom,contact1=request.POST['contact1'],contact2=request.POST['contact2'],email=request.POST['email'],personne_a_contacter=request.POST['personne_a_contacter'],telephone_cpu=request.POST['telephone_cpu'],date_naissance=request.POST['date_naissance'],profession=request.POST['profession'],ville=request.POST['ville'],age=request.POST['age'],sexe=request.POST['sexe'],commune=request.POST['commune'],quartier=request.POST['quartier'],nationalite=request.POST['nationalite'],situation_matrimoniale=request.POST['situation_matrimoniale'],nombre_enfant=request.POST['nombre_enfant'],Lit_id=lit_id)
-        #reg.save()  
-    return render(request,'listings/formpatient.html',context={'lits':lits,categories:categories})
+        lit_id= Lit.objects.filter(numlit=request.POST['numlit']).values_list('reflit', flat=True).first()
+        Nom=request.POST['nom']
+        reg=Patient(nom=Nom,contact1=request.POST['contact1'],contact2=request.POST['contact2'],email=request.POST['email'],personne_a_contacter=request.POST['personne_a_contacter'],telephone_cpu=request.POST['telephone_cpu'],date_naissance=request.POST['date_naissance'],profession=request.POST['profession'],ville=request.POST['ville'],age=request.POST['age'],sexe=request.POST['sexe'],commune=request.POST['commune'],quartier=request.POST['quartier'],nationalite=request.POST['nationalite'],situation_matrimoniale=request.POST['situation_matrimoniale'],nombre_enfant=request.POST['nombre_enfant'],Lit_id=lit_id)
+        reg.save()  
+    return render(request,'listings/formpatient.html',context={'Lits':Lits})
 #fin
 @login_required(login_url="/")
 def constante(request):
-    if request.method=='POST':
-        form =ConstanteForm(request.POST)
-        if form.is_valid():
-            form.save()
-                # Redirect to a list of posts or any other page
-            return render(request,'listings/chart.html')
-        else:
-            print(form.errors)
     return render(request,'listings/formconstante.html')
 
 @login_required(login_url="/")
 def consultation(request):
-    if request.method=='POST':
-        form = ConsultationForm(request.POST)
-        if form.is_valid():
-            form.save()
-                # Redirect to a list of posts or any other page
-            return render(request,'listings/chart.html')
-        else:
-            print(form.errors)
     return render(request,'listings/formconsultation.html')
 
 
 @login_required(login_url="/")
 def facture(request):
-    if request.method=='POST':
-        form =FactureForm(request.POST)
-        if form.is_valid():
-            form.save()
-                # Redirect to a list of posts or any other page
-            return render(request,'listings/chart.html')
-        else:
-            print(form.errors)
     return render(request,'listings/formfacture.html')
 
 @login_required(login_url="/")
 def diagnostique(request):
-    consultations = consultation.objects.all()
     if request.method=='POST':
-        form = DiagnostiqueForm(request.POST)
-        if form.is_valid():
-            form.save()
-                # Redirect to a list of posts or any other page
-            return render(request,'listings/chart.html')
-        else:
-            print(form.errors)
-
-    return render(request,'listings/formdiagnostiaue.html',context={'consultations':consultations})
+        Nom1=request.POST['libdiag']
+        Nom2=request.POST['date']
+        Nom3=request.POST['consultation']
+        reg1=Diagnostique(libdiag=Nom1,date=Nom2,Consultation_id=Nom3)
+        reg1.save()
+    return render(request,'listings/formdiagnostiaue.html')
 
 
 @login_required(login_url="/")
@@ -224,92 +166,59 @@ def ordonnance(request):
 
 @login_required(login_url="/")
 def antecedantmedical(request):
-    if request.method=='POST':
-        form =Antecedant_medicalForm(request.POST)
-        if form.is_valid():
-            form.save()
-                # Redirect to a list of posts or any other page
-            return render(request,'listings/chart.html')
-        else:
-            print(form.errors)
     return render(request,'listings/fromantmedical.html') 
 
 
 @login_required(login_url="/")
 def antecedantchirurgical(request):
-    if request.method=='POST':
-        form =Antecedant_chirurgicalForm(request.POST)
-        if form.is_valid():
-            form.save()
-                # Redirect to a list of posts or any other page
-            return render(request,'listings/chart.html')
-        else:
-            print(form.errors)
-
-    #if request.method == 'POST':
-        #Operachir = request.POST['operachir']
-        #Avp = request.POST['avp']
-        #Dateavp = request.POST['dateavp']
-        #Datoperachir = request.POST['datoperachir']
-        #patient_id ='3' 
-        #print(Operachir,Avp,Dateavp,Datoperachir)
-        #if Operachir == 'n' and Avp == 'n':
-            #reg =Antecedant_chirurgical(operachir=Operachir, avp=Avp, Patient_id=patient_id)
-            #reg.save()
-        #elif Operachir == 'o' and Avp == 'n':
-            #reg =Antecedant_chirurgical(operachir=Operachir, avp=Avp, datoperachir=Datoperachir, Patient_id=patient_id)
-            #reg.save()
-        #elif Operachir == 'n' and Avp == 'o':
-            #reg =Antecedant_chirurgical(operachir=Operachir, avp=Avp, dateavp=Dateavp, Patient_id=patient_id)
-            #reg.save()
-        #elif Operachir == 'o' and Avp == 'o':
-            #reg =Antecedant_chirurgical(operachir=Operachir, avp=Avp, dateavp=Dateavp, Patient_id=patient_id,datoperachir=Datoperachir)
-            #reg.save()
+    if request.method == 'POST':
+        Operachir = request.POST['operachir']
+        Avp = request.POST['avp']
+        Dateavp = request.POST['dateavp']
+        Datoperachir = request.POST['datoperachir']
+        patient_id ='3' 
+        print(Operachir,Avp,Dateavp,Datoperachir)
+        if Operachir == 'n' and Avp == 'n':
+            reg =Antecedant_chirurgical(operachir=Operachir, avp=Avp, Patient_id=patient_id)
+            reg.save()
+        elif Operachir == 'o' and Avp == 'n':
+            reg =Antecedant_chirurgical(operachir=Operachir, avp=Avp, datoperachir=Datoperachir, Patient_id=patient_id)
+            reg.save()
+        elif Operachir == 'n' and Avp == 'o':
+            reg =Antecedant_chirurgical(operachir=Operachir, avp=Avp, dateavp=Dateavp, Patient_id=patient_id)
+            reg.save()
+        elif Operachir == 'o' and Avp == 'o':
+            reg =Antecedant_chirurgical(operachir=Operachir, avp=Avp, dateavp=Dateavp, Patient_id=patient_id,datoperachir=Datoperachir)
+            reg.save()
     return render(request,'listings/formantchirurgical.html') 
 
 
 @login_required(login_url="/")
 def antecedantgenecologique(request):
-    if request.method=='POST':
-        form =Antecedant_genecologiqueForm(request.POST)
-        if form.is_valid():
-            form.save()
-                # Redirect to a list of posts or any other page
-            return render(request,'listings/chart.html')
-        else:
-            print(form.errors)
     return render(request,'listings/formantgynecologique.html') 
 
 
 @login_required(login_url="/")
 def sortie_patient(request):
-    if request.method=='POST':
-        form =SortieForm(request.POST)
-        if form.is_valid():
-            form.save()
-                # Redirect to a list of posts or any other page
-            return render(request,'listings/chart.html')
-        else:
-            print(form.errors)
     return render(request,'listings/formsortie.html')
 
 @login_required(login_url="/")
 def modificationmdp(request):
-    customUsers =CustomUser.objects.all()
+    Personnel_soignants =Personnel_soignant.objects.all()
     if request.method =='POST':
         mdp= make_password(request.POST['mdp'])
-        modifmdp= CustomUser.objects.filter(nom=request.POST['nom'])
+        modifmdp= Personnel_soignant.objects.filter(nom=request.POST['nom'])
         resultat=modifmdp.update(mdp=mdp)
         if resultat >  0:
             error_message = "mot de passe modifié avec succès."
             return render(request,'listings/formmodifmdp.html',{'error_message': error_message})
-    return render(request,'listings/formmodifmdp.html',context={'customUsers':customUsers})
+    return render(request,'listings/formmodifmdp.html',context={'Personnel_soignants':Personnel_soignants})
 
     
 @login_required(login_url="/")
 def adminform(request):
-    services = Service.objects.all()
-    type_personnel_soignants = Type_personnel_soignant.objects.all()
+    Services = Service.objects.all()
+    Type_personnel_soignants = Type_personnel_soignant.objects.all()
     if request.method == 'POST':
         nom=request.POST['nom'] 
         contact=request.POST['contact']
@@ -321,7 +230,7 @@ def adminform(request):
 
         service_id= Service.objects.filter(nomservice=service).values_list('refservice', flat=True).first()
         type_personnel_soignant_id=Type_personnel_soignant.objects.filter( nompersog=type_personnel_soignant).values_list('idpersoignant', flat=True).first()
-        #script d'ajout dans ma table CustomUser de django admin
+        #script d'ajout dans ma table user de django admin
         if service_id and type_personnel_soignant_id:
             CustomUser.objects.create(
             username=nom,
@@ -339,33 +248,16 @@ def adminform(request):
         #reg=Personnel_soignant(mdp=mdp,nom=nom,contact=contact,email=email,Service_id=service_id, Type_personnel_soignant_id= type_personnel_soignant_id)
         #reg.save()
         #return render(request,'listings/formconsultation.html')
-    return render(request,'listings/formadmin.html',context={'services':services,'type_personnel_soignants':type_personnel_soignants})
+    return render(request,'listings/formadmin.html',context={'Services':Services,'Type_personnel_soignants':Type_personnel_soignants})
 
 @login_required(login_url="/")
 def bilanimg(request):
-    if request.method=='POST':
-        form = Bilan_imagerieForm(request.POST)
-        if form.is_valid():
-            form.save()
-                # Redirect to a list of posts or any other page
-            return render(request,'listings/chart.html')
-        else:
-            print(form.errors)
     return render(request,'listings/formbilanimg.html')
 
 
 #menu
 @login_required(login_url="/")
 def bilanbio(request):
-    if request.method=='POST':
-        form = Bilan_biologiqueForm(request.POST)
-        if form.is_valid():
-            form.save()
-                # Redirect to a list of posts or any other page
-            return render(request,'listings/chart.html')
-        else:
-            print(form.errors)
-            
     return render(request,'listings/bilanbio.html')
 
 
@@ -392,6 +284,3 @@ def menu(request):
         #return HttpResponse(f'Le dossier existe déjà sur le bureau : {desktop_path}')
 #fin
 #fin
-@login_required(login_url="/")
-def template(request):
-    return render(request,'listings/template.html')
