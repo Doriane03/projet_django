@@ -538,28 +538,19 @@ function ajouter(){
 
             //pour faire un click automatique
             document.addEventListener('DOMContentLoaded', function() {
-                // Liste des IDs des éléments que vous voulez cibler
-                var ids = ['lien-1', 'lien-2', 'lien-3','lien-4'];
+                // Liste des IDs des éléments sur lesquels vous voulez déclencher un clic
+                var ids = ['lien-1', 'lien-2', 'lien-3'];
             
                 ids.forEach(function(id) {
-                    var lien = document.getElementById(id);
-                    if (lien) {
-                        // Assurez-vous que le clic ne sera pas déclenché plusieurs fois
-                        if (!lien.dataset.clicked) {
-                            lien.dataset.clicked = 'true'; // Marque l'élément comme déjà cliqué
-                            lien.addEventListener('click', function(event) {
-                                event.preventDefault(); // Empêche le comportement par défaut
-                                console.log('Lien cliqué :', lien.textContent);
-                                // Ajoutez ici la logique que vous souhaitez appliquer lors du clic
-                            });
-                            lien.click(); // Déclenche le clic programmatique
-                        }
+                    var element = document.getElementById(id);
+                    if (element) {
+                        // Déclenche un clic programmatique sur l'élément
+                        element.click();
                     } else {
                         console.log('Élément avec ID "' + id + '" non trouvé');
                     }
                 });
             });
-
 
         </script>
         <!-- Styles -->
