@@ -284,3 +284,6 @@ def menu(request):
         #return HttpResponse(f'Le dossier existe déjà sur le bureau : {desktop_path}')
 #fin
 #fin
+@login_required(login_url="/")
+def template(request):
+    return render(request,'listings/template.html')

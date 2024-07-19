@@ -20,7 +20,7 @@ env = environ.Env()
 environ.Env.read_env()
 LOGIN_URL = '/'
 LOGOUT_URL = '/'  # URL pour la déconnexion
-LOGIN_REDIRECT_URL = 'menu'  # URL de redirection après connexion réussie
+LOGIN_REDIRECT_URL = 'template'  # URL de redirection après connexion réussie
 LOGOUT_REDIRECT_URL = '/'
 
 AUTH_USER_MODEL = "listings.CustomUser"
