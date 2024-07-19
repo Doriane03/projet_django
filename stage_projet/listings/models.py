@@ -45,7 +45,7 @@ class Lit(models.Model):
     numlit=models.fields.PositiveIntegerField(null=False)
     categorie =models.ForeignKey(Categorie, on_delete=models.CASCADE)
     def __str__(self):
-        return f'{self.reflit} {self.numlit} {self.Categorie}'
+        return f'{self.reflit} {self.numlit} {self.categorie}'
         
 class Patient(models.Model): #modifie
     idpatient=models.fields.AutoField(primary_key=True)
@@ -420,10 +420,16 @@ class Consultation(models.Model): #modifie
     date= models.fields.DateTimeField(default=datetime.now)                                                                                
     resultat=models.fields.CharField(max_length=254, null=True, blank=True)
     renseignementclinic=models.fields.CharField(max_length=254, null=True, blank=True)
-    Patient=models.ForeignKey(Patient, on_delete=models.CASCADE,null=False) 
-    CustomUser=models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    patient=models.ForeignKey(Patient, on_delete=models.CASCADE,null=False) 
+    customUser=models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     def __str__(self):
-        return f'{self.Numconsulta} {self.motifdeconsultation} {self.prescripteur_consultation} {self.debut_signe} {self.signe_digestifs} {self.signe_extra_digestif} {self.signe_asso_gene} {self.nombredeverre_alcool} {self.nombrepaquettabac} {self.medoc_en_cours} {self.prise_therap_tarditionnelle} {self.aghbs} {self.acanti_vhc} {self.acanti_vhd} {self.serologie_retrovi} {self.transaminase} {self.histoiredemaladie} {self.date} {self.resultat} {self.renseignementclinic} {self.Patient}  {self.CustomUser} '
+        return f'{self.Numconsulta} {self.motifdeconsultation} {self.prescripteur_consultation} {self.debut_signe} {self.signe_digestifs} {self.signe_extra_digestif} {self.signe_asso_gene} {self.nombredeverre_alcool} {self.nombrepaquettabac} {self.medoc_en_cours} {self.prise_therap_tarditionnelle} {self.aghbs} {self.acanti_vhc} {self.acanti_vhd} {self.serologie_retrovi} {self.transaminase} {self.histoiredemaladie} {self.date} {self.resultat} {self.renseignementclinic} {self.Patient}  {self.customUser} '
+
+class ConsultationForm(ModelForm):
+    class Meta:
+        model = Consultation
+        fields = ['motifdeconsultation', 'prescripteur_consultation', 'debut_signe','signe_digestifs','signe_extra_digestif','signe_asso_gene','nombredeverre_alcool','nombrepaquettabac','medoc_en_cours','prise_therap_tarditionnelle','aghbs','acanti_vhc','acanti_vhd','serologie_retrovi','transaminase','histoiredemaladie','resultat','renseignementclinic','patient','customUser']
+
    
 class Hospitalisation(models.Model):
     idhospitalisation=models.fields.AutoField(primary_key=True)
@@ -535,10 +541,14 @@ class Diagnostique(models.Model):
     iddiag=models.fields.AutoField(primary_key=True)
     libdiag=models.fields.CharField(max_length=254)
     date= models.fields.DateTimeField(default=datetime.now)                                                                                
-    Consultation=models.ForeignKey(Consultation, on_delete=models.CASCADE) 
+    consultation=models.ForeignKey(Consultation, on_delete=models.CASCADE) 
     def __str__(self):
         return f'{self.iddiag} {self.libdiag} {self.date} {self.Consultation}'
 
+class DiagnostiqueForm(ModelForm):
+    class Meta:
+        model = Diagnostique
+        fields = ['libdiag', 'consultation']
 
 
 class Ordonnance(models.Model):

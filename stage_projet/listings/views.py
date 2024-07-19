@@ -6,6 +6,8 @@ from  listings.models  import band # type: ignore
 from  listings.models  import listing  # type: ignore
 
 from  listings.models  import PatientForm
+from  listings.models  import ConsultationForm
+from  listings.models  import DiagnostiqueForm
 #from  listings.forms import contact_us # type: ignore
 from  django.core.mail import send_mail # type: ignore
 from  django.contrib.auth.hashers import make_password,check_password
@@ -127,7 +129,7 @@ def index(request):
 
 #fin
 @login_required(login_url="/")
-def patient(request):
+def patient(request): #fait
     lits = Lit.objects.all()
     categories=Categorie.objects.all()
     if request.method=='POST':
@@ -162,13 +164,17 @@ def facture(request):
 
 @login_required(login_url="/")
 def diagnostique(request):
+    consultations = consultation.objects.all()
     if request.method=='POST':
-        Nom1=request.POST['libdiag']
-        Nom2=request.POST['date']
-        Nom3=request.POST['consultation']
-        reg1=Diagnostique(libdiag=Nom1,date=Nom2,Consultation_id=Nom3)
-        reg1.save()
-    return render(request,'listings/formdiagnostiaue.html')
+        form = DiagnostiqueForm(request.POST)
+        if form.is_valid():
+            form.save()
+                # Redirect to a list of posts or any other page
+            return render(request,'listings/chart.html')
+        else:
+            print(form.errors)
+
+    return render(request,'listings/formdiagnostiaue.html',context={'consultations':consultations})
 
 
 @login_required(login_url="/")
