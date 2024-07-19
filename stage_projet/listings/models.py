@@ -423,7 +423,7 @@ class Consultation(models.Model): #modifie
     patient=models.ForeignKey(Patient, on_delete=models.CASCADE,null=False) 
     customUser=models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     def __str__(self):
-        return f'{self.Numconsulta} {self.motifdeconsultation} {self.prescripteur_consultation} {self.debut_signe} {self.signe_digestifs} {self.signe_extra_digestif} {self.signe_asso_gene} {self.nombredeverre_alcool} {self.nombrepaquettabac} {self.medoc_en_cours} {self.prise_therap_tarditionnelle} {self.aghbs} {self.acanti_vhc} {self.acanti_vhd} {self.serologie_retrovi} {self.transaminase} {self.histoiredemaladie} {self.date} {self.resultat} {self.renseignementclinic} {self.Patient}  {self.customUser} '
+        return f'{self.Numconsulta} {self.motifdeconsultation} {self.prescripteur_consultation} {self.debut_signe} {self.signe_digestifs} {self.signe_extra_digestif} {self.signe_asso_gene} {self.nombredeverre_alcool} {self.nombrepaquettabac} {self.medoc_en_cours} {self.prise_therap_tarditionnelle} {self.aghbs} {self.acanti_vhc} {self.acanti_vhd} {self.serologie_retrovi} {self.transaminase} {self.histoiredemaladie} {self.date} {self.resultat} {self.renseignementclinic} {self.patient}  {self.customUser} '
 
 class ConsultationForm(ModelForm):
     class Meta:
