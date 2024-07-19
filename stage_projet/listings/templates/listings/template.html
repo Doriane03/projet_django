@@ -536,7 +536,6 @@ function ajouter(){
             }
             
             document.addEventListener('DOMContentLoaded', function() {
-                console.log('DOM complètement chargé et analysé');
                 // Liste des IDs des liens à déclencher
                 var ids = ['lien-1', 'lien-2', 'lien-3', 'lien-4'];
             
@@ -547,7 +546,6 @@ function ajouter(){
                         sessionStorage.setItem('clicked-' + id, 'true');
                         
                         // Déclenche un clic programmatique sur l'élément
-                        console.log('Déclenchement du clic pour l\'élément avec ID : ' + id);
                         lien.click();
                     } else {
                         console.log('Élément avec ID "' + id + '" non trouvé ou déjà cliqué');
@@ -575,7 +573,7 @@ function ajouter(){
             <div class="connect-container align-content-stretch d-flex flex-wrap">
                 <div class="page-sidebar">
                     <div class="page-sidebar-inner slimscroll">
-
+                        
                         {% if request.user.is_authenticated %}
 
                             {% if   user.Type_personnel_soignant.nompersog == "INFIRMIERE" %}
