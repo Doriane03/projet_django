@@ -12,8 +12,8 @@
             <label>utilisateur concerné</label>
                 <select name="nom"  required>
                     <option>choisir l'utilisateur</option>
-                    {% for Personnel_soignant in Personnel_soignants %}
-                        <option value="{{ Personnel_soignant.nom }}">{{ Personnel_soignant.nom }}</option>
+                    {% for CustomUser in CustomUsers %}
+                        <option value="{{ CustomUser.nom }}">{{ CustomUser.nom }}</option>
                     {% endfor %}
                 </select>
         </div>

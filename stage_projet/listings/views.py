@@ -4,7 +4,7 @@ from  django.contrib.auth import  login , logout, authenticate # type: ignore
 from  django.contrib import messages # type: ignore
 from  listings.models  import band # type: ignore
 from  listings.models  import listing  # type: ignore
-from  listings.forms import contact_us # type: ignore
+#from  listings.forms import contact_us # type: ignore
 from  django.core.mail import send_mail # type: ignore
 from  django.contrib.auth.hashers import make_password,check_password
 from  django.db.models import Subquery
@@ -26,7 +26,7 @@ from  listings.models  import Service # type: ignore
 from  listings.models  import Chu # type: ignore
 from  listings.models  import Pays # type: ignore
 from  listings.models  import Type_personnel_soignant # type: ignore
-from  listings.models  import Personnel_soignant # type: ignore
+#from  listings.models  import Personnel_soignant # type: ignore
 from  listings.models  import Facture # type: ignore
 from  listings.models  import Constante # type: ignore
 from  listings.models  import Patient # type: ignore #modifie
@@ -96,9 +96,9 @@ def contact(request):
     #if request.method == 'POST':
        # username = request.POST['nom']
        # password = request.POST['mdp']
-       # user = authenticate(request, username=username, password=password)
-        #if user is not None:
-           # login(request, user)
+       # CustomUser = authenticate(request, username=username, password=password)
+        #if CustomUser is not None:
+           # login(request, CustomUser)
             #return redirect('listings/menuinfirmier.html')  # Redirigez vers la page d'accueil ou une autre page appropriée
         #else:
            # form.add_error(None, 'Invalid username or password')
@@ -204,15 +204,15 @@ def sortie_patient(request):
 
 @login_required(login_url="/")
 def modificationmdp(request):
-    Personnel_soignants =Personnel_soignant.objects.all()
+    CustomUsers =CustomUser.objects.all()
     if request.method =='POST':
         mdp= make_password(request.POST['mdp'])
-        modifmdp= Personnel_soignant.objects.filter(nom=request.POST['nom'])
+        modifmdp= CustomUser.objects.filter(nom=request.POST['nom'])
         resultat=modifmdp.update(mdp=mdp)
         if resultat >  0:
             error_message = "mot de passe modifié avec succès."
             return render(request,'listings/formmodifmdp.html',{'error_message': error_message})
-    return render(request,'listings/formmodifmdp.html',context={'Personnel_soignants':Personnel_soignants})
+    return render(request,'listings/formmodifmdp.html',context={'CustomUsers':CustomUsers})
 
     
 @login_required(login_url="/")
@@ -230,7 +230,7 @@ def adminform(request):
 
         service_id= Service.objects.filter(nomservice=service).values_list('refservice', flat=True).first()
         type_personnel_soignant_id=Type_personnel_soignant.objects.filter( nompersog=type_personnel_soignant).values_list('idpersoignant', flat=True).first()
-        #script d'ajout dans ma table user de django admin
+        #script d'ajout dans ma table CustomUser de django admin
         if service_id and type_personnel_soignant_id:
             CustomUser.objects.create(
             username=nom,

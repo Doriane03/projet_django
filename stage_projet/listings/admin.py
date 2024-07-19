@@ -1,4 +1,4 @@
-from django.contrib import admin # type: ignore
+from django.contrib import admin,User # type: ignore
 from  listings.models import band # type: ignore
 from  listings.models import listing # type: ignore
 
@@ -18,7 +18,7 @@ from  listings.models  import Service # type: ignore
 from  listings.models  import Chu # type: ignore
 from  listings.models  import Pays # type: ignore
 from  listings.models  import Type_personnel_soignant # type: ignore
-from  listings.models  import Personnel_soignant # type: ignore
+#from  listings.models  import Personnel_soignant # type: ignore
 from  listings.models  import Facture # type: ignore
 from  listings.models  import Constante # type: ignore
 from  listings.models  import Patient # type: ignore #modifie
@@ -58,7 +58,7 @@ class CategorieAdmin(admin.ModelAdmin):
     list_display=('refcat','numcat') # type: ignore
 
 class SortieAdmin(admin.ModelAdmin):
-    list_display=('refsortie', 'datesortie',  'motifsortie', 'Personnel_soignant', 'datedetransfert',  'numerodedossierdanslecentredetransfert', 'nouveaucentredesuivi', 'raison', 'commentaire',  'typedenouvelle', 'typederelance',  'datederniererelance',  'datedernierevisite', 'daterefus',  'remplipar',   'datedeces',  'causedudeces', 'lieudeces',  'decesliea') # type: ignore
+    list_display=('refsortie', 'datesortie',  'motifsortie', 'User', 'datedetransfert',  'numerodedossierdanslecentredetransfert', 'nouveaucentredesuivi', 'raison', 'commentaire',  'typedenouvelle', 'typederelance',  'datederniererelance',  'datedernierevisite', 'daterefus',  'remplipar',   'datedeces',  'causedudeces', 'lieudeces',  'decesliea') # type: ignore
 
 class FactureAdmin(admin.ModelAdmin):
     list_display=('idfact', 'numerofact', 'montantpaye',  'caution_versee', 'date_versement', 'duree_sejour', 'modepaiment', 'cout_sejour', 'remboursement', 'rest_a_payer', 'date', 'Patient') # type: ignore
@@ -72,8 +72,8 @@ class ChuAdmin(admin.ModelAdmin):
 class ServiceAdmin(admin.ModelAdmin):
     list_display=('refservice','nomservice','date') # type: ignore
 
-class Personnel_soignantAdmin(admin.ModelAdmin):
-    list_display=('refpersoignant','mdp','nom','contact','email','date','Service','Type_personnel_soignant') # type: ignore
+#class Personnel_soignantAdmin(admin.ModelAdmin):
+    #list_display=('refpersoignant','mdp','nom','contact','email','date','Service','Type_personnel_soignant') # type: ignore
 
 class PatientAdmin(admin.ModelAdmin):
     list_display=('idpatient', 'nom', 'contact1' ,'contact2', 'profession', 'email', 'age', 'sexe' , 'personne_a_contacter'  ,'ville',  'commune', 'quartier', 'nationalite' , 'nombre_enfant' , 'situation_matrimoniale','telephone_cpu' ,'date_naissance','Lit') # type: ignore
@@ -85,7 +85,7 @@ class ConstanteAdmin(admin.ModelAdmin):
     list_display=('refconst','poids','taille','temperature','imc','tas','tad','pouls') # type: ignore
 
 class ConsultationAdmin(admin.ModelAdmin):
-    list_display=('Numconsulta', 'motifdeconsultation', 'prescripteur_consultation', 'debut_signe', 'signe_digestifs', 'signe_extra_digestif', 'signe_asso_gene', 'nombredeverre_alcool', 'nombrepaquettabac', 'medoc_en_cours', 'prise_therap_tarditionnelle', 'aghbs', 'acanti_vhc', 'acanti_vhd', 'serologie_retrovi', 'transaminase', 'histoiredemaladie', 'date', 'resultat', 'renseignementclinic', 'Patient', 'Personnel_soignant') # type: ignore
+    list_display=('Numconsulta', 'motifdeconsultation', 'prescripteur_consultation', 'debut_signe', 'signe_digestifs', 'signe_extra_digestif', 'signe_asso_gene', 'nombredeverre_alcool', 'nombrepaquettabac', 'medoc_en_cours', 'prise_therap_tarditionnelle', 'aghbs', 'acanti_vhc', 'acanti_vhd', 'serologie_retrovi', 'transaminase', 'histoiredemaladie', 'date', 'resultat', 'renseignementclinic', 'Patient', 'User') # type: ignore
 
 class DiagnostiqueAdmin(admin.ModelAdmin):
     list_display=('iddiag','libdiag','date') # type: ignore
@@ -120,7 +120,7 @@ admin.site.register(Antecedant_chirurgical,Antecedant_chirurgicalAdmin) # type: 
 admin.site.register(Antecedant_genecologique,Antecedant_genecologiqueAdmin) # type: ignore #nouveau
 admin.site.register(Patient,PatientAdmin)
 admin.site.register(Lit,LitAdmin)
-admin.site.register(Personnel_soignant,Personnel_soignantAdmin)
+#admin.site.register(Personnel_soignant,Personnel_soignantAdmin)
 admin.site.register(Type_personnel_soignant,Type_personnel_soignantAdmin)
 admin.site.register(Facture,FactureAdmin)
 admin.site.register(Constante,ConstanteAdmin)
