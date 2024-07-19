@@ -18,9 +18,8 @@ BASE_DIR =os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 env = environ.Env()
 environ.Env.read_env()
-LOGIN_URL = ''
 #LOGOUT_URL = '/'  # URL pour la déconnexion
-LOGIN_REDIRECT_URL = 'template'  # URL de redirection après connexion réussie
+LOGIN_REDIRECT_URL = 'chart'  # URL de redirection après connexion réussie
 LOGOUT_REDIRECT_URL = ''
 AUTH_USER_MODEL = "listings.CustomUser"
 # Quick-start development settings - unsuitable for production
