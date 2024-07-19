@@ -15,7 +15,7 @@ from django.contrib.auth import authenticate, login
 #nouveau
 from  listings.models import  PatientForm
 #fin
-
+import os
 
 from  listings.models import  Ordonnancemedicament
 from  listings.models  import Antecedant_familial # type: ignore #nouveau
@@ -132,11 +132,16 @@ def index(request):
 @login_required(login_url="/")
 def patient(request):
     if request.method == "POST":
-        form = BirthCommentForm(request.POST)
+        form = PatientForm(request.POST)
         if form.is_valid():
             form.save()
-            # Redirect to a list of posts or any other page
-            return redirect("anniversaire", pk=form.cleaned_data["birthday"].pk)
+            desktop_path = Path.home() / 'Desktop' / 'ARCHIVE_DOC_PAT' / f'PAT{patient.nom}'
+            if not os.path.exists(desktop_path):
+                os.makedirs(desktop_path)
+                message = f'Le dossier pour le patient {patient.prenom} {patient.nom} a été créé à : {desktop_path}'
+            else:
+                message = f'Le dossier existe déjà pour le patient {patient.prenom} {patient.nom} : {desktop_path}'
+            return render(request,'listings/formpatient.html',context={'lits':lits,'message': message})
         else:
             print(form.errors)
 
