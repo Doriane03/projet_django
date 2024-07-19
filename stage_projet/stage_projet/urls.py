@@ -34,7 +34,7 @@ urlpatterns = [
     
     path('bands/',views.band_list),
     path('index',views.index,name='index'),
-    path('template',views.menu,name='template'),
+    path('template',views.template,name='template'),
     #path('cnx/',views.cnx,name='cnx'),
     path('patient',views.patient,name='patient'),
     path('listings',views.listing_list,name='listing-list'),
