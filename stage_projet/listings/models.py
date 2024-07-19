@@ -182,9 +182,9 @@ class Antecedant_medical(models.Model):#modifie
     #autre=models.fields.CharField(max_length=10,choices=MAYBECHOICE17)
     precisionautre=models.fields.CharField(max_length=200,blank=True,null=True)
     date= models.fields.DateTimeField(default=datetime.now)                                                                                
-    Patient=models.ForeignKey(Patient, on_delete=models.CASCADE)
+    patient=models.ForeignKey(Patient, on_delete=models.CASCADE)
     def __str__(self):
-        return f'{self.refant} {self.dyslipidemie} {self.cirrhose}  {self.hepatiteviraleb} {self.datehepvirb} {self.hepatiteviralec}  {self.datehepvirc} {self.hepatiteviraled} {self.datehepvird} {self.vaccination_vhb} {self.dosevhb}  {self.vaccination_vha}  {self.dosevha} {self.transfusion_sanguine}   {self.ictere} {self.rapportsexuelnonprotege} {self.partageobjettoilette} {self.accidexposang} {self.toxicomanie} {self.diabete} {self.hta}  {self.transplanhepatique}  {self.precisionautre}  {self.date} {self.Patient}'
+        return f'{self.refant} {self.dyslipidemie} {self.cirrhose}  {self.hepatiteviraleb} {self.datehepvirb} {self.hepatiteviralec}  {self.datehepvirc} {self.hepatiteviraled} {self.datehepvird} {self.vaccination_vhb} {self.dosevhb}  {self.vaccination_vha}  {self.dosevha} {self.transfusion_sanguine}   {self.ictere} {self.rapportsexuelnonprotege} {self.partageobjettoilette} {self.accidexposang} {self.toxicomanie} {self.diabete} {self.hta}  {self.transplanhepatique}  {self.precisionautre}  {self.date} {self.patient}'
 
 class Antecedant_medicalForm(ModelForm):
     class Meta:
@@ -495,10 +495,11 @@ class Sortie(models.Model):#migration
     customUser=models.ForeignKey(CustomUser,on_delete=models.CASCADE)                                                                                
     def __str__(self):
         return f'{self.refsortie} {self.datesortie}  {self.motifsortie} {self.customUser} {self.datedetransfert}  {self.numerodedossierdanslecentredetransfert} {self.nouveaucentredesuivi} {self.raison} {self.commentaire}  {self.typedenouvelle} {self.typederelance}  {self.datederniererelance}  {self.datedernierevisite} {self.daterefus}  {self.remplipar}   {self.datedeces}  {self.causedudeces} {self.lieudeces}  {self.decesliea}'
+
 class SortieForm(ModelForm):
     class Meta:
         model = Sortie
-        fields = ['motifsortie', 'remplipar', 'datedeces','causedudeces','lieudeces','decesliea','daterefus','datedernierevisite','datederniererelance','typederelance','typederelance','typedenouvelle','raison','commentaire','datedetransfert','nouveaucentredesuivi','numerodedossierdanslecentredetransfert','renseignementclinic','customUser']    
+        fields = ['motifsortie', 'remplipar', 'datedeces','causedudeces','lieudeces','decesliea','daterefus','datedernierevisite','datederniererelance','typederelance','typederelance','typedenouvelle','raison','commentaire','datedetransfert','nouveaucentredesuivi','numerodedossierdanslecentredetransfert','customUser']    
 
 
 class Facture(models.Model):

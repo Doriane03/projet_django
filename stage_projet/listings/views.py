@@ -4,10 +4,25 @@ from  django.contrib.auth import  login , logout, authenticate # type: ignore
 from  django.contrib import messages # type: ignore
 from  listings.models  import band # type: ignore
 from  listings.models  import listing  # type: ignore
-
+#pour la verification
 from  listings.models  import PatientForm
 from  listings.models  import ConsultationForm
 from  listings.models  import DiagnostiqueForm
+from  listings.models  import Antecedant_familialForm # type: ignore #nouveau
+from  listings.models  import Antecedant_chirurgicalForm # type: ignore #nouveau
+from  listings.models  import Antecedant_medicalForm # type: ignore #nouveau
+from  listings.models  import Antecedant_genecologiqueForm # type: ignore #nouveau
+from  listings.models  import MedicamentForm # type: ignore
+from  listings.models  import SortieForm # type: ignore
+from  listings.models  import HospitalisationForm # type: ignore
+from  listings.models  import FactureForm # type: ignore
+from  listings.models  import ConstanteForm # type: ignore
+from  listings.models  import Bilan_imagerieForm # type: ignore
+from  listings.models  import Bilan_biologiqueForm # type: ignore
+from  listings.models  import CustomUserForm # type: ignore
+#fin
+
+
 #from  listings.forms import contact_us # type: ignore
 from  django.core.mail import send_mail # type: ignore
 from  django.contrib.auth.hashers import make_password,check_password
@@ -151,11 +166,18 @@ def patient(request): #fait
 #fin
 @login_required(login_url="/")
 def constante(request):
+    if request.method=='POST':
+        form =ConstanteForm(request.POST)
+        if form.is_valid():
+            form.save()
+                # Redirect to a list of posts or any other page
+            return render(request,'listings/chart.html')
+        else:
+            print(form.errors)
     return render(request,'listings/formconstante.html')
 
 @login_required(login_url="/")
 def consultation(request):
-    
     if request.method=='POST':
         form = ConsultationForm(request.POST)
         if form.is_valid():
@@ -169,6 +191,14 @@ def consultation(request):
 
 @login_required(login_url="/")
 def facture(request):
+    if request.method=='POST':
+        form =FactureForm(request.POST)
+        if form.is_valid():
+            form.save()
+                # Redirect to a list of posts or any other page
+            return render(request,'listings/chart.html')
+        else:
+            print(form.errors)
     return render(request,'listings/formfacture.html')
 
 @login_required(login_url="/")
@@ -194,40 +224,73 @@ def ordonnance(request):
 
 @login_required(login_url="/")
 def antecedantmedical(request):
+    if request.method=='POST':
+        form =Antecedant_medicalForm(request.POST)
+        if form.is_valid():
+            form.save()
+                # Redirect to a list of posts or any other page
+            return render(request,'listings/chart.html')
+        else:
+            print(form.errors)
     return render(request,'listings/fromantmedical.html') 
 
 
 @login_required(login_url="/")
 def antecedantchirurgical(request):
-    if request.method == 'POST':
-        Operachir = request.POST['operachir']
-        Avp = request.POST['avp']
-        Dateavp = request.POST['dateavp']
-        Datoperachir = request.POST['datoperachir']
-        patient_id ='3' 
-        print(Operachir,Avp,Dateavp,Datoperachir)
-        if Operachir == 'n' and Avp == 'n':
-            reg =Antecedant_chirurgical(operachir=Operachir, avp=Avp, Patient_id=patient_id)
-            reg.save()
-        elif Operachir == 'o' and Avp == 'n':
-            reg =Antecedant_chirurgical(operachir=Operachir, avp=Avp, datoperachir=Datoperachir, Patient_id=patient_id)
-            reg.save()
-        elif Operachir == 'n' and Avp == 'o':
-            reg =Antecedant_chirurgical(operachir=Operachir, avp=Avp, dateavp=Dateavp, Patient_id=patient_id)
-            reg.save()
-        elif Operachir == 'o' and Avp == 'o':
-            reg =Antecedant_chirurgical(operachir=Operachir, avp=Avp, dateavp=Dateavp, Patient_id=patient_id,datoperachir=Datoperachir)
-            reg.save()
+    if request.method=='POST':
+        form =Antecedant_chirurgicalForm(request.POST)
+        if form.is_valid():
+            form.save()
+                # Redirect to a list of posts or any other page
+            return render(request,'listings/chart.html')
+        else:
+            print(form.errors)
+
+    #if request.method == 'POST':
+        #Operachir = request.POST['operachir']
+        #Avp = request.POST['avp']
+        #Dateavp = request.POST['dateavp']
+        #Datoperachir = request.POST['datoperachir']
+        #patient_id ='3' 
+        #print(Operachir,Avp,Dateavp,Datoperachir)
+        #if Operachir == 'n' and Avp == 'n':
+            #reg =Antecedant_chirurgical(operachir=Operachir, avp=Avp, Patient_id=patient_id)
+            #reg.save()
+        #elif Operachir == 'o' and Avp == 'n':
+            #reg =Antecedant_chirurgical(operachir=Operachir, avp=Avp, datoperachir=Datoperachir, Patient_id=patient_id)
+            #reg.save()
+        #elif Operachir == 'n' and Avp == 'o':
+            #reg =Antecedant_chirurgical(operachir=Operachir, avp=Avp, dateavp=Dateavp, Patient_id=patient_id)
+            #reg.save()
+        #elif Operachir == 'o' and Avp == 'o':
+            #reg =Antecedant_chirurgical(operachir=Operachir, avp=Avp, dateavp=Dateavp, Patient_id=patient_id,datoperachir=Datoperachir)
+            #reg.save()
     return render(request,'listings/formantchirurgical.html') 
 
 
 @login_required(login_url="/")
 def antecedantgenecologique(request):
+    if request.method=='POST':
+        form =Antecedant_genecologiqueForm(request.POST)
+        if form.is_valid():
+            form.save()
+                # Redirect to a list of posts or any other page
+            return render(request,'listings/chart.html')
+        else:
+            print(form.errors)
     return render(request,'listings/formantgynecologique.html') 
 
 
 @login_required(login_url="/")
 def sortie_patient(request):
+    if request.method=='POST':
+        form =SortieForm(request.POST)
+        if form.is_valid():
+            form.save()
+                # Redirect to a list of posts or any other page
+            return render(request,'listings/chart.html')
+        else:
+            print(form.errors)
     return render(request,'listings/formsortie.html')
 
 @login_required(login_url="/")
@@ -280,12 +343,29 @@ def adminform(request):
 
 @login_required(login_url="/")
 def bilanimg(request):
+    if request.method=='POST':
+        form = Bilan_imagerieForm(request.POST)
+        if form.is_valid():
+            form.save()
+                # Redirect to a list of posts or any other page
+            return render(request,'listings/chart.html')
+        else:
+            print(form.errors)
     return render(request,'listings/formbilanimg.html')
 
 
 #menu
 @login_required(login_url="/")
 def bilanbio(request):
+    if request.method=='POST':
+        form = Bilan_biologiqueForm(request.POST)
+        if form.is_valid():
+            form.save()
+                # Redirect to a list of posts or any other page
+            return render(request,'listings/chart.html')
+        else:
+            print(form.errors)
+            
     return render(request,'listings/bilanbio.html')
 
 
