@@ -7,8 +7,8 @@
             <div class="divsortie">
               <label > numero de lit:</label>
               <select name="lit"  required>
-                   {% for lit in lits %}
-                      <option value='{{ lit.reflit }}'>{{ lit.numlit }}</option>
+                   {% for lit in lits  and categorie in categories%}
+                      <option value='{{ lit.reflit }}'>{{ lit.numlit }}-{{categorie.numcat }}</option>
                    {% endfor %}
               </select>
             </div>
