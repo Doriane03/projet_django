@@ -12,6 +12,11 @@ from  django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 #import des class de ma bd
+#nouveau
+from  listings.models import  PatientForm
+#fin
+
+
 from  listings.models import  Ordonnancemedicament
 from  listings.models  import Antecedant_familial # type: ignore #nouveau
 from  listings.models  import Consultation # type: ignore #modifie
@@ -126,12 +131,21 @@ def index(request):
 #fin
 @login_required(login_url="/")
 def patient(request):
-    Lits = Lit.objects.all()
-    if request.method=='POST':
-        lit_id= Lit.objects.filter(numlit=request.POST['numlit']).values_list('reflit', flat=True).first()
-        Nom=request.POST['nom']
-        reg=Patient(nom=Nom,contact1=request.POST['contact1'],contact2=request.POST['contact2'],email=request.POST['email'],personne_a_contacter=request.POST['personne_a_contacter'],telephone_cpu=request.POST['telephone_cpu'],date_naissance=request.POST['date_naissance'],profession=request.POST['profession'],ville=request.POST['ville'],age=request.POST['age'],sexe=request.POST['sexe'],commune=request.POST['commune'],quartier=request.POST['quartier'],nationalite=request.POST['nationalite'],situation_matrimoniale=request.POST['situation_matrimoniale'],nombre_enfant=request.POST['nombre_enfant'],Lit_id=lit_id)
-        reg.save()  
+    if request.method == "POST":
+        form = BirthCommentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # Redirect to a list of posts or any other page
+            return redirect("anniversaire", pk=form.cleaned_data["birthday"].pk)
+        else:
+            print(form.errors)
+
+    #Lits = Lit.objects.all()
+    #if request.method=='POST':
+        #lit_id= Lit.objects.filter(numlit=request.POST['numlit']).values_list('reflit', flat=True).first()
+        #Nom=request.POST['nom']
+        #reg=Patient(nom=Nom,contact1=request.POST['contact1'],contact2=request.POST['contact2'],email=request.POST['email'],personne_a_contacter=request.POST['personne_a_contacter'],telephone_cpu=request.POST['telephone_cpu'],date_naissance=request.POST['date_naissance'],profession=request.POST['profession'],ville=request.POST['ville'],age=request.POST['age'],sexe=request.POST['sexe'],commune=request.POST['commune'],quartier=request.POST['quartier'],nationalite=request.POST['nationalite'],situation_matrimoniale=request.POST['situation_matrimoniale'],nombre_enfant=request.POST['nombre_enfant'],Lit_id=lit_id)
+        #reg.save()  
     return render(request,'listings/formpatient.html',context={'Lits':Lits})
 #fin
 @login_required(login_url="/")
