@@ -79,7 +79,7 @@ class PatientAdmin(admin.ModelAdmin):
     list_display=('idpatient', 'nom', 'contact1' ,'contact2', 'profession', 'email', 'age', 'sexe' , 'personne_a_contacter'  ,'ville',  'commune', 'quartier', 'nationalite' , 'nombre_enfant' , 'situation_matrimoniale','telephone_cpu' ,'date_naissance','lit') # type: ignore
 
 class LitAdmin(admin.ModelAdmin):
-    list_display=("reflit", "numlit", "Categorie")# type: ignore
+    list_display=("reflit", "numlit", "categorie")# type: ignore
 
 class ConstanteAdmin(admin.ModelAdmin):
     list_display=('refconst','poids','taille','temperature','imc','tas','tad','pouls') # type: ignore

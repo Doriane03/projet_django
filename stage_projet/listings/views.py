@@ -129,7 +129,7 @@ def index(request):
 @login_required(login_url="/")
 def patient(request):
     lits = Lit.objects.all()
-    categories=Categorie.object.all()
+    categories=Categorie.objects.all()
     if request.method=='POST':
         form = PatientForm(request.POST)
         if form.is_valid():

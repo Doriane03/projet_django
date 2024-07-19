@@ -43,7 +43,7 @@ class Categorie(models.Model):
 class Lit(models.Model):
     reflit=models.fields.AutoField(primary_key=True)
     numlit=models.fields.PositiveIntegerField(null=False)
-    Categorie =models.ForeignKey(Categorie, on_delete=models.CASCADE)
+    categorie =models.ForeignKey(Categorie, on_delete=models.CASCADE)
     def __str__(self):
         return f'{self.reflit} {self.numlit} {self.Categorie}'
         
