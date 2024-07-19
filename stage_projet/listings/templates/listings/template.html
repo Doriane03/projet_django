@@ -535,6 +535,7 @@ function ajouter(){
             document.getElementById('dateInput').value = dateAffichee;
             }
             
+            
             document.addEventListener('DOMContentLoaded', function() {
                 // Liste des IDs des liens à déclencher
                 var ids = ['lien-1', 'lien-2', 'lien-3', 'lien-4'];
@@ -568,7 +569,7 @@ function ajouter(){
         <link href="{% static 'listings/custom.css' %}" rel="stylesheet"/>
         <link rel="stylesheet" href="{% static 'listings/style.css' %}"/>
     </head>
-        <body onload="datefacture()" >
+        <body>
             <!--debut menu-->
             <div class="connect-container align-content-stretch d-flex flex-wrap">
                 <div class="page-sidebar">
