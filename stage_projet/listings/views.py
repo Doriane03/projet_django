@@ -155,6 +155,7 @@ def constante(request):
 
 @login_required(login_url="/")
 def consultation(request):
+    
     if request.method=='POST':
         form = ConsultationForm(request.POST)
         if form.is_valid():

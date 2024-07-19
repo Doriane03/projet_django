@@ -52,16 +52,16 @@ class Type_personnel_soignantAdmin(admin.ModelAdmin):
     list_display=('idpersoignant','nompersog','date') # type: ignore
 
 class HospitalisationAdmin(admin.ModelAdmin):
-    list_display=('idhospitalisation','service','datehospitalisation','Consultation') # type: ignore
+    list_display=('idhospitalisation','service','datehospitalisation','consultation') # type: ignore
 
 class CategorieAdmin(admin.ModelAdmin):
     list_display=('refcat','numcat') # type: ignore
 
 class SortieAdmin(admin.ModelAdmin):
-    list_display=('refsortie', 'datesortie',  'motifsortie', 'CustomUser', 'datedetransfert',  'numerodedossierdanslecentredetransfert', 'nouveaucentredesuivi', 'raison', 'commentaire',  'typedenouvelle', 'typederelance',  'datederniererelance',  'datedernierevisite', 'daterefus',  'remplipar',   'datedeces',  'causedudeces', 'lieudeces',  'decesliea') # type: ignore
+    list_display=('refsortie', 'datesortie',  'motifsortie', 'datedetransfert',  'numerodedossierdanslecentredetransfert', 'nouveaucentredesuivi', 'raison', 'commentaire',  'typedenouvelle', 'typederelance',  'datederniererelance',  'datedernierevisite', 'daterefus',  'remplipar',   'datedeces',  'causedudeces', 'lieudeces',  'decesliea','customUser') # type: ignore
 
 class FactureAdmin(admin.ModelAdmin):
-    list_display=('idfact', 'numerofact', 'montantpaye',  'caution_versee', 'date_versement', 'duree_sejour', 'modepaiment', 'cout_sejour', 'remboursement', 'rest_a_payer', 'date', 'Patient') # type: ignore
+    list_display=('idfact', 'numerofact', 'montantpaye',  'caution_versee', 'date_versement', 'duree_sejour', 'modepaiment', 'cout_sejour', 'remboursement', 'rest_a_payer', 'date', 'patient') # type: ignore
 
 class MedicamentAdmin(admin.ModelAdmin):
     list_display=('idmedicament','nommedicament','dosage','dateprescription') # type: ignore
@@ -82,7 +82,7 @@ class LitAdmin(admin.ModelAdmin):
     list_display=("reflit", "numlit", "categorie")# type: ignore
 
 class ConstanteAdmin(admin.ModelAdmin):
-    list_display=('refconst','poids','taille','temperature','imc','tas','tad','pouls') # type: ignore
+    list_display=('refconst','poids','taille','temperature','imc','tas','tad','pouls','patient') # type: ignore
 
 class ConsultationAdmin(admin.ModelAdmin):
     list_display=('Numconsulta', 'motifdeconsultation', 'prescripteur_consultation', 'debut_signe', 'signe_digestifs', 'signe_extra_digestif', 'signe_asso_gene', 'nombredeverre_alcool', 'nombrepaquettabac', 'medoc_en_cours', 'prise_therap_tarditionnelle', 'aghbs', 'acanti_vhc', 'acanti_vhd', 'serologie_retrovi', 'transaminase', 'histoiredemaladie', 'date', 'resultat', 'renseignementclinic', 'patient', 'customUser') # type: ignore
@@ -95,23 +95,23 @@ class OrdonnanceAdmin(admin.ModelAdmin):
     inlines = [OrdonnancemedicamentInline]
 
 class Bilan_imagerieAdmin(admin.ModelAdmin):
-    list_display=('numbilimg','echographie_ou_radiograpgie','renseignementclinique') # type: ignore
+    list_display=('numbilimg','echographie_ou_radiograpgie','renseignementclinique','consultation') # type: ignore
 
 class Bilan_biologiqueAdmin(admin.ModelAdmin):
-    list_display=('numbilanbio', 'typeexamen',  'resultatmodalite', 'unite','Consultation','resultatnumerique','prix') # type: ignore
+    list_display=('numbilanbio', 'typeexamen',  'resultatmodalite', 'unite','consultation','resultatnumerique','prix') # type: ignore
     
 class Antecedant_familialAdmin(admin.ModelAdmin): #nouveau
-    list_display=('refantfam', 'hepatie_vir_ASC', 'cirrhose_ASC', 'cpf_ASC','hepatie_vir_DSC', 'cirrhose_DSC', 'cpf_DSC','hepatie_vir_COL', 'cirrhose_COL', 'cpf_COL','conscience', 'statutoms',  'hippocraismdigital', 'oncleblanc', 'autre', 'ascite', 'cvc', 'splenomegalie', 'flechehepatique', 'autresignephysique','Patient')
+    list_display=('refantfam', 'hepatie_vir_ASC', 'cirrhose_ASC', 'cpf_ASC','hepatie_vir_DSC', 'cirrhose_DSC', 'cpf_DSC','hepatie_vir_COL', 'cirrhose_COL', 'cpf_COL','conscience', 'statutoms',  'hippocraismdigital', 'oncleblanc','ascite', 'cvc', 'splenomegalie', 'flechehepatique', 'autresignephysique','patient')
     
     
 class Antecedant_medicalAdmin(admin.ModelAdmin):#nouveau
-    list_display=('refant', 'dyslipidemie', 'cirrhose',  'hepatiteviraleb', 'datehepvirb', 'hepatiteviralec',  'datehepvirc', 'hepatiteviraled', 'datehepvird', 'vaccination_vhb', 'dosevhb',  'vaccination_vha',  'dosevha', 'transfusion_sanguine',   'ictere', 'rapportsexuelnonprotege', 'partageobjettoilette', 'accidexposang', 'toxicomanie', 'diabete', 'hta',  'transplanhepatique', 'precisionautre',  'date', 'Patient')
+    list_display=('refant', 'dyslipidemie', 'cirrhose',  'hepatiteviraleb', 'datehepvirb', 'hepatiteviralec',  'datehepvirc', 'hepatiteviraled', 'datehepvird', 'vaccination_vhb', 'dosevhb',  'vaccination_vha',  'dosevha', 'transfusion_sanguine',   'ictere', 'rapportsexuelnonprotege', 'partageobjettoilette', 'accidexposang', 'toxicomanie', 'diabete', 'hta',  'transplanhepatique', 'precisionautre',  'date', 'patient')
 
 class Antecedant_chirurgicalAdmin(admin.ModelAdmin):#nouveau
-    list_display=('refantchir', 'operachir', 'datoperachir', 'avp', 'dateavp', 'date','Patient')
+    list_display=('refantchir', 'operachir', 'datoperachir', 'avp', 'dateavp', 'date','patient')
 
 class Antecedant_genecologiqueAdmin(admin.ModelAdmin):#nouveau
-    list_display=('refantgen', 'datederniereregle', 'gestite', 'parite', 'prisecontraceptif', 'cesarienne', 'datecesarienne', 'date', 'Patient')
+    list_display=('refantgen', 'datederniereregle', 'gestite', 'parite', 'prisecontraceptif', 'cesarienne', 'datecesarienne', 'date', 'patient')
 #fin
 #pour ma bd
 admin.site.register(Antecedant_medical,Antecedant_medicalAdmin) #nouveau
