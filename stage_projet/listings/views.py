@@ -204,7 +204,7 @@ def sortie_patient(request):
 
 @login_required(login_url="/")
 def modificationmdp(request):
-    CustomUsers =CustomUser.objects.all()
+    customUsers =CustomUser.objects.all()
     if request.method =='POST':
         mdp= make_password(request.POST['mdp'])
         modifmdp= CustomUser.objects.filter(nom=request.POST['nom'])
@@ -212,7 +212,7 @@ def modificationmdp(request):
         if resultat >  0:
             error_message = "mot de passe modifié avec succès."
             return render(request,'listings/formmodifmdp.html',{'error_message': error_message})
-    return render(request,'listings/formmodifmdp.html',context={'CustomUsers':CustomUsers})
+    return render(request,'listings/formmodifmdp.html',context={'customUsers':customUsers})
 
     
 @login_required(login_url="/")

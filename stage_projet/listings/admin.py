@@ -1,4 +1,4 @@
-from django.contrib import admin,User # type: ignore
+from django.contrib import admin # type: ignore
 from  listings.models import band # type: ignore
 from  listings.models import listing # type: ignore
 
@@ -58,7 +58,7 @@ class CategorieAdmin(admin.ModelAdmin):
     list_display=('refcat','numcat') # type: ignore
 
 class SortieAdmin(admin.ModelAdmin):
-    list_display=('refsortie', 'datesortie',  'motifsortie', 'User', 'datedetransfert',  'numerodedossierdanslecentredetransfert', 'nouveaucentredesuivi', 'raison', 'commentaire',  'typedenouvelle', 'typederelance',  'datederniererelance',  'datedernierevisite', 'daterefus',  'remplipar',   'datedeces',  'causedudeces', 'lieudeces',  'decesliea') # type: ignore
+    list_display=('refsortie', 'datesortie',  'motifsortie', 'CustomUser', 'datedetransfert',  'numerodedossierdanslecentredetransfert', 'nouveaucentredesuivi', 'raison', 'commentaire',  'typedenouvelle', 'typederelance',  'datederniererelance',  'datedernierevisite', 'daterefus',  'remplipar',   'datedeces',  'causedudeces', 'lieudeces',  'decesliea') # type: ignore
 
 class FactureAdmin(admin.ModelAdmin):
     list_display=('idfact', 'numerofact', 'montantpaye',  'caution_versee', 'date_versement', 'duree_sejour', 'modepaiment', 'cout_sejour', 'remboursement', 'rest_a_payer', 'date', 'Patient') # type: ignore
@@ -85,7 +85,7 @@ class ConstanteAdmin(admin.ModelAdmin):
     list_display=('refconst','poids','taille','temperature','imc','tas','tad','pouls') # type: ignore
 
 class ConsultationAdmin(admin.ModelAdmin):
-    list_display=('Numconsulta', 'motifdeconsultation', 'prescripteur_consultation', 'debut_signe', 'signe_digestifs', 'signe_extra_digestif', 'signe_asso_gene', 'nombredeverre_alcool', 'nombrepaquettabac', 'medoc_en_cours', 'prise_therap_tarditionnelle', 'aghbs', 'acanti_vhc', 'acanti_vhd', 'serologie_retrovi', 'transaminase', 'histoiredemaladie', 'date', 'resultat', 'renseignementclinic', 'Patient', 'User') # type: ignore
+    list_display=('Numconsulta', 'motifdeconsultation', 'prescripteur_consultation', 'debut_signe', 'signe_digestifs', 'signe_extra_digestif', 'signe_asso_gene', 'nombredeverre_alcool', 'nombrepaquettabac', 'medoc_en_cours', 'prise_therap_tarditionnelle', 'aghbs', 'acanti_vhc', 'acanti_vhd', 'serologie_retrovi', 'transaminase', 'histoiredemaladie', 'date', 'resultat', 'renseignementclinic', 'Patient', 'CustomUser') # type: ignore
 
 class DiagnostiqueAdmin(admin.ModelAdmin):
     list_display=('iddiag','libdiag','date') # type: ignore
