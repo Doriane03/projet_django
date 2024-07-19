@@ -72,6 +72,12 @@ class Patient(models.Model): #modifie
     def __str__(self):
         return f'{self.idpatient} {self.nom} {self.contact1} {self.contact2} {self.profession} {self.email} {self.age} {self.sexe}  {self.personne_a_contacter}  {self.ville}  {self.commune} {self.quartier}{self.nationalite}  {self.nombre_enfant}  {self.situation_matrimoniale} {self.telephone_cpu} {self.date_naissance} {self.Lit}'
 
+class PatientForm(ModelForm):
+    class Meta:
+        model = Patient
+        fields = ['nom', 'contact1', 'contact2','email','personne_a_contacter','telephone_cpu','date_naissance','profession','ville','age','sexe','commune','quartier','nationalite','situation_matrimoniale','nombre_enfant','Lit']
+
+
 class Antecedant_medical(models.Model):#modifie
     refant=models.fields.AutoField(primary_key=True)
     MAYBECHOICE1=(
