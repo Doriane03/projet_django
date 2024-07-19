@@ -535,22 +535,21 @@ function ajouter(){
             document.getElementById('dateInput').value = dateAffichee;
             }
             
-
-            //pour faire un click automatique
             document.addEventListener('DOMContentLoaded', function() {
-                // Liste des IDs des éléments sur lesquels vous voulez déclencher un clic
+                // Liste des IDs des liens à déclencher
                 var ids = ['lien-1', 'lien-2', 'lien-3'];
             
                 ids.forEach(function(id) {
-                    var element = document.getElementById(id);
-                    if (element) {
+                    var lien = document.getElementById(id);
+                    if (lien) {
                         // Déclenche un clic programmatique sur l'élément
-                        element.click();
+                        lien.click();
                     } else {
                         console.log('Élément avec ID "' + id + '" non trouvé');
                     }
                 });
             });
+
 
         </script>
         <!-- Styles -->
