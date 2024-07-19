@@ -128,16 +128,15 @@ def index(request):
 #fin
 @login_required(login_url="/")
 def patient(request):
-    Lits = Lit.objects.all()
-    form = PatientForm(request.POST)
-    if form.is_valid():
-        form.save()
-            # Redirect to a list of posts or any other page
-        return render(request,'listings/chart.html')
-    else:
-        print(form.errors)
-
-
+    lits = Lit.objects.all()
+    if request.method=='POST':
+        form = PatientForm(request.POST)
+        if form.is_valid():
+            form.save()
+                # Redirect to a list of posts or any other page
+            return render(request,'listings/chart.html')
+        else:
+            print(form.errors)
 
     #Lits = Lit.objects.all()
     #if request.method=='POST':
@@ -145,7 +144,7 @@ def patient(request):
        # Nom=request.POST['nom']
         #reg=Patient(nom=Nom,contact1=request.POST['contact1'],contact2=request.POST['contact2'],email=request.POST['email'],personne_a_contacter=request.POST['personne_a_contacter'],telephone_cpu=request.POST['telephone_cpu'],date_naissance=request.POST['date_naissance'],profession=request.POST['profession'],ville=request.POST['ville'],age=request.POST['age'],sexe=request.POST['sexe'],commune=request.POST['commune'],quartier=request.POST['quartier'],nationalite=request.POST['nationalite'],situation_matrimoniale=request.POST['situation_matrimoniale'],nombre_enfant=request.POST['nombre_enfant'],Lit_id=lit_id)
         #reg.save()  
-    return render(request,'listings/formpatient.html',context={'Lits':Lits})
+    return render(request,'listings/formpatient.html',context={'lits':lits})
 #fin
 @login_required(login_url="/")
 def constante(request):

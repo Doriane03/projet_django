@@ -1,14 +1,14 @@
 {% extends 'listings/template.html' %}
 {% block formpatient %}
 <center>
-<form method="post" action="{% url 'patient' %}"  class="formcontenu">
+<form method="post" action="{% url 'patient' %}"  class="formcontenu" enctype="multipart/form-data">
     {% csrf_token %}
     <fieldset>
             <div class="divsortie">
               <label > numero de lit:</label>
-              <select name="numlit"  required>
-                   {% for Lit in Lits %}
-                      <option value='{{ Lit.numlit }}'>{{ Lit.numlit }}</option>
+              <select name="lit"  required>
+                   {% for lit in lits %}
+                      <option value='{{ lit.reflit }}'>{{ lit.numlit }}</option>
                    {% endfor %}
               </select>
             </div>
