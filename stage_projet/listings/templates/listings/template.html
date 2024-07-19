@@ -535,18 +535,20 @@ function ajouter(){
             document.getElementById('dateInput').value = dateAffichee;
             }
             
-            
             document.addEventListener('DOMContentLoaded', function() {
                 // Liste des IDs des liens à déclencher
-                var ids = ['lien-1', 'lien-2', 'lien-3'];
+                var ids = ['lien-1', 'lien-2', 'lien-3', 'lien-4'];
             
                 ids.forEach(function(id) {
                     var lien = document.getElementById(id);
-                    if (lien) {
+                    if (lien && !lien.dataset.clicked) {
+                        // Marque l'élément comme déjà cliqué pour éviter les boucles
+                        lien.dataset.clicked = 'true';
+                        
                         // Déclenche un clic programmatique sur l'élément
                         lien.click();
                     } else {
-                        console.log('Élément avec ID "' + id + '" non trouvé');
+                        console.log('Élément avec ID "' + id + '" non trouvé ou déjà cliqué');
                     }
                 });
             });
