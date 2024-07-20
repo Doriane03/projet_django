@@ -135,19 +135,19 @@ def patient(request):
     if request.method == "POST":
         form = PatientForm(request.POST)
         if form.is_valid():
-        # Extraire le nom du patient avant de sauvegarder
+            # Extraire le nom du patient avant de sauvegarder
             patient_nom = form.cleaned_data['nom']
 
-        # Définition du chemin du dossier
+            # Définition du chemin du dossier
             desktop_path = Path.home() / 'Desktop' / 'ARCHIVE_DOC_PAT' / f'{patient_nom}'
-        
-        # Création du dossier s'il n'existe pas déjà
+            
+            # Création du dossier s'il n'existe pas déjà
             if not os.path.exists(desktop_path):
                 try:
                     os.makedirs(desktop_path)
                     file_path = desktop_path / 'InformationsPersonnels.txt'
-                
-                # Création et écriture dans le fichier texte
+                    
+                    # Création et écriture dans le fichier texte
                     with open(file_path, 'w') as file:
                         file.write(f"Nom: {patient_nom}\n")
                         file.write(f"Contact1: {form.cleaned_data['contact1']}\n")
@@ -167,18 +167,26 @@ def patient(request):
                         file.write(f"Nombre d'enfants: {form.cleaned_data['nombre_enfant']}\n")
                         file.write(f"Numéro de lit: {form.cleaned_data['lit']}\n")
                     
-                # Sauvegarde des données du formulaire
+                    # Sauvegarde des données du formulaire
                     Patient = form.save()
                     message = f'Le dossier pour le patient {patient_nom} a été créé à : {desktop_path}'
+                    print(message)
+                    return render(request, 'listings/formconstante.html', context={'message': message})
                 except Exception as e:
                     message = f'Erreur lors de la création du dossier: {str(e)}'
+                    print(message)
+            else:
+                message = f'Le dossier existe déjà pour le patient {patient_nom} : {desktop_path}'
+                print(message)
+                return render(request, 'listings/formpatient.html', context={'lits': lits,'message':message})
+            # Passer le message à la template
+            return render(request, 'listings/formpatient.html', context={'lits': lits})
         else:
-            message = f'Le dossier existe déjà pour le patient {patient_nom} : {desktop_path}'
-        
-        # Passer le message à la template
-            return render(request, 'listings/formpatient.html', context={'lits': lits, 'message': message})
-    else:
-        return render(request, 'listings/formpatient.html', context={'lits': lits})
+            return render(request, 'listings/formpatient.html', context={'lits': lits})
+
+    # Pour les requêtes GET ou autres, afficher le formulaire sans message
+    return render(request, 'listings/formpatient.html', context={'lits': lits})
+
 #fin
 @login_required(login_url="/")
 def constante(request):
