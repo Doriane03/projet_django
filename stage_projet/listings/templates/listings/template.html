@@ -12,95 +12,148 @@
         <title>Connect - Responsive Admin Dashboard Template</title>
         <script>
             function signedigstif() {
-                var afficheRadio= document.getElementsByName('b1');
-                for (var i = 0; i < afficheRadio.length; i++) {
-                    if (afficheRadio[i].checked) {
-                        switch(afficheRadio[i].value){
-                            case 'oui1':
+                var afficheRadio1= document.getElementsByName('signe_digestifs');
+                var afficheRadio2= document.getElementsByName('signe_extra_digestif');
+                var afficheRadio3= document.getElementsByName('signe_asso_gene');
+                var afficheRadio4= document.getElementsByName('nombredeverre_alcool');
+                var afficheRadio5= document.getElementsByName('nombrepaquettabac');
+                var afficheRadio6= document.getElementsByName('medoc_en_cours');
+                var afficheRadio7= document.getElementsByName('Bilanbiologiqueant');
+                for (var i = 0; i < afficheRadio1.length; i++) {
+                    if (afficheRadio1[i].checked) {
+                        switch(afficheRadio1[i].value){
+                            case 'oui':
                             var inputField = document.getElementById("signedigestifs");
                             inputField.style.display = "block";
                             break;
 
-                            case 'oui2':
-                            var inputField = document.getElementById("signeextradigestif");
-                            inputField.style.display = "block";
-                            break;
-
-                            case 'oui3':
-                            var inputField = document.getElementById("signeasso");
-                            inputField.style.display = "block";
-
-                            break;
-
-
-                            case 'oui4':
-
-                            var inputField = document.getElementById("nombredeverredalcool");
-                            inputField.style.display = "block";
-
-                            break;
-
-
-
-                            case 'oui5':
-
-                            var inputField = document.getElementById("nombredepaquetdetabac");
-
-                            inputField.style.display = "block";
-
-
-                            break;
-
-                            case 'oui6':
-
-                            var inputField = document.getElementById("medocencours");
-
-                            inputField.style.display = "block";
-
-                            break;
-
-
-
-                            case 'oui7':
-
-                            var inputField = document.getElementById("Bilanbiologiqueanterieur");
-
-                            inputField.style.display = "block";
-
-                            break;
-
-                            case 'non1':
-
+                            case 'non':
                             var inputField = document.getElementById("signedigestifs");
-                            inputField.style.display = "none"; 
-                            break;
-                            case 'non2':
-                            var inputField = document.getElementById("signeextradigestif");
-                            inputField.style.display = "none"; 
-                            break;
-                            case 'non3':
-                            var inputField = document.getElementById("signeasso");
-                            inputField.style.display = "none"; 
-                            break;
-                            case 'non4':
-                            var inputField = document.getElementById("nombredeverredalcool");
-                            inputField.style.display = "none"; 
-                            break;
-                            case 'non5':
-                            var inputField = document.getElementById("nombredepaquetdetabac");
-                            inputField.style.display = "none"; 
-                            break;
-                            case 'non6':
-                            var inputField = document.getElementById("medocencours");
-                            inputField.style.display = "none"; 
-                            break;
-                            case 'non7':
-                                var inputField = document.getElementById("Bilanbiologiqueanterieur");
-                                inputField.style.display = "none"; 
+                            inputField.style.display = "none";
+                            inputField.value = "";
                             break;
                         }
                     }
-                }
+                }for (var i = 0; i < afficheRadio2.length; i++) {
+                        if (afficheRadio2[i].checked) {
+                            switch(afficheRadio2[i].value){
+                            case 'oui':
+                            var inputField = document.getElementById("signeextradigestif");
+                            inputField.style.display = "block";
+                            break;
+                            case 'non':
+
+                            var inputField = document.getElementById("signeextradigestif");
+                            inputField.style.display = "none";
+                            inputField.value = "";
+                            break;
+
+                            }
+                        }
+                    }
+                    for (var i = 0; i < afficheRadio3.length; i++) {
+                        if (afficheRadio3[i].checked) {
+                            switch(afficheRadio3[i].value){
+                            case 'oui':
+                            var inputField = document.getElementById("signeasso");
+                            inputField.style.display = "block";
+                            break;
+                            case 'non':
+                            var inputField = document.getElementById("signeasso");
+                            inputField.style.display = "none";
+
+                            var checkboxes = inputField.querySelectorAll('input[type="checkbox"]');
+            
+                            checkboxes.forEach(function(checkbox) {
+                                checkbox.checked = false; // Désélectionner chaque case à cocher
+                            });
+                            break;
+
+                            }
+                        }
+                    }
+
+                    for (var i = 0; i < afficheRadio4.length; i++) {
+                        if (afficheRadio4[i].checked) {
+                            switch(afficheRadio4[i].value){
+                            case 'oui':
+                            var inputField = document.getElementById("nombredeverredalcool");
+                            inputField.style.display = "block";
+                            break;
+                            case 'non':
+
+                            var inputField = document.getElementById("nombredeverredalcool");
+                            inputField.style.display = "none";
+                            inputField.value = "";
+                            break;
+
+                            }
+                        }
+                    }
+
+                    for (var i = 0; i < afficheRadio5.length; i++) {
+                        if (afficheRadio5[i].checked) {
+                            switch(afficheRadio5[i].value){
+                            case 'oui':
+                            var inputField = document.getElementById("nombredepaquetdetabac");
+                            inputField.style.display = "block";
+                            break;
+                            case 'non':
+
+                            var inputField = document.getElementById("nombredepaquetdetabac");
+                            inputField.style.display = "none";
+                            inputField.value = "";
+                            break;
+
+                            }
+                        }
+                    }
+
+
+                    for (var i = 0; i < afficheRadio6.length; i++) {
+                        if (afficheRadio6[i].checked) {
+                            switch(afficheRadio6[i].value){
+                            case 'oui':
+                            var inputField = document.getElementById("medocencours");
+                            inputField.style.display = "block";
+                            break;
+                            case 'non':
+
+                            var inputField = document.getElementById("medocencours");
+                            inputField.style.display = "none";
+                            inputField.value = "";
+                            break;
+
+                            }
+                        }
+                    }
+
+
+                    for (var i = 0; i < afficheRadio7.length; i++) {
+                        if (afficheRadio7[i].checked) {
+                            switch(afficheRadio7[i].value){
+                            case 'oui':
+                            var inputField = document.getElementById("Bilanbiologiqueanterieur");
+                            inputField.style.display = "block";
+                            break;
+                            case 'non':
+
+                            var inputField = document.getElementById("Bilanbiologiqueanterieur");
+                            inputField.style.display = "none";
+                            
+                            var radios = inputField.querySelectorAll('input[type="radio"]');
+            
+                            radios.forEach(function(radio) {
+                                radio.checked = false; // Désélectionner chaque bouton radio
+                            });
+                            break;
+
+                            }
+                        }
+                    }
+
+
+                            
             }
 
 

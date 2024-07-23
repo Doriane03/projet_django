@@ -26,15 +26,6 @@
                 {% endfor %}
               </select>
             </div>
-            <div class="divsortie">
-              <label > numero de lit:</label>
-              <select name="lit"  required>
-                <option>choisir un lit</option>
-                {% for lit in lits %}
-                <option value='{{ lit.reflit }}'>{{ lit.numlit }}-catégorie{{ lit.categorie.numcat }}</option>
-                {% endfor %}
-              </select>
-            </div>
             <input type="text"   placeholder="nom" name="nom" class="inputcontenu" required/>
             <input type="tel"   placeholder="numéro 1" name="contact1" class="inputcontenu" required/>
             <input type="tel" placeholder="numéro 2" name="contact2" class="inputcontenu" required/>

@@ -115,14 +115,14 @@ display:block;
 
 .divcontenunav{
 padding:10px;
-text-align:center;
 width:100%;
-text-transform:capitalize;
 font-weight:bold;
 font-size:20px;
 border-top-left-radius:5px;
 border-top-right-radius:5px;
 color: black;
+background-color: deepskyblue;
+text-align: left;
 font-family: Georgia, 'Times New Roman', Times, serif;
 }
 

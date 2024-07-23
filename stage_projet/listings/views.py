@@ -40,7 +40,7 @@ from  listings.models  import Personnel_soignant # type: ignore
 from  listings.models  import Facture # type: ignore
 from  listings.models  import Constante # type: ignore
 from  listings.models  import Patient # type: ignore #modifie
-from  listings.models  import Lit # type: ignore
+from  listings.models  import Lit # type: ignoreConstantes
 from  listings.models  import Ordonnance # type: ignore
 from  listings.models  import Diagnostique # type: ignore
 from  listings.models  import Bilan_imagerie # type: ignore
@@ -250,48 +250,25 @@ def constante(request):
 @login_required(login_url="/")
 def consultation(request):
     message = ''
-    dossier_nom = 'kouadio josephine-doriane'
-    desktop_path = Path.home() / 'Desktop' / 'ARCHIVE_DOC_PAT' / dossier_nom
-
+    dossier_nom = 'kouadio josephine'
+    patient = Patient.objects.get(nom=dossier_nom)
+    patient_id=patient.idpatient
+    #print(patient_id)
     # Assurez-vous que le dossier existe, sinon créez-le
-    if not desktop_path.exists():
-        desktop_path.mkdir(parents=True, exist_ok=True)
-
     if request.method == "POST":
         form = ConsultationForm(request.POST)
-        file_path = desktop_path / 'consule.txt'
-
         if form.is_valid():
-            # Récupérer les données du formulaire
-            signe_asso_gene = request.POST.getlist('signe_asso_gene[]')
-            motifdeconsultation = request.POST.getlist('motifdeconsultation[]')
-            signe_asso_gene_str = ','.join(signe_asso_gene)  # Convertir la liste en chaîne de caractères
-            motifdeconsultation_str = ','.join(motifdeconsultation)  # Convertir la liste en chaîne de caractères
-
-            # Écriture des données dans le fichier
-            with open(file_path, 'w') as file:
-                file.write(f"signe_asso_gene: {signe_asso_gene_str}\n")
-                file.write(f"motifdeconsultation: {motifdeconsultation_str}\n")
-
-            # Sauvegarde du modèle
-            consultation = form.save(commit=False)
-            consultation.signe_asso_gene = signe_asso_gene_str
-            consultation.motifdeconsultation = motifdeconsultation_str
             consultation.save()
-
             if consultation and consultation.Numconsulta:
-                message = f'Constantes ajoutées pour le patient dans {desktop_path}'
+                message = f'Consultation ajoutées pour le patient dans {desktop_path}'
+                return render(request, 'listings/formconsultation.html', context={'message': message, 'patient_id': patient_id})
             else:
                 message = f'Constantes non ajoutées pour le patient dans {desktop_path}'
+                return render(request, 'listings/formconsultation.html', context={'message': message, 'patient_id': patient_id})
         else:
             message = 'Le formulaire contient des erreurs.'
-
-        return render(request, 'listings/formconsultation.html', context={'message': message, 'form_errors': form.errors})
-    else:
-        message = f'Dossier trouvé: {desktop_path}'
-        print(message)
-    
-    return render(request, 'listings/formconsultation.html', context={'message': message})
+            return render(request, 'listings/formconsultation.html', context={'message': message, 'form_errors': form.errors, 'patient_id': patient_id})
+    return render(request, 'listings/formconsultation.html', context={'message': message, 'patient_id': patient_id})
 
 #def AFFICHE(request):
 #pour pour permettre de telecharger les fichiers
@@ -308,27 +285,27 @@ def consultation(request):
     #file_urls = [f'/media/{patient_name}/{file}' for file in files]
 
     #return render(request, 'listings/test.html', {'file_names': files, 'file_urls': file_urls})
-def AFFICHE(request):
-    patient_id = 1  # ID du patient à rechercher
-    patient = Patient.objects.get(idpatient=patient_id)
-    patient_name = patient.nom
-    folder_path = Path('/root/Desktop/ARCHIVE_DOC_PAT') / patient_name
-    file_contents = {}
+#def AFFICHE(request):
+    #patient_id = 1  # ID du patient à rechercher
+    #patient = Patient.objects.get(idpatient=patient_id)
+    #patient_name = patient.nom
+    #folder_path = Path('/root/Desktop/ARCHIVE_DOC_PAT') / patient_name
+    #file_contents = {}
 
     # Dictionnaire des fichiers avec noms d'affichage personnalisés
-    files_to_display = {
-        'InformationsPersonnels.txt': 'Informations Personnelles',
-        'Constantes.txt': 'Constantes'
-    }
+    #files_to_display = {
+        #'InformationsPersonnels.txt': 'Informations Personnelles',
+        #'Constantes.txt': 'Constantes'
+    #}
 
-    if folder_path.exists() and folder_path.is_dir():
-        for file_name, display_name in files_to_display.items():
-            file_path = folder_path / file_name
-            if file_path.exists() and file_path.is_file():
-                with open(file_path, 'r', encoding='utf-8') as file:
-                    file_contents[display_name] = file.read()
+    #if folder_path.exists() and folder_path.is_dir():
+        #for file_name, display_name in files_to_display.items():
+           # file_path = folder_path / file_name
+           # if file_path.exists() and file_path.is_file():
+                #with open(file_path, 'r', encoding='utf-8') as file:
+                    #file_contents[display_name] = file.read()
 
-    return render(request, 'listings/test2.html', {'file_display_names': files_to_display.values(), 'file_contents': file_contents})
+    #return render(request, 'listings/test2.html', {'file_display_names': files_to_display.values(), 'file_contents': file_contents})
 
 
     #pour afficher tous les fichiers et leur contenu
@@ -412,7 +389,7 @@ def antecedantmedical(request):
         Precisionautre = request.POST['precisionautre']
         Autre = request.POST['autre']
 
-        patient_name = 'kouadio josephine-doriane'  # Nom du patient
+        patient_name = 'kouadio josephine'  # Nom du patient
 
         # Récupérer le patient depuis la base de données en utilisant le nom
         try:
@@ -526,7 +503,7 @@ def antecedantchirurgical(request):
         Avp = request.POST['avp']
         Dateavp = request.POST['dateavp']
         Datoperachir = request.POST['datoperachir']
-        patient_name = 'kouadio josephine-doriane'  # Nom du patient
+        patient_name = 'kouadio josephine'  # Nom du patient
 
         # Récupérer le patient depuis la base de données en utilisant le nom
         try:
@@ -553,9 +530,14 @@ def antecedantchirurgical(request):
         # Enregistrer les données dans la base de données
         if Operachir == 'non' and Avp == 'non':
             reg = Antecedant_chirurgical(operachir=Operachir, avp=Avp, patient=patient)
+
         elif Operachir == 'oui' and Avp == 'non':
             reg = Antecedant_chirurgical(operachir=Operachir, avp=Avp, datoperachir=Datoperachir, patient=patient)
+
         elif Operachir == 'non' and Avp == 'oui':
+            reg = Antecedant_chirurgical(operachir=Operachir, avp=Avp, dateavp=Dateavp, patient=patient)
+        
+        elif Operachir == 'oui' and Avp == 'oui':
             reg = Antecedant_chirurgical(operachir=Operachir, avp=Avp, dateavp=Dateavp, patient=patient)
         reg.save()
 

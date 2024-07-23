@@ -431,6 +431,7 @@ class Consultation(models.Model): #modifie
         ('oui','oui'),
         ('non','non'),
     )
+    Bilanbiologiqueant=models.fields.CharField(max_length=10,choices=MAYBECHOICE)
     prise_therap_tarditionnelle=models.fields.CharField(max_length=10,choices=MAYBECHOICE)
     aghbs=models.fields.CharField(max_length=3,choices=MAYBECHOICE,null=True, blank=True)
     acanti_vhc=models.fields.CharField(max_length=3,choices=MAYBECHOICE,null=True, blank=True)
@@ -449,7 +450,7 @@ class Consultation(models.Model): #modifie
 class ConsultationForm(ModelForm):
     class Meta:
         model = Consultation
-        fields = ['motifdeconsultation', 'prescripteur_consultation', 'debut_signe','signe_digestifs','signe_extra_digestif','signe_asso_gene','nombredeverre_alcool','nombrepaquettabac','medoc_en_cours','prise_therap_tarditionnelle','aghbs','acanti_vhc','acanti_vhd','serologie_retrovi','transaminase','histoiredemaladie','resultat','renseignementclinic','patient','customUser']
+        fields = ['motifdeconsultation', 'prescripteur_consultation', 'debut_signe','signe_digestifs','signe_extra_digestif','signe_asso_gene','nombredeverre_alcool','nombrepaquettabac','medoc_en_cours','prise_therap_tarditionnelle','aghbs','acanti_vhc','acanti_vhd','serologie_retrovi','transaminase','histoiredemaladie','resultat','renseignementclinic','Bilanbiologiqueant','patient','customUser']
 
    
 class Hospitalisation(models.Model):

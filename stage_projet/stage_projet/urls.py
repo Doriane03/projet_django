@@ -44,8 +44,8 @@ urlpatterns = [
     path ('donne',views.donne,name='affiche'),
     #fin
     #pour ma bd
-    path('AFFICHE/',views.AFFICHE, name='AFFICHE'),
-    path ('affichefic',views.affichefic,name='affichefic'),
+    #path('AFFICHE/',views.AFFICHE, name='AFFICHE'),
+    #path ('affichefic',views.affichefic,name='affichefic'),
     path ('constante',views.constante,name='constante'),
     path ('chart',views.chart,name='chart'),
     path ('consultation',views.consultation,name='consultation'),
