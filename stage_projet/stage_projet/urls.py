@@ -20,8 +20,8 @@ from django.urls import path,include # type: ignore
 from listings import views  # type: ignore
 from django.contrib.auth.views import LoginView, LogoutView
 from django.conf import settings
-
-
+from django.conf.urls.static import static
+import os
 urlpatterns = [
     #connexion
     path("", LoginView.as_view(template_name="listings/index.html"), name="login"),
@@ -44,6 +44,8 @@ urlpatterns = [
     path ('donne',views.donne,name='affiche'),
     #fin
     #pour ma bd
+    path('AFFICHE/',views.AFFICHE, name='AFFICHE'),
+    path ('affichefic',views.affichefic,name='affichefic'),
     path ('constante',views.constante,name='constante'),
     path ('chart',views.chart,name='chart'),
     path ('consultation',views.consultation,name='consultation'),
@@ -64,3 +66,8 @@ urlpatterns = [
     #fin
     
 ]
+
+if settings.DEBUG:
+    # Utilisez os.path.join pour construire le chemin du dossier media
+    urlpatterns += static('/media/', document_root=os.path.join('/root', 'Desktop', 'ARCHIVE_DOC_PAT'))
+

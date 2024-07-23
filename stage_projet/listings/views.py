@@ -1,9 +1,9 @@
 from  django.http import HttpResponse # type: ignore
-from  django.shortcuts import render,redirect # type: ignore
+from  django.shortcuts import render,redirect, get_object_or_404 # type: ignore
 from  django.contrib.auth import  login , logout, authenticate # type: ignore
-from  django.contrib import messages # type: ignore
 from  listings.models  import band # type: ignore
 from  listings.models  import listing  # type: ignore
+from django.contrib.auth.models import Group, Permission
 #from  listings.forms import contact_us # type: ignore
 from  django.core.mail import send_mail # type: ignore
 from  django.contrib.auth.hashers import make_password,check_password
@@ -13,7 +13,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 #import des class de ma bd
 #nouveau
+from django.conf import settings
 from  listings.models import  PatientForm
+from  listings.models import  ConstanteForm
+from  listings.models import  SortieForm
+from  listings.models import CustomUserForm
+from  listings.models import  ConsultationForm
 #fin
 import os
 from pathlib import Path
@@ -140,13 +145,13 @@ def patient(request):
 
             # Définition du chemin du dossier
             desktop_path = Path.home() / 'Desktop' / 'ARCHIVE_DOC_PAT' / f'{patient_nom}'
-            
+
             # Création du dossier s'il n'existe pas déjà
             if not os.path.exists(desktop_path):
                 try:
                     os.makedirs(desktop_path)
                     file_path = desktop_path / 'InformationsPersonnels.txt'
-                    
+
                     # Création et écriture dans le fichier texte
                     with open(file_path, 'w') as file:
                         file.write(f"Nom: {patient_nom}\n")
@@ -166,35 +171,188 @@ def patient(request):
                         file.write(f"Situation matrimoniale: {form.cleaned_data['situation_matrimoniale']}\n")
                         file.write(f"Nombre d'enfants: {form.cleaned_data['nombre_enfant']}\n")
                         file.write(f"Numéro de lit: {form.cleaned_data['lit']}\n")
-                    
-                    # Sauvegarde des données du formulaire
+
+                    # Sauvegarde des données du formulaire,
                     Patient = form.save()
-                    message = f'Le dossier pour le patient {patient_nom} a été créé à : {desktop_path}'
-                    print(message)
-                    return render(request, 'listings/formconstante.html', context={'message': message})
+                    if Patient and Patient.idpatient:
+                        request.session['dossierpatient'] = Patient.nom
+                        message = f'Le dossier pour le patient {patient_nom} a été créé à : {desktop_path}'
+                        return render(request, 'listings/formconstante.html', context={'message': message, 'Patient_idpatient':Patient.idpatient})
+                        print(message)
+                    else:
+                        message = f'insertion null'
+                        return render(request, 'listings/formpatient.html', context={'message': message})
+
                 except Exception as e:
                     message = f'Erreur lors de la création du dossier: {str(e)}'
                     print(message)
             else:
                 message = f'Le dossier existe déjà pour le patient {patient_nom} : {desktop_path}'
                 print(message)
-                return render(request, 'listings/formpatient.html', context={'lits': lits,'message':message})
-            # Passer le message à la template
-            return render(request, 'listings/formpatient.html', context={'lits': lits})
+                return render(request, 'listings/formpatient.html', context={'lits': lits, 'message': message})
         else:
-            return render(request, 'listings/formpatient.html', context={'lits': lits})
-
+            return render(request, 'listings/formpatient.html', context={'lits': lits, 'form_errors': form.errors})
+    else:
+        return render(request, 'listings/formpatient.html', context={'lits': lits})
     # Pour les requêtes GET ou autres, afficher le formulaire sans message
     return render(request, 'listings/formpatient.html', context={'lits': lits})
+
 
 #fin
 @login_required(login_url="/")
 def constante(request):
-    return render(request,'listings/formconstante.html')
+    message = ''
+    dossier_nom = request.session.get('dossierpatient')
+    desktop_path = Path.home() / 'Desktop' / 'ARCHIVE_DOC_PAT' / dossier_nom
+
+    # Assurez-vous que le dossier existe, sinon créez-le
+    if not desktop_path.exists():
+        desktop_path.mkdir(parents=True, exist_ok=True)
+
+    if request.method == "POST":
+        form = ConstanteForm(request.POST)
+        file_path = desktop_path / 'Constantes.txt'
+        
+        if form.is_valid():
+            # Écriture des données dans le fichier
+            with open(file_path, 'w') as file:
+                file.write(f"Poids: {form.cleaned_data['poids']}\n")
+                file.write(f"Taille: {form.cleaned_data['taille']}\n")
+                file.write(f"Température: {form.cleaned_data['temperature']}\n")
+                file.write(f"Imc: {form.cleaned_data['imc']}\n")
+                file.write(f"Tas: {form.cleaned_data['tas']}\n")
+                file.write(f"Tad: {form.cleaned_data['tad']}\n")
+                file.write(f"Pouls: {form.cleaned_data['pouls']}\n")
+
+            # Sauvegarde du modèle si nécessaire
+            # Assurez-vous que Constante est bien défini et a la méthode save()
+            constante = form.save()
+            
+            if constante and constante.refconst:
+                request.session.pop('dossierpatient', None)
+                message = f'Constantes ajoutées pour le patient dans {desktop_path}'
+            else:
+                message = f'Constantes non ajoutées pour le patient dans {desktop_path}'
+        else:
+            message = 'Le formulaire contient des erreurs.'
+            return render(request, 'listings/formconstante.html', context={'message': message, 'form_errors': form.errors})
+
+    else:
+        message = f'Dossier trouvé: {desktop_path}'
+    
+    return render(request, 'listings/formconstante.html', context={'message': message})
+
+
+
+
+
 
 @login_required(login_url="/")
 def consultation(request):
-    return render(request,'listings/formconsultation.html')
+    message = ''
+    dossier_nom = 'kouadio josephine-doriane'
+    desktop_path = Path.home() / 'Desktop' / 'ARCHIVE_DOC_PAT' / dossier_nom
+
+    # Assurez-vous que le dossier existe, sinon créez-le
+    if not desktop_path.exists():
+        desktop_path.mkdir(parents=True, exist_ok=True)
+
+    if request.method == "POST":
+        form = ConsultationForm(request.POST)
+        file_path = desktop_path / 'consule.txt'
+
+        if form.is_valid():
+            # Récupérer les données du formulaire
+            signe_asso_gene = request.POST.getlist('signe_asso_gene[]')
+            motifdeconsultation = request.POST.getlist('motifdeconsultation[]')
+            signe_asso_gene_str = ','.join(signe_asso_gene)  # Convertir la liste en chaîne de caractères
+            motifdeconsultation_str = ','.join(motifdeconsultation)  # Convertir la liste en chaîne de caractères
+
+            # Écriture des données dans le fichier
+            with open(file_path, 'w') as file:
+                file.write(f"signe_asso_gene: {signe_asso_gene_str}\n")
+                file.write(f"motifdeconsultation: {motifdeconsultation_str}\n")
+
+            # Sauvegarde du modèle
+            consultation = form.save(commit=False)
+            consultation.signe_asso_gene = signe_asso_gene_str
+            consultation.motifdeconsultation = motifdeconsultation_str
+            consultation.save()
+
+            if consultation and consultation.Numconsulta:
+                message = f'Constantes ajoutées pour le patient dans {desktop_path}'
+            else:
+                message = f'Constantes non ajoutées pour le patient dans {desktop_path}'
+        else:
+            message = 'Le formulaire contient des erreurs.'
+
+        return render(request, 'listings/formconsultation.html', context={'message': message, 'form_errors': form.errors})
+    else:
+        message = f'Dossier trouvé: {desktop_path}'
+        print(message)
+    
+    return render(request, 'listings/formconsultation.html', context={'message': message})
+
+#def AFFICHE(request):
+#pour pour permettre de telecharger les fichiers
+    #patient_id = 1  # ID du patient à rechercher
+    #patient = Patient.objects.get(idpatient=patient_id)
+    #patient_name = patient.nom
+    #folder_path = Path('/root/Desktop/ARCHIVE_DOC_PAT') / patient_name
+    #files = []
+
+    #if folder_path.exists() and folder_path.is_dir():
+        #files = [f.name for f in folder_path.iterdir() if f.is_file()]
+
+    # Génération des URLs pour les fichiers
+    #file_urls = [f'/media/{patient_name}/{file}' for file in files]
+
+    #return render(request, 'listings/test.html', {'file_names': files, 'file_urls': file_urls})
+def AFFICHE(request):
+    patient_id = 1  # ID du patient à rechercher
+    patient = Patient.objects.get(idpatient=patient_id)
+    patient_name = patient.nom
+    folder_path = Path('/root/Desktop/ARCHIVE_DOC_PAT') / patient_name
+    file_contents = {}
+
+    # Dictionnaire des fichiers avec noms d'affichage personnalisés
+    files_to_display = {
+        'InformationsPersonnels.txt': 'Informations Personnelles',
+        'Constantes.txt': 'Constantes'
+    }
+
+    if folder_path.exists() and folder_path.is_dir():
+        for file_name, display_name in files_to_display.items():
+            file_path = folder_path / file_name
+            if file_path.exists() and file_path.is_file():
+                with open(file_path, 'r', encoding='utf-8') as file:
+                    file_contents[display_name] = file.read()
+
+    return render(request, 'listings/test2.html', {'file_display_names': files_to_display.values(), 'file_contents': file_contents})
+
+
+    #pour afficher tous les fichiers et leur contenu
+    #patient_id = 1  # ID du patient à rechercher
+    #patient = Patient.objects.get(idpatient=patient_id)
+    #patient_name = patient.nom
+    #folder_path = Path('/root/Desktop/ARCHIVE_DOC_PAT') / patient_name
+    #files = []
+    #file_contents = {}
+
+    #if folder_path.exists() and folder_path.is_dir():
+        #files = [f.name for f in folder_path.iterdir() if f.is_file()]
+        
+        #for file_name in files:
+            #file_path = folder_path / file_name
+            # Lire le contenu du fichier
+            #with open(file_path, 'r', encoding='utf-8') as file:
+                #file_contents[file_name] = file.read()
+
+    #return render(request, 'listings/test1.html', {'file_names': files, 'file_contents': file_contents})
+    #fin
+
+
+
 
 
 @login_required(login_url="/")
@@ -220,7 +378,145 @@ def ordonnance(request):
 
 @login_required(login_url="/")
 def antecedantmedical(request):
+    if request.method == 'POST':
+        Dyslipidemie = request.POST['dyslipidemie']
+        Cirrhose = request.POST['cirrhose']
+        Hepatiteviralec = request.POST['hepatiteviralec']
+        Datehepvirc = request.POST['datehepvirc']
+
+        Hepatiteviraleb = request.POST['hepatiteviraleb']
+        Datehepvirb = request.POST['datehepvirb']
+        Hepatiteviraled = request.POST['hepatiteviraled']
+        Datehepvird = request.POST['datehepvird']
+
+        Vaccination_vhb = request.POST['vaccination_vhb']
+        Dosevhb = request.POST['dosevhb']
+        Vaccination_vha = request.POST['vaccination_vha']
+        Dosevha = request.POST['dosevha']
+
+
+        Transfusion_sanguine = request.POST['transfusion_sanguine']
+        Datransing = request.POST['datransing']
+        Ictere = request.POST['ictere']
+        Rapportsexuelnonprotege = request.POST['rapportsexuelnonprotege']
+
+
+        Partageobjettoilette = request.POST['partageobjettoilette']
+        Accidexposang = request.POST['accidexposang']
+        Toxicomanie = request.POST['toxicomanie']
+        Diabete = request.POST['diabete']
+
+
+        Hta = request.POST['hta']
+        Transplanhepatique = request.POST['transplanhepatique']
+        Precisionautre = request.POST['precisionautre']
+        Autre = request.POST['autre']
+
+        patient_name = 'kouadio josephine-doriane'  # Nom du patient
+
+        # Récupérer le patient depuis la base de données en utilisant le nom
+        try:
+            patient = Patient.objects.get(nom=patient_name)
+            patient_id1 = patient.idpatient
+            print(patient_id1)
+        except Patient.DoesNotExist:
+            return render(request, 'listings/formantchirurgical.html', {'error': 'Patient non trouvé'})
+
+        # Définir le chemin du dossier existant
+        desktop_path = Path.home() / 'Desktop' / 'ARCHIVE_DOC_PAT' / patient_name
+        if not os.path.exists(desktop_path):
+            return render(request, 'listings/formantchirurgical.html', {'error': 'Le dossier du patient n\'existe pas'})
+
+        # Créer un fichier pour enregistrer les données
+        file_path = os.path.join(desktop_path, 'antécédant_chirurgical.txt')
+        with open(file_path, 'w') as file:
+            if (Hepatiteviraleb == 'oui' and Hepatiteviralec == 'oui' and Hepatiteviraled == 'oui' and 
+        Vaccination_vhb == 'oui' and Vaccination_vhd == 'oui' and Transfusion_sanguine == 'oui' and Autre == 'oui'):
+
+                file.write(f"Dyslipidemie: {Dyslipidemie}\n")
+                file.write(f"Cirrhose: {Cirrhose}\n")
+                file.write(f"Hépatitevirale C: {Hepatiteviralec}\n")
+                file.write(f"Date de l'hépatitevirale C: {Datehepvirc}\n")
+
+                file.write(f"Hépatitevirale B: {Hepatiteviraleb}\n")
+                file.write(f"Date de l'hépatitevirale B: {Datehepvirb}\n")
+                file.write(f"Hépatitevirale D: {Hepatiteviraled}\n")
+                file.write(f"Date de l'hépatitevirale D: {Datehepvird}\n")
+
+                file.write(f"Vaccination VHB: {Vaccination_vhb}\n")
+                file.write(f"Dose VHB: {Dosevhb}\n")
+                file.write(f"Vaccination VHA: {Vaccination_vha}\n")
+                file.write(f"Dose VHA: {Dosevha}\n")
+
+
+                file.write(f"Transfusion sanguine: {Transfusion_sanguine}\n")
+                file.write(f"Date la transfusion: {Datransing}\n")
+                file.write(f"Ictere: {Ictere}\n")
+                file.write(f"Rapport sexuel non protégé: {Rapportsexuelnonprotege}\n")
+
+                file.write(f"Partage objet de toilette: {Partageobjettoilette}\n")
+                file.write(f"Accident d’exposition au sang: {Accidexposang}\n")
+                file.write(f"Toxicomanie: {Toxicomanie}\n")
+                file.write(f"Diabète: {Diabete}\n")
+
+                file.write(f"Hta: {Hta}\n")
+                file.write(f"Transplantation hépatique: {Transplanhepatique}\n")
+                file.write(f"Autre: {Precisionautre}\n")
+
+            elif (Hepatiteviraleb in ['non', 'ne sait pas'] and Hepatiteviralec in ['non', 'ne sait pas'] and 
+        Hepatiteviraled in ['non', 'ne sait pas'] and Vaccination_vhb in ['non', 'ne sait pas'] and 
+        Vaccination_vhd in ['non', 'ne sait pas'] and Transfusion_sanguine in ['non', 'ne sait pas'] and Autre in ['non', 'ne sait pas']):
+
+                file.write(f"Dyslipidemie: {Dyslipidemie}\n")
+                file.write(f"Cirrhose: {Cirrhose}\n")
+                file.write(f"Hépatitevirale C: {Hepatiteviralec}\n")
+
+                file.write(f"Hépatitevirale B: {Hepatiteviraleb}\n")
+                file.write(f"Hépatitevirale D: {Hepatiteviraled}\n")
+
+                file.write(f"Vaccination VHB: {Vaccination_vhb}\n")
+                file.write(f"Vaccination VHA: {Vaccination_vha}\n")
+
+
+                file.write(f"Transfusion sanguine: {Transfusion_sanguine}\n")
+                file.write(f"Ictere: {Ictere}\n")
+                file.write(f"Rapport sexuel non protégé: {Rapportsexuelnonprotege}\n")
+
+                file.write(f"Partage objet de toilette: {Partageobjettoilette}\n")
+                file.write(f"Accident d’exposition au sang: {Accidexposang}\n")
+                file.write(f"Toxicomanie: {Toxicomanie}\n")
+                file.write(f"Diabète: {Diabete}\n")
+
+                file.write(f"Hta: {Hta}\n")
+                file.write(f"Transplantation hépatique: {Transplanhepatique}\n")
+        # Enregistrer les données dans la base de données
+        if (Hepatiteviraleb == 'oui' and Hepatiteviralec == 'oui' and Hepatiteviraled == 'oui' and 
+        Vaccination_vhb == 'oui' and Vaccination_vhd == 'oui' and Transfusion_sanguine == 'oui' and Autre == 'oui'):
+            reg = Antecedant_chirurgical(
+            dyslipidemie=Dyslipidemie,cirrhose=Cirrhose,hepatiteviralec=Hepatiteviralec,datehepvirc=Datehepvirc,
+            hepatiteviraleb=Hepatiteviraleb,datehepvirb=Datehepvirb,hepatiteviraled=Hepatiteviraled,
+            datehepvird=Datehepvird,vaccination_vhb=Vaccination_vhb,dosevhb=Dosevhb,
+            vaccination_vha=Vaccination_vha,dosevha=Dosevha,transfusion_sanguine=Transfusion_sanguine,
+            datransing=Datransing,ictere=Ictere,rapportsexuelnonprotege=Rapportsexuelnonprotege,partageobjettoilette=Partageobjettoilette,
+            accidexposang=Accidexposang,toxicomanie=Toxicomanie,diabete=Diabete,hta=Hta,transplanhepatique=Transplanhepatique,precisionautre=Precisionautre,patient=patient)
+
+        elif (Hepatiteviraleb in ['non', 'ne sait pas'] and Hepatiteviralec in ['non', 'ne sait pas'] and 
+        Hepatiteviraled in ['non', 'ne sait pas'] and Vaccination_vhb in ['non', 'ne sait pas'] and 
+        Vaccination_vhd in ['non', 'ne sait pas'] and Transfusion_sanguine in ['non', 'ne sait pas'] and Autre in ['non', 'ne sait pas']):
+
+            reg = Antecedant_chirurgical(
+            dyslipidemie=Dyslipidemie,cirrhose=Cirrhose,hepatiteviralec=Hepatiteviralec,
+            hepatiteviraleb=Hepatiteviraleb,hepatiteviraled=Hepatiteviraled
+            ,vaccination_vhb=Vaccination_vhb,
+            vaccination_vha=Vaccination_vha,transfusion_sanguine=Transfusion_sanguine,
+            ictere=Ictere,rapportsexuelnonprotege=Rapportsexuelnonprotege,partageobjettoilette=Partageobjettoilette,
+            accidexposang=Accidexposang,toxicomanie=Toxicomanie,diabete=Diabete,hta=Hta,transplanhepatique=Transplanhepatique,patient=patient) 
+
+
+        reg.save()
+
     return render(request,'listings/fromantmedical.html') 
+
 
 
 @login_required(login_url="/")
@@ -230,22 +526,40 @@ def antecedantchirurgical(request):
         Avp = request.POST['avp']
         Dateavp = request.POST['dateavp']
         Datoperachir = request.POST['datoperachir']
-        patient_id ='3' 
-        print(Operachir,Avp,Dateavp,Datoperachir)
-        if Operachir == 'n' and Avp == 'n':
-            reg =Antecedant_chirurgical(operachir=Operachir, avp=Avp, Patient_id=patient_id)
-            reg.save()
-        elif Operachir == 'o' and Avp == 'n':
-            reg =Antecedant_chirurgical(operachir=Operachir, avp=Avp, datoperachir=Datoperachir, Patient_id=patient_id)
-            reg.save()
-        elif Operachir == 'n' and Avp == 'o':
-            reg =Antecedant_chirurgical(operachir=Operachir, avp=Avp, dateavp=Dateavp, Patient_id=patient_id)
-            reg.save()
-        elif Operachir == 'o' and Avp == 'o':
-            reg =Antecedant_chirurgical(operachir=Operachir, avp=Avp, dateavp=Dateavp, Patient_id=patient_id,datoperachir=Datoperachir)
-            reg.save()
-    return render(request,'listings/formantchirurgical.html') 
+        patient_name = 'kouadio josephine-doriane'  # Nom du patient
 
+        # Récupérer le patient depuis la base de données en utilisant le nom
+        try:
+            patient = Patient.objects.get(nom=patient_name)
+            patient_id1 = patient.idpatient
+            print(patient_id1)
+        except Patient.DoesNotExist:
+            return render(request, 'listings/formantchirurgical.html', {'error': 'Patient non trouvé'})
+
+        # Définir le chemin du dossier existant
+        desktop_path = Path.home() / 'Desktop' / 'ARCHIVE_DOC_PAT' / patient_name
+        if not os.path.exists(desktop_path):
+            return render(request, 'listings/formantchirurgical.html', {'error': 'Le dossier du patient n\'existe pas'})
+
+        # Créer un fichier pour enregistrer les données
+        file_path = os.path.join(desktop_path, 'antécédant_chirurgical.txt')
+        with open(file_path, 'w') as file:
+            file.write(f"opération?: {Operachir}\n")
+            file.write(f"Avp?: {Avp}\n")
+            if Operachir == 'oui':
+                file.write(f"Date de l'opération chirurgicale: {Datoperachir}\n")
+            if Avp == 'oui':
+                file.write(f"Date de l'avp: {Dateavp}\n")
+        # Enregistrer les données dans la base de données
+        if Operachir == 'non' and Avp == 'non':
+            reg = Antecedant_chirurgical(operachir=Operachir, avp=Avp, patient=patient)
+        elif Operachir == 'oui' and Avp == 'non':
+            reg = Antecedant_chirurgical(operachir=Operachir, avp=Avp, datoperachir=Datoperachir, patient=patient)
+        elif Operachir == 'non' and Avp == 'oui':
+            reg = Antecedant_chirurgical(operachir=Operachir, avp=Avp, dateavp=Dateavp, patient=patient)
+        reg.save()
+
+    return render(request, 'listings/formantchirurgical.html')
 
 @login_required(login_url="/")
 def antecedantgenecologique(request):
@@ -254,55 +568,141 @@ def antecedantgenecologique(request):
 
 @login_required(login_url="/")
 def sortie_patient(request):
-    return render(request,'listings/formsortie.html')
+    message = ''
+    dossier_nom = ''
+    desktop_path = None
+    if request.method == "POST":
+        form = SortieForm(request.POST)
+        if form.is_valid():
+            # Récupérer le nom du dossier du formulaire validé
+            dossier_nom =request.POST.get('patient')
+            desktop_path = Path.home() / 'Desktop' / 'ARCHIVE_DOC_PAT' / dossier_nom
+            
+            # Assurez-vous que le dossier existe, sinon créez-le
+            if not desktop_path.exists():
+                desktop_path.mkdir(parents=True, exist_ok=True)
+
+            file_path = desktop_path / 'fichedesortie.txt'
+            
+            # Récupérer les données du formulaire
+            motif = form.cleaned_data['motifsortie']
+            with open(file_path, 'w') as file:
+                file.write(f"Motif de sortie: {motif}\n")
+                file.write(f"Rempli par: {form.cleaned_data['remplipar']}\n")
+                file.write(f"Observation: {form.cleaned_data['commentaire']}\n")
+                if motif == "décès":
+                    file.write(f"Date de décès: {form.cleaned_data['datedeces']}\n")
+                    file.write(f"Cause du décès: {form.cleaned_data['causedudeces']}\n")
+                    file.write(f"Lieu du décès: {form.cleaned_data['lieudeces']}\n")
+                    file.write(f"Décès lié à: {form.cleaned_data['decesliea']}\n")
+                
+                elif motif == "perdu de vue":
+                    file.write(f"Date de dernière visite: {form.cleaned_data['datedernierevisite']}\n")
+                    file.write(f"Date de la dernière relance: {form.cleaned_data['datederniererelance']}\n")
+                    file.write(f"Type de relance: {form.cleaned_data['typederelance']}\n")
+                    file.write(f"Type de nouvelle: {form.cleaned_data['typedenouvelle']}\n")
+                    file.write(f"Raison: {form.cleaned_data['raison']}\n")
+                
+                elif motif == "transfert de dossier":
+                    file.write(f"Date de transfert: {form.cleaned_data['datedetransfert']}\n")
+                    file.write(f"Nouveau centre de suivi: {form.cleaned_data['nouveaucentredesuivi']}\n")
+                    file.write(f"Numéro du dossier dans le nouveau centre de transfert: {form.cleaned_data['numerodedossierdanslecentredetransfert']}\n")
+                    file.write(f"Raison: {form.cleaned_data['raison']}\n")
+                
+                elif motif == "refus de suivi":
+                    file.write(f"Date de refus: {form.cleaned_data['daterefus']}\n")
+                    file.write(f"Date de la dernière visite: {form.cleaned_data['datedernierevisite']}\n")
+                    file.write(f"Raison: {form.cleaned_data['raison']}\n")
+
+           
+            Sortie=form.save()
+            if Sortie and Sortie.refsortie:
+                message = f'Constantes ajoutées pour le patient dans {desktop_path}'
+                return render(request, 'listings/formsortie.html', context={'message': message, 'form_errors': form.errors})
+            else:
+                message = f'Constantes non ajoutées pour le patient dans {desktop_path}'
+                return render(request, 'listings/formsortie.html', context={'message': message, 'form_errors': form.errors})
+        else:
+            message = 'Le formulaire contient des erreurs.'
+            return render(request, 'listings/formsortie.html', context={'message': message, 'form_errors': form.errors})
+    else:
+        return render(request, 'listings/formsortie.html')
+    return render(request, 'listings/formsortie.html')
+
+
+
+
 
 @login_required(login_url="/")
 def modificationmdp(request):
-    Personnel_soignants =Personnel_soignant.objects.all()
-    if request.method =='POST':
-        mdp= make_password(request.POST['mdp'])
-        modifmdp= Personnel_soignant.objects.filter(nom=request.POST['nom'])
-        resultat=modifmdp.update(mdp=mdp)
-        if resultat >  0:
-            error_message = "mot de passe modifié avec succès."
-            return render(request,'listings/formmodifmdp.html',{'error_message': error_message})
-    return render(request,'listings/formmodifmdp.html',context={'Personnel_soignants':Personnel_soignants})
-
+    customUsers = CustomUser.objects.all()
+    if request.method == 'POST':
+        form = CustomUserForm(request.POST)
+        if form.is_valid():
+            # Assuming the form contains a field 'customUser' to select the user
+            # and a field 'new_password' to input the new password
+            nom = form.cleaned_data['nom']
+            new_password = form.cleaned_data['mdp']
+            
+            user = get_object_or_404(CustomUser, nom=nom)
+            user.set_password(new_password)
+            user.save()
+            
+            # Redirect or render success message
+            return render(request, 'listings/formmodifmdp_success.html', context={'user': user})
+        else:
+            print(form.errors)
+    else:
+        form = CustomUserForm()
     
+    return render(request, 'listings/formmodifmdp.html', context={'customUsers': customUsers, 'form': form})
+
+
+
+
+
+
 @login_required(login_url="/")
 def adminform(request):
-    Services = Service.objects.all()
-    Type_personnel_soignants = Type_personnel_soignant.objects.all()
+    services = Service.objects.all()
+    type_personnel_soignants = Type_personnel_soignant.objects.all()
+    
     if request.method == 'POST':
-        nom=request.POST['nom'] 
-        contact=request.POST['contact']
-        email=request.POST['email']
-        mdp= make_password(request.POST['mdp'])
-        #mdp=request.POST['mdp']
-        service=request.POST['Service']
-        type_personnel_soignant=request.POST['Type_personnel_soignant']
+        nom = request.POST['nom']
+        contact = request.POST['contact']
+        email = request.POST['email']
+        mdp = make_password(request.POST['mdp'])
+        service1 = request.POST['service']
+        type_personnel_soignant1 = request.POST['type_personnel_soignant']
 
-        service_id= Service.objects.filter(nomservice=service).values_list('refservice', flat=True).first()
-        type_personnel_soignant_id=Type_personnel_soignant.objects.filter( nompersog=type_personnel_soignant).values_list('idpersoignant', flat=True).first()
-        #script d'ajout dans ma table user de django admin
-        if service_id and type_personnel_soignant_id:
-            CustomUser.objects.create(
-            username=nom,
-            nom=nom,
-            password=mdp,
-            contact=contact,
-            email=email,
-            Service_id=service_id,
-            Type_personnel_soignant_id=type_personnel_soignant_id
+        #service_id = Service.objects.filter(nomservice=service1).values_list('refservice', flat=True).first()
+        #type_personnel_soignant_id = Type_personnel_soignant.objects.filter(nompersog=type_personnel_soignant1).values_list('idpersoignant', flat=True).first()
+        print( service1 )
+        if service1 and type_personnel_soignant1:
+            new_user = CustomUser.objects.create(
+                username=nom,
+                nom=nom,
+                password=mdp,
+                contact=contact,
+                email=email,
+                service_id=service1,
+                type_personnel_soignant_id=type_personnel_soignant1
             )
+            
+            if type_personnel_soignant1 == '1':  # Assuming 'admin' is the type for admin users
+                new_user.is_staff = True
+                new_user.is_superuser = True
+                
+                # Add all permissions to the user
+                all_permissions = Permission.objects.all()
+                new_user.user_permissions.set(all_permissions)
+                
+                new_user.save()
+            else:
+                new_user.save()
         return redirect('chart')
-        #fin
-        #print(service)
-        #print(type_personnel_soignant)
-        #reg=Personnel_soignant(mdp=mdp,nom=nom,contact=contact,email=email,Service_id=service_id, Type_personnel_soignant_id= type_personnel_soignant_id)
-        #reg.save()
-        #return render(request,'listings/formconsultation.html')
-    return render(request,'listings/formadmin.html',context={'Services':Services,'Type_personnel_soignants':Type_personnel_soignants})
+
+    return render(request, 'listings/formadmin.html', context={'services': services, 'type_personnel_soignants': type_personnel_soignants})
 
 @login_required(login_url="/")
 def bilanimg(request):
@@ -323,6 +723,33 @@ def tableauconsultation(request):
 @login_required(login_url="/")
 def chart(request):
     return render(request,'listings/chart.html')
+
+@login_required(login_url="/")
+def affichefic(request):
+    patient_name = 'kouadio marie-ange'
+    patient_folder = os.path.join(settings.MEDIA_ROOT, patient_name)
+    txt_files = ['yes.txt', 'oui.txt']
+    existing_txt_files = []
+
+    print(f"MEDIA_ROOT: {settings.MEDIA_ROOT}")
+    print(f"Patient folder: {patient_folder}")
+
+    try:
+        if os.path.exists(patient_folder) and os.path.isdir(patient_folder):
+            for file_name in txt_files:
+                file_path = os.path.join(patient_folder, file_name)
+                print(f"Checking file: {file_path}")
+                if os.path.isfile(file_path):
+                    existing_txt_files.append(file_name)
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return HttpResponse("An error occurred while processing the request.", status=500)
+
+    context = {
+        'patient_name': patient_name,
+        'txt_files': existing_txt_files,
+    }
+    return render(request, 'tableauconsultation.html', context)
 
 
 @login_required(login_url="/")

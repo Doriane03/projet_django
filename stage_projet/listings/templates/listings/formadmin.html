@@ -15,10 +15,10 @@
 
             <div class="divsortie">
             <label >service</label>
-            <select name="Service"  required>
+            <select name="service"  required>
                 <option >choisir le service</option>
-                 {% for Service in Services %}
-                    <option value='{{Service.nomservice}}'>{{Service.nomservice}}</option>
+                 {% for service in services %}
+                    <option value='{{service.refservice}}'>{{service.nomservice}}</option>
                  {% endfor %}
 
             </select>
@@ -26,10 +26,10 @@
 
             <div class="divsortie">
                 <label >fonction</label>
-                <select name="Type_personnel_soignant" required>
+                <select name="type_personnel_soignant" required>
                     <option >choisir la fonction</option>
-                     {% for Type_personnel_soignant in Type_personnel_soignants %}
-                        <option value="{{Type_personnel_soignant.nompersog}}">{{Type_personnel_soignant.nompersog}}</option>
+                     {% for type_personnel_soignant in type_personnel_soignants %}
+                        <option value="{{type_personnel_soignant.idpersoignant}}">{{type_personnel_soignant.nompersog}}</option>
                      {% endfor %}
                 </select>
             </div>

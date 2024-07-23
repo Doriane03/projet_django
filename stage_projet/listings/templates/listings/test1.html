@@ -1,0 +1,43 @@
+{% load custom_filters %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Files for Patient</title>
+    <style>
+        pre {
+            white-space: pre-wrap; /* Conserve les espaces et les sauts de ligne */
+            word-wrap: break-word; /* Assure le retour à la ligne des longs mots */
+        }
+    </style>
+</head>
+<body>
+    <h2>Files for Patient</h2>
+    {% if file_names %}
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>File Name</th>
+                    <th>Content</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for file_name in file_names %}
+                    <tr>
+                        <td>{{ file_name }}</td>
+                        <td>
+                            <!-- Affichage du contenu du fichier -->
+                            <pre>{{ file_contents|get_item:file_name }}</pre>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No files found for this patient.</p>
+    {% endif %}
+</body>
+</html>
+
+
+

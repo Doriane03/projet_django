@@ -1,6 +1,20 @@
 {% extends 'listings/template.html' %}
 {% block consultationform %}
-<center><form method="POST" action="" class="formcontenu">
+<center><form method="POST" action="{% url 'consultation' %}" class="formcontenu">
+
+    
+  {% if message %}
+  <p>{{ message }}</p>
+{% endif %}
+
+<!-- Afficher les erreurs de formulaire -->
+{% if form_errors %}
+  <ul>
+  {% for field, errors in form_errors.items %}
+      <li>{{ field }}: {{ errors }}</li>
+  {% endfor %}
+  </ul>
+{% endif %}
     {% csrf_token %}
     <fieldset>
            
@@ -273,11 +287,11 @@
                         <div >
                            <center><label >prenez-vous des médicaments traditionnels ?</label></center> 
                             <div   class="custom-control custom-radio"  id="divg2">
-                                <input type="radio"    name="prise_therap_tarditionnelle"  value="o"    class="custom-control-input" id="exampleRadios21"/>
+                                <input type="radio"    name="prise_therap_tarditionnelle"  value="oui"    class="custom-control-input" id="exampleRadios21"/>
                                 <label class="custom-control-label" for="exampleRadios21">oui</label>
                             </div>
                             <div class="custom-control custom-radio"  id="divd2">
-                                <input type="radio"    name="prise_therap_tarditionnelle"  value="n"   class="custom-control-input" id="exampleRadios22"/>
+                                <input type="radio"    name="prise_therap_tarditionnelle"  value="non"   class="custom-control-input" id="exampleRadios22"/>
                                 <label class="custom-control-label" for="exampleRadios22">non</label>
                             </div> 
                         </div>
@@ -370,6 +384,12 @@
                     </div>
          </div> 
     </div>  
+    <input type="text"   name="patient"  value="36"/>
+    {% if request.user.is_authenticated %}
+    {% if user.type_personnel_soignant.nompersog == "MEDECIN" %}
+        <input type="hidden"   name="customUser"  value="{{ user.refpersoignant }}"/>
+    {% endif %}
+    {% endif %}
     </fieldset>
     <input type="submit"  name=""  value="Enregistrer" class="btn btn-primary" class="frominput"/>
 </form>

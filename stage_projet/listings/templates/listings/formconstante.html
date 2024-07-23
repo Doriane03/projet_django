@@ -2,7 +2,20 @@
 
 {% block formconstante %}
 <center>
-<form method="post" action=""  class="formcontenu">
+
+<form method="post" action="{% url 'constante' %}"  class="formcontenu">
+  {% if message %}
+  <p>{{ message }}</p>
+{% endif %}
+
+<!-- Afficher les erreurs de formulaire -->
+{% if form_errors %}
+  <ul>
+  {% for field, errors in form_errors.items %}
+      <li>{{ field }}: {{ errors }}</li>
+  {% endfor %}
+  </ul>
+{% endif %}
 <div>
 <nav class="divcontenunav">constante</nav>
 </div>
@@ -23,6 +36,7 @@
                   </div>
             </div>
             <input type="text" placeholder="pouls en  battements/mn " name="pouls" class="inputcontenu"/>
+            <input type="hidden" id="patient" name="patient" value="{{ Patient_idpatient }}" />
     </fieldset>
     <input type="submit"  name="valideconstante"  value="Enregister" class="btn btn-primary"/>
 </form>

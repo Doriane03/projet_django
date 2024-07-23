@@ -1,0 +1,39 @@
+<!-- templates/test.html -->
+
+
+<!-- templates/test.html -->
+
+<!-- templates/test.html -->
+
+
+
+<!--<!DOCTYPE html>
+<html>
+{% load zip_tags %}
+    <head>
+    <title>Files for Patient</title>
+</head>
+<body>
+    <h2>Files for Patient</h2>
+    {% if file_names %}
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>File Name</th>
+                    <th>Download Link</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for file, file_url in file_names|zip_lists:file_urls %}
+                    <tr>
+                        <td>{{ file }}</td>
+                        <td><a href="{{ file_url }}" download="{{ file }}">Download</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No files found for this patient.</p>
+    {% endif %}
+</body>
+</html>-->

@@ -1,9 +1,23 @@
 {% extends 'listings/template.html' %}
 {% block formsortie %}
-<center><form method="post" action="" class="formcontenu" >
+<center><form method="post" action="{% url 'sortie_patient' %}" class="formcontenu" >
     <div>
         <nav class="divcontenunav">sortie</nav>
     </div>
+   
+
+    {% if message %}
+    <p>{{ message }}</p>
+  {% endif %}
+  
+  <!-- Afficher les erreurs de formulaire -->
+  {% if form_errors %}
+    <ul>
+    {% for field, errors in form_errors.items %}
+        <li>{{ field }}: {{ errors }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
 
     {% csrf_token %}
     <fieldset>   
@@ -194,6 +208,13 @@
         <label>Observation</label>
         <textarea name="commentaire" placeholder="Observation" class="inputcontenu" rows="4" cols="50"></textarea>
         </div>
+
+
+    {% if request.user.is_authenticated %}
+    {% if user.type_personnel_soignant.nompersog == "MEDECIN" %}
+        <input type="hidden"   name="customUser"  value="{{ user.refpersoignant }}"/>
+    {% endif %}
+    {% endif %}
     </fieldset>
     <input  type="submit" name="validesortie" value="Valider" class="btn btn-primary"/ >
 </form>
