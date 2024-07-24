@@ -82,10 +82,11 @@
                                 <div  class="custom-control custom-checkbox form-group" id="div14">
                                     <input type="checkbox"   name="motifdeconsultation[]"  value="Autre motif" onclick="pourlecheckbox()"  class="custom-control-input" id="exampleCheck12"/>
                                     <label class="custom-control-label" for="exampleCheck12" >Autre motif</label>
-                                <div id="motifdeconsultation"  class="test"> 
-                                    <input type="text"       name="motifdeconsultation"  placeholder="précisser"/>
-                                </div> 
                                  </div> 
+
+                                 <div id="motifdeconsultation"  class="test"> 
+                                    <input type="text" name="motifdeconsultation[]"  placeholder="précisser"/>
+                                </div> 
                             </div>
                         </div>
         </div>    
@@ -384,7 +385,7 @@
                     </div>
          </div> 
     </div>  
-    <input type="hidden"   name="patient"  value="{{ patient_id }}"/>
+    <input type="text"   name="patient"  value="{{ patient_id }}"/>
     {% if request.user.is_authenticated %}
     {% if user.type_personnel_soignant.nompersog == "MEDECIN" %}
         <input type="hidden"   name="customUser"  value="{{ user.refpersoignant }}"/>
@@ -393,6 +394,171 @@
     </fieldset>
     <input type="submit"  name=""  value="Enregistrer" class="btn btn-primary" class="frominput"/>
 </form></center>
- 
+
+<script>
+function pourlecheckbox() {
+    var affichecheckbox= document.getElementsByName('motifdeconsultation[]');
+    var inputField = document.getElementById("motifdeconsultation");
+    for (var i = 0; i < affichecheckbox.length; i++) {
+        if (affichecheckbox[i].checked) {
+            if (affichecheckbox[i].value=='Autre motif') {
+                inputField.style.display = "block";
+            }else if(affichecheckbox[i].value !='Autre motif') {
+                inputField.style.display="none";
+            }
+            break; // Sortir de la boucle une fois le bouton coché trouvé
+        }
+    }
+}
+
+
+
+
+function signedigstif() {
+    var afficheRadio1= document.getElementsByName('signe_digestifs');
+    var afficheRadio2= document.getElementsByName('signe_extra_digestif');
+    var afficheRadio3= document.getElementsByName('signe_asso_gene');
+    var afficheRadio4= document.getElementsByName('nombredeverre_alcool');
+    var afficheRadio5= document.getElementsByName('nombrepaquettabac');
+    var afficheRadio6= document.getElementsByName('medoc_en_cours');
+    var afficheRadio7= document.getElementsByName('Bilanbiologiqueant');
+    for (var i = 0; i < afficheRadio1.length; i++) {
+        if (afficheRadio1[i].checked) {
+            switch(afficheRadio1[i].value){
+                case 'oui':
+                var inputField = document.getElementById("signedigestifs");
+                inputField.style.display = "block";
+                break;
+
+                case 'non':
+                var inputField = document.getElementById("signedigestifs");
+                inputField.style.display = "none";
+                inputField.value = "";
+                break;
+            }
+        }
+    }for (var i = 0; i < afficheRadio2.length; i++) {
+            if (afficheRadio2[i].checked) {
+                switch(afficheRadio2[i].value){
+                case 'oui':
+                var inputField = document.getElementById("signeextradigestif");
+                inputField.style.display = "block";
+                break;
+                case 'non':
+
+                var inputField = document.getElementById("signeextradigestif");
+                inputField.style.display = "none";
+                inputField.value = "";
+                break;
+
+                }
+            }
+        }
+        for (var i = 0; i < afficheRadio3.length; i++) {
+            if (afficheRadio3[i].checked) {
+                switch(afficheRadio3[i].value){
+                case 'oui':
+                var inputField = document.getElementById("signeasso");
+                inputField.style.display = "block";
+                break;
+                case 'non':
+                var inputField = document.getElementById("signeasso");
+                inputField.style.display = "none";
+
+                var checkboxes = inputField.querySelectorAll('input[type="checkbox"]');
+
+                checkboxes.forEach(function(checkbox) {
+                    checkbox.checked = false; // Désélectionner chaque case à cocher
+                });
+                break;
+
+                }
+            }
+        }
+
+        for (var i = 0; i < afficheRadio4.length; i++) {
+            if (afficheRadio4[i].checked) {
+                switch(afficheRadio4[i].value){
+                case 'oui':
+                var inputField = document.getElementById("nombredeverredalcool");
+                inputField.style.display = "block";
+                break;
+                case 'non':
+
+                var inputField = document.getElementById("nombredeverredalcool");
+                inputField.style.display = "none";
+                inputField.value = "";
+                break;
+
+                }
+            }
+        }
+
+        for (var i = 0; i < afficheRadio5.length; i++) {
+            if (afficheRadio5[i].checked) {
+                switch(afficheRadio5[i].value){
+                case 'oui':
+                var inputField = document.getElementById("nombredepaquetdetabac");
+                inputField.style.display = "block";
+                break;
+                case 'non':
+
+                var inputField = document.getElementById("nombredepaquetdetabac");
+                inputField.style.display = "none";
+                inputField.value = "";
+                break;
+
+                }
+            }
+        }
+
+
+        for (var i = 0; i < afficheRadio6.length; i++) {
+            if (afficheRadio6[i].checked) {
+                switch(afficheRadio6[i].value){
+                case 'oui':
+                var inputField = document.getElementById("medocencours");
+                inputField.style.display = "block";
+                break;
+                case 'non':
+
+                var inputField = document.getElementById("medocencours");
+                inputField.style.display = "none";
+                inputField.value = "";
+                break;
+
+                }
+            }
+        }
+
+
+        for (var i = 0; i < afficheRadio7.length; i++) {
+            if (afficheRadio7[i].checked) {
+                switch(afficheRadio7[i].value){
+                case 'oui':
+                var inputField = document.getElementById("Bilanbiologiqueanterieur");
+                inputField.style.display = "block";
+                break;
+                case 'non':
+
+                var inputField = document.getElementById("Bilanbiologiqueanterieur");
+                inputField.style.display = "none";
+                
+                var radios = inputField.querySelectorAll('input[type="radio"]');
+
+                radios.forEach(function(radio) {
+                    radio.checked = false; // Désélectionner chaque bouton radio
+                });
+                break;
+
+                }
+            }
+        }
+
+
+                
+}
+
+</script>
 {% endblock %}
 

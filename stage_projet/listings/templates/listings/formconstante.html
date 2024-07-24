@@ -44,4 +44,19 @@
 </center>
 
 
+<Script>
+function calculateIMC(){
+  const poids = parseFloat(document.getElementById('poids').value);
+  const taille = parseFloat(document.getElementById('taille').value);
+  let imc = '';
+
+  if (!isNaN(poids) && !isNaN(taille) && taille > 0) {
+      imc = (poids /((taille * taille))*10000).toFixed(2);
+  }
+
+  document.getElementById('imc').value = imc;
+}
+</Script>
+
+
 {% endblock %}

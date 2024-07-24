@@ -20,12 +20,13 @@ class Lit(models.Model):
 class Patient(models.Model): #modifie
     idpatient=models.fields.AutoField(primary_key=True)
     nom=models.fields.CharField(max_length=255)
+    numeropatient=profession=models.fields.CharField(max_length=100)
     contact1=models.fields.PositiveIntegerField(blank=True,null=True)
     contact2=models.fields.PositiveIntegerField(blank=True,null=True)
     email=models.fields.EmailField(max_length=254,blank=True,null=True)
     personne_a_contacter=models.fields.CharField(max_length=100)
     telephone_cpu=models.fields.PositiveIntegerField(null=False)
-    date_naissance=models.fields.DateField()
+    date_naissance=models.fields.DateField(blank=True,null=True)
     profession=models.fields.CharField(max_length=100)
     ville=models.fields.CharField(max_length=100)
     age=models.fields.CharField(max_length=100,null=False)
@@ -40,12 +41,12 @@ class Patient(models.Model): #modifie
     nombre_enfant=models.fields.PositiveIntegerField(null=False)
     lit=models.OneToOneField(Lit,on_delete=models.CASCADE)    
     def __str__(self):
-        return f'{self.idpatient} {self.nom} {self.contact1} {self.contact2} {self.profession} {self.email} {self.age} {self.sexe}  {self.personne_a_contacter}  {self.ville}  {self.commune} {self.quartier}{self.nationalite}  {self.nombre_enfant}  {self.situation_matrimoniale} {self.telephone_cpu} {self.date_naissance} {self.lit}'
+        return f'{self.idpatient} {self.nom} {self.numeropatient} {self.contact1} {self.contact2} {self.profession} {self.email} {self.age} {self.sexe}  {self.personne_a_contacter}  {self.ville}  {self.commune} {self.quartier}{self.nationalite}  {self.nombre_enfant}  {self.situation_matrimoniale} {self.telephone_cpu} {self.date_naissance} {self.lit}'
 
 class PatientForm(ModelForm):
     class Meta:
         model = Patient
-        fields = ['nom', 'contact1', 'contact2','email','personne_a_contacter','telephone_cpu','date_naissance','profession','ville','age','sexe','commune','quartier','nationalite','situation_matrimoniale','nombre_enfant','lit']
+        fields = ['nom', 'contact1', 'contact2','email','personne_a_contacter','telephone_cpu','date_naissance','profession','ville','age','sexe','commune','quartier','nationalite','situation_matrimoniale','nombre_enfant','lit','numeropatient']
 
 
 class Antecedant_medical(models.Model):#modifie
@@ -387,16 +388,16 @@ class Personnel_soignant(models.Model):
     
 class Consultation(models.Model): #modifie
     Numconsulta=models.fields.AutoField(primary_key=True)
-    motifdeconsultation=models.fields.CharField(max_length=254)
-    prescripteur_consultation=models.fields.CharField(max_length=100)
-    debut_signe=models.fields.CharField(max_length=100)
+    motifdeconsultation=models.fields.CharField(max_length=254 ,null=True, blank=True)
+    prescripteur_consultation=models.fields.CharField(max_length=100,null=True, blank=True)
+    debut_signe=models.fields.CharField(max_length=100,null=True, blank=True)
     signe_digestifs=models.fields.CharField(max_length=100, null=True, blank=True)
     signe_extra_digestif=models.fields.CharField(max_length=100, null=True, blank=True)
     signe_asso_gene=models.fields.CharField(max_length=100, null=True, blank=True)
     nombredeverre_alcool=models.fields.IntegerField(null=True,blank=True)
     nombrepaquettabac=models.fields.IntegerField(null=True, blank=True)
     medoc_en_cours=models.fields.CharField(max_length=253, null=True, blank=True)
-    prise_therap_tarditionnelle=models.fields.CharField(max_length=10)
+    prise_therap_tarditionnelle=models.fields.CharField(max_length=10,null=True, blank=True)
     MAYBECHOICE=(
         ('oui','oui'),
         ('non','non'),
@@ -539,7 +540,7 @@ class Constante(models.Model):
     poids=models.fields.CharField(max_length=30)
     taille=models.fields.CharField(max_length=30)
     temperature=models.fields.CharField(max_length=30)
-    imc=models.fields.CharField(max_length=30)
+    imc=models.fields.CharField(max_length=30,null=True, blank=True)
     tas=models.fields.CharField(max_length=30)
     tad=models.fields.CharField(max_length=30)
     pouls=models.fields.CharField(max_length=30)
@@ -556,7 +557,7 @@ class ConstanteForm(ModelForm):
 class Diagnostique(models.Model):
     iddiag=models.fields.AutoField(primary_key=True)
     libdiag=models.fields.CharField(max_length=254)
-    date= models.fields.DateTimeField(default=datetime.now)                                                                                
+    date=models.fields.DateField(null=True, blank=True)                                                                               
     consultation=models.ForeignKey(Consultation, on_delete=models.CASCADE) 
     def __str__(self):
         return f'{self.iddiag} {self.libdiag} {self.date} {self.consultation}'

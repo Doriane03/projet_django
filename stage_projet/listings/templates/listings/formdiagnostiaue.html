@@ -9,10 +9,24 @@
 {% csrf_token %}
     <fieldset class="fieldsetgd">
             <input type="text"   placeholder="diagnostique retenu" name="libdiag" class="inputcontenu"/>
-            <input type="text"   placeholder="date" name="date" class="inputcontenu"/>
-            <input type="text" placeholder="consultation" name="consultation" class="inputcontenu"/> <!--on va afficher la consultation en cours et griser le champs et ce formulaire s'affichera apres enregistrement de la consultation -->
+            <input type="text"   placeholder="date" name="date" class="inputcontenu" id ="dateInput" readonly/>
+            <input type="hidden"  placeholder="consultation" name="consultation"  value="{{ consultation }}"  readonly class="inputcontenu"/> <!--on va afficher la consultation en cours et griser le champs et ce formulaire s'affichera apres enregistrement de la consultation -->
     </fieldset>
     <input type="submit"  name="valideconstante"  value="Enregister" class="btn btn-primary"/>
 </form>
+
+<script>
+function datefacture(){
+    var date = new Date();
+    var jour = date.getDate();
+    var mois = date.getMonth() + 1;
+    var annee = date.getFullYear();
+    var dateAffichee = jour + '/' + mois + '/' + annee;
+    document.getElementById('dateInput').value = dateAffichee;
+    }
+
+    window.onload = datefacture();
+</Script>
+
 </center>
 {% endblock %}

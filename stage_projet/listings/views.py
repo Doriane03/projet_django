@@ -19,6 +19,8 @@ from  listings.models import  ConstanteForm
 from  listings.models import  SortieForm
 from  listings.models import CustomUserForm
 from  listings.models import  ConsultationForm
+from  listings.models import DiagnostiqueForm
+from  listings.models import Antecedant_medicalForm
 #fin
 import os
 from pathlib import Path
@@ -52,51 +54,41 @@ from django.contrib.auth.decorators import login_required
 #pour ma bd
 #recuperation de donnees
 #fin
-@login_required(login_url="/")
+
 def patient(request):#fais
     lits = Lit.objects.all()
-    medecin_type = Type_personnel_soignant.objects.get(nompersog="MEDECIN")
-    # Filtre les utilisateurs en fonction de ce type
-    customUser= CustomUser.objects.filter(type_personnel_soignant=medecin_type)
-
     if request.method == "POST":
         form = PatientForm(request.POST)
         if form.is_valid():
             patient = form.save()
-            request.session['nompatient'] = form.cleaned_data['nom']
             if patient and patient.idpatient:
                 message = f'Patient {form.cleaned_data["nom"]} a été créé'
-    
                 return render(request, 'listings/formconstante.html', context={'message': message, 'Patient_idpatient': patient.idpatient})
             else:
                 message = 'Insertion nulle'
-                return render(request, 'listings/formpatient.html', context={'message': message, 'lits': lits,'customUser':customUser})
+                return render(request, 'listings/formpatient.html', context={'message': message, 'lits': lits})
         else:
-            return render(request, 'listings/formpatient.html', context={'lits': lits,'customUser':customUser, 'form_errors': form.errors})
+            return render(request, 'listings/formpatient.html', context={'lits': lits, 'form_errors': form.errors})
     else:
-        return render(request, 'listings/formpatient.html', context={'lits': lits,'customUser':customUser})
+        return render(request, 'listings/formpatient.html', context={'lits': lits})
 
 
 #fin
 @login_required(login_url="/")
-def constante(request):
+def constante(request):#fais
     if request.method == "POST":
         form = ConstanteForm(request.POST)
         if form.is_valid():
             poids = form.cleaned_data['poids']
             taille = form.cleaned_data['taille']
-            imc = poids / (taille * taille)
-            print(imc)
-            
             constante = form.save(commit=False)
-            constante.imc = imc
             constante.save()
-            
             if constante and constante.refconst:
-                request.session.pop('dossierpatient', None)
-                message = f'Constantes ajoutées pour le patient dans {desktop_path}'
+                message = f'Constantes ajoutées pour le patient dans '
+                return render(request, 'listings/formpatient.html', context={'message': message, 'form_errors': form.errors})
             else:
-                message = f'Constantes non ajoutées pour le patient dans {desktop_path}'
+                message = f'Constantes non ajoutées pour le patient dans '
+                return render(request, 'listings/formconstante.html', context={'message': message, 'form_errors': form.errors})
         else:
             message = 'Le formulaire contient des erreurs.'
             return render(request, 'listings/formconstante.html', context={'message': message, 'form_errors': form.errors})
@@ -109,110 +101,73 @@ def constante(request):
 
 
 
-@login_required(login_url="/")
-def consultation(request):#non fais
+# views.py
+def consultation(request):#fais
     message = ''
-    dossier_nom = 'kouadio josephine'
+    dossier_nom = 'kouadio marie'
     patient = Patient.objects.get(nom=dossier_nom)
-    patient_id=patient.idpatient
-    #print(patient_id)
-    # Assurez-vous que le dossier existe, sinon créez-le
+    patient_id = patient.idpatient
+    request.session['patient_id']=patient_id
+
     if request.method == "POST":
         form = ConsultationForm(request.POST)
         if form.is_valid():
+            # Créer une nouvelle instance de Consultation
+            consultation = form.save(commit=False)
+            consultation.patient = patient
+
+            # Récupérer les motifs sélectionnés
+            motifs = request.POST.getlist('motifdeconsultation[]')
+            motifs_str = ','.join(motifs)
+            motifs1 = request.POST.getlist('signe_asso_gene[]')
+            motifs_str1 = ','.join(motifs1)
+            consultation.motifdeconsultation = motifs_str1
+
+            # Sauvegarder l'instance de Consultation
             consultation.save()
+
+            print(motifs_str)
             if consultation and consultation.Numconsulta:
-                message = f'Consultation ajoutées pour le patient dans {desktop_path}'
-                return render(request, 'listings/formconsultation.html', context={'message': message, 'patient_id': patient_id})
+                message = f'Consultation ajoutée pour le patient dans'
+                return render(request, 'listings/formdiagnostiaue.html', context={'message': message, 'consultation': consultation.Numconsulta})
             else:
-                message = f'Constantes non ajoutées pour le patient dans {desktop_path}'
+                message = f'Consultation non ajoutée pour le patient dans '
                 return render(request, 'listings/formconsultation.html', context={'message': message, 'patient_id': patient_id})
         else:
             message = 'Le formulaire contient des erreurs.'
             return render(request, 'listings/formconsultation.html', context={'message': message, 'form_errors': form.errors, 'patient_id': patient_id})
+
     return render(request, 'listings/formconsultation.html', context={'message': message, 'patient_id': patient_id})
 
-#def AFFICHE(request):
-#pour pour permettre de telecharger les fichiers
-    #patient_id = 1  # ID du patient à rechercher
-    #patient = Patient.objects.get(idpatient=patient_id)
-    #patient_name = patient.nom
-    #folder_path = Path('/root/Desktop/ARCHIVE_DOC_PAT') / patient_name
-    #files = []
-
-    #if folder_path.exists() and folder_path.is_dir():
-        #files = [f.name for f in folder_path.iterdir() if f.is_file()]
-
-    # Génération des URLs pour les fichiers
-    #file_urls = [f'/media/{patient_name}/{file}' for file in files]
-
-    #return render(request, 'listings/test.html', {'file_names': files, 'file_urls': file_urls})
-#def AFFICHE(request):
-    #patient_id = 1  # ID du patient à rechercher
-    #patient = Patient.objects.get(idpatient=patient_id)
-    #patient_name = patient.nom
-    #folder_path = Path('/root/Desktop/ARCHIVE_DOC_PAT') / patient_name
-    #file_contents = {}
-
-    # Dictionnaire des fichiers avec noms d'affichage personnalisés
-    #files_to_display = {
-        #'InformationsPersonnels.txt': 'Informations Personnelles',
-        #'Constantes.txt': 'Constantes'
-    #}
-
-    #if folder_path.exists() and folder_path.is_dir():
-        #for file_name, display_name in files_to_display.items():
-           # file_path = folder_path / file_name
-           # if file_path.exists() and file_path.is_file():
-                #with open(file_path, 'r', encoding='utf-8') as file:
-                    #file_contents[display_name] = file.read()
-
-    #return render(request, 'listings/test2.html', {'file_display_names': files_to_display.values(), 'file_contents': file_contents})
 
 
-    #pour afficher tous les fichiers et leur contenu
-    #patient_id = 1  # ID du patient à rechercher
-    #patient = Patient.objects.get(idpatient=patient_id)
-    #patient_name = patient.nom
-    #folder_path = Path('/root/Desktop/ARCHIVE_DOC_PAT') / patient_name
-    #files = []
-    #file_contents = {}
-
-    #if folder_path.exists() and folder_path.is_dir():
-        #files = [f.name for f in folder_path.iterdir() if f.is_file()]
-        
-        #for file_name in files:
-            #file_path = folder_path / file_name
-            # Lire le contenu du fichier
-            #with open(file_path, 'r', encoding='utf-8') as file:
-                #file_contents[file_name] = file.read()
-
-    #return render(request, 'listings/test1.html', {'file_names': files, 'file_contents': file_contents})
-    #fin
-
-
-
-
-
-
-
-@login_required(login_url="/")
-def diagnostique(request):
+def diagnostique(request):#fais
     if request.method=='POST':
-        Nom1=request.POST['libdiag']
-        Nom2=request.POST['date']
-        Nom3=request.POST['consultation']
-        reg1=Diagnostique(libdiag=Nom1,date=Nom2,Consultation_id=Nom3)
-        reg1.save()
-    return render(request,'listings/formdiagnostiaue.html')
+        form = DiagnostiqueForm(request.POST)
+        if form.is_valid():
+            form.save()
+            message = 'diagnostique ajoute.'
+            return render(request, 'listings/formdiagnostiaue.html', context={'message': message})
+        else:
+            print(form.errors)
+            message = 'diagnostique non ajoute.'
+            return render(request,'listings/formdiagnostiaue.html',context={'message': message,'form.errors':form.errors})
+    return render(request,'listings/formdiagnostiaue.html',context={'message': message,'form.errors':form.errors})
 
 
 @login_required(login_url="/")
 def antecedantmedical(request):
+    request.session['patient_id']
     if request.method == 'POST':
-
-        patient_name = 'kouadio josephine'
-
+        form = Antecedant_medicalForm(request.POST)
+        if form.is_valid():
+            form.save()
+            message = ' ajoute.'
+            return render(request, 'listings/fromantmedical.html', context={'message': message})
+        else:
+            print(form.errors)
+            message = ' non ajoute.'
+            return render(request,'listings/fromantmedical.html',context={'message': message,'form.errors':form.errors})
         reg.save()
 
     return render(request,'listings/fromantmedical.html') 
@@ -251,12 +206,18 @@ def antecedantchirurgical(request): #fais
 
  
 @login_required(login_url="/")
-def sortie_patient(request):
+def sortie_patient(request):#fais maisje dois faire une modification pour inserer l'id du patient dans son modele
+    if request.method == 'POST':
+        patient_name = request.POST.get('nom')
+        try:
+            patient = Patient.objects.get(nom=patient_name)
+            patient_id = patient.idpatient
+        except Patient.DoesNotExist:
+            patient_id = None
 
-    name = request.GET.get('nom', '')
-    patient = get_object_or_404(Patient, nom=name)
-    return JsonResponse({'id': patient.idpatient})
-
+        return JsonResponse({'id': patient_id})
+    else:
+        return render(request, 'listings/formsortie.html')
 
 @login_required(login_url="/")
 def modificationmdp(request):#fais
@@ -345,24 +306,14 @@ def bilanbio(request):
     return render(request,'listings/bilanbio.html')
 
 
-@login_required(login_url="/")
+
 def tableauconsultation(request):
-    medecin = request.user
-
-    patients = Patient.objects.filter(medecin=medecin)
-
-    return render(request, 'listings/patients_for_medecin.html', {'patients': patients})
     return render(request,'listings/tableauconsultation.html')
-
-
-
 
 
 @login_required(login_url="/")
 def chart(request):
     return render(request,'listings/chart.html')
-
-
 
 @login_required(login_url="/")
 def menu(request):
@@ -386,12 +337,20 @@ def facture(request):
 
 
 
-@login_required(login_url="/")
-def disponibilite(request):
-    return render(request,'listings/tableaumeddispodelasemaine.html')
+
+#apres
 
 @login_required(login_url="/")
 def selection(request):
     medecins = Medecin.objects.all()
     return render(request, 'votre_template.html', {'medecins': medecins})
     return render(request,'listings/tableaumeddispodelasemaine.html')
+
+
+@login_required(login_url="/")
+def disponibilite(request):
+    return render(request,'listings/tableaumeddispodelasemaine.html')
+
+
+def box(request):
+    return render(request,'listings/boxclick.html')
