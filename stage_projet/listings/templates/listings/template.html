@@ -580,7 +580,48 @@ function ajouter(){
                 }
             }
             
-            
+
+        //pour mon imc
+        function calculateIMC() {
+            const poids = parseFloat(document.getElementById('poids').value);
+            const taille = parseFloat(document.getElementById('taille').value);
+            let imc = '';
+        
+            if (!isNaN(poids) && !isNaN(taille) && taille > 0) {
+                imc = (poids / (taille * taille)).toFixed(2);
+            }
+        
+            document.getElementById('imc').value = imc;
+        }
+        
+        //fin
+
+
+        //pour id patient de la table sortiess
+            function sortie() {
+                const nom = document.getElementById('patient').value;
+                
+                fetch(`/sortie_patient/?name=${encodeURIComponent(nom)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const patientIdField = document.getElementById('id');
+                        patientIdField.value = data.id || 'ID non trouvé';
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+    
+            document.addEventListener('DOMContentLoaded', () => {
+                const patientField = document.getElementById('patient');
+                patientField.addEventListener('input', sortie);
+            });
+    
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const patientField = document.getElementById('patient');
+            patientField.addEventListener('input', sortie);
+        
+        //fin
+        
          function datefacture(){
             var date = new Date();
             var jour = date.getDate();
@@ -708,6 +749,15 @@ function ajouter(){
                                         <li>
                                             <a  href="{% url 'logout' %}" ><i class="material-icons">logout</i>Déconnexion</a>
                                         </li>
+
+                                        <li>
+                                            <a  href="{% url 'disponibilite' %}" ><i class="material-icons-outlined">person-check</i>Médecin disponible cette semaine</a> <!--faire une requete pour afficher une liste de tous les medecins connectes-->
+                                        </li>
+
+                                        <li>
+                                            <a  href="{% url 'selection' %}" ><i class="material-icons-outlined">person-check</i>Ajouter des Médecin disponible cette semaine</a> <!--faire une requete pour afficher une liste de tous les medecins connectes-->
+                                        </li>
+
                                     </ul>
                             {% endif %}
                         {% endif %}
@@ -828,6 +878,7 @@ function ajouter(){
                                     <div class="card1">
                                         <div class="card-body1">
                                             {% block chart %}{% endblock %}
+                                            {% block tableaudisponibilites %}{% endblock %}
                                             {% block tableauconsultation %} {% endblock %}
                                             {% block formbilanbio %} {% endblock %}
                                             {% block content%} {% endblock %}

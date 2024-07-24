@@ -1,7 +1,4 @@
 from django.contrib import admin # type: ignore
-from  listings.models import band # type: ignore
-from  listings.models import listing # type: ignore
-
 
 #import de ma bd
 from  listings.models import  Ordonnancemedicament
@@ -30,20 +27,11 @@ from  listings.models  import Bilan_biologique # type: ignore
 #fin import
 from  listings.models  import CustomUser # type: ignore
 admin.site.register(CustomUser)
-class bandAdmin(admin.ModelAdmin):
-    list_display=('name','genre','year_formed','biography','active','off_homepage') # type: ignore
-class listingAdmin(admin.ModelAdmin):
-    list_display=('title','description','sold','year','type') # type: ignore
-
-admin.site.register(band,bandAdmin)
-admin.site.register(listing,listingAdmin)
-
 #class de ma base de donnees
 
 class OrdonnancemedicamentInline(admin.TabularInline):#cherche à comprendre pourquoi
     model = Ordonnancemedicament
-    extra = 1
-    
+    extra = 1 
 
 class PaysAdmin(admin.ModelAdmin):
     list_display=('idpays','nompays') # type: ignore
@@ -58,7 +46,7 @@ class CategorieAdmin(admin.ModelAdmin):
     list_display=('refcat','numcat') # type: ignore
 
 class SortieAdmin(admin.ModelAdmin):
-    list_display=('refsortie', 'datesortie',  'motifsortie', 'datedetransfert',  'numerodedossierdanslecentredetransfert', 'nouveaucentredesuivi', 'raison', 'commentaire',  'typedenouvelle', 'typederelance',  'datederniererelance',  'datedernierevisite', 'daterefus',  'remplipar',   'datedeces',  'causedudeces', 'lieudeces',  'decesliea','customUser') # type: ignore
+    list_display=('refsortie', 'datesortie',  'motifsortie', 'datedetransfert',  'numerodedossierdanslecentredetransfert', 'nouveaucentredesuivi', 'raison', 'commentaire',  'typedenouvelle', 'typederelance',  'datederniererelance',  'datedernierevisite', 'daterefus',  'remplipar',   'datedeces',  'causedudeces', 'lieudeces',  'decesliea','customUser','patient') # type: ignore
 
 class FactureAdmin(admin.ModelAdmin):
     list_display=('idfact', 'numerofact', 'montantpaye',  'caution_versee', 'date_versement', 'duree_sejour', 'modepaiment', 'cout_sejour', 'remboursement', 'rest_a_payer', 'date', 'patient') # type: ignore

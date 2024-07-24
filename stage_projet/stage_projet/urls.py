@@ -31,22 +31,17 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     #fin
 
-    
-    path('bands/',views.band_list),
-    path('index',views.index,name='index'),
     path('menu',views.menu,name='menu'),
-    #path('cnx/',views.cnx,name='cnx'),
     path('patient',views.patient,name='patient'),
-    path('listings',views.listing_list,name='listing-list'),
-    path('listings/<int:id>/',views.listing_details, name='listing-details'),
-    path ('contact',views.contact,name='contact'),
     #pour ma bd
-    path ('donne',views.donne,name='affiche'),
+ 
     #fin
     #pour ma bd
     #path('AFFICHE/',views.AFFICHE, name='AFFICHE'),
     #path ('affichefic',views.affichefic,name='affichefic'),
     path ('constante',views.constante,name='constante'),
+    path ('disponibilite',views.disponibilite,name='disponibilite'),
+    path ('selection',views.selection,name='selection'),
     path ('chart',views.chart,name='chart'),
     path ('consultation',views.consultation,name='consultation'),
     path ('facture',views.facture,name='facture'),

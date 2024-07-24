@@ -4,36 +4,6 @@ from django.db import models # type: ignore
 from django.forms import ModelForm # type: ignore
 from django.core.validators import MaxValueValidator,MinValueValidator # type: ignore
 from datetime import datetime,date
-class band (models.Model):
-    name=models.fields.CharField(max_length=100)
-    class Genre(models.TextChoices):
-        HIPHOP='HH' 
-        RNB='RNB'
-        SOUL='DJZ'
-    genre=models.fields.CharField(choices=Genre.choices,max_length=10)
-    year_formed=models.fields.IntegerField(validators=[MinValueValidator(2021),MaxValueValidator(2024)])
-    biography=models.fields.CharField(max_length=100)
-    active=models.fields.BooleanField(default=True)
-    off_homepage=models.fields.URLField(null=True,blank=True)
-    def __str__(self):
-        return f'{self.name}'
-class listing(models.Model):
-    title=models.fields.CharField(max_length=100)
-    description=models.fields.CharField(max_length=100)
-    sold=models.fields.BooleanField(default=False)
-    year=models.fields.IntegerField(validators=[MinValueValidator(2021),MaxValueValidator(2024)],null=True)
-    class Type(models.TextChoices):
-        DISK="Record"
-        VET="Clothing"
-        AFFICHE="Posters"
-        DIVERS='Miscellaneous'
-    type=models.fields.CharField(choices=Type.choices,max_length=100) 
-    def __str__(self):
-        return f'{self.title}' 
-    band=models.ForeignKey(band,null=True,on_delete=models.SET_NULL)
-    
-    
-    #class de mon projet de stage 
 #class sans clé secondaire
 class Categorie(models.Model):
     refcat=models.fields.AutoField(primary_key=True)
@@ -468,7 +438,7 @@ class HospitalisationForm(ModelForm):
 
 class Sortie(models.Model):#migration
     refsortie=models.fields.AutoField(primary_key=True)
-    datesortie=models.fields.DateTimeField(default=datetime.now) 
+    datesortie=models.fields.DateField(null=True, blank=True) 
     motifsortie=models.fields.CharField(max_length=50)
     remplipar=models.fields.CharField(max_length=100,null=True, blank=True)
 
@@ -494,14 +464,15 @@ class Sortie(models.Model):#migration
     nouveaucentredesuivi=models.fields.CharField(max_length=100,null=True, blank=True)
     numerodedossierdanslecentredetransfert=models.fields.CharField(max_length=255,null=True, blank=True)
 #fin
+    patient=models.ForeignKey(Patient, on_delete=models.CASCADE)
     customUser=models.ForeignKey(CustomUser,on_delete=models.CASCADE)                                                                                
     def __str__(self):
-        return f'{self.refsortie} {self.datesortie}  {self.motifsortie} {self.customUser} {self.datedetransfert}  {self.numerodedossierdanslecentredetransfert} {self.nouveaucentredesuivi} {self.raison} {self.commentaire}  {self.typedenouvelle} {self.typederelance}  {self.datederniererelance}  {self.datedernierevisite} {self.daterefus}  {self.remplipar}   {self.datedeces}  {self.causedudeces} {self.lieudeces}  {self.decesliea}'
+        return f'{self.refsortie} {self.datesortie} {self.patient} {self.motifsortie} {self.customUser} {self.datedetransfert}  {self.numerodedossierdanslecentredetransfert} {self.nouveaucentredesuivi} {self.raison} {self.commentaire}  {self.typedenouvelle} {self.typederelance}  {self.datederniererelance}  {self.datedernierevisite} {self.daterefus}  {self.remplipar}   {self.datedeces}  {self.causedudeces} {self.lieudeces}  {self.decesliea}'
 
 class SortieForm(ModelForm):
     class Meta:
         model = Sortie
-        fields = ['motifsortie', 'remplipar', 'datedeces','causedudeces','lieudeces','decesliea','daterefus','datedernierevisite','datederniererelance','typederelance','typederelance','typedenouvelle','raison','commentaire','datedetransfert','nouveaucentredesuivi','numerodedossierdanslecentredetransfert','customUser']    
+        fields = ['motifsortie', 'remplipar', 'datedeces','causedudeces','lieudeces','decesliea','daterefus','datedernierevisite','datederniererelance','typederelance','typederelance','typedenouvelle','raison','commentaire','datedetransfert','nouveaucentredesuivi','numerodedossierdanslecentredetransfert','customUser','patient']    
 
 
 class Facture(models.Model):

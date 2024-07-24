@@ -6,7 +6,7 @@
     </div>
    
 
-    {% if message %}
+  {% if message %}
     <p>{{ message }}</p>
   {% endif %}
   
@@ -28,10 +28,14 @@
        
         <div  class="divsortie">
             <label >patient concerné</label>
-            <input  type="text" name="patient" >
+            <input  type="text" name="nom" id="patient"/>
         </div>
 
         <div>
+            <div class="divsortie">
+                <label  >Date de sortie</label>
+                <input  type="date" name="datesortie" >
+            </div>
             <label> motif de sortie</label>
             <div  class="custom-control custom-radio" id="presdiv6" >
                 <input type="radio"  name="motifsortie"  value="décès"   onclick="sortie()" class="custom-control-input" id="exampleRadios1"/>
@@ -209,7 +213,7 @@
         <textarea name="commentaire" placeholder="Observation" class="inputcontenu" rows="4" cols="50"></textarea>
         </div>
 
-
+    <input type="text" name="patient" id="id"  readonly />
     {% if request.user.is_authenticated %}
     {% if user.type_personnel_soignant.nompersog == "MEDECIN" %}
         <input type="hidden"   name="customUser"  value="{{ user.refpersoignant }}"/>
@@ -219,5 +223,6 @@
     <input  type="submit" name="validesortie" value="Valider" class="btn btn-primary"/ >
 </form>
 </center>
+
 {% endblock %}
 

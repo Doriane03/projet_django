@@ -21,11 +21,12 @@
 </div>
     {% csrf_token %}
     <fieldset>
-            <input type="text"   placeholder="poids en  kg" name="poids" class="inputcontenu"/>
-            <input type="text"   placeholder="taille en  cm" name="taille" class="inputcontenu"/>
+            <input type="text"   placeholder="poids en  kg" name="poids" id="poids" class="inputcontenu" oninput="calculateIMC()"/>
+            <input type="text"   placeholder="taille en  cm" name="taille"  id="taille" class="inputcontenu" oninput="calculateIMC()"/>
+            <input type="text"   id="imc" placeholder="IMC kg/m²" name="imc" class="inputcontenu" readonly/>
             <input type="text" placeholder="température en C°" name="temperature" class="inputcontenu"/>
-            <input type="text"   placeholder="imc kg/m2 " name="imc" class="inputcontenu"/>
-                  
+            
+            <!--<input type="text"   placeholder="imc kg/m2 " name="imc" class="inputcontenu"/>-->    
             <div  class="content">
                   <label>tension artérielle</label>
                   <div class="leftconts">
@@ -41,4 +42,6 @@
     <input type="submit"  name="valideconstante"  value="Enregister" class="btn btn-primary"/>
 </form>
 </center>
+
+
 {% endblock %}

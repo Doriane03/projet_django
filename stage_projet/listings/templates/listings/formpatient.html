@@ -17,6 +17,15 @@
 {% endif %}
     {% csrf_token %}
     <fieldset>
+      <div class="divsortie">
+        <label > medecin disponible:</label>
+        <select name="customUser"  required>
+          <option>medecin</option>
+          {% for customUser in customUser %}
+          <option value='{{ customUser.nom }}'>{{ customUser.nom }}</option>
+          {% endfor %}
+        </select>
+      </div>
             <div class="divsortie">
               <label > numero de lit:</label>
               <select name="lit"  required>

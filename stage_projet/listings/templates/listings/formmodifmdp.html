@@ -8,12 +8,19 @@
 
     {% csrf_token %}
     <fieldset>   
+        {% if success %}
+        <p class="p2">Mot de passe mis à jour avec succès pour l'utilisateur {{ user.nom }}.</p>
+        {% endif %}
+        {% if error_message %}
+                <p class="p1">{{ error_message }}</p>
+        {% endif %}
+        
         <div class="divsortie">
             <label>utilisateur concerné</label>
                 <select name="nom"  required>
                     <option>choisir l'utilisateur</option>
                     {% for customUser in customUsers %}
-                        <option value="{{ customUser.nom }}">{{ customUser.nom }}</option>
+                        <option value="{{ customUser.refpersoignant }}">{{ customUser.nom }}</option>
                     {% endfor %}
                 </select>
         </div>
@@ -21,9 +28,7 @@
         <label>nouveau mot de passe</label>
         <input  type="password" name="mdp" required/>
         </div>
-        {% if error_message %}
-                <p class="p2">{{ error_message }}</p>
-        {% endif %}
+        
     </fieldset>
     <input  type="submit" name="validantchir" value="Valider" class="btn btn-primary" >
 </form>
