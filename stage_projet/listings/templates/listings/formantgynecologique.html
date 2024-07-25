@@ -27,16 +27,16 @@
 
             <div class="divsortie">
                 <label class="form-check-label">césarienne</label>
-                <div class="custom-control custom-radio">
-                    <input class="custom-control-input" type="radio" name="cesarienne" id="inlineRadio3" value="oui" onclick="antecedantgyn()" />
-                    <label class="custom-control-label" for="inlineRadio3">oui</label>                   
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="cesarienne" id="inlineRadio3" value="oui" onclick="antecedantgyn()" />
+                    <label class="form-check-label" for="inlineRadio3">oui</label>                   
                 </div>
-                <div class="custom-control custom-radio">
-                    <input class="custom-control-input" type="radio" name="cesarienne" id="inlineRadio4" value="non" onclick="antecedantgyn()" />
-                    <label class="custom-control-label" for="inlineRadio4">non</label>
+                <div class="form-check form-check-inline">
+                    <input  class="form-check-input" type="radio" name="cesarienne" id="inlineRadio4" value="non" onclick="antecedantgyn()" />
+                    <label class="form-check-label" for="inlineRadio4">non</label>
                 </div>
-                <div class="test" id="resultat1" style="margin-left:200px">
-                    <label class="form-check-label" for="inlineRadio5">date de la cesarienne</label>
+                <div class="test" id="resultat1" style="margin-right:93px">
+                    <label class="form-check-label" for="inlineRadio5">date</label>
                     <input  type="date" name="datecesarienne" id="inlineRadio5" style="padding:10px"/>
                 </div>
             </div>
@@ -44,14 +44,14 @@
 
             <div class="divsortie">
                 <label >prise de contraceptif</label>
-                <div class="custom-control custom-radio">
-                    <input class="custom-control-input" type="radio" name="prisecontraceptif" id="inlineRadio1" value="oui"/>
-                    <label class="custom-control-label" for="inlineRadio1">oui</label>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="prisecontraceptif" id="inlineRadio1" value="oui"/>
+                    <label class="form-check-label" for="inlineRadio1">oui</label>
                 </div>
 
-                <div class="custom-control custom-radio">
-                    <input class="custom-control-input" type="radio" name="prisecontraceptif" id="inlineRadio2" value="non"/>
-                    <label class="custom-control-label" for="inlineRadio2">non</label>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="prisecontraceptif" id="inlineRadio2" value="non"/>
+                    <label class="form-check-label" for="inlineRadio2">non</label>
                 </div>
 
             </div>
@@ -61,6 +61,30 @@
     </fieldset>
     <input  type="submit" name="validantgyn" value="Valider" class="btn btn-primary" >
 </form>
+
+<script>
+
+function antecedantgyn(){
+        var afficheRadio= document.getElementsByName("cesarienne");
+        for (var i = 0; i < afficheRadio.length; i++) {
+            if (afficheRadio[i].checked) {
+                switch(afficheRadio[i].value){
+                    case 'oui':
+                    var inputField = document.getElementById("resultat1");
+                        inputField.style.display = "block";
+                    break;
+
+                    case 'non':
+                    var inputField = document.getElementById("resultat1");
+                        inputField.style.display = "none"; 
+                    break;
+                }
+            }
+        }
+    }
+
+</script>
+
 </center>
 {% endblock %}
 

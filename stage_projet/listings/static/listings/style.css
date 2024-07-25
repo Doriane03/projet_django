@@ -75,21 +75,44 @@ float: left;
   overflow: hidden;
   padding:20px;
 }
-.divsortie>label{
+.divsortie >label{
   float:left;
-  width:400px;
+  width:150px;
   padding:10px;
-  
 }
-.divsortie>input{
+.divsortie>input[type="text"]{
 float:left;
-width:29%;
-padding:10px;
+margin:3px;
+width:50%;
+padding:10px
+}
+#lab{
+  float:left;
+  width:150px;
+  padding:10px;
+}
+.divsortie>input[type="date"]{
+  float:left;
+  margin:3px;
+  width:50%;
+  padding:10px;
+}
+
+
+.divsortie input[type="radio"]{
+  float:left;
+  width:50%;
 }
 
 .divsortie>select{
   float:left;
-  width:29%;
+  width:60%;
+  padding:10px;
+}
+
+.divsortie>textarea{
+  float:left;
+  width:75%;
   padding:10px;
 }
 /*fin*/
@@ -103,7 +126,6 @@ background-color: #f8faf9;
 text-transform:capitalize;
 }
 .inputcontenu{
-margin:10px;
 display:block;
 width:60%;
 background-color:none;
@@ -189,7 +211,6 @@ border-right:none;
 border-bottom:1px solid black;
 }  
 #presdiv1{
-display:block;
 margin-right:-1%;
 }
 
@@ -199,72 +220,58 @@ margin-right:5%;
 }
 
 #presdiv3{
-display:block;
 margin-right:22%;
 }
 
 #presdiv4{
-display:block;
 margin-right:-0.5%;
 }
 
 
 #presdiv5{
-display:block;
 margin-right:38%;
 }
 
 #presdiv6{
-  display:block;
   margin-right:3%;
 }
 
 #presdiv7{
-    display:block;
+
     margin-left:2%;
 }
 #presdiv8{
-      display:block;
       margin-left:2.5%;
 }
 
 #presdiv9{
-  display:block;
   margin-left:7%;
 }
 
 #presdiv10{
-  display:block;
   margin-right:7%;
 }
 
 #presdiv11{
-  display:block;
   margin-right:13%;
 }
 
 #presdiv12{
-  display:block;
   margin-right:18%;
 }
 #presdiv13{
-  display:block;
   margin-right:17.5%;
 }
 #presdiv14{
-  display:block;
   margin-right:13.5%;
 }
 #presdiv15{
-  display:block;
-  margin-left:37%;
+  margin-left:2%;
 }
 #presdiv16{
-  display:block;
   margin-right:18.5%;
 }
 #presdiv17{
-  display:block;
   margin-right:15.5%;
 }
 
@@ -583,7 +590,7 @@ margin-left:158px;
   border-bottom: 1px solid  #ddd;
 }
 
-.clickable-box {
-  width: 100%;
-  border: 1px solid black;
+.box-container {
+  text-align: center;
 }
+

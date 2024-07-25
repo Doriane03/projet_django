@@ -1,61 +1,107 @@
 {% extends 'listings/template.html' %}
 {% block formpatient %}
 <center>
-<form method="post" action="{% url 'patient' %}"  class="formcontenu" enctype="multipart/form-data">
-
+<form method="post" action="{% url 'patient' %}" class="formcontenu" enctype="multipart/form-data">
+  <div>
+    <nav class="divcontenunav">Patient</nav>
+</div>
   {% if message %}
   <p>{{ message }}</p>
-{% endif %}
+  {% endif %}
 
-<!-- Afficher les erreurs de formulaire -->
-{% if form_errors %}
+  <!-- Afficher les erreurs de formulaire -->
+  {% if form_errors %}
   <ul>
   {% for field, errors in form_errors.items %}
       <li>{{ field }}: {{ errors }}</li>
   {% endfor %}
   </ul>
-{% endif %}
+  {% endif %}
     {% csrf_token %}
     <fieldset>
-      
-            <div class="divsortie">
-              <label > numero de lit:</label>
-              <select name="lit"  required>
-                <option>choisir un lit</option>
-                {% for lit in lits %}
-                <option value='{{ lit.reflit }}'>{{ lit.numlit }}-catégorie{{ lit.categorie.numcat }}</option>
-                {% endfor %}
-              </select>
+        <div >
+            <label for="lit" >Numéro de lit:</label>
+            <div >
+                <select name="lit" id="lit" class="inputcontenu" required>
+                    <option>Choisir un lit</option>
+                    {% for lit in lits %}
+                    <option value='{{ lit.reflit }}'>{{ lit.numlit }} - catégorie {{ lit.categorie.numcat }}</option>
+                    {% endfor %}
+                </select>
             </div>
-            <input type="text"   placeholder="numero du patient" name="numeropatient" pattern="[0-9/]*" id="num" class="inputcontenu" required/>
-            <input type="text"   placeholder="nom" name="nom" class="inputcontenu" required/>
-            <input type="tel"   placeholder="numéro 1" name="contact1" class="inputcontenu" required/>
-            <input type="tel" placeholder="numéro 2" name="contact2" class="inputcontenu" required/>
-            <input type="email"   placeholder="email" name="email" class="inputcontenu" required/>
-            
-            <div class="divcontenudate">
-                  <label>date de naissance:</label>
-                  <input type="date"   name="date_naissance" required/>  
-             </div>
-             <input type="text"   placeholder="Âge" name="age" class="inputcontenu" required/>
-             <div class="divcontenusexe">
-                 <label >sexe:</label>
-                 <input type="radio"   name="sexe" value="masculin" required />masculin
-                 <input type="radio"   name="sexe" value="féminin" required />féminin
-             </div>
-             
-            <input type="text"  placeholder="profession" name="profession" class="inputcontenu" required/>
-            <input type="text"   placeholder="ville" name="ville" class="inputcontenu" required/>
-            <input type="text"   placeholder="commune" name="commune" class="inputcontenu"required/>
-            <input type="text"   placeholder="quartier" name="quartier" class="inputcontenu"required/>
-            <input type="text"   placeholder="nationalité" name="nationalite" class="inputcontenu" required/>
-            <input type="text"   placeholder="situation matrimoniale" name="situation_matrimoniale" class="inputcontenu" required/>
-            <input type="text"   placeholder="nombre d'enfant" name="nombre_enfant" class="inputcontenu" required/>
-            <input type="text"  placeholder="personne à contacter" name="personne_a_contacter" class="inputcontenu" required/>
-            <input type="tel"  placeholder="contact de la personne à contacter" name="telephone_cpu" class="inputcontenu" required/>
+        </div>
+        <div class="mb-3 row">
+            <label for="num" class="col-sm-2 col-form-label">Numéro du patient:</label>
+            <input type="text" placeholder="Numéro du patient" name="numeropatient" pattern="[0-9/]*" id="num" class="inputcontenu" required/>
+        </div>
+        <div class="mb-3 row">
+            <label for="nom" class="col-sm-2 col-form-label">Nom:</label>
+            <input type="text" placeholder="Nom" name="nom" id="nom" class="inputcontenu" required/>
+        </div>
+        <div class="mb-3 row">
+            <label for="contact1" class="col-sm-2 col-form-label">Numéro 1:</label>
+            <input type="tel" placeholder="Numéro 1" name="contact1" id="contact1" class="inputcontenu" required/>
+        </div>
+        <div class="mb-3 row">
+            <label for="contact2" class="col-sm-2 col-form-label">Numéro 2:</label>
+            <input type="tel" placeholder="Numéro 2" name="contact2" id="contact2" class="inputcontenu" required/>
+        </div>
+        <div class="mb-3 row">
+            <label for="email" class="col-sm-2 col-form-label">Email:</label>
+            <input type="email" placeholder="Email" name="email" id="email" class="inputcontenu" required/>
+        </div>
+        <div class="mb-3 row">
+            <label for="date_naissance" class="col-sm-2 col-form-label">Date de naissance:</label>
+            <input type="date" name="date_naissance" id="date_naissance" class="inputcontenu" required/>  
+        </div>
+        <div class="mb-3 row">
+            <label for="age" class="col-sm-2 col-form-label">Âge:</label>
+            <input type="text" placeholder="Âge" name="age" id="age" class="inputcontenu" required/>
+        </div>
+        <div class="mb-3 row">
+            <label class="col-sm-2 col-form-label">Sexe:</label>
+            <input type="radio" name="sexe" value="masculin" required />Masculin
+            <input type="radio" name="sexe" value="féminin" required />Féminin
+        </div>
+        <div class="mb-3 row">
+            <label for="profession" class="col-sm-2 col-form-label">Profession:</label>
+            <input type="text" placeholder="Profession" name="profession" id="profession" class="inputcontenu" required/>
+        </div>
+        <div class="mb-3 row">
+            <label for="ville" class="col-sm-2 col-form-label">Ville:</label>
+            <input type="text" placeholder="Ville" name="ville" id="ville" class="inputcontenu" required/>
+        </div>
+        <div class="mb-3 row">
+            <label for="commune" class="col-sm-2 col-form-label">Commune:</label>
+            <input type="text" placeholder="Commune" name="commune" id="commune" class="inputcontenu" required/>
+        </div>
+        <div class="mb-3 row">
+            <label for="quartier" class="col-sm-2 col-form-label">Quartier:</label>
+            <input type="text" placeholder="Quartier" name="quartier" id="quartier" class="inputcontenu" required/>
+        </div>
+        <div class="mb-3 row">
+            <label for="nationalite" class="col-sm-2 col-form-label">Nationalité:</label>
+            <input type="text" placeholder="Nationalité" name="nationalite" id="nationalite" class="inputcontenu" required/>
+        </div>
+        <div class="mb-3 row">
+            <label for="situation_matrimoniale" class="col-sm-2 col-form-label">Situation matrimoniale:</label>
+            <input type="text" placeholder="Situation matrimoniale" name="situation_matrimoniale" id="situation_matrimoniale" class="inputcontenu" required/>
+        </div>
+        <div class="mb-3 row">
+            <label for="nombre_enfant" class="col-sm-2 col-form-label">Nombre d'enfant:</label>
+            <input type="text" placeholder="Nombre d'enfant" name="nombre_enfant" id="nombre_enfant" class="inputcontenu" required/>
+        </div>
+        <div class="mb-3 row">
+            <label for="personne_a_contacter" class="col-sm-2 col-form-label">Personne à contacter:</label>
+            <input type="text" placeholder="Personne à contacter" name="personne_a_contacter" id="personne_a_contacter" class="inputcontenu" required/>
+        </div>
+        <div class="mb-3 row">
+            <label for="telephone_cpu" class="col-sm-2 col-form-label">Contact de la personne à contacter:</label>
+            <input type="tel" placeholder="Contact de la personne à contacter" name="telephone_cpu" id="telephone_cpu" class="inputcontenu" required/>
+        </div>
 
     </fieldset>
-    <input type="submit"  name="validepatient"  value="Enregistrer" class="btn btn-primary" required/>
+    <input type="submit" name="validepatient" value="Enregistrer" class="btn btn-primary" required/>
 </form>
 
 <script>

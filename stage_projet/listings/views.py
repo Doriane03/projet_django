@@ -205,7 +205,6 @@ def antecedantchirurgical(request): #fais
     return render(request, 'listings/formantchirurgical.html')
 
  
-@login_required(login_url="/")
 def sortie_patient(request):#fais maisje dois faire une modification pour inserer l'id du patient dans son modele
     if request.method == 'POST':
         patient_name = request.POST.get('nom')
