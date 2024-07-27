@@ -12,6 +12,7 @@
             <th>Nom du Patient</th>
             <th>Date et Heure d'Assignation</th>
             <th>Date et Heure de Notification</th>
+            <th>Effectuer la consultation</th>
         </tr>
     </thead>
     <tbody>
@@ -20,6 +21,7 @@
                 <td>{{ notification.patient.nom  }}</td>
                 <td>{{ notification.date_heure_assignation }}</td>
                 <td>{{ notification.date_heure_notification }}</td>
+                <td><a  href="{% url 'box' %}">Consultation</a></td>
             </tr>
         {% endfor %}
     </tbody>
