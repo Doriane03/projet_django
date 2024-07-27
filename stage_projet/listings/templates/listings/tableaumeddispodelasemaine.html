@@ -2,83 +2,26 @@
 {% block tableaudisponibilites %}
 
 <center>
-  <div >
-  <table border="1">
-      <tr>
-        <th >Lundi</th>
-        <th >Mardi</th>
-        <th >Mercredi</th>
-        <th >Jeudi</th>
-        <th >Vendredi</th>
-        <th >Samedi</th>
-        <th >Dimanche</th>
-      </tr>
-      <tr>
-        <td>Software Engineer</td>
-        <td>
-          non patient dossier<a  href="{% url 'consultation' %}">Consultation</a>
-        </td>
-        <td>
-            non patient dossier<a  href="{% url 'consultation' %}">Consultation</a>
-        </td>
-        <td>
-            non patient dossier<a  href="{% url 'consultation' %}">Consultation</a>
-        </td>
-        <td>
-            non patient dossier<a  href="{% url 'consultation' %}">Consultation</a>
-        </td>
-        <td>
-              non patient dossier<a  href="{% url 'consultation' %}">Consultation</a>
-        </td>
-        <td>
-              non patient dossier<a  href="{% url 'consultation' %}">Consultation</a>
-        </td>
-      </tr>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
 
-      <tr>
-        <td>Software Engineer</td>
-        <td>
-          non patient dossier<a  href="{% url 'consultation' %}">Consultation</a>
-        </td>
-        <td>
-            non patient dossier<a  href="{% url 'consultation' %}">Consultation</a>
-        </td>
-        <td>
-            non patient dossier<a  href="{% url 'consultation' %}">Consultation</a>
-        </td>
-        <td>
-            non patient dossier<a  href="{% url 'consultation' %}">Consultation</a>
-        </td>
-        <td>
-              non patient dossier<a  href="{% url 'consultation' %}">Consultation</a>
-        </td>
-        <td>
-              non patient dossier<a  href="{% url 'consultation' %}">Consultation</a>
-        </td>
-      </tr>
-
-      <tr>
-        <td>Software Engineer</td>
-        <td>
-          non patient dossier<a  href="{% url 'consultation' %}">Consultation</a>
-        </td>
-        <td>
-            non patient dossier<a  href="{% url 'consultation' %}">Consultation</a>
-        </td>
-        <td>
-            non patient dossier<a  href="{% url 'consultation' %}">Consultation</a>
-        </td>
-        <td>
-            non patient dossier<a  href="{% url 'consultation' %}">Consultation</a>
-        </td>
-        <td>
-              non patient dossier<a  href="{% url 'consultation' %}">Consultation</a>
-        </td>
-        <td>
-              non patient dossier<a  href="{% url 'consultation' %}">Consultation</a>
-        </td>
-      </tr>
-  </table>
+  <div>
+    <h2><center>Javascript Fullcalendar</center></h2>
+    <div>
+      <div id="calendar"></div>
+    </div>
+    <br>
   </div>
 </center>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+
+<script>
+  $(document).ready(function() {
+  $('#calendar').fullCalendar();
+  });
+</script>
+
 {% endblock %}

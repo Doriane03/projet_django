@@ -21,7 +21,7 @@
 
              <div class="test"  id="resultat2">
                 <label class="form-check-label">date avp</label>
-                <input  type="date" name="dateavp" id="inlineRadio2" style="padding:10px;"/>  
+                <input  type="date" name="dateavp" id="dateavp" style="padding:10px;"/>  
             </div>
 
          </div>
@@ -41,13 +41,11 @@
 
             <div class="test" id="resultat3" style="margin-right:20px" >
                 <label class="form-check-label">date de l'opération </label>
-                <input  type="date" name="datoperachir" id="inlineRadio2" style="padding:10px;margin-right:50px"/>
+                <input  type="date" name="datoperachir" id="dateopera" style="padding:10px;margin-right:50px"/>
                 
             </div>
         </div>
-
-
-       
+        <input  type="text" name="patient" value="{{patient_id1}}"/> 
     </fieldset>
     <input  type="submit" name="validmdp" value="Validers" class="btn btn-primary" />
 </form>
@@ -65,6 +63,7 @@ function antecedantchiravp(){
                 case 'non':
                 var inputField = document.getElementById("resultat2");
                     inputField.style.display = "none"; 
+                    document.getElementById("dateavp").value="";
                 break;
             }
         }
@@ -86,7 +85,8 @@ function antecedantchiroperachir(){
 
                 case 'non':
                 var inputField = document.getElementById("resultat3");
-                    inputField.style.display = "none"; 
+                    inputField.style.display = "none";
+                    document.getElementById("dateopera").value="";
                 break;
             }
         }

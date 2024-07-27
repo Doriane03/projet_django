@@ -1,8 +1,9 @@
 from  django.http import HttpResponse # type: ignore
 from django.http import JsonResponse
-from  django.shortcuts import render,redirect, get_object_or_404 # type: ignore
+from  django.shortcuts import render,redirect
 from  django.contrib.auth import  login , logout, authenticate # type: ignore
 from django.contrib.auth.models import Group, Permission
+from django.utils import timezone
 #from  listings.forms import contact_us # type: ignore
 from  django.core.mail import send_mail # type: ignore
 from  django.contrib.auth.hashers import make_password,check_password
@@ -11,6 +12,7 @@ from  django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import update_session_auth_hash
+from django.db import transaction
 #import des class de ma bd
 #nouveau
 from django.conf import settings
@@ -21,9 +23,13 @@ from  listings.models import CustomUserForm
 from  listings.models import  ConsultationForm
 from  listings.models import DiagnostiqueForm
 from  listings.models import Antecedant_medicalForm
+from  listings.models import Antecedant_chirurgicalForm
+from  listings.models import Antecedant_genecologiqueForm
+from  listings.models import Antecedant_familialForm
 #fin
 import os
 from pathlib import Path
+from  listings.models import Notification
 from  listings.models import  Ordonnancemedicament
 from  listings.models  import Antecedant_familial # type: ignore #nouveau
 from  listings.models  import Consultation # type: ignore #modifie
@@ -54,23 +60,40 @@ from django.contrib.auth.decorators import login_required
 #pour ma bd
 #recuperation de donnees
 #fin
-
-def patient(request):#fais
+@login_required(login_url="/")
+def patient(request):
     lits = Lit.objects.all()
+    medecin_type = Type_personnel_soignant.objects.get(nompersog='MEDECIN')
+    medecins = CustomUser.objects.filter(type_personnel_soignant=medecin_type)
+    
     if request.method == "POST":
         form = PatientForm(request.POST)
         if form.is_valid():
-            patient = form.save()
-            if patient and patient.idpatient:
-                message = f'Patient {form.cleaned_data["nom"]} a été créé'
-                return render(request, 'listings/formconstante.html', context={'message': message, 'Patient_idpatient': patient.idpatient})
+            medecin_id = request.POST.get('medecin')
+            if medecin_id:
+                medecin = CustomUser.objects.get(refpersoignant=medecin_id)
+                
+                try:
+                    with transaction.atomic():
+                        patient = form.save(commit=False)
+                        patient.save()
+                        Notification.objects.create(patient=patient, customUser=medecin, date_heure_assignation=timezone.now())
+                        
+                        message = f'Patient {form.cleaned_data["nom"]} a été créé et assigné au médecin {medecin.nom}'
+                        return render(request, 'listings/formconstante.html', context={'message': message, 'Patient_idpatient': patient.idpatient, 'medecins': medecins})
+                except Exception as e:
+                    message = f'Échec de la création de la notification : {e}'
+                    return render(request, 'listings/formpatient.html', context={'message': message, 'lits': lits, 'medecins': medecins})
             else:
-                message = 'Insertion nulle'
-                return render(request, 'listings/formpatient.html', context={'message': message, 'lits': lits})
+                message = 'Le médecin n\'a pas été sélectionné'
+                return render(request, 'listings/formpatient.html', context={'message': message, 'lits': lits, 'medecins': medecins})
         else:
-            return render(request, 'listings/formpatient.html', context={'lits': lits, 'form_errors': form.errors})
+            return render(request, 'listings/formpatient.html', context={'lits': lits, 'medecins': medecins, 'form_errors': form.errors})
     else:
-        return render(request, 'listings/formpatient.html', context={'lits': lits})
+        return render(request, 'listings/formpatient.html', context={'lits': lits, 'medecins': medecins})
+
+
+
 
 
 #fin
@@ -102,6 +125,7 @@ def constante(request):#fais
 
 
 # views.py
+@login_required(login_url="/")
 def consultation(request):#fais
     message = ''
     dossier_nom = 'kouadio marie'
@@ -140,7 +164,7 @@ def consultation(request):#fais
     return render(request, 'listings/formconsultation.html', context={'message': message, 'patient_id': patient_id})
 
 
-
+@login_required(login_url="/")
 def diagnostique(request):#fais
     if request.method=='POST':
         form = DiagnostiqueForm(request.POST)
@@ -156,8 +180,9 @@ def diagnostique(request):#fais
 
 
 @login_required(login_url="/")
-def antecedantmedical(request):
-    request.session['patient_id']
+def antecedantmedical(request):#fais
+    patient = Patient.objects.get(nom="kouadio marie")
+    patient_id1 = patient.idpatient
     if request.method == 'POST':
         form = Antecedant_medicalForm(request.POST)
         if form.is_valid():
@@ -168,43 +193,27 @@ def antecedantmedical(request):
             print(form.errors)
             message = ' non ajoute.'
             return render(request,'listings/fromantmedical.html',context={'message': message,'form.errors':form.errors})
-        reg.save()
-
-    return render(request,'listings/fromantmedical.html') 
+    return render(request,'listings/fromantmedical.html',{"patient_id1":patient_id1 }) 
 
 
 
 @login_required(login_url="/")
 def antecedantchirurgical(request): #fais
+    patient = Patient.objects.get(nom="kouadio marie")
+    patient_id1 = patient.idpatient
     if request.method == 'POST':
-        Operachir = request.POST['operachir']
-        Avp = request.POST['avp']
-        Dateavp = request.POST['dateavp']
-        Datoperachir = request.POST['datoperachir']
-        patient_name = 'kouadio josephine'  # Nom du patient
-    
-        patient = Patient.objects.get(nom=patient_name)
-        patient_id1 = patient.idpatient
-        print(patient_id1)
-        if Operachir == 'non' and Avp == 'non':
-            reg = Antecedant_chirurgical(operachir=Operachir, avp=Avp, patient=patient)
-
-        elif Operachir == 'oui' and Avp == 'non':
-            reg = Antecedant_chirurgical(operachir=Operachir, avp=Avp, datoperachir=Datoperachir, patient=patient)
-
-        elif Operachir == 'non' and Avp == 'oui':
-            reg = Antecedant_chirurgical(operachir=Operachir, avp=Avp, dateavp=Dateavp, patient=patient)
-        
-        elif Operachir == 'oui' and Avp == 'oui':
-            reg = Antecedant_chirurgical(operachir=Operachir, avp=Avp, dateavp=Dateavp, patient=patient)
-        reg.save()
-        if reg :
-            print("ok")
+        form = Antecedant_chirurgicalForm(request.POST)
+        if form.is_valid():
+            form.save()
+            message = ' ajoute.'
+            return render(request, 'listings/formantchirurgical.html', context={'message': message})
         else:
-            print("nonok") 
-    return render(request, 'listings/formantchirurgical.html')
+            print(form.errors)
+            message = ' non ajoute.'
+            return render(request,'listings/formantchirurgical.html',context={'message': message,'form.errors':form.errors})
+    return render(request, 'listings/formantchirurgical.html',{"patient_id1":patient_id1})
 
- 
+@login_required(login_url="/") 
 def sortie_patient(request):#fais maisje dois faire une modification pour inserer l'id du patient dans son modele
     if request.method == 'POST':
         patient_name = request.POST.get('nom')
@@ -296,7 +305,7 @@ def adminform(request):#fais
     return render(request, 'listings/formadmin.html', context={'services': services, 'type_personnel_soignants': type_personnel_soignants})
 
 @login_required(login_url="/")
-def bilanimg(request):
+def bilanimg(request): #fais
     return render(request,'listings/formbilanimg.html')
 
 
@@ -305,9 +314,10 @@ def bilanbio(request):
     return render(request,'listings/bilanbio.html')
 
 
-
+@login_required(login_url="/")
 def tableauconsultation(request):
-    return render(request,'listings/tableauconsultation.html')
+    notifications = Notification.objects.filter(customUser=request.user).order_by('date_heure_notification')
+    return render(request,'listings/tableauconsultation.html',{'notifications': notifications})
 
 
 @login_required(login_url="/")
@@ -318,9 +328,21 @@ def chart(request):
 def menu(request):
     return render(request,'listings/chart.html')
 
-@login_required(login_url="/")
-def antecedantgenecologique(request):
-    return render(request,'listings/formantgynecologique.html')
+@login_required(login_url="/") 
+def antecedantgenecologique(request):#fais
+    patient = Patient.objects.get(nom="kouadio marie")
+    patient_id1 = patient.idpatient
+    if request.method == 'POST':
+        form =Antecedant_genecologiqueForm(request.POST)
+        if form.is_valid():
+            form.save()
+            message = 'ajoute.'
+            return render(request, 'listings/formantgynecologique.html', context={'message': message})
+        else:
+            print(form.errors)
+            message = ' non ajoute.'
+            return render(request,'listings/formantgynecologique.html',context={'message': message,'form.errors':form.errors})
+    return render(request, 'listings/formantgynecologique.html',{"patient_id1":patient_id1})
 
 @login_required(login_url="/")
 def ordonnance(request):
@@ -333,20 +355,33 @@ def facture(request):
     return render(request,'listings/formfacture.html')
 
 
-
+@login_required(login_url="/")
+def antecedantfamilial(request):#fais
+    patient = Patient.objects.get(nom="kouadio marie")
+    patient_id1 = patient.idpatient
+    if request.method == 'POST':
+        form = Antecedant_familialForm(request.POST)
+        if form.is_valid():
+            form.save()
+            message = ' ajoute.'
+            return render(request, 'listings/formantfamille.html', context={'message': message})
+        else:
+            print(form.errors)
+            message = ' non ajoute.'
+            return render(request,'listings/formantfamille.html',context={'message': message,'form.errors':form.errors})
+    return render(request,'listings/formantfamille.html',{"patient_id1":patient_id1}) 
 
 
 
 #apres
 
-@login_required(login_url="/")
+ 
 def selection(request):
     medecins = Medecin.objects.all()
-    return render(request, 'votre_template.html', {'medecins': medecins})
     return render(request,'listings/tableaumeddispodelasemaine.html')
 
 
-@login_required(login_url="/")
+ 
 def disponibilite(request):
     return render(request,'listings/tableaumeddispodelasemaine.html')
 

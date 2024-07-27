@@ -4,32 +4,27 @@
 
 <center>
   <div class="formcontenu">
-  <table class="table2">
-      <tr>
-        <th >heure d'envoie</th>
-        <th >patient à consulter</th>
-      </tr>
-      <tr>
-        <td>Software Engineer</td>
-        <td>
-          non patient dossier<a  href="{% url 'box' %}">Consultation</a>
-        </td>
-      </tr>
+  <!-- view_notifications.html -->
+<h1>Tableau de consultation</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Nom du Patient</th>
+            <th>Date et Heure d'Assignation</th>
+            <th>Date et Heure de Notification</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for notification in notifications %}
+            <tr>
+                <td>{{ notification.patient.nom  }}</td>
+                <td>{{ notification.date_heure_assignation }}</td>
+                <td>{{ notification.date_heure_notification }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
 
-      <tr>
-        <td>Office Manager</td>
-        <td>
-          non patient dossier<a  href="{% url 'box' %}">Consultation</a>
-        </td>
-      </tr>
-
-      <tr>
-        <td>Office Manager</td>
-        <td>
-          non patient dossier <a  href="{% url 'box' %}">Consultation</a>
-        </td>
-      </tr>
-  </table>
   </div>
 </center>
 {% endblock %}

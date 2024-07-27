@@ -65,15 +65,17 @@ float: left;
 }
 .test>input[type='text']{
   padding:8px;
+  width:30%;
 }
 
 .test>input[type='date']{
   padding:8px;
+  width: 30%;
 }
 /*formulaire de sortie*/
 .divsortie{
   overflow: hidden;
-  padding:20px;
+  padding:5px;
 }
 .divsortie >label{
   float:left;
@@ -86,6 +88,30 @@ margin:3px;
 width:50%;
 padding:10px
 }
+
+
+.divsortie input[type="password"]{
+  float:left;
+  margin:3px;
+  width:50%;
+  padding:10px
+  }
+
+.divsortie input[type="email"]{
+    float:left;
+    margin:3px;
+    width:50%;
+    padding:10px
+}
+
+.divsortie input[type="tel"]{
+      float:left;
+      margin:3px;
+      width:50%;
+      padding:10px
+}
+    
+  
 #lab{
   float:left;
   width:150px;
@@ -99,20 +125,20 @@ padding:10px
 }
 
 
-.divsortie input[type="radio"]{
+.divsortie>input[type="radio"]{
   float:left;
   width:50%;
 }
 
 .divsortie>select{
   float:left;
-  width:60%;
+  width:50%;
   padding:10px;
 }
 
-.divsortie>textarea{
+.divsortie textarea{
   float:left;
-  width:75%;
+  width:50%;
   padding:10px;
 }
 /*fin*/
@@ -190,8 +216,8 @@ overflow:hidden;
   flex: 1;
 }
 .leftconts>input{
-width:85%;
-margin-left:25px;
+width:30%;
+margin-right:10%;
 }
 
 .rightconts{
@@ -199,8 +225,8 @@ margin-left:25px;
 }
 
 .rightconts>input{
-  width:50%;
-  margin-right:310px;
+  width:25%;
+  margin-right:100%;
   }
 .divfrmconsul>input[type="text"]{
 width:100%; 
@@ -505,7 +531,7 @@ display: flex;
 align-items: center;
 }
 .content>label{
-margin-left:158px;
+margin-left:25px;
 }
 #divg{
   margin-right:56px; 
@@ -589,8 +615,46 @@ margin-left:158px;
 .table2 tr{
   border-bottom: 1px solid  #ddd;
 }
-
-.box-container {
-  text-align: center;
+.box-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
 }
 
+.box-row {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.box-container {
+    width: 200px;
+    margin: 10px;
+    text-align: center;
+}
+
+.box {
+    display: block;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #333;
+    transition: background-color 0.3s ease;
+}
+
+.box:hover {
+    background-color: #e0e0e0;
+}
+
+.box p {
+    margin: 0;
+    font-size: 16px;
+}
+
+.center-box {
+    justify-content: center;
+}

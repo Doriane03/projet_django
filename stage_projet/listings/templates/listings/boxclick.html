@@ -2,56 +2,59 @@
 
 {% block box %}
 
-    <div class="box-container">
-        <a href="{% url 'antecedantchirurgical' %}" class="box">
-            <p>antecedant<br/>
-                chirurgical </p>
-        </a>
+<div class="box-wrapper">
+    <div class="box-row">
+        <div class="box-container">
+            <a href="{% url 'antecedantchirurgical' %}" class="box">
+                <p>Antécédant<br/>chirurgical</p>
+            </a>
+        </div>
+        <div class="box-container">
+            <a href="{% url 'antecedantgenecologique' %}" class="box">
+                <p>Antécédant<br/>gynécologique</p>
+            </a>
+        </div>
+        <div class="box-container">
+            <a href="{% url 'antecedantmedical' %}" class="box">
+                <p>Antécédant<br/>médical</p>
+            </a>
+        </div>
+        <div class="box-container">
+            <a href="{% url 'consultation' %}" class="box">
+                <p>Consultation</p>
+            </a>
+        </div>
+    </div>
+    <div class="box-row">
+        <div class="box-container">
+            <a href="{% url 'diagnostique' %}" class="box">
+                <p>Diagnostique</p>
+            </a>
+        </div>
+        <div class="box-container">
+            <a href="{% url 'bilanimg' %}" class="box">
+                <p>Bilan imagerie</p>
+            </a>
+        </div>
+        <div class="box-container">
+            <a href="{% url 'bilanbio' %}" class="box">
+                <p>Bilan biologique</p>
+            </a>
+        </div>
+        <div class="box-container">
+            <a href="{% url 'ordonnance' %}" class="box">
+                <p>Ordonnance</p>
+            </a>
+        </div>
+    </div>
+    <div class="box-row center-box">
+        <div class="box-container">
+            <a href="{% url 'sortie_patient' %}" class="box">
+                <p>Sortie du patient</p>
+            </a>
+        </div>
     </div>
 
-    <div class="box-container">
-        <a href="{% url 'antecedantgenecologique' %}" class="box">
-            <p>antecedant<br/>genecologique </p>
-        </a>
-    </div>
-
-    <div class="box-container">
-        <a href="{% url 'antecedantmedical' %}" class="box">
-            <p>antecedant <br/>medical </p>
-        </a>
-    </div>
-
-    <div class="box-container">
-        <a href="{% url 'consultation' %}" class="box">
-            <p>consultation</p>
-        </a>
-    </div>
-    <div class="box-container">
-        <a href="{% url 'diagnostique' %}" class="box">
-            <p>diagnostique</p>
-            
-        </a>
-    </div>
-    <div class="box-container">
-        <a href="{% url 'bilanimg' %}" class="box">
-        <p>bilanimg</p>
-        </a>
-    </div>
-    <div class="box-container">
-        <a href="{% url 'bilanbio' %}" class="box">        <p>bilanbio</p>
-        </a>
-    </div>
-
-    <div class="box-container">
-        <a href="{% url 'ordonnance' %}" class="box">
-            <p>ordonnance </p>
-        </a>
-    </div> 
-
-    <div class="box-container">
-        <a href="{% url 'sortie_patient' %}" class="box">
-            <p>sortie_patient </p>
-        </a>
-    </div>
+</div>
 
 {% endblock %}

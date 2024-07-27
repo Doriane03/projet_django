@@ -21,7 +21,7 @@
 
             <div class="divsortie">
                 <label  >Date de dernière règles</label>
-                <input  type="date" name="datederniereregle" />
+                <input  type="date" name="datederniereregle" id="datederniereregle" />
             </div>
 
 
@@ -43,7 +43,7 @@
 
 
             <div class="divsortie">
-                <label >prise de contraceptif</label>
+                <label>prise de contraceptif</label>
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="prisecontraceptif" id="inlineRadio1" value="oui"/>
                     <label class="form-check-label" for="inlineRadio1">oui</label>
@@ -55,9 +55,7 @@
                 </div>
 
             </div>
-
-
-           
+            <input  type="text" name="patient" value="{{patient_id1}}"/>   
     </fieldset>
     <input  type="submit" name="validantgyn" value="Valider" class="btn btn-primary" >
 </form>
@@ -76,7 +74,8 @@ function antecedantgyn(){
 
                     case 'non':
                     var inputField = document.getElementById("resultat1");
-                        inputField.style.display = "none"; 
+                        inputField.style.display = "none";
+                        document.getElementById("inlineRadio5").value="";
                     break;
                 }
             }

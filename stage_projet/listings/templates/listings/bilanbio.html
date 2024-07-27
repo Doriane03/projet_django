@@ -81,4 +81,108 @@
     <input type="submit"  name="validbilanimg"  value="Enregister" class="btn btn-primary"/>
 </form>
 </center>
+<script>
+  
+  function ajouter() {
+    var affichecheckbox = document.getElementsByName("ajout");
+    var inputField = document.getElementById("true");
+    var inputField1 = document.getElementById("yes");
+
+
+    for (var i = 0; i < affichecheckbox.length; i++) {
+        if (affichecheckbox[i].checked) {
+            if (affichecheckbox[i].value == "oui") {
+                var initialRowCount = inputField.rows.length;
+                var newRow = inputField.insertRow(-1);
+                var cell1 = newRow.insertCell(0);
+                var cell2 = newRow.insertCell(1);
+                var cell3 = newRow.insertCell(2);
+                var cell4 = newRow.insertCell(3);
+                cell1.innerHTML = `<div> 
+                    <select name="nommedicament" required>
+                        <option>choisir un médicament</option>
+                        {% for medicament in medicaments %}
+                        <option value="{medicament.nommedicament}">{{medicament.nommedicament}}</option>
+                        {% endfor %}
+                    </select>
+                </div>`;
+
+                cell2.innerHTML = `<div><input type="text" id="inputZip"></div>`;
+
+                cell3.innerHTML = `<div>
+                    <select name="dosage" required>
+                        <option>choisir le dosage</option>
+                        {% for medicament in medicaments %}
+                        <option value="{medicament.dosage}">{{medicament.dosage}}</option>
+                        {% endfor %}
+                    </select>
+                </div>`;
+
+                cell4.innerHTML = `<div>
+                    <select name="ok" required>
+                        <option>choisir un type</option>
+                        <option value="ok">sirop</option>
+                        <option>comprimé</option>
+                    </select>
+                </div>`;
+
+               
+            
+            } else if (affichecheckbox[i].value == "oui1") {
+                var initialRowCount = inputField1.rows.length;
+                var newRow = inputField1.insertRow(-1);
+                var cell1 = newRow.insertCell(0);
+                var cell2 = newRow.insertCell(1);
+                var cell3 = newRow.insertCell(2);
+                var cell4 = newRow.insertCell(3);
+                var cell5 = newRow.insertCell(4);
+
+                cell1.innerHTML = `<div>
+                    <select name="typeexamen" required>
+                        <option>choisir</option>
+                        <option value="Sérologie rétroviral">Sérologie rétroviral</option>
+                        <option value="IgG anti VHE">IgG anti VHE</option>
+                        <option value="IgM anti VHE">IgM anti VHE</option>
+                        <option value="Ac anti VHD">Ac anti VHD</option>
+                        <option value="Ac anti HBe">Ac anti HBe</option>
+                        <option value="Ag HBe">Ag HBe</option>
+                    </select>
+                </div>`;
+
+                cell2.innerHTML = `<div>
+                    <input type="text" name="resultatnumerique">
+                </div>`;
+
+                cell3.innerHTML = `<div class="custom-control custom-radio" id="presdiv11">
+                    <input type="radio" name="resultatmodalite" value="Positif" class="custom-control-input" />
+                    <label class="custom-control-label" >Positif</label>
+                </div>
+                <div class="custom-control custom-radio" id="presdiv10">
+                    <input type="radio" name="resultatmodalite" value="Négatif" class="custom-control-input" />
+                    <label class="custom-control-label" >Négatif</label>
+                </div>`;
+
+                cell4.innerHTML = `<div>
+                    <select name="unite" required>
+                        <option>choisir</option>
+                        <option value="UI/ ml">UI/ ml</option>
+                        <option value="mmol/ l">mmol/ l</option>
+                        <option value="g/l">g/l</option>
+                        <option value="/mm3">/mm3</option>
+                        <option value="mmol/l">mmol/l</option>
+                        <option value="%">%</option>
+                    </select>
+                </div>`;
+
+                cell5.innerHTML = `<div>
+                    <input type="text" name="prix">
+                </div>`;
+
+                
+            }
+        }
+    }
+}
+
+</script>
 {% endblock %}                                                                           

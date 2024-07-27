@@ -19,85 +19,96 @@
   {% endif %}
     {% csrf_token %}
     <fieldset>
-        <div >
-            <label for="lit" >Numéro de lit:</label>
-            <div >
-                <select name="lit" id="lit" class="inputcontenu" required>
-                    <option>Choisir un lit</option>
-                    {% for lit in lits %}
-                    <option value='{{ lit.reflit }}'>{{ lit.numlit }} - catégorie {{ lit.categorie.numcat }}</option>
+        
+        <div class="divsortie">
+                <label for="medecins">medecins</label>
+                <select name="medecin" required>
+                    <option>Choisir un medecin</option>
+                    {% for medecin in medecins %}
+                    <option value='{{ medecin.refpersoignant }}'>{{ medecin.nom }}</option>
                     {% endfor %}
                 </select>
-            </div>
         </div>
-        <div class="mb-3 row">
-            <label for="num" class="col-sm-2 col-form-label">Numéro du patient:</label>
+
+        <div class="divsortie">
+            <label for="lit">Numéro de lit</label>
+            <select name="lit" required>
+                <option>Choisir un lit</option>
+                {% for lit in lits %}
+                <option value='{{ lit.reflit }}'>{{ lit.numlit }}-catégorie {{ lit.categorie.numcat }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+
+        <div class="divsortie">
+            <label for="num" >Numéro du patient</label>
             <input type="text" placeholder="Numéro du patient" name="numeropatient" pattern="[0-9/]*" id="num" class="inputcontenu" required/>
         </div>
-        <div class="mb-3 row">
-            <label for="nom" class="col-sm-2 col-form-label">Nom:</label>
+        <div class="divsortie">
+            <label for="nom" >Nom</label>
             <input type="text" placeholder="Nom" name="nom" id="nom" class="inputcontenu" required/>
         </div>
-        <div class="mb-3 row">
-            <label for="contact1" class="col-sm-2 col-form-label">Numéro 1:</label>
-            <input type="tel" placeholder="Numéro 1" name="contact1" id="contact1" class="inputcontenu" required/>
+        <div class="divsortie">
+            <label for="contact1" >Contact</label>
+            <input type="tel" minlength="10" maxlength="10" pattern="[0-9]{10}" placeholder="Numéro 1" name="contact1" id="contact1" class="inputcontenu" required/>
         </div>
-        <div class="mb-3 row">
-            <label for="contact2" class="col-sm-2 col-form-label">Numéro 2:</label>
-            <input type="tel" placeholder="Numéro 2" name="contact2" id="contact2" class="inputcontenu" required/>
+        <div class="divsortie">
+            <label for="contact2">Contact2</label>
+            <input type="tel"  minlength="10" maxlength="10" pattern="[0-9]{10}" placeholder="Numéro 2" name="contact2" id="contact2" class="inputcontenu" required/>
         </div>
-        <div class="mb-3 row">
-            <label for="email" class="col-sm-2 col-form-label">Email:</label>
+        <div class="divsortie">
+            <label for="email" >Email</label>
             <input type="email" placeholder="Email" name="email" id="email" class="inputcontenu" required/>
         </div>
-        <div class="mb-3 row">
-            <label for="date_naissance" class="col-sm-2 col-form-label">Date de naissance:</label>
+        <div class="divsortie">
+            <label for="date_naissance" >Date de naissance</label>
             <input type="date" name="date_naissance" id="date_naissance" class="inputcontenu" required/>  
         </div>
-        <div class="mb-3 row">
-            <label for="age" class="col-sm-2 col-form-label">Âge:</label>
+        <div class="divsortie">
+            <label for="age" >Âge</label>
             <input type="text" placeholder="Âge" name="age" id="age" class="inputcontenu" required/>
         </div>
-        <div class="mb-3 row">
-            <label class="col-sm-2 col-form-label">Sexe:</label>
+        <div >
+            <label >Sexe:</label>
             <input type="radio" name="sexe" value="masculin" required />Masculin
             <input type="radio" name="sexe" value="féminin" required />Féminin
         </div>
-        <div class="mb-3 row">
-            <label for="profession" class="col-sm-2 col-form-label">Profession:</label>
+        <div class="divsortie">
+            <label for="profession" >Profession</label>
             <input type="text" placeholder="Profession" name="profession" id="profession" class="inputcontenu" required/>
         </div>
-        <div class="mb-3 row">
-            <label for="ville" class="col-sm-2 col-form-label">Ville:</label>
+        <div class="divsortie">
+            <label for="ville" >Ville</label>
             <input type="text" placeholder="Ville" name="ville" id="ville" class="inputcontenu" required/>
         </div>
-        <div class="mb-3 row">
-            <label for="commune" class="col-sm-2 col-form-label">Commune:</label>
+        <div class="divsortie">
+            <label for="commune" >Commune</label>
             <input type="text" placeholder="Commune" name="commune" id="commune" class="inputcontenu" required/>
         </div>
-        <div class="mb-3 row">
-            <label for="quartier" class="col-sm-2 col-form-label">Quartier:</label>
+        <div class="divsortie">
+            <label for="quartier" >Quartier</label>
             <input type="text" placeholder="Quartier" name="quartier" id="quartier" class="inputcontenu" required/>
         </div>
-        <div class="mb-3 row">
-            <label for="nationalite" class="col-sm-2 col-form-label">Nationalité:</label>
+        <div class="divsortie">
+            <label for="nationalite" >Nationalité</label>
             <input type="text" placeholder="Nationalité" name="nationalite" id="nationalite" class="inputcontenu" required/>
         </div>
-        <div class="mb-3 row">
-            <label for="situation_matrimoniale" class="col-sm-2 col-form-label">Situation matrimoniale:</label>
+        <div class="divsortie">
+            <label for="situation_matrimoniale">Situation matrimoniale</label>
             <input type="text" placeholder="Situation matrimoniale" name="situation_matrimoniale" id="situation_matrimoniale" class="inputcontenu" required/>
         </div>
-        <div class="mb-3 row">
-            <label for="nombre_enfant" class="col-sm-2 col-form-label">Nombre d'enfant:</label>
+        <div class="divsortie">
+            <label for="nombre_enfant" >Nombre d'enfant</label>
             <input type="text" placeholder="Nombre d'enfant" name="nombre_enfant" id="nombre_enfant" class="inputcontenu" required/>
         </div>
-        <div class="mb-3 row">
-            <label for="personne_a_contacter" class="col-sm-2 col-form-label">Personne à contacter:</label>
+        <div class="divsortie">
+            <label for="personne_a_contacter" >Personne à contacter</label>
             <input type="text" placeholder="Personne à contacter" name="personne_a_contacter" id="personne_a_contacter" class="inputcontenu" required/>
         </div>
-        <div class="mb-3 row">
-            <label for="telephone_cpu" class="col-sm-2 col-form-label">Contact de la personne à contacter:</label>
-            <input type="tel" placeholder="Contact de la personne à contacter" name="telephone_cpu" id="telephone_cpu" class="inputcontenu" required/>
+        <div class="divsortie">
+            <label for="telephone_cpu" >Contact de la personne à contacter</label>
+            <input type="tel"  minlength="10" maxlength="10" pattern="[0-9]{10}" placeholder="Contact de la personne à contacter" name="telephone_cpu" id="telephone_cpu" class="inputcontenu" required/>
         </div>
 
     </fieldset>

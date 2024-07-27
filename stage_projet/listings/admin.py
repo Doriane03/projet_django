@@ -24,6 +24,7 @@ from  listings.models  import Ordonnance # type: ignore
 from  listings.models  import Diagnostique # type: ignore
 from  listings.models  import Bilan_imagerie # type: ignore
 from  listings.models  import Bilan_biologique # type: ignore
+from  listings.models import Notification
 #fin import
 from  listings.models  import CustomUser # type: ignore
 admin.site.register(CustomUser)
@@ -33,6 +34,8 @@ class OrdonnancemedicamentInline(admin.TabularInline):#cherche à comprendre pou
     model = Ordonnancemedicament
     extra = 1 
 
+class NotificationAdmin(admin.ModelAdmin):
+    list_display=('date_heure_notification','date_heure_assignation','patient','customUser') # type: ignore
 class PaysAdmin(admin.ModelAdmin):
     list_display=('idpays','nompays') # type: ignore
 
@@ -89,7 +92,7 @@ class Bilan_biologiqueAdmin(admin.ModelAdmin):
     list_display=('numbilanbio', 'typeexamen',  'resultatmodalite', 'unite','consultation','resultatnumerique','prix') # type: ignore
     
 class Antecedant_familialAdmin(admin.ModelAdmin): #nouveau
-    list_display=('refantfam', 'hepatie_vir_ASC', 'cirrhose_ASC', 'cpf_ASC','hepatie_vir_DSC', 'cirrhose_DSC', 'cpf_DSC','hepatie_vir_COL', 'cirrhose_COL', 'cpf_COL','conscience', 'statutoms',  'hippocraismdigital', 'oncleblanc','ascite', 'cvc', 'splenomegalie', 'flechehepatique', 'autresignephysique','patient')
+    list_display=('refantfam', 'hepatie_vir_ASC', 'cirrhose_ASC', 'cpf_ASC','hepatie_vir_DSC', 'cirrhose_DSC', 'cpf_DSC','hepatie_vir_COL', 'cirrhose_COL', 'cpf_COL','patient')
     
     
 class Antecedant_medicalAdmin(admin.ModelAdmin):#nouveau
@@ -124,5 +127,7 @@ admin.site.register(Sortie,SortieAdmin)
 admin.site.register(Categorie,CategorieAdmin)
 admin.site.register(Consultation,ConsultationAdmin)
 admin.site.register(Diagnostique,DiagnostiqueAdmin)
+admin.site.register(Notification,NotificationAdmin)
+
 #fin
 # Register your models here.

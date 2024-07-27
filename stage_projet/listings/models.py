@@ -212,111 +212,79 @@ class Antecedant_genecologiqueForm(ModelForm):
         fields = ['datederniereregle','gestite','parite','prisecontraceptif' ,'cesarienne','datecesarienne','patient']
 
 class Antecedant_familial(models.Model):#nouvel ajout
-    
     refantfam=models.fields.AutoField(primary_key=True)
     MAYBECHOICE1=(
-        ('o','oui'),
-        ('n','non'),
-        ('nsp','ne sait pas'),
+        ('oui','oui'),
+        ('non','non'),
+        ('ne sait pas','ne sait pas'),
     )
-    hepatie_vir_ASC=models.fields.CharField(max_length=3,choices=MAYBECHOICE1)
+    hepatie_vir_ASC=models.fields.CharField(max_length=11,choices=MAYBECHOICE1)
     
     MAYBECHOICE2=(
-        ('o','oui'),
-        ('n','non'),
-        ('nsp','ne sait pas'),
+        ('oui','oui'),
+        ('non','non'),
+        ('ne sait pas','ne sait pas'),
     )
-    cirrhose_ASC=models.fields.CharField(max_length=3,choices=MAYBECHOICE2)
+    cirrhose_ASC=models.fields.CharField(max_length=11,choices=MAYBECHOICE2)
     
     MAYBECHOICE3=(
-        ('o','oui'),
-        ('n','non'),
-        ('nsp','ne sait pas'),
+        ('oui','oui'),
+        ('non','non'),
+        ('ne sait pas','ne sait pas'),
     ) 
-    cpf_ASC=models.fields.CharField(max_length=3,choices=MAYBECHOICE3)
+    cpf_ASC=models.fields.CharField(max_length=11,choices=MAYBECHOICE3)
     
     
     MAYBECHOICE4=(
-        ('o','oui'),
-        ('n','non'),
-        ('nsp','ne sait pas'),
+        ('oui','oui'),
+        ('non','non'),
+        ('ne sait pas','ne sait pas'),
     )
-    hepatie_vir_DSC=models.fields.CharField(max_length=3,choices=MAYBECHOICE4)
+    hepatie_vir_DSC=models.fields.CharField(max_length=11,choices=MAYBECHOICE4)
     
     MAYBECHOICE5=(
-        ('o','oui'),
-        ('n','non'),
-        ('nsp','ne sait pas'),
+        ('oui','oui'),
+        ('non','non'),
+        ('ne sait pas','ne sait pas'),
     )
-    cirrhose_DSC=models.fields.CharField(max_length=3,choices=MAYBECHOICE5)
+    cirrhose_DSC=models.fields.CharField(max_length=11,choices=MAYBECHOICE5)
     
     MAYBECHOICE6=(
-        ('o','oui'),
-        ('n','non'),
-        ('nsp','ne sait pas'),
+        ('oui','oui'),
+        ('non','non'),
+        ('ne sait pas','ne sait pas'),
     ) 
-    cpf_DSC=models.fields.CharField(max_length=3,choices=MAYBECHOICE6)
+    cpf_DSC=models.fields.CharField(max_length=11,choices=MAYBECHOICE6)
     
     
     MAYBECHOICE7=(
-        ('o','oui'),
-        ('n','non'),
-        ('nsp','ne sait pas'),
+        ('oui','oui'),
+        ('non','non'),
+        ('ne sait pas','ne sait pas'),
     )
-    hepatie_vir_COL=models.fields.CharField(max_length=3,choices=MAYBECHOICE7)
+    hepatie_vir_COL=models.fields.CharField(max_length=11,choices=MAYBECHOICE7)
     
     MAYBECHOICE8=(
-        ('o','oui'),
-        ('n','non'),
-        ('nsp','ne sait pas'),
+        ('oui','oui'),
+        ('non','non'),
+        ('ne sait pas','ne sait pas'),
     )
-    cirrhose_COL=models.fields.CharField(max_length=3,choices=MAYBECHOICE8)
+    cirrhose_COL=models.fields.CharField(max_length=11,choices=MAYBECHOICE8)
     
     MAYBECHOICE9=(
-        ('o','oui'),
-        ('n','non'),
-        ('nsp','ne sait pas'),
+        ('oui','oui'),
+        ('non','non'),
+        ('ne sait pas','ne sait pas'),
     ) 
-    cpf_COL=models.fields.CharField(max_length=3,choices=MAYBECHOICE9)
-    conscience=models.fields.CharField(max_length=50,blank=True,null=True)
-    statutoms=models.fields.CharField(max_length=50,blank=True,null=True)
-    MAYBECHOICE4=(
-        ('o','oui'),
-        ('n','non'),
-    )
-    hippocraismdigital=models.fields.CharField(max_length=1,choices=MAYBECHOICE4)
-    MAYBECHOICE5=(
-        ('o','oui'),
-        ('n','non'),
-        ('nsp','ne sait pas'),
-    )
-    oncleblanc=models.fields.CharField(max_length=3,choices=MAYBECHOICE5)
-    autre=models.fields.CharField(max_length=254,blank=True,null=True)
-    MAYBECHOICE7=(
-        ('o','oui'),
-        ('n','non'),
-    )
-    ascite=models.fields.CharField(max_length=1,choices=MAYBECHOICE7)
-    MAYBECHOICE8=(
-        ('o','oui'),
-        ('n','non'),
-    )
-    cvc=models.fields.CharField(max_length=1,choices=MAYBECHOICE8)
-    MAYBECHOICE9=(
-        ('o','oui'),
-        ('n','non'),
-    )
-    splenomegalie=models.fields.CharField(max_length=1,choices=MAYBECHOICE9)
-    flechehepatique=models.fields.CharField(max_length=10,blank=True,null=True)
-    autresignephysique=models.fields.CharField(max_length=254,blank=True,null=True)
+    cpf_COL=models.fields.CharField(max_length=11,choices=MAYBECHOICE9)
     date= models.fields.DateTimeField(default=datetime.now) 
     patient=models.ForeignKey(Patient, on_delete=models.CASCADE)                                                                          
     def __str__(self):
-        return f'{self.refantfam} {self.hepatie_vir_ASC} {self.cirrhose_ASC} {self.cpf_ASC} {self.hepatie_vir_DSC} {self.cirrhose_DSC} {self.cpf_DSC}  {self.hepatie_vir_COL} {self.cirrhose_COL} {self.cpf_COL} {self.conscience} {self.statutoms}  {self.hippocraismdigital} {self.oncleblanc} {self.ascite} {self.cvc} {self.splenomegalie} {self.flechehepatique} {self.autresignephysique} {self.patient}'
+        return f'{self.refantfam} {self.hepatie_vir_ASC} {self.cirrhose_ASC} {self.cpf_ASC} {self.hepatie_vir_DSC} {self.cirrhose_DSC} {self.cpf_DSC}  {self.hepatie_vir_COL} {self.cirrhose_COL} {self.cpf_COL}  {self.patient}'
 class Antecedant_familialForm(ModelForm):
     class Meta:
         model = Antecedant_familial
-        fields = ['hepatie_vir_ASC','cirrhose_ASC','cpf_ASC','hepatie_vir_DSC','cirrhose_DSC','cpf_DSC','hepatie_vir_COL','cirrhose_COL','cpf_COL','conscience','statutoms','hippocraismdigital','oncleblanc','ascite','cvc','splenomegalie','flechehepatique','autresignephysique','patient'] 
+        fields = ['hepatie_vir_ASC','cirrhose_ASC','cpf_ASC','hepatie_vir_DSC','cirrhose_DSC','cpf_DSC','hepatie_vir_COL','cirrhose_COL','cpf_COL','patient'] 
 
 class Pays(models.Model):
     idpays=models.fields.AutoField(primary_key=True)
@@ -633,5 +601,12 @@ class Bilan_biologiqueForm(ModelForm):
     class Meta:
         model = Bilan_biologique
         fields = ['typeexamen','resultatmodalite','unite', 'resultatnumerique','prix' ,'consultation']
+
+class Notification(models.Model):
+    customUser = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    date_heure_assignation = models.DateTimeField()
+    date_heure_notification = models.DateTimeField(auto_now_add=True)
+
 #fin class avec cle secondaire
 # Create your models here.

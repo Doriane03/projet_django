@@ -35,102 +35,169 @@
             <input  type="date" name="datesortie" >
         </div>
 
-        <div class="divsortie" >
-            
-            <label  id="lab"> Motif de sortie</label>
-                <div class="form-check form-check-inline" style=" margin-right: 20px;">
-                    <input type="radio"  name="motifsortie"  value="décès"   onclick="sortie()" class="form-check-input" id="exampleRadios1"/>
-                    <label class="form-check-label" for="exampleRadios1">décès</label>
+            <div class="divsortie" >
+                
+                    <label  id="lab"> Motif de sortie</label>
+                    <div class="form-check form-check-inline" style=" margin-right: 20px;">
+                        <input type="radio"  name="motifsortie"  value="décès"   onclick="sortie()" class="form-check-input" id="exampleRadios1"/>
+                        <label class="form-check-label" for="exampleRadios1">décès</label>
+                    </div>
+
+                                    
+                    <div  class="form-check form-check-inline" id="presdiv7">
+                        <input type="radio"  name="motifsortie"  value="perdu de vue"   onclick="sortie()" class="form-check-input" id="exampleRadios2"/>
+                        <label class="form-check-label" for="exampleRadios2">perdu de vue</label>
+                            
+                    </div>
+
+                
+
+
+                    <div  class="form-check form-check-inline" id="presdiv9">
+                        <input type="radio"  name="motifsortie"  value="transfert de dossier"   onclick="sortie()" class="form-check-input" id="exampleRadios3"/>
+                        <label class="form-check-label"  for="exampleRadios3">transfert de dossier</label>
+                        
+                    </div>
+                        
+
+                    <div  class="form-check form-check-inline" id="presdiv8">
+                        <input type="radio"  name="motifsortie"  value="refus de suivi"   onclick="sortie()" class="form-check-input" id="exampleRadios4"/>
+                        <label class="form-check-label" for="exampleRadios4">refus de suivi</label>
+                    </div>
+    
+            </div>
+        <div>
+            <!--debut-->
+            <div class="test" id="motif4"> 
+                <div class="divsortie">
+                    <label  >Date de refus</label>
+                    <input  type="date" name="daterefus" >
                 </div>
 
-                                <div class="test" id="motif1"> 
-                                    <div class="divsortie">
-                                    <label>Date du décès</label>
-                                    <input  type="date" name="datedeces"/>
-                                    </div>
-
-                                    <div class="divsortie">
-                                        <label>lieu du décès</label>
-                                        <div  class="custom-control custom-radio" id="presdiv11">
-                                            <input type="radio"  name="lieudeces"  value="domicile"    class="custom-control-input" id="exampleRadios7" onclick="sortieautre()"/>
-                                            <label class="custom-control-label" for="exampleRadios7">domicile</label>
-                                        </div>
-
-                                        <div  class="custom-control custom-radio" id="presdiv10">
-                                            <input type="radio"  name="lieudeces"  value="centre de santé"    class="custom-control-input" id="exampleRadios8" onclick="sortieautre()"/>
-                                            <label class="custom-control-label" for="exampleRadios8">centre de santé</label>
-                                        </div>
-
-
-                                        <div  class="custom-control custom-radio" id="presdiv17">
-                                            <input type="radio"  name="lieudeces"  value="autre"    class="custom-control-input" id="exampleRadios20" onclick="sortieautre()"/>
-                                            <label class="custom-control-label" for="exampleRadios20">autre</label>
-                                        </div>
-                                        <div class="test" id="motif5">
-                                            <input  type="text" name="lieudeces"  placeholder"préciser"/>
-                                        </div>
-                                    </div>
-
-                                        <div  class="divsortie">
-                                            <label >cause du décès</label>
-                                            <input  type="text" name="causedudeces"/>
-                                        </div>
-
-                                    <div class="divsortie">
-                                        <label>décès lié a l'hépatite </label>
-                                        <div  class="custom-control custom-radio" id="presdiv12">
-                                            <input type="radio"  name="decesliea"  value="oui"    class="custom-control-input" id="exampleRadios5"/>
-                                            <label class="custom-control-label" for="exampleRadios5">oui</label>
-                                        </div>
-
-                                        <div  class="custom-control custom-radio" id="presdiv13">
-                                            <input type="radio"  name="decesliea"  value="non"    class="custom-control-input" id="exampleRadios6"/>
-                                            <label class="custom-control-label" for="exampleRadios6">non</label>
-                                        </div>
-                                    </div>
-                                </div>
-
-            <div  class="form-check form-check-inline" id="presdiv7">
-                <input type="radio"  name="motifsortie"  value="perdu de vue"   onclick="sortie()" class="form-check-input" id="exampleRadios2"/>
-                <label class="form-check-label" for="exampleRadios2">perdu de vue</label>
-                    
-            </div>
-            <div class="test" id="motif2"> 
                 <div class="divsortie">
-                    <label  >Date dernière visite</label>
+                    <label  >Date de dernière visite</label>
                     <input  type="date" name="datedernierevisite" >
                 </div>
 
+                <div  class="divsortie">
+                    <label >Raison notifiée</label>
+                    <input  type="text" name="raison" >
+                </div>
+            </div>
+            <!--fin-->
+            <div class="test" id="motif3"> 
                 <div class="divsortie">
-                    <label  >Date dernière relance</label>
-                    <input  type="date" name="datederniererelance" >
+                    <label  >Date de transfert</label>
+                    <input  type="date" name="datedetransfert" >
+                </div> 
+
+                <div  class="divsortie">
+                    <label >Raison</label>
+                    <input  type="text" name="raison" >
+                </div>
+
+                <div  class="divsortie">
+                    <label >Nouveau centre de suivi</label>
+                    <input  type="text" name="nouveaucentredesuivi" >
                 </div>
 
 
+                <div  class="divsortie">
+                    <label >Numéro de dossier dans le centre de transfert</label>
+                    <input  type="text" name="numerodedossierdanslecentredetransfert" >
+                </div>
+                
+            </div>
 
 
 
-                <div class="divsortie">
-                    <label>Type de relance</label>
-
-                    <div  class="custom-control custom-radio" id="presdiv12">
-                        <input type="radio"  name="typederelance"  value=" Visite à domicile"    class="custom-control-input" id="exampleRadios9"/>
-                        <label class="custom-control-label" for="exampleRadios9">Visite à domicile</label>
-                    </div>
-
-                    <div  class="custom-control custom-radio" id="presdiv11">
-                        <input type="radio"  name="typederelance"  value="Entretien au téléphone"    class="custom-control-input" id="exampleRadios10"/>
-                        <label class="custom-control-label" for="exampleRadios10">Entretien au téléphone</label>
-                    </div>
 
 
-                    <div  class="custom-control custom-radio" id="presdiv13">
-                        <input type="radio"  name="typederelance"  value="Personne contact"    class="custom-control-input" id="exampleRadios11"/>
-                        <label class="custom-control-label" for="exampleRadios11">Personne contact</label>
-                    </div>
+
+
+        <!--debut-->
+        </div> <div class="test" id="motif1"> 
+            <div class="divsortie">
+            <label>Date du décès</label>
+            <input  type="date" name="datedeces"/>
+            </div>
+
+            <div class="divsortie">
+                <label>lieu du décès</label>
+                <div  class="custom-control custom-radio" id="presdiv11">
+                    <input type="radio"  name="lieudeces"  value="domicile"    class="custom-control-input" id="exampleRadios7" onclick="sortieautre()"/>
+                    <label class="custom-control-label" for="exampleRadios7">domicile</label>
                 </div>
 
-                <div class="divsortie">
+                <div  class="custom-control custom-radio" id="presdiv10">
+                    <input type="radio"  name="lieudeces"  value="centre de santé"    class="custom-control-input" id="exampleRadios8" onclick="sortieautre()"/>
+                    <label class="custom-control-label" for="exampleRadios8">centre de santé</label>
+                </div>
+
+
+                <div  class="custom-control custom-radio" id="presdiv17">
+                    <input type="radio"  name="lieudeces"  value="autre"    class="custom-control-input" id="exampleRadios20" onclick="sortieautre()"/>
+                    <label class="custom-control-label" for="exampleRadios20">autre</label>
+                </div>
+                <div class="test" id="motif5">
+                    <input  type="text" name="lieudeces"  placeholder"préciser"/>
+                </div>
+            </div>
+
+                <div  class="divsortie">
+                    <label >cause du décès</label>
+                    <input  type="text" name="causedudeces"/>
+                </div>
+
+            <div class="divsortie">
+                <label>décès lié a l'hépatite </label>
+                <div  class="custom-control custom-radio" id="presdiv12">
+                    <input type="radio"  name="decesliea"  value="oui"    class="custom-control-input" id="exampleRadios5"/>
+                    <label class="custom-control-label" for="exampleRadios5">oui</label>
+                </div>
+
+                <div  class="custom-control custom-radio" id="presdiv13">
+                    <input type="radio"  name="decesliea"  value="non"    class="custom-control-input" id="exampleRadios6"/>
+                    <label class="custom-control-label" for="exampleRadios6">non</label>
+                </div>
+            </div>
+        </div>
+        <!--fin-->
+            
+
+        <div class="test" id="motif2"> 
+            <div class="divsortie">
+                <label  >Date dernière visite</label>
+                <input  type="date" name="datedernierevisite" >
+            </div>
+
+            <div class="divsortie">
+                <label  >Date dernière relance</label>
+                <input  type="date" name="datederniererelance" >
+            </div>
+
+
+            <div class="divsortie">
+                <label>Type de relance</label>
+
+                <div  class="custom-control custom-radio" id="presdiv12">
+                    <input type="radio"  name="typederelance"  value=" Visite à domicile"    class="custom-control-input" id="exampleRadios9"/>
+                    <label class="custom-control-label" for="exampleRadios9">Visite à domicile</label>
+                </div>
+
+                <div  class="custom-control custom-radio" id="presdiv11">
+                    <input type="radio"  name="typederelance"  value="Entretien au téléphone"    class="custom-control-input" id="exampleRadios10"/>
+                    <label class="custom-control-label" for="exampleRadios10">Entretien au téléphone</label>
+                </div>
+
+
+                <div  class="custom-control custom-radio" id="presdiv13">
+                    <input type="radio"  name="typederelance"  value="Personne contact"    class="custom-control-input" id="exampleRadios11"/>
+                    <label class="custom-control-label" for="exampleRadios11">Personne contact</label>
+                </div>
+            </div>
+
+            <div class="divsortie">
                     <label>Type de nouvelle</label>
                     <div  class="custom-control custom-radio" id="presdiv16">
                         <input type="radio"  name="typedenouvelle"  value="Patient a été vu"    class="custom-control-input" id="exampleRadios12"/>
@@ -158,70 +225,9 @@
             </div>
 
 
-
-
-            <div  class="form-check form-check-inline" id="presdiv9">
-                <input type="radio"  name="motifsortie"  value="transfert de dossier"   onclick="sortie()" class="form-check-input" id="exampleRadios3"/>
-                <label class="form-check-label"  for="exampleRadios3">transfert de dossier</label>
-                   
-            </div>
-                    <div class="test" id="motif3"> 
-                        <div class="divsortie">
-                            <label  >Date de transfert</label>
-                            <input  type="date" name="datedetransfert" >
-                        </div> 
-
-                        <div  class="divsortie">
-                            <label >Raison</label>
-                            <input  type="text" name="raison" >
-                        </div>
-
-                        <div  class="divsortie">
-                            <label >Nouveau centre de suivi</label>
-                            <input  type="text" name="nouveaucentredesuivi" >
-                        </div>
-
-
-                        <div  class="divsortie">
-                            <label >Numéro de dossier dans le centre de transfert</label>
-                            <input  type="text" name="numerodedossierdanslecentredetransfert" >
-                        </div>
-                        
-                    </div>
-
-
-
-            <div  class="form-check form-check-inline" id="presdiv8">
-                <input type="radio"  name="motifsortie"  value="refus de suivi"   onclick="sortie()" class="form-check-input" id="exampleRadios4"/>
-                <label class="form-check-label" for="exampleRadios4">refus de suivi</label>
-            </div>
-
-
-
-            <div class="test" id="motif4"> 
-                <div class="divsortie">
-                    <label  >Date de refus</label>
-                    <input  type="date" name="daterefus" >
-                </div>
-
-                <div class="divsortie">
-                    <label  >Date de dernière visite</label>
-                    <input  type="date" name="datedernierevisite" >
-                </div>
-
-                <div  class="divsortie">
-                    <label >Raison notifiée</label>
-                    <input  type="text" name="raison" >
-                </div>
-            </div>
-            
-        </div>
-
-        <div>
-
         <div class="divsortie">
         <label>Observation</label>
-        <textarea name="commentaire" placeholder="Observation" rows="10" cols="50"></textarea>
+        <textarea name="commentaire" placeholder="Observation" rows="5" cols="30"></textarea>
         </div>
        
 

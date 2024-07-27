@@ -3,22 +3,202 @@
 <center>
 <form method="post" action="" class="formcontenu">
 <div>
-<nav class="divcontenunav">facture</nav>
+<nav class="divcontenunav">Antécédents familial</nav>
 </div>
+
+
     {% csrf_token %}
     <fieldset>
-        <input type="text"  placeholder="numero de la facture" name="numerofact" class="inputcontenu"/>
-        <input type="text"  placeholder="mode de paiment" name="modepaiment" class="inputcontenu"/>
-        <input type="text"  placeholder="montant paye" name="montantpaye" class="inputcontenu"/>
-        <input type="text"  placeholder="nom  du patient patient" name="patient" class="inputcontenu"/>
+            <div>
+                <label  class="form-check-label" style="margin-right:120px,font-size:16,color:black">Ascendants</label>
+            <div>
+                <label  class="form-check-label" style="margin-right:120px">hepatie_vir_ASC</label>
+                <div class="form-check form-check-inline" style="margin-right:50px">
+                    <input class="form-check-input" type="radio" name="hepatie_vir_ASC" id="inlineRadio1" value="oui"/>
+                    <label class="form-check-label" for="inlineRadio1">oui</label>
+                </div>
+                <div class="form-check form-check-inline" style="margin-right:50px">
+                    <input class="form-check-input" type="radio" name="hepatie_vir_ASC" id="inlineRadio2" value="non"/>
+                    <label class="form-check-label" for="inlineRadio2">non</label>
+                </div>
+                <div class="form-check form-check-inline" style="margin-right:50px">
+                    <input class="form-check-input" type="radio" name="hepatie_vir_ASC" id="inlineRadio3" value="ne sait pas"/>
+                    <label class="form-check-label" for="inlineRadio3">ne sait pass</label>
+                </div>
+            </div>
+    
+    
+            <div class="p-2 g-col-6">
+                <label  class="form-check-labe" style="margin-right:146px">cirrhose_ASC</label> 
+                 <div class="form-check form-check-inline" style="margin-right:50px">
+                     <input class="form-check-input" type="radio" name="cirrhose_ASC" id="inlineRadio4" value="oui"/>
+                     <label class="form-check-label" for="inlineRadio4">oui</label>
+                 </div>
+                 <div class="form-check form-check-inline" style="margin-right:50px">
+                     <input class="form-check-input" type="radio" name="cirrhose_ASC" id="inlineRadio5" value="non"/>
+                     <label class="form-check-label" for="inlineRadio5">non</label>
+                 </div>
+                 <div class="form-check form-check-inline" style="margin-right:50px">
+                     <input class="form-check-input" type="radio" name="cirrhose_ASC" id="inlineRadio6" value="ne sait pas"/>
+                     <label class="form-check-label" for="inlineRadio6">ne sait pass</label>
+                 </div>
+             </div>
+    
+             <div class="p-2 g-col-6" >
+                <label  class="form-check-label" style="margin-right:160px">cpf_ASC</label> 
+                 <div class="form-check form-check-inline" style="margin-right:50px">
+                     <input class="form-check-input" type="radio" name="cpf_ASC" id="inlineRadio22" value="oui">
+                     <label class="form-check-label" for="inlineRadio22">oui</label>
+                 </div>
+                 <div class="form-check form-check-inline" style="margin-right:50px">
+                     <input class="form-check-input" type="radio" name="cpf_ASC" id="inlineRadio23" value="non">
+                     <label class="form-check-label" for="inlineRadio23">non</label>
+                 </div>
+                 <div class="form-check form-check-inline" style="margin-right:50px">
+                     <input class="form-check-input" type="radio" name="cpf_ASC" id="inlineRadio24" value="ne sait pas">
+                     <label class="form-check-label" for="inlineRadio24">ne sait pass</label>
+                 </div>
+             </div>
+             
+            </div>
+            
 
-        <input type="text"  placeholder="duree du sejour" name="duree_sejour" class="inputcontenu"/>
-        <input type="text"  placeholder="cout du sejour" name="cout_sejour" class="inputcontenu"/>
-        <input type="text"  placeholder="remboursement" name="remboursement" class="inputcontenu"/>
-        <input type="text"  placeholder="reste a payer" name="rest_a_payer" class="inputcontenu"/>
-        <input type="text"  placeholder="date de versement" name="date_versement" class="inputcontenu"/>
+            <div>
+                <label  class="form-check-label" style="margin-right:120px">Descendants</label>
+             <div class="p-2 g-col-6" >
+                <label  class="form-check-label" style="margin-right:150px">hepatie_vir_DSC</label> 
+                 <div class="form-check form-check-inline" style="margin-right:50px">
+                     <input class="form-check-input" type="radio" name="hepatie_vir_DSC" id="inlineRadio25" value="oui">
+                     <label class="form-check-label" for="inlineRadio25">oui</label>
+                 </div>
+                 <div class="form-check form-check-inline" style="margin-right:50px">
+                     <input class="form-check-input" type="radio" name="hepatie_vir_DSC" id="inlineRadio26" value="non">
+                     <label class="form-check-label" for="inlineRadio26">non</label>
+                 </div>
+                 <div class="form-check form-check-inline" style="margin-right:50px">
+                     <input class="form-check-input" type="radio" name="hepatie_vir_DSC" id="inlineRadio27" value="ne sait pas">
+                     <label class="form-check-label" for="inlineRadio27">ne sait pass</label>
+                 </div>
+             </div>
+    
+             <div  class="p-2 g-col-6">
+                <label  class="form-check-label" style="margin-right:96px">cirrhose_DSC</label> 
+                 <div class="form-check form-check-inline" style="margin-right:50px" >
+                     <input class="form-check-input" type="radio" name="cirrhose_DSC" id="inlineRadio7" value="oui" onclick="antecedantmedical()"/>
+                     <label class="form-check-label" for="inlineRadio7">oui</label>
+                 </div>
+                 <div class="form-check form-check-inline" style="margin-right:50px">
+                     <input class="form-check-input" type="radio" name="cirrhose_DSC" id="inlineRadio8" value="non" onclick="antecedantmedical()"/>
+                     <label class="form-check-label" for="inlineRadio8">non</label>
+                 </div>
+                 <div class="form-check form-check-inline" style="margin-right:50px">
+                     <input class="form-check-input" type="radio" name="cirrhose_DSC" id="inlineRadio9" value="ne sait pas" onclick="antecedantmedical()"/>
+                     <label class="form-check-label" for="inlineRadio9">ne sait pass</label>
+                 </div>
+    
+                 <div class="test" id="affich1">
+                        <label>Date de l'hépatite</label>
+                        <input  type="date" name="datehepvirb" id="datehepvirb"/>
+                </div>
+    
+             </div>
+    
+    
+             <div  class="p-2 g-col-6">
+                <label  class="form-check-label" style="margin-right:96px"> cpf_DSC</label> 
+                 <div class="form-check form-check-inline" style="margin-right:50px">
+                     <input class="form-check-input" type="radio" name="cpf_DSC" id="inlineRadio10" value="oui" onclick="antecedantmedical()"/>
+                     <label class="form-check-label" for="inlineRadio10">oui</label>
+                 </div>
+                 <div class="form-check form-check-inline" style="margin-right:50px">
+                     <input class="form-check-input" type="radio" name="cpf_DSC" id="inlineRadio11" value="non" onclick="antecedantmedical()"/>
+                     <label class="form-check-label" for="inlineRadio11">non</label>
+                 </div>
+                 <div class="form-check form-check-inline" style="margin-right:50px">
+                     <input class="form-check-input" type="radio" name="cpf_DSC" id="inlineRadio12" value="ne sait pas" onclick="antecedantmedical()"/> 
+                     <label class="form-check-label" for="inlineRadio12">ne sait pass</label>
+                 </div>
+    
+                 <div class="test" id="affich2">
+                        <label>Date de l'hépatite</label>
+                        <input  type="date" name="datehepvirc" id="datehepvirc"/>
+                </div>
+    
+             </div>
+    
+            </div>
 
-            <input type="text"  name="date" class="inputcontenu"  id="dateInput" readonly />
+            <div>
+                <label  class="form-check-label" style="margin-right:120px">Collatéraux</label>
+             <div class="p-2 g-col-6">
+                <label  class="form-check-label" style="margin-right:96px"> hepatie_vir_COL</label> 
+                 <div class="form-check form-check-inline" style="margin-right:50px">
+                     <input class="form-check-input" type="radio" name="hepatie_vir_COL" id="inlineRadio13" value="oui" onclick="antecedantmedical()"/>
+                     <label class="form-check-label" for="inlineRadio13">oui</label>
+                 </div>
+                 <div class="form-check form-check-inline" style="margin-right:50px">
+                     <input class="form-check-input" type="radio" name="hepatie_vir_COL" id="inlineRadio14" value="non" onclick="antecedantmedical()"/>
+                     <label class="form-check-label" for="inlineRadio14">non</label>
+                 </div>
+                 <div class="form-check form-check-inline" style="margin-right:50px">
+                     <input class="form-check-input" type="radio" name="hepatie_vir_COL" id="inlineRadio15" value="ne sait pas" onclick="antecedantmedical()"/>
+                     <label class="form-check-label" for="inlineRadio15">ne sait pass</label>
+                 </div>
+    
+                 <div class="test" id="affich3">
+                        <label>Date de l'hépatite</label>
+                        <input  type="date" name="datehepvird" id="datehepvird"/>
+                </div>
+    
+             </div>
+    
+    
+             <div class="p-2 g-col-6">
+                <label  class="form-check-label" style="margin-right:96px">cirrhose_COL</label> 
+                 <div class="form-check form-check-inline" style="margin-right:50px">
+                     <input class="form-check-input" type="radio" name="cirrhose_COL" id="inlineRadio16" value="oui" onclick="antecedantmedical()"/>
+                     <label class="form-check-label" for="inlineRadio16">oui</label>
+                 </div>
+                 <div class="form-check form-check-inline" style="margin-right:50px">
+                     <input class="form-check-input" type="radio" name="cirrhose_COL" id="inlineRadio17" value="non" onclick="antecedantmedical()"/>
+                     <label class="form-check-label" for="inlineRadio17">non</label>
+                 </div>
+                 <div class="form-check form-check-inline" style="margin-right:50px">
+                     <input class="form-check-input" type="radio" name="cirrhose_COL" id="inlineRadio18" value="ne sait pas" onclick="antecedantmedical()"/>
+                     <label class="form-check-label" for="inlineRadio18">ne sait pass</label>
+                 </div>
+    
+                 <div class="test" id="affich4">
+                        <label>Nombre de dose</label>
+                        <input  type="text" name="dosevhb" id="dosevhb"/>
+                </div>
+    
+             </div>
+    
+    
+    
+             <div class="p-2 g-col-6">
+                <label  class="form-check-label" style="margin-right:96px">cpf_COL</label> 
+                 <div class="form-check form-check-inline" style="margin-right:50px">
+                     <input class="form-check-input" type="radio" name="cpf_COL" id="inlineRadio19" value="oui" onclick="antecedantmedical()"/>
+                     <label class="form-check-label" for="inlineRadio19">oui</label>
+                 </div>
+                 <div class="form-check form-check-inline" style="margin-right:50px">
+                     <input class="form-check-input" type="radio" name="cpf_COL" id="inlineRadio20" value="non" onclick="antecedantmedical()"/>
+                     <label class="form-check-label" for="inlineRadio20">non</label>
+                 </div>
+                 <div class="form-check form-check-inline" style="margin-right:50px">
+                     <input class="form-check-input" type="radio" name="cpf_COL" id="inlineRadio21" value="ne sait pas" onclick="antecedantmedical()"/>
+                     <label class="form-check-label" for="inlineRadio21">ne sait pass</label>
+                 </div>
+                 <div class="test" id="affich5">
+                        <label>Nombre de dose</label>
+                        <input  type="text" name="dosevha" id="dosevha"/>
+                </div>
+    
+             </div>
+            </div>
+                <input  type="text" name="patient" value="{{patient_id1}}"/>             
     </fieldset>
     <input type="submit"  name="validepatient"  value="Enregistrer" class="btn btn-primary"/>
 </form>

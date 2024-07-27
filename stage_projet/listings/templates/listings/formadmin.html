@@ -8,10 +8,37 @@
 </div>
     {% csrf_token %}
     <fieldset class="fieldsetgd">
-            <input type="text"   placeholder="nom" name="nom" class="inputcontenu"/>
-            <input type="password"   placeholder="mot de passe" name="mdp" class="inputcontenu"/>
-            <input type="tel" placeholder="contact" name="contact" class="inputcontenu"/>
-            <input type="email"   placeholder="email" name="email" class="inputcontenu"/>
+
+        <div class="divsortie">
+            <label >Nom</label>
+            <input type="text"   placeholder="nom" name="nom" />
+        </div>
+
+        <div class="divsortie">
+            <label >Email</label>
+            <input type="email"   placeholder="email" name="email"/>
+        </div>
+
+        <div class="divsortie">
+            <label >Contact</label>
+            <input type="tel"  minlength="10" maxlength="10" pattern="[0-9]{10}" placeholder="contact" name="contact" />
+        </div>
+
+        
+        <div class="divsortie">
+            <label >Mot de passe</label>
+            <input type="password"   placeholder="mot de passe" name="mdp" />
+        </div>
+
+        <div class="divsortie">
+            <label >Fonction</label>
+            <select name="type_personnel_soignant" required>
+                <option >choisir la fonction</option>
+                 {% for type_personnel_soignant in type_personnel_soignants %}
+                    <option value="{{type_personnel_soignant.idpersoignant}}">{{type_personnel_soignant.nompersog}}</option>
+                 {% endfor %}
+            </select>
+        </div>
 
             <div class="divsortie">
             <label >service</label>
@@ -24,15 +51,7 @@
             </select>
             </div>
 
-            <div class="divsortie">
-                <label >fonction</label>
-                <select name="type_personnel_soignant" required>
-                    <option >choisir la fonction</option>
-                     {% for type_personnel_soignant in type_personnel_soignants %}
-                        <option value="{{type_personnel_soignant.idpersoignant}}">{{type_personnel_soignant.nompersog}}</option>
-                     {% endfor %}
-                </select>
-            </div>
+            
     </fieldset>
     <input type="submit"  name="ceercompte"  value="CREER LE COMPTE" class="btn btn-primary"/>
 </form>

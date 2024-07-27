@@ -8,9 +8,14 @@
 <nav class="divcontenunav">bilan imagerie</nav>
 </div>
     <fieldset>
+        <div class="divsortie">
+            <label for="num" >Image</label>
         <input type="file"   placeholder="image" name="echographie_ou_radiograpgie" class="inputcontenu"  accept="image/*" required/>
-
-        <textarea name="renseignementclinique" placeholder="renseignement clinique" class="inputcontenu" rows="4" cols="50"></textarea>   
+        </div>
+        <div class="divsortie">
+            <label for="num" >Renseignement clinique</label>
+        <textarea name="renseignementclinique" placeholder="renseignement clinique"  rows="4" cols="50"></textarea>
+        </div>   
     </fieldset>
     <input type="submit"  name="validbilanimg"  value="Enregister" class="btn btn-primary"/>
 </form>

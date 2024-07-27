@@ -50,6 +50,7 @@ urlpatterns = [
     path ('antecedantmedical',views.antecedantmedical,name='antecedantmedical'),
     path ('antecedantchirurgical',views.antecedantchirurgical,name='antecedantchirurgical'),
     path ('antecedantgenecologique',views.antecedantgenecologique,name='antecedantgenecologique'),
+    path ('antecedantfamilial',views.antecedantfamilial,name='antecedantfamilial'),
     path ('sortie_patient',views.sortie_patient,name='sortie_patient'),
     path ('adminform',views.adminform,name='adminform'),
     path ('modificationmdp',views.modificationmdp,name='modificationmdp'),
