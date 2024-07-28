@@ -22,7 +22,7 @@ MEDIA_ROOT = os.path.join('/root', 'Desktop', 'ARCHIVE_DOC_PAT')
 
 env = environ.Env()
 environ.Env.read_env()
-LOGIN_URL = '/'
+LOGIN_URL = 'login'
 #LOGOUT_URL = '/'  # URL pour la déconnexion
 LOGIN_REDIRECT_URL = 'menu'  # URL de redirection après connexion réussie
 LOGOUT_REDIRECT_URL = '/'

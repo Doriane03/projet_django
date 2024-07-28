@@ -60,7 +60,10 @@ from django.contrib.auth.decorators import login_required
 #pour ma bd
 #recuperation de donnees
 #fin
-@login_required(login_url="/")
+@login_required
+def patient(request):
+    return render(request, 'listings/index.html')
+@login_required
 def patient(request):
     lits = Lit.objects.all()
     medecin_type = Type_personnel_soignant.objects.get(nompersog='MEDECIN')
@@ -97,7 +100,7 @@ def patient(request):
 
 
 #fin
-@login_required(login_url="/")
+@login_required
 def constante(request):#fais
     if request.method == "POST":
         form = ConstanteForm(request.POST)
@@ -125,7 +128,7 @@ def constante(request):#fais
 
 
 # views.py
-@login_required(login_url="/")
+@login_required
 def consultation(request):#fais
     message = ''
     dossier_nom = 'kouadio marie'
@@ -164,7 +167,7 @@ def consultation(request):#fais
     return render(request, 'listings/formconsultation.html', context={'message': message, 'patient_id': patient_id})
 
 
-@login_required(login_url="/")
+@login_required
 def diagnostique(request):#fais
     if request.method=='POST':
         form = DiagnostiqueForm(request.POST)
@@ -179,7 +182,7 @@ def diagnostique(request):#fais
     return render(request,'listings/formdiagnostiaue.html',context={'message': message,'form.errors':form.errors})
 
 
-@login_required(login_url="/")
+@login_required
 def antecedantmedical(request):#fais
     patient = Patient.objects.get(nom="kouadio marie")
     patient_id1 = patient.idpatient
@@ -197,7 +200,7 @@ def antecedantmedical(request):#fais
 
 
 
-@login_required(login_url="/")
+@login_required
 def antecedantchirurgical(request): #fais
     patient = Patient.objects.get(nom="kouadio marie")
     patient_id1 = patient.idpatient
@@ -213,7 +216,7 @@ def antecedantchirurgical(request): #fais
             return render(request,'listings/formantchirurgical.html',context={'message': message,'form.errors':form.errors})
     return render(request, 'listings/formantchirurgical.html',{"patient_id1":patient_id1})
 
-@login_required(login_url="/") 
+@login_required 
 def sortie_patient(request):#fais maisje dois faire une modification pour inserer l'id du patient dans son modele
     if request.method == 'POST':
         patient_name = request.POST.get('nom')
@@ -227,7 +230,7 @@ def sortie_patient(request):#fais maisje dois faire une modification pour insere
     else:
         return render(request, 'listings/formsortie.html')
 
-@login_required(login_url="/")
+@login_required
 def modificationmdp(request):#fais
     customUsers = CustomUser.objects.all()
     user = None
@@ -262,7 +265,7 @@ def modificationmdp(request):#fais
 
 
 
-@login_required(login_url="/")
+@login_required
 def adminform(request):#fais
     services = Service.objects.all()
     type_personnel_soignants = Type_personnel_soignant.objects.all()
@@ -304,31 +307,31 @@ def adminform(request):#fais
 
     return render(request, 'listings/formadmin.html', context={'services': services, 'type_personnel_soignants': type_personnel_soignants})
 
-@login_required(login_url="/")
+@login_required
 def bilanimg(request): #fais
     return render(request,'listings/formbilanimg.html')
 
 
-@login_required(login_url="/")
+@login_required
 def bilanbio(request):
     return render(request,'listings/bilanbio.html')
 
 
-@login_required(login_url="/")
+@login_required
 def tableauconsultation(request):
     notifications = Notification.objects.filter(customUser=request.user).order_by('date_heure_notification')
     return render(request,'listings/tableauconsultation.html',{'notifications': notifications})
 
 
-@login_required(login_url="/")
+@login_required
 def chart(request):
     return render(request,'listings/chart.html')
 
-@login_required(login_url="/")
+@login_required
 def menu(request):
     return render(request,'listings/chart.html')
 
-@login_required(login_url="/") 
+@login_required 
 def antecedantgenecologique(request):#fais
     patient = Patient.objects.get(nom="kouadio marie")
     patient_id1 = patient.idpatient
@@ -344,18 +347,18 @@ def antecedantgenecologique(request):#fais
             return render(request,'listings/formantgynecologique.html',context={'message': message,'form.errors':form.errors})
     return render(request, 'listings/formantgynecologique.html',{"patient_id1":patient_id1})
 
-@login_required(login_url="/")
+@login_required
 def ordonnance(request):
     Medicaments=Medicament.objects.all()
     return render(request,'listings/formordonnance.html',context={'Medicaments':Medicaments})
 
 
-@login_required(login_url="/")
+@login_required
 def facture(request):
     return render(request,'listings/formfacture.html')
 
 
-@login_required(login_url="/")
+@login_required
 def antecedantfamilial(request):#fais
     patient = Patient.objects.get(nom="kouadio marie")
     patient_id1 = patient.idpatient
