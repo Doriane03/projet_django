@@ -17,6 +17,12 @@
         {% if message %}
         <p>{{ message }}</p>
         {% endif %}
+
+        <div class="divsortie">
+            <label for="num">Numéro du patient</label>
+            <input type="text" placeholder="Numéro du patient" name="numeropatient" id="num" class="inputcontenu" required/>
+        </div>
+
         <div class="divsortie">
                 <label for="medecins">medecins</label>
                 <select name="medecin" required>
@@ -29,19 +35,18 @@
 
         <div class="divsortie">
             <label for="lit">Numéro de lit</label>
-            <select name="lit" required>
+            <select name="numerodelit" required>
                 <option>Choisir un lit</option>
-                {% for lit in lits %}
-                <option value='{{ lit.reflit }}'>{{ lit.numlit }}-catégorie {{ lit.categorie.numcat }}</option>
-                {% endfor %}
+                <option value='1'>1</option>
+                <option value='2'>2</option>
+                <option value='3'>3</option>
+                <option value='4'>4</option>
+                
             </select>
         </div>
 
 
-        <div class="divsortie">
-            <label for="num" >Numéro du patient</label>
-            <input type="text" placeholder="Numéro du patient" name="numeropatient" pattern="[0-9/]*" id="num" class="inputcontenu" required/>
-        </div>
+        
         <div class="divsortie">
             <label for="nom" >Nom</label>
             <input type="text" placeholder="Nom" name="nom" id="nom" class="inputcontenu" required/>
@@ -58,10 +63,7 @@
             <label for="email" >Email</label>
             <input type="email" placeholder="Email" name="email" id="email" class="inputcontenu" required/>
         </div>
-        <div class="divsortie">
-            <label for="date_naissance" >Date de naissance</label>
-            <input type="date" name="date_naissance" id="date_naissance" class="inputcontenu" required/>  
-        </div>
+        
         <div class="divsortie">
             <label for="age" >Âge</label>
             <input type="text" placeholder="Âge" name="age" id="age" class="inputcontenu" required/>
@@ -111,13 +113,5 @@
     </fieldset>
     <input type="submit" name="validepatient" value="Enregistrer" class="btn btn-primary" required/>
 </form>
-
-<script>
-  document.getElementById('num').addEventListener('input', function (e) {
-    const value = e.target.value;
-    e.target.value = value.replace(/[^0-9/]/g, '');
-  });
-</script>
-
 </center>
 {% endblock %}

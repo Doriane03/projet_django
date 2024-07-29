@@ -1,4 +1,5 @@
 from sqlite3 import Date
+from django.utils import timezone
 from typing import __all__
 from django.db import models # type: ignore
 from django.forms import ModelForm # type: ignore
@@ -27,6 +28,7 @@ class Patient(models.Model): #modifie
     situation_matrimoniale=models.fields.CharField(max_length=100)
     nombre_enfant=models.fields.PositiveIntegerField(null=False)
     numerodelit= models.fields.PositiveIntegerField(null=False)
+    date= models.fields.DateTimeField(default=timezone.now) 
     def __str__(self):
         return f'{self.idpatient} {self.nom} {self.numeropatient} {self.contact1} {self.contact2} {self.profession} {self.email} {self.age} {self.sexe}  {self.personne_a_contacter}  {self.ville}  {self.commune} {self.quartier}{self.nationalite}  {self.nombre_enfant}  {self.situation_matrimoniale} {self.telephone_cpu} {self.numerodelit}'
 
@@ -139,7 +141,7 @@ class Antecedant_medical(models.Model):#modifie
     #)
     #autre=models.fields.CharField(max_length=10,choices=MAYBECHOICE17)
     precisionautre=models.fields.CharField(max_length=200,blank=True,null=True)
-    date= models.fields.DateTimeField(default=datetime.now)                                                                                
+    date= models.fields.DateTimeField(default=timezone.now)                                                                                
     patient=models.ForeignKey(Patient, on_delete=models.CASCADE)
     def __str__(self):
         return f'{self.refant} {self.dyslipidemie} {self.cirrhose}  {self.hepatiteviraleb} {self.datehepvirb} {self.hepatiteviralec}  {self.datehepvirc} {self.hepatiteviraled} {self.datehepvird} {self.vaccination_vhb} {self.dosevhb}  {self.vaccination_vha}  {self.dosevha} {self.transfusion_sanguine}   {self.ictere} {self.rapportsexuelnonprotege} {self.partageobjettoilette} {self.accidexposang} {self.toxicomanie} {self.diabete} {self.hta}  {self.transplanhepatique}  {self.precisionautre}  {self.date} {self.patient}'
@@ -163,7 +165,7 @@ class Antecedant_chirurgical(models.Model):#nouvel ajout
     )
     avp=models.fields.CharField(max_length=3,choices=MAYBECHOICE2)
     dateavp=models.fields.DateField(blank=True,null=True)
-    date= models.fields.DateTimeField(default=datetime.now)  
+    date= models.fields.DateTimeField(default=timezone.now)  
     patient=models.ForeignKey(Patient, on_delete=models.CASCADE)                                                                            
     def __str__(self):
         return f'{self.refantchir} {self.operachir} {self.datoperachir} {self.avp} {self.dateavp} {self.date} {self.patient}'
@@ -188,7 +190,7 @@ class Antecedant_genecologique(models.Model):#nouvel ajout
     )
     cesarienne=models.fields.CharField(max_length=3,choices=MAYBECHOICE2)
     datecesarienne=models.fields.DateField(blank=True,null=True)
-    date= models.fields.DateTimeField(default=datetime.now)    
+    date= models.fields.DateTimeField(default=timezone.now)    
     patient=models.ForeignKey(Patient, on_delete=models.CASCADE)                                                                                 
     def __str__(self):
         return f'{self.refantgen} {self.datederniereregle} {self.gestite} {self.parite} {self.prisecontraceptif} {self.cesarienne} {self.datecesarienne} {self.date} {self.patient}' 
@@ -264,7 +266,7 @@ class Antecedant_familial(models.Model):#nouvel ajout
         ('ne sait pas','ne sait pas'),
     ) 
     cpf_COL=models.fields.CharField(max_length=11,choices=MAYBECHOICE9)
-    date= models.fields.DateTimeField(default=datetime.now) 
+    date= models.fields.DateTimeField(default=timezone.now) 
     patient=models.ForeignKey(Patient, on_delete=models.CASCADE)                                                                          
     def __str__(self):
         return f'{self.refantfam} {self.hepatie_vir_ASC} {self.cirrhose_ASC} {self.cpf_ASC} {self.hepatie_vir_DSC} {self.cirrhose_DSC} {self.cpf_DSC}  {self.hepatie_vir_COL} {self.cirrhose_COL} {self.cpf_COL}  {self.patient}'
@@ -296,7 +298,7 @@ class Service(models.Model):
         gastro_enterologie="gastro-entérologie"
         chirurgie="chirurgie"
     nomservice=models.fields.CharField(choices=typeservice.choices, max_length=100)
-    date= models.fields.DateTimeField(default=datetime.now)                                                                                
+    date= models.fields.DateTimeField(default=timezone.now)                                                                                
     Chu=models.ForeignKey(Chu, on_delete=models.CASCADE)
     def __str__(self):
         return f'{self.refservice} {self.nomservice} {self.date} {self.Chu}' 
@@ -306,7 +308,7 @@ class Service(models.Model):
 class Type_personnel_soignant(models.Model):
     idpersoignant=models.fields.AutoField(primary_key=True)
     nompersog=models.fields.CharField(max_length=100)
-    date= models.fields.DateTimeField(default=datetime.now)                                                                                
+    date= models.fields.DateTimeField(default=timezone.now)                                                                                
     def __str__(self):
         return f'{self.idpersoignant} {self.nompersog} {self.date}'
     
@@ -316,7 +318,7 @@ class CustomUser(AbstractUser):
     nom=models.fields.CharField(max_length=100, null=True, blank=True,unique=True)
     contact=models.fields.PositiveIntegerField(null=True, blank=True)
     email=models.fields.EmailField(max_length = 254, null=True, blank=True,unique=True)
-    date= models.fields.DateTimeField(default=datetime.now, null=True, blank=True)                                                                                
+    date= models.fields.DateTimeField(default=timezone.now, null=True, blank=True)                                                                                
     service=models.ForeignKey(Service, on_delete=models.CASCADE, null=True, blank=True)
     type_personnel_soignant=models.ForeignKey(Type_personnel_soignant, on_delete=models.CASCADE, null=True, blank=True)
 
@@ -335,7 +337,7 @@ class Personnel_soignant(models.Model):
     nom=models.fields.CharField(max_length=100)
     contact=models.fields.PositiveIntegerField(null=False)
     email=models.fields.EmailField(max_length = 254)
-    date= models.fields.DateTimeField(default=datetime.now)                                                                                
+    date= models.fields.DateTimeField(default=timezone.now)                                                                                
     Service=models.ForeignKey(Service, on_delete=models.CASCADE)
     Type_personnel_soignant=models.ForeignKey(Type_personnel_soignant, on_delete=models.CASCADE)
     def __str__(self):
@@ -365,7 +367,7 @@ class Consultation(models.Model): #modifie
     serologie_retrovi=models.fields.CharField(max_length=3,choices=MAYBECHOICE,null=True, blank=True)
     transaminase=models.fields.CharField(max_length=3,choices=MAYBECHOICE,null=True, blank=True)
     histoiredemaladie=models.fields.CharField(max_length=254,null=True, blank=True)
-    date= models.fields.DateTimeField(default=datetime.now)                                                                                
+    date= models.fields.DateTimeField(default=timezone.now)                                                                                
     resultat=models.fields.CharField(max_length=254, null=True, blank=True)
     renseignementclinic=models.fields.CharField(max_length=254, null=True, blank=True)
     patient=models.ForeignKey(Patient, on_delete=models.CASCADE,null=False) 
@@ -382,7 +384,7 @@ class ConsultationForm(ModelForm):
 class Hospitalisation(models.Model):
     idhospitalisation=models.fields.AutoField(primary_key=True)
     service=models.ForeignKey(Service, on_delete=models.CASCADE) 
-    datehospitalisation= models.fields.DateTimeField(default=datetime.now)    
+    datehospitalisation= models.fields.DateTimeField(default=timezone.now)    
     consultation=models.ForeignKey(Consultation, on_delete=models.CASCADE)                                                                             
     def __str__(self):
         return f'{self.idhospitalisation} {self.service} {self.datehospitalisation} {self.consultation}'
@@ -442,7 +444,7 @@ class Facture(models.Model):
     remboursement=models.fields.CharField(max_length=100,null=True, blank=True)
     rest_a_payer=models.fields.CharField(max_length=100,null=True, blank=True)
     montantpaye=models.fields.PositiveIntegerField(null=False)
-    date= models.fields.DateTimeField(default=datetime.now)
+    date= models.fields.DateTimeField(default=timezone.now)
     patient=models.ForeignKey(Patient, on_delete=models.CASCADE)                                                                              
     def __str__(self):
         return f'{self.idfact} {self.numerofact} {self.montantpaye}  {self.caution_versee} {self.date_versement} {self.duree_sejour} {self.modepaiment} {self.cout_sejour} {self.remboursement} {self.rest_a_payer} {self.date} {self.patient}'
@@ -478,7 +480,7 @@ class Medicament(models.Model):#migration
         ('180 mg/semaine','180 mg/semaine'),
     )
     dosage=models.fields.CharField(max_length=100,choices=MAYBECHOICE2)
-    dateprescription= models.fields.DateTimeField(default=datetime.now)                                                                                
+    dateprescription= models.fields.DateTimeField(default=timezone.now)                                                                                
     def __str__(self):
         return f'{self.idmedicament} {self.nommedicament} {self. dosage} {self.dateprescription}'
 

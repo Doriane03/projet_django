@@ -57,13 +57,8 @@ from django.contrib.auth.decorators import login_required
   
 #pour ma bd
 #recuperation de donnees
-#fin
 @login_required
 def patient(request):
-    return render(request, 'listings/index.html')
-@login_required
-def patient(request):
-    lits = Lit.objects.all()
     medecin_type = Type_personnel_soignant.objects.get(nompersog='MEDECIN')
     medecins = CustomUser.objects.filter(type_personnel_soignant=medecin_type)
     
@@ -84,14 +79,14 @@ def patient(request):
                         return render(request, 'listings/formconstante.html', context={'message': message, 'Patient_idpatient': patient.idpatient, 'medecins': medecins})
                 except Exception as e:
                     message = f'Échec de la création de la notification : {e}'
-                    return render(request, 'listings/formpatient.html', context={'message': message, 'lits': lits, 'medecins': medecins})
+                    return render(request, 'listings/formpatient.html', context={'message': message,'medecins': medecins})
             else:
                 message = 'Le médecin n\'a pas été sélectionné'
-                return render(request, 'listings/formpatient.html', context={'message': message, 'lits': lits, 'medecins': medecins})
+                return render(request, 'listings/formpatient.html', context={'message': message,'medecins': medecins})
         else:
-            return render(request, 'listings/formpatient.html', context={'lits': lits, 'medecins': medecins, 'form_errors': form.errors})
+            return render(request, 'listings/formpatient.html', context={'medecins': medecins, 'form_errors': form.errors})
     else:
-        return render(request, 'listings/formpatient.html', context={'lits': lits, 'medecins': medecins})
+        return render(request, 'listings/formpatient.html', context={'medecins': medecins})
 
 
 
@@ -128,7 +123,7 @@ def constante(request):#fais
 @login_required
 def consultation(request):#fais
     message = ''
-    dossier_nom = 'kouadio marie'
+    dossier_nom = 'kouadio josephine'
     patient = Patient.objects.get(nom=dossier_nom)
     patient_id = patient.idpatient
     request.session['patient_id']=patient_id
@@ -288,7 +283,7 @@ def adminform(request):#fais
                 service_id=service1,
                 type_personnel_soignant_id=type_personnel_soignant1
             )
-                new_user.save()
+            new_user.save()
         return redirect('chart')
 
     return render(request, 'listings/formadmin.html', context={'services': services, 'type_personnel_soignants': type_personnel_soignants})
