@@ -11,15 +11,11 @@
         <!-- Title -->
         <title>Connect - Responsive Admin Dashboard Template</title>
 
-
-
-
-<script>
-        
-      
-</script>
-
         <!-- Styles -->
+        
+
+
+
         <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900&display=swap" rel="stylesheet"/>
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700&display=swap" rel="stylesheet"/>
         <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet"/>
@@ -41,11 +37,7 @@
                         {% if user.type_personnel_soignant.nompersog == "INFIRMIERE" or user.type_personnel_soignant.nompersog == "INFIRMIER" %}
                                     <ul class="accordion-menu">
                                         <li>
-                                            <a href="#" ><i class="material-icons">search</i>Rechercher un dossier patient</a>
-                                        </li>
-
-                                        <li>
-                                            <a  href="#" class="active"><i class="material-icons-outlined">calendar_today</i>Rendez-vous</a>
+                                            <a  href="calendar.html" class="active"><i class="material-icons-outlined">calendar_today</i>Rendez-vous</a>
                                         </li>
 
                                         <li>
@@ -73,7 +65,7 @@
                                         </li>
             
                                         <li>
-                                            <a  href="#"><i class="material-icons-outlined">folder</i>Consulter un dossier patients</a>
+                                            <a  href="{% url 'docpatient' %}"><i class="material-icons-outlined">folder</i>Consulter un dossier patients</a>
                                            
                                         </li>
                                       
@@ -103,85 +95,18 @@
                                         <li>
                                             <a  href="{% url 'chart' %}" ><i class="material-icons-outlined">show_chart</i>Afficher le tableau de bord</a>
                                         </li>
-                                        
-                                        <li>
-                                            <a  href="{% url 'logout' %}" ><i class="material-icons">logout</i>Déconnexion</a>
-                                        </li>
 
                                         <li>
                                             <a  href="{% url 'disponibilite' %}" ><i class="material-icons-outlined">person-check</i>Médecin disponible cette semaine</a> <!--faire une requete pour afficher une liste de tous les medecins connectes-->
                                         </li>
 
                                         <li>
-                                            <a  href="{% url 'selection' %}" ><i class="material-icons-outlined">person-check</i>Ajouter des Médecin disponible cette semaine</a> <!--faire une requete pour afficher une liste de tous les medecins connectes-->
+                                            <a  href="{% url 'logout' %}" ><i class="material-icons">logout</i>Déconnexion</a>
                                         </li>
 
                                     </ul>
                             {% endif %}
                         {% endif %}
-
-
-                        <!--<ul class="accordion-menu">
-                           
-                            <li>
-                                <a href="{% url 'patient' %}">Patient</a>
-                            </li>
-
-                            <li>
-                                <a  href="{% url 'facture' %}" >Facture</a>
-                            </li>
-
-                            <li>
-                                <a  href="{% url 'consultation' %}">Consultation</a>
-                            </li>
-                            
-                            <li>
-                                <a  href="{% url 'ordonnance' %}">Ordonnance</a>
-                            </li>
-
-                            <li>
-                                <a  href="{% url 'antecedantmedical' %}">Antécédant Medical</a>
-                            </li>
-                            
-                            <li>
-                                <a  href="{% url 'antecedantchirurgical' %}">Antécédant Chirurgical</a>
-                            </li>
-
-
-                            <li>
-                                <a  href="{% url 'antecedantgenecologique' %}">Antécédant Gynécologique</a>
-                            </li>
-
-                            <li>
-                                <a  href="{% url 'modificationmdp' %}">Modifier un mot de passe</a>
-                            </li>
-
-                            <li>
-                                <a  href="{% url 'constante' %}">Constante</a>
-                            </li>
-
-                            
-                            <li>
-                                <a  href="{% url 'diagnostique' %}">Diagnostique</a>
-                            </li>
-
-                            <li>
-                                <a  href="{% url 'sortie_patient' %}">Sortie</a>
-                            </li>
-
-                            <li>
-                                <a  href="{% url 'bilanimg' %}">Bilan Imagérie</a>
-                            </li>
-
-                            <li>
-                                <a  href="{% url 'bilanbio' %}">Bilan Biologique</a>
-                            </li>
-
-                            <li>
-                                <a  href="{% url 'adminform' %}">Admin</a>
-                            </li>
-
-                        </ul>-->
                     </div>
                 </div>
                 <!--fin menu-->
@@ -205,11 +130,11 @@
                                 <!--profil image fin-->
                             </ul>
                              <!--rechercher-->
-                        <div class="collapse navbar-collapse" id="navbarNav"></div>
+                            <div class="collapse navbar-collapse" id="navbarNav"></div>
                             <div class="navbar-search">
                                 <form>
                                     <div class="form-group">
-                                        <input type="text" name="search" id="nav-search" placeholder="Search...">
+                                        <input type="text" id="nav-search"   name="query" value="{{ query }}" placeholder="Numéro du patient">
                                     </div>
                                 </form>
                             </div>
@@ -218,19 +143,7 @@
                         </nav>
                     
                     </div>
-                            <!--<div class="row">
-
-                                <div class="col-md-12">
-
-                                    <div class="page-title">
-
-                                        <p class="page-desc">Push notifications to your visitors with a toast, a lightweight and easily customizable alert message.</p>
-
-                                    </div>
-
-                                </div>
-
-                            </div>-->
+                           
                             <div class="row">
                                 <div class="col-xl">
                                     <div class="card1">
@@ -254,24 +167,13 @@
                                             {% block formantgynecologique %} {% endblock %}
                                             {% block formsortie %} {% endblock %}
                                             {% block formadmin %} {% endblock %}
+                                            {% block tableaudocpatient %}{% endblock %}
                                         
                                     </div>
                                 </div>
                             </div>
                         </div>
-                   <!--<div class="page-footer">
-
-                        <div class="row">
-
-                            <div class="col-md-12">
-
-                                <span class="footer-text">2019 © stacks</span>
-
-                            </div>
-
-                        </div>
-
-                    </div>-->
+                   
                 </div>
             </div>
         <!-- Javascripts -->
@@ -290,5 +192,6 @@
         <script src="{% static 'listings/assets/plugins/flot/jquery.flot.resize.min.js' %}"></script>
         <script src="{% static 'listings/assets/plugins/flot/jquery.flot.tooltip.min.js' %}"></script>
         <script src="{% static 'listings/assets/js/pages/dashboard.js' %}"></script>
+
     </body>
 </html>

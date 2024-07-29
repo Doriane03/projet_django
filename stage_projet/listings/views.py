@@ -123,7 +123,8 @@ def constante(request):#fais
 @login_required
 def consultation(request):#fais
     message = ''
-    dossier_nom = 'kouadio josephine'
+    patient_name = request.session.get('patient_name', 'Nom du patient non trouvé')
+    dossier_nom = patient_name
     patient = Patient.objects.get(nom=dossier_nom)
     patient_id = patient.idpatient
     request.session['patient_id']=patient_id
@@ -238,8 +239,6 @@ def modificationmdp(request):#fais
                 user = CustomUser.objects.get(refpersoignant=refpersoignant)
                 user.set_password(new_password)
                 user.save()
-                
-                # Mise à jour de la session pour éviter la déconnexion de l'utilisateur
                 update_session_auth_hash(request, user)
                 
                 success = True
@@ -359,16 +358,32 @@ def antecedantfamilial(request):#fais
 
 #apres
 
- 
-def selection(request):
-    medecins = Medecin.objects.all()
-    return render(request,'listings/tableaumeddispodelasemaine.html')
 
-
- 
+@login_required 
 def disponibilite(request):
-    return render(request,'listings/tableaumeddispodelasemaine.html')
+    try:
+        type_medecin = Type_personnel_soignant.objects.get(nompersog='MEDECIN')
+        medecins = CustomUser.objects.filter(type_personnel_soignant=type_medecin)
+    except Type_personnel_soignant.DoesNotExist:
+        medecins = CustomUser.objects.none()  # Aucun médecin trouvé
+        print(medecins)
+    return render(request, 'listings/tableaumeddispodelasemaine.html', {'medecins': medecins})
 
 
-def box(request):
+
+from django.shortcuts import render, get_object_or_404
+@login_required
+def box(request,patient_name):
+    print(patient_name)
+    patient = get_object_or_404(Patient, nom=patient_name)
+    request.session['patient_name'] = patient.nom
     return render(request,'listings/boxclick.html')
+
+@login_required
+def docpatient(request):
+    query = request.GET.get('query', '')
+    if query:
+        patients = Patient.objects.filter(numeropatient__icontains=query)
+    else:
+        patients = Patient.objects.all()
+    return render(request, 'listings/tableaudocpatient.html', {'patients': patients, 'query': query})

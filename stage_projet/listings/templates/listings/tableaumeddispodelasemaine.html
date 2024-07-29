@@ -1,27 +1,19 @@
 {% extends 'listings/template.html' %}
 {% block tableaudisponibilites %}
-
 <center>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/> 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
-
-  <div>
-    <h2><center>Javascript Fullcalendar</center></h2>
-    <div>
-      <div id="calendar"></div>
-    </div>
-    <br>
-  </div>
+<form method="post" action=""  class="formcontenu">
+   {% csrf_token %}
+   
+       {% for medecin in medecins %}
+          
+               <label>
+                   <input type="checkbox" name="medecins" value="{{ medecin.refpersoignant }}">{{ medecin.nom }}
+                   
+               </label><br/> 
+          
+       {% endfor %}
+   
+       <input  type="submit" name="ajouter" value="Valider" class="btn btn-primary"/ >
+</form>
 </center>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
-
-<script>
-  $(document).ready(function() {
-  $('#calendar').fullCalendar();
-  });
-</script>
-
 {% endblock %}

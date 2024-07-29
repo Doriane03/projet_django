@@ -41,7 +41,6 @@ urlpatterns = [
     #path ('affichefic',views.affichefic,name='affichefic'),
     path ('constante',views.constante,name='constante'),
     path ('disponibilite',views.disponibilite,name='disponibilite'),
-    path ('selection',views.selection,name='selection'),
     path ('chart',views.chart,name='chart'),
     path ('consultation',views.consultation,name='consultation'),
     path ('facture',views.facture,name='facture'),
@@ -56,8 +55,9 @@ urlpatterns = [
     path ('modificationmdp',views.modificationmdp,name='modificationmdp'),
     path ('bilanimg',views.bilanimg,name='bilanimg'), 
     path ('bilanbio',views.bilanbio,name='bilanbio'),
+    path ('docpatient',views.docpatient,name='docpatient'),
     path ('tableauconsultation',views.tableauconsultation,name='tableauconsultation'),
-    path ('box',views.box,name='box'),
+    path('box/<str:patient_name>/', views.box, name='box'),
      
     #menu
     #fin
