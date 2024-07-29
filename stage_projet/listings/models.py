@@ -20,10 +20,10 @@ class Lit(models.Model):
 class Patient(models.Model): #modifie
     idpatient=models.fields.AutoField(primary_key=True)
     nom=models.fields.CharField(max_length=255)
-    numeropatient=profession=models.fields.CharField(max_length=100)
+    numeropatient=models.fields.CharField(max_length=100,unique=True)
     contact1=models.fields.PositiveIntegerField(blank=True,null=True)
     contact2=models.fields.PositiveIntegerField(blank=True,null=True)
-    email=models.fields.EmailField(max_length=254,blank=True,null=True)
+    email=models.fields.EmailField(max_length=254,blank=True,null=True,unique=True)
     personne_a_contacter=models.fields.CharField(max_length=100)
     telephone_cpu=models.fields.PositiveIntegerField(null=False)
     date_naissance=models.fields.DateField(blank=True,null=True)
