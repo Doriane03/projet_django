@@ -5,11 +5,6 @@
   <div>
     <nav class="divcontenunav">Patient</nav>
 </div>
-  {% if message %}
-  <p>{{ message }}</p>
-  {% endif %}
-
-  <!-- Afficher les erreurs de formulaire -->
   {% if form_errors %}
   <ul>
   {% for field, errors in form_errors.items %}
@@ -19,7 +14,9 @@
   {% endif %}
     {% csrf_token %}
     <fieldset>
-        
+        {% if message %}
+        <p>{{ message }}</p>
+        {% endif %}
         <div class="divsortie">
                 <label for="medecins">medecins</label>
                 <select name="medecin" required>

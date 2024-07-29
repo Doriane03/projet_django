@@ -4,19 +4,7 @@ from django.db import models # type: ignore
 from django.forms import ModelForm # type: ignore
 from django.core.validators import MaxValueValidator,MinValueValidator # type: ignore
 from datetime import datetime,date
-#class sans clé secondaire
-class Categorie(models.Model):
-    refcat=models.fields.AutoField(primary_key=True)
-    numcat=models.fields.PositiveIntegerField(null=False)
-    def __str__(self):
-        return f'{self.refcat} {self.numcat}'
-class Lit(models.Model):
-    reflit=models.fields.AutoField(primary_key=True)
-    numlit=models.fields.PositiveIntegerField(null=False)
-    categorie =models.ForeignKey(Categorie, on_delete=models.CASCADE)
-    def __str__(self):
-        return f'{self.reflit} {self.numlit} {self.categorie}'
-        
+#class sans clé secondaire    
 class Patient(models.Model): #modifie
     idpatient=models.fields.AutoField(primary_key=True)
     nom=models.fields.CharField(max_length=255)
@@ -26,7 +14,6 @@ class Patient(models.Model): #modifie
     email=models.fields.EmailField(max_length=254,blank=True,null=True,unique=True)
     personne_a_contacter=models.fields.CharField(max_length=100)
     telephone_cpu=models.fields.PositiveIntegerField(null=False)
-    date_naissance=models.fields.DateField(blank=True,null=True)
     profession=models.fields.CharField(max_length=100)
     ville=models.fields.CharField(max_length=100)
     age=models.fields.CharField(max_length=100,null=False)
@@ -39,14 +26,14 @@ class Patient(models.Model): #modifie
     nationalite=models.fields.CharField(max_length=100)
     situation_matrimoniale=models.fields.CharField(max_length=100)
     nombre_enfant=models.fields.PositiveIntegerField(null=False)
-    lit=models.OneToOneField(Lit,on_delete=models.CASCADE)    
+    numerodelit= models.fields.PositiveIntegerField(null=False)
     def __str__(self):
-        return f'{self.idpatient} {self.nom} {self.numeropatient} {self.contact1} {self.contact2} {self.profession} {self.email} {self.age} {self.sexe}  {self.personne_a_contacter}  {self.ville}  {self.commune} {self.quartier}{self.nationalite}  {self.nombre_enfant}  {self.situation_matrimoniale} {self.telephone_cpu} {self.date_naissance} {self.lit}'
+        return f'{self.idpatient} {self.nom} {self.numeropatient} {self.contact1} {self.contact2} {self.profession} {self.email} {self.age} {self.sexe}  {self.personne_a_contacter}  {self.ville}  {self.commune} {self.quartier}{self.nationalite}  {self.nombre_enfant}  {self.situation_matrimoniale} {self.telephone_cpu} {self.numerodelit}'
 
 class PatientForm(ModelForm):
     class Meta:
         model = Patient
-        fields = ['nom', 'contact1', 'contact2','email','personne_a_contacter','telephone_cpu','date_naissance','profession','ville','age','sexe','commune','quartier','nationalite','situation_matrimoniale','nombre_enfant','lit','numeropatient']
+        fields = ['nom', 'contact1', 'contact2','email','personne_a_contacter','telephone_cpu','profession','ville','age','sexe','commune','quartier','nationalite','situation_matrimoniale','nombre_enfant','numerodelit','numeropatient']
 
 
 class Antecedant_medical(models.Model):#modifie

@@ -8,7 +8,6 @@ from  listings.models  import Antecedant_chirurgical # type: ignore #nouveau
 from  listings.models  import Antecedant_medical # type: ignore #nouveau
 from  listings.models  import Antecedant_genecologique # type: ignore #nouveau
 from  listings.models  import Medicament # type: ignore
-from  listings.models  import Categorie # type: ignore
 from  listings.models  import Sortie # type: ignore
 from  listings.models  import Hospitalisation # type: ignore
 from  listings.models  import Service # type: ignore
@@ -19,7 +18,6 @@ from  listings.models  import Type_personnel_soignant # type: ignore
 from  listings.models  import Facture # type: ignore
 from  listings.models  import Constante # type: ignore
 from  listings.models  import Patient # type: ignore #modifie
-from  listings.models  import Lit # type: ignore
 from  listings.models  import Ordonnance # type: ignore
 from  listings.models  import Diagnostique # type: ignore
 from  listings.models  import Bilan_imagerie # type: ignore
@@ -45,9 +43,6 @@ class Type_personnel_soignantAdmin(admin.ModelAdmin):
 class HospitalisationAdmin(admin.ModelAdmin):
     list_display=('idhospitalisation','service','datehospitalisation','consultation') # type: ignore
 
-class CategorieAdmin(admin.ModelAdmin):
-    list_display=('refcat','numcat') # type: ignore
-
 class SortieAdmin(admin.ModelAdmin):
     list_display=('refsortie', 'datesortie',  'motifsortie', 'datedetransfert',  'numerodedossierdanslecentredetransfert', 'nouveaucentredesuivi', 'raison', 'commentaire',  'typedenouvelle', 'typederelance',  'datederniererelance',  'datedernierevisite', 'daterefus',  'remplipar',   'datedeces',  'causedudeces', 'lieudeces',  'decesliea','customUser','patient') # type: ignore
 
@@ -67,10 +62,7 @@ class ServiceAdmin(admin.ModelAdmin):
     #list_display=('refpersoignant','mdp','nom','contact','email','date','Service','Type_personnel_soignant') # type: ignore
 
 class PatientAdmin(admin.ModelAdmin):
-    list_display=('idpatient', 'nom', 'contact1' ,'contact2', 'profession', 'email', 'age', 'sexe' , 'personne_a_contacter'  ,'ville',  'commune', 'quartier', 'nationalite' , 'nombre_enfant' , 'situation_matrimoniale','telephone_cpu' ,'date_naissance','lit') # type: ignore
-
-class LitAdmin(admin.ModelAdmin):
-    list_display=("reflit", "numlit", "categorie")# type: ignore
+    list_display=('idpatient', 'nom', 'contact1' ,'contact2', 'profession', 'email', 'age', 'sexe' , 'personne_a_contacter'  ,'ville',  'commune', 'quartier', 'nationalite' , 'nombre_enfant' , 'situation_matrimoniale','telephone_cpu','numerodelit') # type: ignore
 
 class ConstanteAdmin(admin.ModelAdmin):
     list_display=('refconst','poids','taille','temperature','imc','tas','tad','pouls','patient') # type: ignore
@@ -110,7 +102,6 @@ admin.site.register(Antecedant_familial ,Antecedant_familialAdmin) # type: ignor
 admin.site.register(Antecedant_chirurgical,Antecedant_chirurgicalAdmin) # type: ignore #nouveau
 admin.site.register(Antecedant_genecologique,Antecedant_genecologiqueAdmin) # type: ignore #nouveau
 admin.site.register(Patient,PatientAdmin)
-admin.site.register(Lit,LitAdmin)
 #admin.site.register(Personnel_soignant,Personnel_soignantAdmin)
 admin.site.register(Type_personnel_soignant,Type_personnel_soignantAdmin)
 admin.site.register(Facture,FactureAdmin)
@@ -124,7 +115,6 @@ admin.site.register(Chu,ChuAdmin)
 admin.site.register(Pays,PaysAdmin)
 admin.site.register(Hospitalisation,HospitalisationAdmin)
 admin.site.register(Sortie,SortieAdmin)
-admin.site.register(Categorie,CategorieAdmin)
 admin.site.register(Consultation,ConsultationAdmin)
 admin.site.register(Diagnostique,DiagnostiqueAdmin)
 admin.site.register(Notification,NotificationAdmin)

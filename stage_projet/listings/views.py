@@ -37,7 +37,6 @@ from  listings.models  import Antecedant_chirurgical # type: ignore #nouveau
 from  listings.models  import Antecedant_medical # type: ignore #nouveau
 from  listings.models  import Antecedant_genecologique # type: ignore #nouveau
 from  listings.models  import Medicament # type: ignore
-from  listings.models  import Categorie # type: ignore
 from  listings.models  import Sortie # type: ignore
 from  listings.models  import Hospitalisation # type: ignore
 from  listings.models  import Service # type: ignore
@@ -48,7 +47,6 @@ from  listings.models  import Personnel_soignant # type: ignore
 from  listings.models  import Facture # type: ignore
 from  listings.models  import Constante # type: ignore
 from  listings.models  import Patient # type: ignore #modifie
-from  listings.models  import Lit # type: ignoreConstantes
 from  listings.models  import Ordonnance # type: ignore
 from  listings.models  import Diagnostique # type: ignore
 from  listings.models  import Bilan_imagerie # type: ignore
@@ -110,17 +108,16 @@ def constante(request):#fais
             constante = form.save(commit=False)
             constante.save()
             if constante and constante.refconst:
-                message = f'Constantes ajoutées pour le patient dans '
+                message = f'Constantes ajoutées pour le patient'
                 return render(request, 'listings/formpatient.html', context={'message': message, 'form_errors': form.errors})
             else:
-                message = f'Constantes non ajoutées pour le patient dans '
+                message = f'Constantes non ajoutées pour le patient'
                 return render(request, 'listings/formconstante.html', context={'message': message, 'form_errors': form.errors})
         else:
             message = 'Le formulaire contient des erreurs.'
             return render(request, 'listings/formconstante.html', context={'message': message, 'form_errors': form.errors})
     else:
-        message = f'pas post'
-        return render(request, 'listings/formconstante.html', context={'message': message})
+        return render(request, 'listings/formconstante.html')
 
 
 
@@ -291,17 +288,6 @@ def adminform(request):#fais
                 service_id=service1,
                 type_personnel_soignant_id=type_personnel_soignant1
             )
-            
-            if type_personnel_soignant1 == '1':
-                new_user.is_staff = True
-                new_user.is_superuser = True
-                
-                # Add all permissions to the user
-                all_permissions = Permission.objects.all()
-                new_user.user_permissions.set(all_permissions)
-                
-                new_user.save()
-            else:
                 new_user.save()
         return redirect('chart')
 

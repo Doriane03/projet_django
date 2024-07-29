@@ -4,11 +4,6 @@
 <center>
 
 <form method="post" action="{% url 'constante' %}"  class="formcontenu">
-  {% if message %}
-  <p>{{ message }}</p>
-{% endif %}
-
-<!-- Afficher les erreurs de formulaire -->
 {% if form_errors %}
   <ul>
   {% for field, errors in form_errors.items %}
@@ -21,6 +16,9 @@
 </div>
     {% csrf_token %}
     <fieldset>
+      {% if message %}
+      <p>{{ message }}</p>
+      {% endif %}
           <div class="divsortie">
               <label >Poids</label>
               <input type="text"   placeholder="poids en  kg" name="poids" id="poids" class="inputcontenu" oninput="calculateIMC()"/>
