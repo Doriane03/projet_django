@@ -29,6 +29,7 @@ from  listings.models import Antecedant_familialForm
 from  listings.models import Bilan_biologiqueForm
 from  listings.models import OrdonnanceForm
 from  listings.models import Bilan_imagerieForm
+from  listings.models import FactureForm
 #fin
 import os
 from pathlib import Path
@@ -86,7 +87,7 @@ def patient(request):
         else:
             error_message = 'Le formulaire n"est pas valide'
     else:
-        return render(request, 'listings/formpatient.html', context={'medecins': medecins,'error_message':error_message,'success':success,'form_errors': form.errors})
+        return render(request, 'listings/formpatient.html', context={'medecins': medecins,'error_message':error_message,'success':success})
 
 
 
@@ -174,7 +175,7 @@ def antecedantmedical(request):#fais
         else:
             print(form.errors)
             error_message ='antécédant médical non enregistré.'
-    return render(request,'listings/fromantmedical.html',{"patient_id1":patient_id1,'form.errors':form.errors,'success':success,'error_message':error_message }) 
+    return render(request,'listings/fromantmedical.html',{"patient_id1":patient_id1,'success':success,'error_message':error_message }) 
 
 
 
@@ -193,7 +194,7 @@ def antecedantchirurgical(request): #fais
         else:
             print(form.errors)
             error_message = 'antécédant chirurgical  non enregistré .'
-    return render(request, 'listings/formantchirurgical.html',{"patient_id1":patient_id1,'form.errors':form.errors,'success':success,'error_message':error_messages})
+    return render(request, 'listings/formantchirurgical.html',{"patient_id1":patient_id1,'success':success,'error_message':error_message})
 
 @login_required 
 def sortie_patient(request):#fais maisje dois faire une modification pour inserer l'id du patient dans son modele
@@ -287,7 +288,7 @@ def antecedantgenecologique(request):#fais
             success=True
         else:
             error_message = 'antécédant gynécologique  non ajouté.'
-    return render(request, 'listings/formantgynecologique.html',{"patient_id1":patient_id1,'success': success,'form.errors':form.errors,'error_message':error_message})
+    return render(request, 'listings/formantgynecologique.html',{"patient_id1":patient_id1,'success': success,'error_message':error_message})
 
 
 @login_required
@@ -374,7 +375,7 @@ def bilanbio(request):#pas fais
         else:
             print(form.errors)
             error_message = 'bilan bilogique non enregistré.'
-    return render(request,'listings/bilanbio.html',{'form.errors':form.errors,'error_message':error_message,'success':success}) 
+    return render(request,'listings/bilanbio.html',{'error_message':error_message,'success':success}) 
 
 
 
@@ -386,7 +387,9 @@ def chart(request):
 def menu(request):
     return render(request,'listings/chart.html')
 
-
+@login_required
+def dossier(request):
+    return render(request,'listings/dossierpatient.html')
 
 @login_required
 def ordonnance(request):
@@ -404,10 +407,27 @@ def ordonnance(request):
     return render(request,'listings/formordonnance.html',context={'medicaments':medicaments,'error_message':error_message,'success':success})
 
 
+
 @login_required
 def facture(request):
-    return render(request,'listings/formfacture.html')
+    success = False
+    error_message = None
+    if request.method == 'POST':
+        form = FactureForm(request.POST)
+        if form.is_valid():
+            form.save()
+            success = True
+        else:
+            error_message = 'Erreur lors de l\'enregistrement de la facture.'
+    else:
+        form = FactureForm()
 
+    return render(request, 'listings/formfacture.html', {
+        'form': form,
+        'success': success,
+        'error_message': error_message,
+    })
+    return render(request,'listings/formfacture.html')
 
 
 

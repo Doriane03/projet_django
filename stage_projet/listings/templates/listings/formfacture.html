@@ -3,24 +3,70 @@
 <center>
 <form method="post" action="" class="formcontenu">
 <div>
-<nav class="divcontenunav">facture</nav>
+<nav class="divcontenunav">facture du sejour</nav>
 </div>
     {% csrf_token %}
     <fieldset>
-        <input type="text"  placeholder="numéro de la facture" name="numerofact" class="inputcontenu"/>
+        {% if success %}
+        <p class="p2">facture  enregistrée.</p>
+        {% endif %}
+        {% if error_message %}
+                <p class="p1">{{ error_message }}</p>
+        {% endif %}
+        <div class="divsortie">
+            <label for="nom" >Numéro de la facture</label>
+            <input type="text"  placeholder="numéro de la facture" name="numerofact" class="inputcontenu" />
+        </div>
+        <div class="divsortie">
+            <label for="nom" >Mode de paiment</label>
         <input type="text"  placeholder="mode de paiment" name="modepaiment" class="inputcontenu"/>
+        </div>
+        <div class="divsortie">
+            <label for="nom" >Montant payé</label>
         <input type="text"  placeholder="montant payé" name="montantpaye" class="inputcontenu"/>
-        <input type="text"  placeholder="nom  du patient patient" name="patient" class="inputcontenu"/>
+        </div>
 
+        <div class="divsortie">
+            <label for="nom" >Nom  du patient</label>
+        <input type="text"  placeholder="nom  du patient" id="nom" name="nom" class="inputcontenu"/>
+        </div>
+
+        <div class="divsortie">
+            <label for="nom" >Durée du séjour</label>
         <input type="text"  placeholder="durée du séjour" name="duree_sejour" class="inputcontenu"/>
-        <input type="text"  placeholder="cout du séjour" name="cout_sejour" class="inputcontenu"/>
+        </div>
+        <div class="divsortie">
+            <label for="nom" >Coût du séjour</label>
+        <input type="text"  placeholder="coût du séjour" name="cout_sejour" class="inputcontenu"/>
+         </div>
+        <div class="divsortie">
+            <label for="nom" >remboursement</label>
         <input type="text"  placeholder="remboursement" name="remboursement" class="inputcontenu"/>
-        <input type="text"  placeholder="reste a payer" name="rest_a_payer" class="inputcontenu"/>
-        <input type="text"  placeholder="date de versement" name="date_versement" class="inputcontenu"/>
+        </div>
+        <div class="divsortie">
+            <label for="nom" >Reste à payer</label>
+        <input type="text"  placeholder="reste à payer" name="rest_a_payer" class="inputcontenu"/>
+        </div>
 
-            <input type="text"  name="date" class="inputcontenu"  id="dateInput" readonly />
+        <div class="divsortie">
+            <label for="nom" >Date de versement</label>
+        <input type="text"  placeholder="date de versement" name="date_versement" class="inputcontenu"/>
+        </div>
+
+        <div class="divsortie">
+            <label for="nom" >Caution versée</label>
+            <input type="text"  name="caution_versee" class="inputcontenu" placeholder="caution versée"/>
+        </div>
+
+        <div class="divsortie">
+            <label for="id">ID patient</label>
+            <input type="text" id="id" placeholder="ID du patient" name="patient" class="inputcontenu" readonly/>
+        </div>
+    
+
     </fieldset>
     <input type="submit"  name="validepatient"  value="Enregistrer" class="btn btn-primary"/>
 </form>
+
 </center>
 {% endblock %}

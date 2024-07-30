@@ -47,6 +47,10 @@
                                         <li>
                                             <a  href="{% url 'patient' %}"  ><i class="material-icons-outlined">save</i>Enregister un patient</a>
                                         </li>
+
+                                        <li>
+                                            <a  href="{% url 'facture' %}"  ><i class="material-icons-outlined">save</i>Facture</a>
+                                        </li>
                                         
                                         
                                         <li>
@@ -168,6 +172,7 @@
                                             {% block formsortie %} {% endblock %}
                                             {% block formadmin %} {% endblock %}
                                             {% block tableaudocpatient %}{% endblock %}
+                                            {% block dossier %}{% endblock %}
                                         
                                     </div>
                                 </div>

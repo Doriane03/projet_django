@@ -33,12 +33,6 @@ urlpatterns = [
 
     path('menu',views.menu,name='menu'),
     path('patient',views.patient,name='patient'),
-    #pour ma bd
- 
-    #fin
-    #pour ma bd
-    #path('AFFICHE/',views.AFFICHE, name='AFFICHE'),
-    #path ('affichefic',views.affichefic,name='affichefic'),
     path ('constante',views.constante,name='constante'),
     path ('disponibilite',views.disponibilite,name='disponibilite'),
     path ('chart',views.chart,name='chart'),
@@ -57,6 +51,8 @@ urlpatterns = [
     path ('docpatient',views.docpatient,name='docpatient'),
     path ('tableauconsultation',views.tableauconsultation,name='tableauconsultation'),
     path('box/<str:patient_name>/', views.box, name='box'),
+    path('dossier', views.dossier, name='dossier'),
+    
      
     #menu
     #fin

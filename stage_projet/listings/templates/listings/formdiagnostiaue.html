@@ -14,19 +14,5 @@
     </fieldset>
     <input type="submit"  name="valideconstante"  value="Enregister" class="btn btn-primary"/>
 </form>
-
-<script>
-function datefacture(){
-    var date = new Date();
-    var jour = date.getDate();
-    var mois = date.getMonth() + 1;
-    var annee = date.getFullYear();
-    var dateAffichee = jour + '/' + mois + '/' + annee;
-    document.getElementById('dateInput').value = dateAffichee;
-    }
-
-    window.onload = datefacture();
-</Script>
-
 </center>
 {% endblock %}
