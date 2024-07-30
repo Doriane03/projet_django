@@ -1,7 +1,7 @@
 {% extends 'listings/template.html' %}
 {% block formfacture %}
 <center>
-<form method="post" action="" class="formcontenu">
+<form method="post" action="{% url 'facture' %}" class="formcontenu">
 <div>
 <nav class="divcontenunav">facture du sejour</nav>
 </div>
@@ -14,59 +14,69 @@
                 <p class="p1">{{ error_message }}</p>
         {% endif %}
         <div class="divsortie">
-            <label for="nom" >Numéro de la facture</label>
+            <label  >Numéro de la facture</label>
             <input type="text"  placeholder="numéro de la facture" name="numerofact" class="inputcontenu" />
         </div>
         <div class="divsortie">
-            <label for="nom" >Mode de paiment</label>
+            <label  >Mode de paiment</label>
         <input type="text"  placeholder="mode de paiment" name="modepaiment" class="inputcontenu"/>
         </div>
         <div class="divsortie">
-            <label for="nom" >Montant payé</label>
+            <label  >Montant payé</label>
         <input type="text"  placeholder="montant payé" name="montantpaye" class="inputcontenu"/>
         </div>
 
         <div class="divsortie">
-            <label for="nom" >Nom  du patient</label>
-        <input type="text"  placeholder="nom  du patient" id="nom" name="nom" class="inputcontenu"/>
+            <label  >Nom  du patient</label>
+        <input type="text"  placeholder="nom  du patient" id="nom" name="nom" class="inputcontenu" oninput="fetchPatientId()"/>
         </div>
 
         <div class="divsortie">
-            <label for="nom" >Durée du séjour</label>
+            <label  >Durée du séjour</label>
         <input type="text"  placeholder="durée du séjour" name="duree_sejour" class="inputcontenu"/>
         </div>
         <div class="divsortie">
-            <label for="nom" >Coût du séjour</label>
+            <label  >Coût du séjour</label>
         <input type="text"  placeholder="coût du séjour" name="cout_sejour" class="inputcontenu"/>
          </div>
         <div class="divsortie">
-            <label for="nom" >remboursement</label>
+            <label  >remboursement</label>
         <input type="text"  placeholder="remboursement" name="remboursement" class="inputcontenu"/>
         </div>
         <div class="divsortie">
-            <label for="nom" >Reste à payer</label>
+            <label  >Reste à payer</label>
         <input type="text"  placeholder="reste à payer" name="rest_a_payer" class="inputcontenu"/>
         </div>
 
         <div class="divsortie">
-            <label for="nom" >Date de versement</label>
-        <input type="text"  placeholder="date de versement" name="date_versement" class="inputcontenu"/>
+            <label  >Date de versement</label>
+        <input type="date"  placeholder="date de versement" name="date_versement" class="inputcontenu"/>
         </div>
 
         <div class="divsortie">
-            <label for="nom" >Caution versée</label>
+            <label  >Caution versée</label>
             <input type="text"  name="caution_versee" class="inputcontenu" placeholder="caution versée"/>
         </div>
-
         <div class="divsortie">
-            <label for="id">ID patient</label>
-            <input type="text" id="id" placeholder="ID du patient" name="patient" class="inputcontenu" readonly/>
+            <input type="hidden" name="patient" id="patient" class="inputcontenu" readonly/>
         </div>
-    
 
     </fieldset>
     <input type="submit"  name="validepatient"  value="Enregistrer" class="btn btn-primary"/>
 </form>
-
+<script>
+    function fetchPatientId() {
+        var nom = document.getElementById('nom').value;
+        if (nom) {
+            fetch(`/get_patient_id/?nom=${nom}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('patient').value = data.id ? data.id : 'Patient non trouvé';
+                });
+        } else {
+            document.getElementById('patient').value = '';
+        }
+    }
+    </script>
 </center>
 {% endblock %}

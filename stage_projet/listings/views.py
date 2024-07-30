@@ -409,7 +409,7 @@ def ordonnance(request):
 
 
 @login_required
-def facture(request):
+def facture(request):#fais
     success = False
     error_message = None
     if request.method == 'POST':
@@ -418,25 +418,17 @@ def facture(request):
             form.save()
             success = True
         else:
-            error_message = 'Erreur lors de l\'enregistrement de la facture.'
-    else:
-        form = FactureForm()
+            error_message = "facture non enregistrée."
+            print(form.errors)
+    return render(request, 'listings/formfacture.html', {'success': success, 'error_message': error_message})
 
-    return render(request, 'listings/formfacture.html', {
-        'form': form,
-        'success': success,
-        'error_message': error_message,
-    })
-    return render(request,'listings/formfacture.html')
-
-
-
-
-
-#apres
-
-
-
-
+def get_patient_id(request):
+    nom = request.GET.get('nom')
+    try:
+        patient = Patient.objects.get(nom=nom)
+        response = {'id': patient.idpatient}
+    except Patient.DoesNotExist:
+        response = {'id': None}
+    return JsonResponse(response)
 
 
