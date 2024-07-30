@@ -44,7 +44,6 @@ urlpatterns = [
     path ('chart',views.chart,name='chart'),
     path ('consultation',views.consultation,name='consultation'),
     path ('facture',views.facture,name='facture'),
-    path ('diagnostique',views.diagnostique,name='diagnostique'),
     path ('ordonnance',views.ordonnance,name='ordonnance'),
     path ('antecedantmedical',views.antecedantmedical,name='antecedantmedical'),
     path ('antecedantchirurgical',views.antecedantchirurgical,name='antecedantchirurgical'),

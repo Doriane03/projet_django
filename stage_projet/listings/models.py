@@ -45,102 +45,97 @@ class Antecedant_medical(models.Model):#modifie
         ('non','non'),
         ('ne sait pas','ne sait pas'),
     )
-    dyslipidemie=models.fields.CharField(max_length=11,choices=MAYBECHOICE1)
+    dyslipidemie=models.fields.CharField(max_length=11,choices=MAYBECHOICE1,unique=True)
     MAYBECHOICE2=(
         ('oui','oui'),
         ('non','non'),
         ('ne sait pas','ne sait pas'),
     )
-    cirrhose=models.fields.CharField(max_length=11,choices=MAYBECHOICE2)
+    cirrhose=models.fields.CharField(max_length=11,choices=MAYBECHOICE2,unique=True)
     MAYBECHOICE3=(
         ('oui','oui'),
         ('non','non'),
         ('ne sait pas','ne sait pas'),
     )
-    hepatiteviraleb=models.fields.CharField(max_length=11,choices=MAYBECHOICE3)
-    datehepvirb=models.fields.DateField(blank=True,null=True)
+    hepatiteviraleb=models.fields.CharField(max_length=11,choices=MAYBECHOICE3,unique=True)
+    datehepvirb=models.fields.DateField(blank=True,null=True,unique=True)
     MAYBECHOICE4=(
         ('oui','oui'),
         ('non','non'),
         ('ne sait pas','ne sait pas'),
     )
-    hepatiteviralec=models.fields.CharField(max_length=11,choices=MAYBECHOICE4)
-    datehepvirc=models.fields.DateField(blank=True,null=True)
+    hepatiteviralec=models.fields.CharField(max_length=11,choices=MAYBECHOICE4,unique=True)
+    datehepvirc=models.fields.DateField(blank=True,null=True,unique=True)
     MAYBECHOICE5=(
         ('oui','oui'),
         ('non','non'),
         ('ne sait pas','ne sait pas'),
     )
-    hepatiteviraled=models.fields.CharField(max_length=11,choices=MAYBECHOICE5)
-    datehepvird=models.fields.DateField(blank=True,null=True)
+    hepatiteviraled=models.fields.CharField(max_length=11,choices=MAYBECHOICE5,unique=True)
+    datehepvird=models.fields.DateField(blank=True,null=True,unique=True)
     MAYBECHOICE6=(
         ('oui','oui'),
         ('non','non'),
         ('ne sait pas','ne sait pas'),
     )
-    vaccination_vhb=models.fields.CharField(max_length=11,choices=MAYBECHOICE6)
-    dosevhb=models.fields.CharField(max_length=40,blank=True,null=True)
+    vaccination_vhb=models.fields.CharField(max_length=11,choices=MAYBECHOICE6,unique=True)
+    dosevhb=models.fields.CharField(max_length=40,blank=True,null=True,unique=True)
     MAYBECHOICE7=(
         ('oui','oui'),
         ('non','non'),
         ('ne sait pas','ne sait pas'),
     )
-    vaccination_vha=models.fields.CharField(max_length=11,choices=MAYBECHOICE7)
-    dosevha=models.fields.CharField(max_length=40,blank=True,null=True)
+    vaccination_vha=models.fields.CharField(max_length=11,choices=MAYBECHOICE7,unique=True)
+    dosevha=models.fields.CharField(max_length=40,blank=True,null=True,unique=True)
     MAYBECHOICE8=(
         ('oui','oui'),
         ('non','non'),
     )
-    transfusion_sanguine=models.fields.CharField(max_length=3,choices=MAYBECHOICE8)
-    datransing=models.fields.DateField(blank=True,null=True)
+    transfusion_sanguine=models.fields.CharField(max_length=3,choices=MAYBECHOICE8,unique=True)
+    datransing=models.fields.DateField(blank=True,null=True,unique=True)
     MAYBECHOICE9=(
         ('oui','oui'),
         ('non','non'),
         ('ne sait pas','ne sait pas'),
     )
-    ictere=models.fields.CharField(max_length=11,choices=MAYBECHOICE9)
+    ictere=models.fields.CharField(max_length=11,choices=MAYBECHOICE9,unique=True)
     MAYBECHOICE10=(
         ('oui','oui'),
         ('non','non'),
     )
-    rapportsexuelnonprotege=models.fields.CharField(max_length=3,choices=MAYBECHOICE10)
+    rapportsexuelnonprotege=models.fields.CharField(max_length=3,choices=MAYBECHOICE10,unique=True)
     MAYBECHOICE11=(
         ('oui','oui'),
         ('non','non'),
     )
-    partageobjettoilette=models.fields.CharField(max_length=3,choices=MAYBECHOICE11)
+    partageobjettoilette=models.fields.CharField(max_length=3,choices=MAYBECHOICE11,unique=True)
     MAYBECHOICE12=(
         ('oui','oui'),
         ('non','non'),
     )
-    accidexposang=models.fields.CharField(max_length=3,choices=MAYBECHOICE12)
+    accidexposang=models.fields.CharField(max_length=3,choices=MAYBECHOICE12,unique=True)
     MAYBECHOICE13=(
         ('oui','oui'),
         ('non','non'),
     )
-    toxicomanie=models.fields.CharField(max_length=3,choices=MAYBECHOICE13)
+    toxicomanie=models.fields.CharField(max_length=3,choices=MAYBECHOICE13,unique=True)
     MAYBECHOICE14=(
         ('oui','oui'),
         ('non','non'),
     )
-    diabete=models.fields.CharField(max_length=3,choices=MAYBECHOICE14)
+    diabete=models.fields.CharField(max_length=3,choices=MAYBECHOICE14,unique=True)
     MAYBECHOICE15=(
         ('oui','oui'),
         ('non','non'),
         ('ne sait pas','ne sait pas'),
     )
-    hta=models.fields.CharField(max_length=11,choices=MAYBECHOICE15)
+    hta=models.fields.CharField(max_length=11,choices=MAYBECHOICE15,unique=True)
     MAYBECHOICE16=(
         ('oui','oui'),
         ('non','non'),
     )
-    transplanhepatique=models.fields.CharField(max_length=3,choices=MAYBECHOICE16)
-    #MAYBECHOICE17=(
-        #('o','oui'),
-        #('n','non'),
-    #)
-    #autre=models.fields.CharField(max_length=10,choices=MAYBECHOICE17)
-    precisionautre=models.fields.CharField(max_length=200,blank=True,null=True)
+    transplanhepatique=models.fields.CharField(max_length=3,choices=MAYBECHOICE16,unique=True)
+    precisionautre=models.fields.CharField(max_length=200,blank=True,null=True,unique=True)
     date= models.fields.DateTimeField(default=timezone.now)                                                                                
     patient=models.ForeignKey(Patient, on_delete=models.CASCADE)
     def __str__(self):
@@ -157,14 +152,14 @@ class Antecedant_chirurgical(models.Model):#nouvel ajout
         ('oui','oui'),
         ('non','non'),
     )
-    operachir=models.fields.CharField(max_length=3,choices=MAYBECHOICE1)
+    operachir=models.fields.CharField(max_length=3,choices=MAYBECHOICE1,unique=True)
     datoperachir=models.fields.DateField(blank=True,null=True)
     MAYBECHOICE2=(
         ('oui','oui'),
         ('non','non'),
     )
-    avp=models.fields.CharField(max_length=3,choices=MAYBECHOICE2)
-    dateavp=models.fields.DateField(blank=True,null=True)
+    avp=models.fields.CharField(max_length=3,choices=MAYBECHOICE2,unique=True)
+    dateavp=models.fields.DateField(blank=True,null=True,unique=True)
     date= models.fields.DateTimeField(default=timezone.now)  
     patient=models.ForeignKey(Patient, on_delete=models.CASCADE)                                                                            
     def __str__(self):
@@ -176,20 +171,20 @@ class Antecedant_chirurgicalForm(ModelForm):
     
 class Antecedant_genecologique(models.Model):#nouvel ajout 
     refantgen=models.fields.AutoField(primary_key=True)
-    datederniereregle=models.fields.DateField(blank=True,null=True)
-    gestite=models.fields.CharField(max_length=100,blank=True,null=True)
-    parite=models.fields.CharField(max_length=100,blank=True,null=True)
+    datederniereregle=models.fields.DateField(blank=True,null=True,unique=True)
+    gestite=models.fields.CharField(max_length=100,blank=True,null=True,unique=True)
+    parite=models.fields.CharField(max_length=100,blank=True,null=True,unique=True)
     MAYBECHOICE1=(
         ('oui','oui'),
-        ('n','non'),
+        ('non','non'),
     )
-    prisecontraceptif=models.fields.CharField(max_length=3,choices=MAYBECHOICE1)
+    prisecontraceptif=models.fields.CharField(max_length=3,choices=MAYBECHOICE1,unique=True)
     MAYBECHOICE2=(
         ('oui','oui'),
         ('non','non'),
     )
-    cesarienne=models.fields.CharField(max_length=3,choices=MAYBECHOICE2)
-    datecesarienne=models.fields.DateField(blank=True,null=True)
+    cesarienne=models.fields.CharField(max_length=3,choices=MAYBECHOICE2,unique=True)
+    datecesarienne=models.fields.DateField(blank=True,null=True,unique=True)
     date= models.fields.DateTimeField(default=timezone.now)    
     patient=models.ForeignKey(Patient, on_delete=models.CASCADE)                                                                                 
     def __str__(self):
@@ -207,21 +202,21 @@ class Antecedant_familial(models.Model):#nouvel ajout
         ('non','non'),
         ('ne sait pas','ne sait pas'),
     )
-    hepatie_vir_ASC=models.fields.CharField(max_length=11,choices=MAYBECHOICE1)
+    hepatie_vir_ASC=models.fields.CharField(max_length=11,choices=MAYBECHOICE1,unique=True)
     
     MAYBECHOICE2=(
         ('oui','oui'),
         ('non','non'),
         ('ne sait pas','ne sait pas'),
     )
-    cirrhose_ASC=models.fields.CharField(max_length=11,choices=MAYBECHOICE2)
+    cirrhose_ASC=models.fields.CharField(max_length=11,choices=MAYBECHOICE2,unique=True)
     
     MAYBECHOICE3=(
         ('oui','oui'),
         ('non','non'),
         ('ne sait pas','ne sait pas'),
     ) 
-    cpf_ASC=models.fields.CharField(max_length=11,choices=MAYBECHOICE3)
+    cpf_ASC=models.fields.CharField(max_length=11,choices=MAYBECHOICE3,unique=True)
     
     
     MAYBECHOICE4=(
@@ -229,21 +224,21 @@ class Antecedant_familial(models.Model):#nouvel ajout
         ('non','non'),
         ('ne sait pas','ne sait pas'),
     )
-    hepatie_vir_DSC=models.fields.CharField(max_length=11,choices=MAYBECHOICE4)
+    hepatie_vir_DSC=models.fields.CharField(max_length=11,choices=MAYBECHOICE4,unique=True)
     
     MAYBECHOICE5=(
         ('oui','oui'),
         ('non','non'),
         ('ne sait pas','ne sait pas'),
     )
-    cirrhose_DSC=models.fields.CharField(max_length=11,choices=MAYBECHOICE5)
+    cirrhose_DSC=models.fields.CharField(max_length=11,choices=MAYBECHOICE5,unique=True)
     
     MAYBECHOICE6=(
         ('oui','oui'),
         ('non','non'),
         ('ne sait pas','ne sait pas'),
     ) 
-    cpf_DSC=models.fields.CharField(max_length=11,choices=MAYBECHOICE6)
+    cpf_DSC=models.fields.CharField(max_length=11,choices=MAYBECHOICE6,unique=True)
     
     
     MAYBECHOICE7=(
@@ -251,21 +246,21 @@ class Antecedant_familial(models.Model):#nouvel ajout
         ('non','non'),
         ('ne sait pas','ne sait pas'),
     )
-    hepatie_vir_COL=models.fields.CharField(max_length=11,choices=MAYBECHOICE7)
+    hepatie_vir_COL=models.fields.CharField(max_length=11,choices=MAYBECHOICE7,unique=True)
     
     MAYBECHOICE8=(
         ('oui','oui'),
         ('non','non'),
         ('ne sait pas','ne sait pas'),
     )
-    cirrhose_COL=models.fields.CharField(max_length=11,choices=MAYBECHOICE8)
+    cirrhose_COL=models.fields.CharField(max_length=11,choices=MAYBECHOICE8,unique=True)
     
     MAYBECHOICE9=(
         ('oui','oui'),
         ('non','non'),
         ('ne sait pas','ne sait pas'),
     ) 
-    cpf_COL=models.fields.CharField(max_length=11,choices=MAYBECHOICE9)
+    cpf_COL=models.fields.CharField(max_length=11,choices=MAYBECHOICE9,unique=True)
     date= models.fields.DateTimeField(default=timezone.now) 
     patient=models.ForeignKey(Patient, on_delete=models.CASCADE)                                                                          
     def __str__(self):

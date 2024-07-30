@@ -5,17 +5,13 @@
   <div>
     <nav class="divcontenunav">Patient</nav>
 </div>
-  {% if form_errors %}
-  <ul>
-  {% for field, errors in form_errors.items %}
-      <li>{{ field }}: {{ errors }}</li>
-  {% endfor %}
-  </ul>
-  {% endif %}
     {% csrf_token %}
     <fieldset>
-        {% if message %}
-        <p>{{ message }}</p>
+        {% if success %}
+        <p class="p2">Patient a été créé et assigné au médecin {{medecin.nom}}.</p>
+        {% endif %}
+        {% if error_message %}
+                <p class="p1">{{ error_message }}</p>
         {% endif %}
 
         <div class="divsortie">

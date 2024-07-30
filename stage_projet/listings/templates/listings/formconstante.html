@@ -16,9 +16,12 @@
 </div>
     {% csrf_token %}
     <fieldset>
-      {% if message %}
-      <p>{{ message }}</p>
-      {% endif %}
+      {% if success %}
+        <p class="p2">Constantes ajoutées'</p>
+        {% endif %}
+        {% if error_message %}
+                <p class="p1">{{ error_message }}</p>
+        {% endif %}
           <div class="divsortie">
               <label >Poids</label>
               <input type="text"   placeholder="poids en  kg" name="poids" id="poids" class="inputcontenu" oninput="calculateIMC()"/>

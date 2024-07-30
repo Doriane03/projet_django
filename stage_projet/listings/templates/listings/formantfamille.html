@@ -9,6 +9,14 @@
 
     {% csrf_token %}
     <fieldset>
+
+        {% if success %}
+        <p class="p2">antécédant familial enregistré.</p>
+        {% endif %}
+        {% if error_message %}
+                <p class="p1">{{ error_message }}</p>
+        {% endif %}
+
             <div>
                 <label  class="form-check-label" style="margin-right:120px,font-size:16,color:black">Ascendants</label>
             <div>

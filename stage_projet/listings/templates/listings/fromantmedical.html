@@ -2,11 +2,18 @@
 {% block fromantmedical %}
 <center><form method="post" action="" class="formcontenu">
     <div>
-        <nav class="divcontenunav">antecedant medical</nav>
+        <nav class="divcontenunav">antecedant médical</nav>
     </div>
 
     {% csrf_token %}
 <fieldset>    
+
+        {% if success %}
+        <p class="p2">antécédant médical enregistré.</p>
+        {% endif %}
+        {% if error_message %}
+                <p class="p1">{{ error_message }}</p>
+        {% endif %}
     <div class="p-2 g-col-6">
         <label  class="form-check-label" style="margin-right:220px">transfusion sanguine</label> 
         <div class="form-check form-check-inline" style="margin-right:50px">

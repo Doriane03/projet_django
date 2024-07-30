@@ -8,8 +8,11 @@
 </div>
     {% csrf_token %}
     <fieldset class="fieldsetgd">
-        {% if message %}
-        <p>{{ message }}</p>
+        {% if success %}
+        <p class="p2">Utilisateur crée.</p>
+        {% endif %}
+        {% if error_message %}
+                <p class="p1">{{ error_message }}</p>
         {% endif %}
         <div class="divsortie">
             <label >Nom</label>
