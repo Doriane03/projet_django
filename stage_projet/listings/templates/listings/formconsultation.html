@@ -377,6 +377,12 @@
                     </div>
          </div> 
     </div>  
+    <div>
+        <div>
+          <nav class="divcontenunav">diagnostique retenu</nav>
+        </div><br/>
+    <input type="text"   placeholder="diagnostique retenu" name="diagnostique_retenu" class="inputcontenu"/>
+    </div>
     <input type="text"   name="patient"  value="{{ patient_id }}"/>
     {% if request.user.is_authenticated %}
     {% if user.type_personnel_soignant.nompersog == "MEDECIN" %}

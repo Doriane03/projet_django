@@ -26,6 +26,8 @@ from  listings.models import Antecedant_medicalForm
 from  listings.models import Antecedant_chirurgicalForm
 from  listings.models import Antecedant_genecologiqueForm
 from  listings.models import Antecedant_familialForm
+from  listings.models import Bilan_biologiqueForm
+from  listings.models import OrdonnanceForm
 #fin
 import os
 from pathlib import Path
@@ -48,7 +50,6 @@ from  listings.models  import Facture # type: ignore
 from  listings.models  import Constante # type: ignore
 from  listings.models  import Patient # type: ignore #modifie
 from  listings.models  import Ordonnance # type: ignore
-from  listings.models  import Diagnostique # type: ignore
 from  listings.models  import Bilan_imagerie # type: ignore
 from  listings.models  import Bilan_biologique # type: ignore
 from  listings.models  import CustomUser # type: ignore
@@ -352,9 +353,17 @@ def bilanimg(request): #pas fais
 
 @login_required
 def bilanbio(request):#pas fais
-    return render(request,'listings/bilanbio.html')
-
-
+    success = False
+    error_message = None
+    if request.method == 'POST':
+        form = Bilan_biologiqueForm(request.POST)
+        if form.is_valid():
+            form.save()
+            success =True
+        else:
+            print(form.errors)
+            error_message = 'bilan bilogique non enregistré.'
+    return render(request,'listings/bilanbio.html',{'form.errors':form.errors,'error_message':error_message,'success':success}) 
 
 
 
@@ -370,8 +379,18 @@ def menu(request):
 
 @login_required
 def ordonnance(request):
-    Medicaments=Medicament.objects.all()
-    return render(request,'listings/formordonnance.html',context={'Medicaments':Medicaments})
+    medicaments=Medicament.objects.all()
+    success = False
+    error_message = None
+    if request.method == 'POST':
+        form = OrdonnanceForm(request.POST)
+        if form.is_valid():
+            form.save()
+            success =True
+        else:
+            print(form.errors)
+            error_message = 'ordonnance non enregistré.'
+    return render(request,'listings/formordonnance.html',context={'medicaments':medicaments,'error_message':error_message,'success':success})
 
 
 @login_required

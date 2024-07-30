@@ -9,6 +9,13 @@
 </div>
 {% csrf_token %}
   <fieldset>
+
+        {% if success %}
+        <p class="p2">bilan biologique enregistré.</p>
+        {% endif %}
+        {% if error_message %}
+                <p class="p1">{{ error_message }}</p>
+        {% endif %}
     <table id="yes" class="table1">
         <tr>
             <th>Type d'examen</th>

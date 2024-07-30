@@ -365,15 +365,16 @@ class Consultation(models.Model): #modifie
     date= models.fields.DateTimeField(default=timezone.now)                                                                                
     resultat=models.fields.CharField(max_length=254, null=True, blank=True)
     renseignementclinic=models.fields.CharField(max_length=254, null=True, blank=True)
+    diagnostique_retenu=models.fields.CharField(max_length=254,null=True, blank=True)
     patient=models.ForeignKey(Patient, on_delete=models.CASCADE,null=False) 
     customUser=models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     def __str__(self):
-        return f'{self.Numconsulta} {self.motifdeconsultation} {self.prescripteur_consultation} {self.debut_signe} {self.signe_digestifs} {self.signe_extra_digestif} {self.signe_asso_gene} {self.nombredeverre_alcool} {self.nombrepaquettabac} {self.medoc_en_cours} {self.prise_therap_tarditionnelle} {self.aghbs} {self.acanti_vhc} {self.acanti_vhd} {self.serologie_retrovi} {self.transaminase} {self.histoiredemaladie} {self.date} {self.resultat} {self.renseignementclinic} {self.patient}  {self.customUser} '
+        return f'{self.Numconsulta} {self.motifdeconsultation} {self.prescripteur_consultation} {self.debut_signe} {self.signe_digestifs} {self.signe_extra_digestif} {self.signe_asso_gene} {self.nombredeverre_alcool} {self.nombrepaquettabac} {self.medoc_en_cours} {self.prise_therap_tarditionnelle} {self.aghbs} {self.acanti_vhc} {self.acanti_vhd} {self.serologie_retrovi} {self.transaminase} {self.histoiredemaladie} {self.date} {self.resultat} {self.renseignementclinic} {self.diagnostique_retenu}  {self.patient} {self.customUser} '
 
 class ConsultationForm(ModelForm):
     class Meta:
         model = Consultation
-        fields = ['motifdeconsultation', 'prescripteur_consultation', 'debut_signe','signe_digestifs','signe_extra_digestif','signe_asso_gene','nombredeverre_alcool','nombrepaquettabac','medoc_en_cours','prise_therap_tarditionnelle','aghbs','acanti_vhc','acanti_vhd','serologie_retrovi','transaminase','histoiredemaladie','resultat','renseignementclinic','Bilanbiologiqueant','patient','customUser']
+        fields = ['motifdeconsultation', 'prescripteur_consultation', 'debut_signe','signe_digestifs','signe_extra_digestif','signe_asso_gene','nombredeverre_alcool','nombrepaquettabac','medoc_en_cours','prise_therap_tarditionnelle','aghbs','acanti_vhc','acanti_vhd','serologie_retrovi','transaminase','histoiredemaladie','resultat','renseignementclinic','Bilanbiologiqueant','diagnostique_retenu','patient','customUser']
 
    
 class Hospitalisation(models.Model):
@@ -482,7 +483,7 @@ class Medicament(models.Model):#migration
 class MedicamentForm(ModelForm):
     class Meta:
         model = Medicament
-        fields = ['nommedicament' ,'dosage']
+        fields = ['nommedicament' ,'dosage','dateprescription']
 #fin class sans clé secondaire
 
 #debut class avec clé secondaire
@@ -522,19 +523,31 @@ class DiagnostiqueForm(ModelForm):
 
 class Ordonnance(models.Model):
     reford=models.fields.AutoField(primary_key=True) 
-    Consulation=models.ForeignKey(Consultation, on_delete=models.CASCADE) 
+    consulation=models.ForeignKey(Consultation, on_delete=models.CASCADE) 
     peut_contenir=models.ManyToManyField(Medicament, through="Ordonnancemedicament")
     def __str__(self):
-        return f'{self.reford} {self.Consulation} {self.peut_contenir}'
+        return f'{self.reford} {self.consulation} {self.peut_contenir}'
+
+
+class OrdonnanceForm(ModelForm):
+    class Meta:
+        model = Ordonnance
+        fields = ['reford' ,'consulation','peut_contenir']
+
     
 class Ordonnancemedicament(models.Model):# nouvel ajout c'est la table de liaison deordonnance et medicament
     ordonnance = models.ForeignKey(Ordonnance, on_delete=models.CASCADE)
-    Medicament = models.ForeignKey(Medicament, on_delete=models.CASCADE)
+    medicament = models.ForeignKey(Medicament, on_delete=models.CASCADE)
     quantite = models.PositiveIntegerField(null=True, blank=True)
-
     def __str__(self):
-        return f"{self.Medicament} x {self.quantite} dans {self.Ordonnance}"
-    
+        return f"{self.medicament} x {self.quantite} dans {self.ordonnance}"
+
+class OrdonnancemedicamentForm(ModelForm):
+    class Meta:
+        model = Ordonnancemedicament
+        fields = ['ordonnance' ,'medicament','quantite']
+
+#fin class sans clé secondaire
 
 class Bilan_imagerie(models.Model):
     numbilimg=models.fields.AutoField(primary_key=True)

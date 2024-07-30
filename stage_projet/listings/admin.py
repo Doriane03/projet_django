@@ -19,7 +19,6 @@ from  listings.models  import Facture # type: ignore
 from  listings.models  import Constante # type: ignore
 from  listings.models  import Patient # type: ignore #modifie
 from  listings.models  import Ordonnance # type: ignore
-from  listings.models  import Diagnostique # type: ignore
 from  listings.models  import Bilan_imagerie # type: ignore
 from  listings.models  import Bilan_biologique # type: ignore
 from  listings.models import Notification
@@ -68,13 +67,10 @@ class ConstanteAdmin(admin.ModelAdmin):
     list_display=('refconst','poids','taille','temperature','imc','tas','tad','pouls','patient') # type: ignore
 
 class ConsultationAdmin(admin.ModelAdmin):
-    list_display=('Numconsulta', 'motifdeconsultation', 'prescripteur_consultation', 'debut_signe', 'signe_digestifs', 'signe_extra_digestif', 'signe_asso_gene', 'nombredeverre_alcool', 'nombrepaquettabac', 'medoc_en_cours', 'prise_therap_tarditionnelle', 'aghbs', 'acanti_vhc', 'acanti_vhd', 'serologie_retrovi', 'transaminase', 'histoiredemaladie', 'date', 'resultat', 'renseignementclinic','Bilanbiologiqueant','patient', 'customUser') # type: ignore
-
-class DiagnostiqueAdmin(admin.ModelAdmin):
-    list_display=('iddiag','libdiag','date','consultation') # type: ignore
+    list_display=('Numconsulta', 'motifdeconsultation', 'prescripteur_consultation', 'debut_signe', 'signe_digestifs', 'signe_extra_digestif', 'signe_asso_gene', 'nombredeverre_alcool', 'nombrepaquettabac', 'medoc_en_cours', 'prise_therap_tarditionnelle', 'aghbs', 'acanti_vhc', 'acanti_vhd', 'serologie_retrovi', 'transaminase', 'histoiredemaladie', 'date', 'resultat', 'renseignementclinic','Bilanbiologiqueant','diagnostique_retenu','patient', 'customUser') # type: ignore
 
 class OrdonnanceAdmin(admin.ModelAdmin):
-    list_display=('reford','Consulation') # type: ignore
+    list_display=('reford','consulation') # type: ignore
     inlines = [OrdonnancemedicamentInline]
 
 class Bilan_imagerieAdmin(admin.ModelAdmin):
@@ -116,7 +112,6 @@ admin.site.register(Pays,PaysAdmin)
 admin.site.register(Hospitalisation,HospitalisationAdmin)
 admin.site.register(Sortie,SortieAdmin)
 admin.site.register(Consultation,ConsultationAdmin)
-admin.site.register(Diagnostique,DiagnostiqueAdmin)
 admin.site.register(Notification,NotificationAdmin)
 
 #fin
