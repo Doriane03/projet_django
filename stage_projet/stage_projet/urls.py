@@ -61,9 +61,4 @@ urlpatterns = [
     #menu
     #fin
     
-]
-
-if settings.DEBUG:
-    # Utilisez os.path.join pour construire le chemin du dossier media
-    urlpatterns += static('/media/', document_root=os.path.join('/root', 'Desktop', 'ARCHIVE_DOC_PAT'))
-
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

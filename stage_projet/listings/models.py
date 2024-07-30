@@ -551,7 +551,7 @@ class OrdonnancemedicamentForm(ModelForm):
 
 class Bilan_imagerie(models.Model):
     numbilimg=models.fields.AutoField(primary_key=True)
-    echographie_ou_radiograpgie=models.FileField(upload_to="uploads/", null=True, blank=True)
+    echographie_ou_radiograpgie=models.ImageField(upload_to='images/', null=True, blank=True)
     renseignementclinique=models.fields.CharField(max_length=254,null=True, blank=True)
     consultation=models.ForeignKey(Consultation, on_delete=models.CASCADE) 
     def __str__(self):
@@ -566,22 +566,22 @@ class Bilan_biologique(models.Model):
     numbilanbio=models.fields.AutoField(primary_key=True)
     MAYBECHOICE1=(
         ('Sérologie rétroviral','Sérologie rétroviral'),
-        ('IgG anti VHE ','IgG anti VHE '),
-        ('IgM anti VHE ','IgM anti VHE '),
-        ('Ac anti VHD ','Ac anti VHD '),
-        ('Ac anti HBe ','Ac anti HBe '),
-        ('Ag HBe ','Ag HBe '),
+        ('IgG anti VHE','IgG anti VHE'),
+        ('IgM anti VHE','IgM anti VHE'),
+        ('Ac anti VHD','Ac anti VHD'),
+        ('Ac anti HBe','Ac anti HBe'),
+        ('Ag HBe','Ag HBe'),
     )
     typeexamen=models.fields.CharField(max_length=100,choices=MAYBECHOICE1)
     MAYBECHOICE2=(
         ('positif','positif'),
-        ('négatif ','négatif '),
+        ('négatif','négatif'),
     )
     resultatmodalite=models.fields.CharField(max_length=100,choices=MAYBECHOICE2) 
     MAYBECHOICE3=(
-        ('UI/ ml  ','UI/ ml'),
+        ('UI/ ml','UI/ ml'),
         ('mmol/ l','mmol/ l'),
-        ('g/l  ','g/l'),
+        ('g/l','g/l'),
         ('/mm3','/mm3'),
     )
     unite=models.fields.CharField(max_length=100,choices=MAYBECHOICE3)

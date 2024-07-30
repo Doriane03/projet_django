@@ -28,6 +28,7 @@ from  listings.models import Antecedant_genecologiqueForm
 from  listings.models import Antecedant_familialForm
 from  listings.models import Bilan_biologiqueForm
 from  listings.models import OrdonnanceForm
+from  listings.models import Bilan_imagerieForm
 #fin
 import os
 from pathlib import Path
@@ -348,7 +349,17 @@ def disponibilite(request):
 
 @login_required
 def bilanimg(request): #pas fais
-    return render(request,'listings/formbilanimg.html')
+    success = False
+    error_message = None
+    if request.method == 'POST':
+        form = Bilan_imagerieForm(request.POST,request.FILES)
+        if form.is_valid():
+            form.save()
+            success =True
+        else:
+            print(form.errors)
+            error_message = 'bilan imagerie non enregistré.'
+    return render(request,'listings/formbilanimg.html',{'error_message':error_message,'success':success}) 
 
 
 @login_required

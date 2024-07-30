@@ -16,8 +16,7 @@ import environ
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR =os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MEDIA_URL = '/media/'
-#MEDIA_ROOT = os.path.join(os.path.expanduser('~'), 'Desktop', 'ARCHIVE_DOC_PAT')
-MEDIA_ROOT = os.path.join('/root', 'Desktop', 'ARCHIVE_DOC_PAT')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 env = environ.Env()

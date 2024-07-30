@@ -3,11 +3,18 @@
 
 {% block formbilanimg %}
 <center>
-<form method="post" action=""  class="formcontenu">
+<form method="post" action=""  class="formcontenu" enctype="multipart/form-data">
 <div>
 <nav class="divcontenunav">bilan imagerie</nav>
 </div>
+{% csrf_token %}
     <fieldset>
+        {% if success %}
+        <p class="p2">bilan imagerie enregistré.</p>
+        {% endif %}
+        {% if error_message %}
+                <p class="p1">{{ error_message }}</p>
+        {% endif %}
         <div class="divsortie">
             <label for="num" >Image</label>
         <input type="file"   placeholder="image" name="echographie_ou_radiograpgie" class="inputcontenu"  accept="image/*" required/>
@@ -16,6 +23,7 @@
             <label for="num" >Renseignement clinique</label>
         <textarea name="renseignementclinique" placeholder="renseignement clinique"  rows="4" cols="50"></textarea>
         </div>   
+        <input type="text"  name="consultation"  value="1"/>
     </fieldset>
     <input type="submit"  name="validbilanimg"  value="Enregister" class="btn btn-primary"/>
 </form>
