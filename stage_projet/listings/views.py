@@ -153,7 +153,7 @@ def consultation(request):#fais
                 error_message ='Consultation non enregistrée'
         else:
             error_message = 'Le formulaire contient des erreurs.'
-    return render(request, 'listings/formconsultation.html', context={'success': success, 'patient_id': patient_id,'error_message':error_message,'form_errors': form.errors})
+    return render(request, 'listings/formconsultation.html', context={'success': success, 'patient_id': patient_id,'error_message':error_message})
 
 
 
