@@ -2,13 +2,91 @@
 {% block affichagedocpatient %}
 <center>
     <div class="container_affiche">
-
+        <div style="font-size:20px;text-transform:uppercase">dossier du patient{{ patient.numeropatient }}</div>
     <div class="left_container">
-        Div de gauche
+<pre>
+<h5>information personnelle</h5>
+Nom:{{patient.nom}}
+Numero de lit:{{patient.numerodelit}}
+Nationalite:{{patient.nationalite}}
+Situation matrimoniale:{{patient.situation_matrimoniale}}
+Age:{{patient.age}}
+Nombre d'enfant{{patient.nombre_enfant}}
+Sexe:{{patient.sexe}}
+Premier contact:0{{patient.contact1}}
+Deuxieme contact:0{{patient.contact2}}
+Email:{{patient.email}}
+Profession:{{patient.profession}}
+Ville:{{patient.ville}}   
+Commune:{{patient.commune}}
+Quartier:{{patient.quartier}}   
+Personne a contacter:{{patient.personne_a_contacter}}  
+Contact de personne a contacter:0{{patient.telephone_cpu}}
+</pre>
+<hr/>
+
+    <pre>
+    <h5>Constante</h5>
+    Nom:{{patient.nom}}
+    Numero de lit:{{patient.numerodelit}}
+    Nationalite:{{patient.nationalite}}
+    Situation matrimoniale:{{patient.situation_matrimoniale}}
+    Age:{{patient.age}}
+    Nombre d'enfant{{patient.nombre_enfant}}
+    Sexe:{{patient.sexe}}
+    Premier contact:{{patient.contact1}}
+    Deuxieme contact:{{patient.contact2}}
+    Email:{{patient.email}}
+    Profession:{{patient.profession}}
+    Ville:{{patient.ville}}   
+    Commune:{{patient.commune}}
+    Quartier:{{patient.quartier}}   
+    Personne a contacter:{{patient.personne_a_contacter}}  
+    Contact de personne a contacter:{{patient.telephone_cpu}}
+    </pre>
     </div>
 
     <div class="right_container">
-        Div de droite
+<pre>
+<h5>information personnelle</h5>
+Nom:{{patient.nom}}
+Numero de lit:{{patient.numerodelit}}
+Nationalite:{{patient.nationalite}}
+Situation matrimoniale:{{patient.situation_matrimoniale}}
+Age:{{patient.age}}
+Nombre d'enfant{{patient.nombre_enfant}}
+Sexe:{{patient.sexe}}
+Premier contact:{{patient.contact1}}
+Deuxieme contact:{{patient.contact2}}
+Email:{{patient.email}}
+Profession:{{patient.profession}}
+Ville:{{patient.ville}}   
+Commune:{{patient.commune}}
+Quartier:{{patient.quartier}}   
+Personne a contacter:{{patient.personne_a_contacter}}  
+Contact de personne a contacter:{{patient.telephone_cpu}}
+</pre>
+<hr/>
+
+    <pre>
+    <h5>Constante</h5>
+    Nom:{{patient.nom}}
+    Numero de lit:{{patient.numerodelit}}
+    Nationalite:{{patient.nationalite}}
+    Situation matrimoniale:{{patient.situation_matrimoniale}}
+    Age:{{patient.age}}
+    Nombre d'enfant{{patient.nombre_enfant}}
+    Sexe:{{patient.sexe}}
+    Premier contact:{{patient.contact1}}
+    Deuxieme contact:{{patient.contact2}}
+    Email:{{patient.email}}
+    Profession:{{patient.profession}}
+    Ville:{{patient.ville}}   
+    Commune:{{patient.commune}}
+    Quartier:{{patient.quartier}}   
+    Personne a contacter:{{patient.personne_a_contacter}}  
+    Contact de personne a contacter:{{patient.telephone_cpu}}
+    </pre>
     </div>
 
     </div>

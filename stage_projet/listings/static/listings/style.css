@@ -687,19 +687,17 @@ margin-left:25px;
 }
 .left_container {
   float: left;
-  width: 45%;
-  background-color: lightblue;
+  width: 50%;
   padding: 10px;
   box-sizing: border-box;
-  border:1px solid black;
+  border-right:1px solid black;
 }
 .right_container {
   float: right;
-  width: 45%;
-  background-color: lightgreen;
+  width:50%;
   padding: 10px;
   box-sizing: border-box;
-  border:1px solid black;
+  border-left:1px solid black;
 }
 .container_affiche {
   width: 100%;
