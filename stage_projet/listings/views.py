@@ -340,6 +340,15 @@ def box(request,patient_name):
 @login_required
 def docpatient(request):
     query = request.GET.get('query', '')
+    doc = request.GET.get('doc', '')
+    pk = request.GET.get('pk', '')
+
+    if doc == 'ok' and pk:
+        # Affiche le template affichedocpatient.html pour un patient spécifique
+        patient = get_object_or_404(Patient, idpatient=pk)
+        return render(request, 'listings/affichagedocpatient.html', {'patient': patient})
+
+    query = request.GET.get('query', '')
     if query:
         patients = Patient.objects.filter(numeropatient__icontains=query)
     else:
@@ -423,9 +432,6 @@ def chart(request):
     image_base64 = base64.b64encode(buffer.getvalue()).decode('utf-8')
     buffer.close()
 #fin1
-    
-
-
     nombre_de_patients = Patient.objects.count()
     nombre_patients_feminins = Patient.objects.filter(sexe='féminin').count()
     masculin_count = Patient.objects.filter(sexe='masculin').count()

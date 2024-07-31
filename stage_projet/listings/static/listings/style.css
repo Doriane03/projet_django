@@ -685,3 +685,23 @@ margin-left:25px;
 .Modedevie{
   overflow:hidden ;
 }
+.left_container {
+  float: left;
+  width: 45%;
+  background-color: lightblue;
+  padding: 10px;
+  box-sizing: border-box;
+  border:1px solid black;
+}
+.right_container {
+  float: right;
+  width: 45%;
+  background-color: lightgreen;
+  padding: 10px;
+  box-sizing: border-box;
+  border:1px solid black;
+}
+.container_affiche {
+  width: 100%;
+  overflow: hidden;
+}

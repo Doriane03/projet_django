@@ -225,7 +225,7 @@
        
 
         <div class="divsortie">
-            <input type="text" name="patient" id="patient" class="inputcontenu" readonly/>
+            <input type="hidden" name="patient" id="patient" class="inputcontenu" readonly/>
         </div>
     {% if request.user.is_authenticated %}
     {% if user.type_personnel_soignant.nompersog == "MEDECIN" %}
