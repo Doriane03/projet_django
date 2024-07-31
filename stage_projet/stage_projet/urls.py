@@ -52,6 +52,7 @@ urlpatterns = [
     path ('tableauconsultation',views.tableauconsultation,name='tableauconsultation'),
     path('box/<str:patient_name>/', views.box, name='box'),
     path('dossier', views.dossier, name='dossier'),
+    path('get_sortie_id/', views.get_sortie_id, name='get_sortie_id'),
     path('get_patient_id/', views.get_patient_id, name='get_patient_id'),
     
      

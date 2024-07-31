@@ -4,23 +4,16 @@
     <div>
         <nav class="divcontenunav">sortie</nav>
     </div>
-   
 
-  {% if message %}
-    <p>{{ message }}</p>
-  {% endif %}
-  
-  <!-- Afficher les erreurs de formulaire -->
-  {% if form_errors %}
-    <ul>
-    {% for field, errors in form_errors.items %}
-        <li>{{ field }}: {{ errors }}</li>
-    {% endfor %}
-    </ul>
-  {% endif %}
 
     {% csrf_token %}
     <fieldset>   
+        {% if success %}
+        <p class="p2">sortie  enregistrée.</p>
+        {% endif %}
+        {% if error_message %}
+                <p class="p1">{{ error_message }}</p>
+        {% endif %}
         <div  class="divsortie">
             <label > Fiche remplie par</label>
             <input  type="text" name="remplipar"/ >
@@ -28,7 +21,7 @@
        
         <div  class="divsortie">
             <label >Patient concerné</label>
-            <input  type="text" name="nom" id="patient"/>
+            <input  type="text" name="nom" id="nom" oninput="fetchPatientId()"/>
         </div>
         <div class="divsortie">
             <label  >Date de sortie</label>
@@ -231,7 +224,9 @@
         </div>
        
 
-    <input type="text" name="patient" id="id"  readonly />
+        <div class="divsortie">
+            <input type="text" name="patient" id="patient" class="inputcontenu" readonly/>
+        </div>
     {% if request.user.is_authenticated %}
     {% if user.type_personnel_soignant.nompersog == "MEDECIN" %}
         <input type="hidden"   name="customUser"  value="{{ user.refpersoignant }}"/>
@@ -307,6 +302,19 @@ function sortieautre(){
     }
 }
 
+
+    function fetchPatientId() {
+        var nom = document.getElementById('nom').value;
+        if (nom) {
+            fetch(`/get_sortie_id/?nom=${nom}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('patient').value = data.id ? data.id : 'Patient non trouvé';
+                });
+        } else {
+            document.getElementById('patient').value = '';
+        }
+    }
 </script>
 </center>
 {% endblock %}

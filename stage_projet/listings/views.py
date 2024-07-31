@@ -198,17 +198,17 @@ def antecedantchirurgical(request): #fais
 
 @login_required 
 def sortie_patient(request):#fais maisje dois faire une modification pour inserer l'id du patient dans son modele
+    success = False
+    error_message = None
     if request.method == 'POST':
-        patient_name = request.POST.get('nom')
-        try:
-            patient = Patient.objects.get(nom=patient_name)
-            patient_id = patient.idpatient
-        except Patient.DoesNotExist:
-            patient_id = None
-
-        return JsonResponse({'id': patient_id})
-    else:
-        return render(request, 'listings/formsortie.html')
+        form =SortieForm(request.POST)
+        if form.is_valid():
+            form.save()
+            success = True
+        else:
+            error_message = "sortie non enregistrée."
+            print(form.errors)
+    return render(request, 'listings/formsortie.html', {'success': success, 'error_message': error_message})
 
 @login_required
 def modificationmdp(request):#fais
@@ -381,7 +381,9 @@ def bilanbio(request):#pas fais
 
 @login_required
 def chart(request):
-    return render(request,'listings/chart.html')
+    nombre_de_patients = Patient.objects.count()
+    print(nombre_de_patients)
+    return render(request,'listings/chart.html',{'nombre_de_patients':nombre_de_patients})
 
 @login_required
 def menu(request):
@@ -423,6 +425,16 @@ def facture(request):#fais
     return render(request, 'listings/formfacture.html', {'success': success, 'error_message': error_message})
 
 def get_patient_id(request):
+    nom = request.GET.get('nom')
+    try:
+        patient = Patient.objects.get(nom=nom)
+        response = {'id': patient.idpatient}
+    except Patient.DoesNotExist:
+        response = {'id': None}
+    return JsonResponse(response)
+
+
+def get_sortie_id(request):
     nom = request.GET.get('nom')
     try:
         patient = Patient.objects.get(nom=nom)
