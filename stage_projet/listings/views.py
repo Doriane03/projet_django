@@ -4,6 +4,18 @@ from  django.shortcuts import render,redirect
 from  django.contrib.auth import  login , logout, authenticate # type: ignore
 from django.contrib.auth.models import Group, Permission
 from django.utils import timezone
+#pour la courbe
+from django.db.models import Avg
+import plotly.graph_objs as go
+import plotly.io as pio
+from django.db import models
+from django.db.models import Count
+import matplotlib.pyplot as plt
+import io
+import base64
+#fin
+
+
 #from  listings.forms import contact_us # type: ignore
 from  django.core.mail import send_mail # type: ignore
 from  django.contrib.auth.hashers import make_password,check_password
@@ -378,19 +390,11 @@ def bilanbio(request):#pas fais
     return render(request,'listings/bilanbio.html',{'error_message':error_message,'success':success}) 
 
 
-from django.db.models import Avg
-import plotly.graph_objs as go
-import plotly.io as pio
-from django.db import models
-from django.db.models import Count
-import matplotlib.pyplot as plt
-import io
-import base64
-from django.db.models import functions
+
 @login_required
 def chart(request):
     # Récupérer les données
-    data = Patient.objects.annotate(annee=functions.ExtractYear('date')).values('annee').annotate(nombre=Count('idpatient')).order_by('annee')
+    data = Patient.objects.annotate(annee=models.functions.ExtractYear('date')).values('annee').annotate(nombre=Count('idpatient')).order_by('annee')
 
     # Préparer les données pour le graphique
     annees = [entry['annee'] for entry in data]
