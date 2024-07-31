@@ -378,12 +378,66 @@ def bilanbio(request):#pas fais
     return render(request,'listings/bilanbio.html',{'error_message':error_message,'success':success}) 
 
 
-
+from django.db.models import Avg
+import plotly.graph_objs as go
+import plotly.io as pio
+from django.db import models
+from django.db.models import Count
+import matplotlib.pyplot as plt
+import io
+import base64
+from django.db.models import functions
 @login_required
 def chart(request):
+    # Récupérer les données
+    data = Patient.objects.annotate(annee=functions.ExtractYear('date')).values('annee').annotate(nombre=Count('idpatient')).order_by('annee')
+
+    # Préparer les données pour le graphique
+    annees = [entry['annee'] for entry in data]
+    nombres = [entry['nombre'] for entry in data]
+
+    # Définir l'année de début (la plus ancienne année présente dans les données)
+    annee_debut = min(annees) if annees else None
+
+    # Créer le graphique
+    plt.figure(figsize=(10, 6))
+    plt.bar(annees, nombres, color='skyblue')
+    plt.xlabel('Année')
+    plt.ylabel('Nombre de Patients')
+    plt.title('Nombre de Patients par Année')
+
+    if annee_debut:
+        plt.xlim(left=annee_debut - 1)  # Optionnel: pour commencer un peu avant la première année
+
+    # Configurer l'axe des X pour utiliser des entiers
+    plt.gca().xaxis.set_major_locator(plt.MaxNLocator(integer=True))
+
+    # Convertir le graphique en image PNG
+    buffer = io.BytesIO()
+    plt.savefig(buffer, format='png')
+    buffer.seek(0)
+    image_base64 = base64.b64encode(buffer.getvalue()).decode('utf-8')
+    buffer.close()
+#fin1
+    
+
+
     nombre_de_patients = Patient.objects.count()
-    print(nombre_de_patients)
-    return render(request,'listings/chart.html',{'nombre_de_patients':nombre_de_patients})
+    nombre_patients_feminins = Patient.objects.filter(sexe='féminin').count()
+    masculin_count = Patient.objects.filter(sexe='masculin').count()
+    nombre_deces = Sortie.objects.filter(motifsortie="décès").count()
+    average_age = Patient.objects.aggregate(average_age=Avg('age'))['average_age']
+    hospitalisation_count = Patient.objects.filter(consultation__diagnostique_retenu='hospitalisation').distinct().count()
+    return render(request,'listings/chart.html',
+    {'nombre_de_patients':nombre_de_patients,
+    'nombre_patients_feminins':nombre_patients_feminins,
+    'masculin_count':masculin_count,
+    'nombre_deces':nombre_deces,
+    'hospitalisation_count':hospitalisation_count,
+    'average_age':average_age,
+    'graph_image': image_base64,
+    'graph_image2': image_base64,
+    })
 
 @login_required
 def menu(request):
@@ -424,6 +478,7 @@ def facture(request):#fais
             print(form.errors)
     return render(request, 'listings/formfacture.html', {'success': success, 'error_message': error_message})
 
+@login_required
 def get_patient_id(request):
     nom = request.GET.get('nom')
     try:
@@ -433,7 +488,7 @@ def get_patient_id(request):
         response = {'id': None}
     return JsonResponse(response)
 
-
+@login_required
 def get_sortie_id(request):
     nom = request.GET.get('nom')
     try:
@@ -442,5 +497,7 @@ def get_sortie_id(request):
     except Patient.DoesNotExist:
         response = {'id': None}
     return JsonResponse(response)
+
+
 
 

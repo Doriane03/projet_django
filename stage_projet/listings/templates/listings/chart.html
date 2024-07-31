@@ -6,12 +6,14 @@
           <div class="card card-transparent stats-card">
               <div class="card-body">
                   <div class="stats-info">
-                      <h5 class="card-title">{{ nombre_de_patients }}</h5>
+                      <h5 class="card-title">{{ nombre_de_patients }}
+                        <div class="stats-icon change-success">
+                            <i class="material-icons">group</i>
+                        </div>
+                      </h5> 
                       <p class="stats-text">Nombre de patient</p>
                   </div>
-                  <div class="stats-icon change-danger">
-                      <i class="material-icons">group</i>
-                  </div>
+                  
               </div>
           </div>
       </div>
@@ -19,12 +21,26 @@
           <div class="card card-transparent stats-card">
               <div class="card-body">
                   <div class="stats-info">
-                      <h5 class="card-title">168,047<span class="stats-change stats-change-success">+16%</span></h5>
+                      <h5 class="card-title">{{nombre_deces}}
+                        <div class="stats-icon change-danger">
+                            <i class="material-icons">group</i>
+                        </div>
+                      </h5>
                       <p class="stats-text">Nombre de décès</p>
                   </div>
-                  <div class="stats-icon change-success">
-                      <i class="material-icons">trending_up</i>
+
+
+                  <div class="stats-info">
+                    <h5 class="card-title">{{nombre_deces}}
+
+                      <div class="stats-icon change-success">
+                          <i class="material-icons">group</i>
+                      </div>
+
+                    </h5>
+                    <p class="stats-text">Nombre de good</p>
                   </div>
+                  
               </div>
           </div>
       </div>
@@ -32,12 +48,14 @@
           <div class="card card-transparent stats-card">
               <div class="card-body">
                   <div class="stats-info">
-                      <h5 class="card-title">47,350<span class="stats-change stats-change-success">+12%</span></h5>
+                      <h5 class="card-title">{{hospitalisation_count}}
+                        <div class="stats-icon change-success">
+                            <i class="material-icons">hotel</i>
+                        </div>
+                      </h5>
                       <p class="stats-text">Nombre de patient hospitalisé</p>
                   </div>
-                  <div class="stats-icon change-success">
-                      <i class="material-icons">trending_up</i>
-                  </div>
+                  
               </div>
           </div>
       </div>
@@ -48,12 +66,26 @@
         <div class="card card-transparent stats-card">
             <div class="card-body">
                 <div class="stats-info">
-                    <h5 class="card-title">$3,089.67<span class="stats-change stats-change-danger">-8%</span></h5>
-                    <p class="stats-text">Nombre de patient par sexe</p>
+                    <h5 class="card-title">{{nombre_patients_feminins}}
+                         <div class="stats-icon change-success">
+                        <i class="material-icons">woman</i>
+                        </div>
+                    
+                    </h5>
+                    <p class="stats-text">Nombre de patient femme</p>
                 </div>
-                <div class="stats-icon change-danger">
-                    <i class="material-icons">group</i>
+
+                <div class="stats-info">
+                    <h5 class="card-title">{{masculin_count}}
+                        <div class="stats-icon change-success">
+                            <i class="material-icons">man</i>
+                        </div> 
+                    </h5>
+                    <p class="stats-text">Nombre de patient homme</p>
+
                 </div>
+
+                
             </div>
         </div>
     </div>
@@ -61,12 +93,14 @@
         <div class="card card-transparent stats-card">
             <div class="card-body">
                 <div class="stats-info">
-                    <h5 class="card-title">168,047<span class="stats-change stats-change-success">+16%</span></h5>
+                    <h5 class="card-title">{{average_age}}
+                        <div class="stats-icon change-success">
+                            <i class="material-icons">trending_up</i>
+                        </div>
+                    </h5>
                     <p class="stats-text">la moyenne de l'age</p>
                 </div>
-                <div class="stats-icon change-success">
-                    <i class="material-icons">trending_up</i>
-                </div>
+                
             </div>
         </div>
     </div>
@@ -101,43 +135,7 @@
       </div>
       <div class="col-lg-8">
           <div class="card">
-              <div class="card-header">
-                  <ul class="nav nav-tabs card-header-tabs">
-                      <li class="nav-item">
-                          <a class="nav-link active" href="#">Visitors</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" href="#">Reports</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" href="#">Investments</a>
-                      </li>
-                  </ul>
-              </div>
-              <div class="card-body">
-                  <div class="visitors-stats">
-                      <div class="row">
-                          <div class="col-lg-6">
-                              <div class="visitors-stats-info">
-                                  <p>Total visitors in the current period:</p>
-                                  <h5>77,871</h5>
-                                  <span>6-26 Apr</span>
-                              </div>
-                          </div>
-                          <div class="col-lg-6">
-                              <div class="visitors-stats-info">
-                                  <p>Unique visitors in the current period and ratio:</p>
-                                  <h5>58,403</h5>
-                                  <span>6-26 Apr</span>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="progress">
-                          <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                      <div id="chart-visitors"></div>
-                  </div>
-              </div>
+            <img src="data:image/png;base64,{{ graph_image }}" alt="Graphique des Patients"/>
           </div>
       </div>
   </div>
