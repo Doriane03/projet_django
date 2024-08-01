@@ -4,6 +4,7 @@ from  django.shortcuts import render,redirect
 from  django.contrib.auth import  login , logout, authenticate # type: ignore
 from django.contrib.auth.models import Group, Permission
 from django.utils import timezone
+from django.utils.timezone import localtime, now
 #pour la courbe
 from django.db.models import Avg
 import plotly.graph_objs as go
@@ -209,7 +210,7 @@ def antecedantchirurgical(request): #fais
     return render(request, 'listings/formantchirurgical.html',{"patient_id1":patient_id1,'success':success,'error_message':error_message})
 
 @login_required 
-def sortie_patient(request):#fais maisje dois faire une modification pour inserer l'id du patient dans son modele
+def sortie_patient(request):#fais
     success = False
     error_message = None
     if request.method == 'POST':
@@ -306,6 +307,7 @@ def antecedantgenecologique(request):#fais
 @login_required
 def tableauconsultation(request):#fais
     notifications = Notification.objects.filter(customUser=request.user).order_by('date_heure_notification')
+    
     return render(request,'listings/tableauconsultation.html',{'notifications': notifications})
 
 
@@ -329,12 +331,18 @@ def antecedantfamilial(request):#fais
             error_message = 'antécédant familial non enregistré.'
     return render(request,'listings/formantfamille.html',{"patient_id1":patient_id1,'form.errors':form.errors,'error_message':error_message,'success':success}) 
 
+
+
+
 from django.shortcuts import render, get_object_or_404
 @login_required
 def box(request,patient_name):
     print(patient_name)
     patient = get_object_or_404(Patient, nom=patient_name)
     request.session['patient_name'] = patient.nom
+    if not patient_name:
+        return render(request,'listings/tableauconsultation.html')
+    
     return render(request,'listings/boxclick.html')
 
 @login_required
@@ -387,18 +395,41 @@ def bilanimg(request): #pas fais
 
 
 @login_required
-def bilanbio(request):#pas fais
-    success = False
-    error_message = None
+def bilanbio(request):
     if request.method == 'POST':
-        form = Bilan_biologiqueForm(request.POST)
-        if form.is_valid():
-            form.save()
-            success =True
-        else:
-            print(form.errors)
-            error_message = 'bilan bilogique non enregistré.'
-    return render(request,'listings/bilanbio.html',{'error_message':error_message,'success':success}) 
+        typeexamen = request.POST.getlist('typeexamen[]')
+        resultatnumerique = request.POST.getlist('resultatnumerique[]')
+        # Assurez-vous de récupérer les données correctement
+        resultatmodalite = request.POST.getlist('resultatmodalite[]')  # Pas besoin d'indexation ici
+        unite = request.POST.getlist('unite[]')
+        prix = request.POST.getlist('prix[]')
+        consultation_id = request.POST.get('consultation')
+
+        # Traiter les données
+        error_message = None
+        success = False
+        
+        try:
+            for i in range(len(typeexamen)):
+                Bilan_biologique.objects.create(
+                    typeexamen=typeexamen[i],
+                    resultatnumerique=resultatnumerique[i],
+                    resultatmodalite=resultatmodalite[i] if i < len(resultatmodalite) else '',  # Valeur par défaut si manquante
+                    unite=unite[i],
+                    prix=prix[i],
+                    consultation_id=consultation_id
+                )
+            success = True
+        except Exception as e:
+            error_message = str(e)
+
+        # Rendre le template avec les messages appropriés
+        return render(request, 'listings/bilanbio.html', {
+            'success': success,
+            'error_message': error_message
+        })
+    return render(request, 'listings/bilanbio.html')
+
 
 
 
@@ -459,20 +490,63 @@ def menu(request):
 def dossier(request):
     return render(request,'listings/dossierpatient.html')
 
+
 @login_required
 def ordonnance(request):
-    medicaments=Medicament.objects.all()
+    medicaments = Medicament.objects.all()
     success = False
     error_message = None
+    ordonnance = Ordonnance.objects.get(reford='11')
+
+    # Trouver la consultation correspondante
+    consultation = ordonnance.consulation
+
+    # Trouver le patient associé à la consultation
+    patient = consultation.patient
+
+    # Obtenir le nom du patient
+    nom_patient = patient.nom
+
+    print(nom_patient)
+
     if request.method == 'POST':
-        form = OrdonnanceForm(request.POST)
-        if form.is_valid():
-            form.save()
-            success =True
-        else:
-            print(form.errors)
-            error_message = 'ordonnance non enregistré.'
-    return render(request,'listings/formordonnance.html',context={'medicaments':medicaments,'error_message':error_message,'success':success})
+        # Récupération des données du formulaire
+        consulation_id = request.POST.get('consulation')
+        medicaments_ids = request.POST.getlist('nommedicament[]')
+        quantites = request.POST.getlist('quantite[]')
+        dosages = request.POST.getlist('dosage[]')
+
+        # Validation des données
+        if consulation_id and medicaments_ids:
+            try:
+                # Créer une instance de Ordonnance
+                consulation = Consultation.objects.get(pk=consulation_id)
+                ordonnance = Ordonnance.objects.create(consulation=consulation)
+
+                # Ajouter les médicaments via la table de liaison
+                for medicament_id, quantite in zip(medicaments_ids, quantites):
+                    if medicament_id and quantite:
+                        medicament = Medicament.objects.get(pk=medicament_id)
+                        Ordonnancemedicament.objects.create(
+                            ordonnance=ordonnance,
+                            medicament=medicament,
+                            quantite=quantite
+                        )
+                
+                success = True
+            except Exception as e:
+                print(e)
+                error_message = 'Erreur lors de l\'enregistrement de l\'ordonnance.'
+
+    return render(request, 'listings/formordonnance.html', {
+        'medicaments': medicaments,
+        'error_message': error_message,
+        'success': success
+    })
+
+
+
+
 
 
 

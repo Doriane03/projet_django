@@ -280,7 +280,7 @@ class Pays(models.Model):
 class Chu(models.Model):
     numchu=models.fields.AutoField(primary_key=True)
     nomchu=models.fields.CharField(max_length=100)
-    datecreation=models.fields.DateField()
+    datecreation=models.fields.DateField(default=date.today)
     Pays=models.ForeignKey(Pays, on_delete=models.CASCADE)
     def __str__(self):
         return f'{self.numchu} {self.nomchu} {self.datecreation} {self.Pays}'  
@@ -392,29 +392,29 @@ class HospitalisationForm(ModelForm):
 
 class Sortie(models.Model):#migration
     refsortie=models.fields.AutoField(primary_key=True)
-    datesortie=models.fields.DateField(null=True, blank=True) 
-    motifsortie=models.fields.CharField(max_length=50)
-    remplipar=models.fields.CharField(max_length=100,null=True, blank=True)
+    datesortie=models.fields.DateField(null=True, blank=True,default=date.today) 
+    motifsortie=models.fields.CharField(max_length=70)
+    remplipar=models.fields.CharField(max_length=100)
 
 #pour le deces
     datedeces=models.fields.DateField(null=True, blank=True)
     causedudeces=models.fields.CharField(max_length=100,null=True, blank=True)
-    lieudeces=models.fields.CharField(max_length=10,null=True, blank=True)
-    decesliea=models.fields.CharField(max_length=4,null=True, blank=True)
+    lieudeces=models.fields.CharField(max_length=30,null=True, blank=True)
+    decesliea=models.fields.CharField(max_length=10,null=True, blank=True)
 #fin
 #pour refus de suivi
-    daterefus=models.fields.DateField(null=True, blank=True)
+    daterefus=models.fields.DateField(null=True, blank=True,default=date.today)
 #fin
 #pour perdu de vue
-    datedernierevisite=models.fields.DateField(null=True, blank=True)
-    datederniererelance=models.fields.DateField(null=True, blank=True)
+    datedernierevisite=models.fields.DateField(null=True, blank=True,default=date.today)
+    datederniererelance=models.fields.DateField(null=True, blank=True,default=date.today)
     typederelance=models.fields.CharField(max_length=100,null=True, blank=True)
     typedenouvelle=models.fields.CharField(max_length=100,null=True, blank=True)
     raison=models.fields.CharField(max_length=255,null=True, blank=True)
 #fin
     commentaire=models.fields.CharField(max_length=255,null=True, blank=True)
 #pour transfert de dossier
-    datedetransfert=models.fields.DateField(null=True, blank=True)
+    datedetransfert=models.fields.DateField(null=True, blank=True,default=date.today)
     nouveaucentredesuivi=models.fields.CharField(max_length=100,null=True, blank=True)
     numerodedossierdanslecentredetransfert=models.fields.CharField(max_length=255,null=True, blank=True)
 #fin
@@ -426,14 +426,14 @@ class Sortie(models.Model):#migration
 class SortieForm(ModelForm):
     class Meta:
         model = Sortie
-        fields = ['motifsortie', 'remplipar', 'datedeces','causedudeces','lieudeces','decesliea','daterefus','datedernierevisite','datederniererelance','typederelance','typederelance','typedenouvelle','raison','commentaire','datedetransfert','nouveaucentredesuivi','numerodedossierdanslecentredetransfert','customUser','patient']    
+        fields = ['motifsortie','datesortie', 'remplipar', 'datedeces','causedudeces','lieudeces','decesliea','daterefus','datedernierevisite','datederniererelance','typederelance','typederelance','typedenouvelle','raison','commentaire','datedetransfert','nouveaucentredesuivi','numerodedossierdanslecentredetransfert','customUser','patient']    
 
 
 class Facture(models.Model):
     idfact=models.fields.AutoField(primary_key=True)
     numerofact=models.fields.PositiveIntegerField(null=True, blank=True)
     caution_versee=models.fields.CharField(max_length=30)
-    date_versement=models.fields.DateField(null=True, blank=True)  
+    date_versement=models.fields.DateField(null=True, blank=True,default=date.today)  
     duree_sejour=models.fields.PositiveIntegerField(null=True, blank=True)
     modepaiment=models.fields.CharField(max_length=100)
     cout_sejour=models.fields.CharField(max_length=100)

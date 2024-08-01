@@ -697,8 +697,12 @@ margin-left:25px;
   width:50%;
   padding: 10px;
   box-sizing: border-box;
-  border-left:1px solid black;
 }
+
+.right_container ul {
+ list-style-type: none;
+}
+
 .container_affiche {
   width: 100%;
   overflow: hidden;

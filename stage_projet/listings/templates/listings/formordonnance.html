@@ -2,169 +2,104 @@
 
 {% block formordonnance %}
 <center>
-<form method="post" action=""  class="formcontenu">
-<div>
-<nav class="divcontenunav">ordonnance</nav>
-</div>
-{% csrf_token %}
+<form method="post" action="" class="formcontenu">
+    <div>
+        <nav class="divcontenunav">ordonnance</nav>
+    </div>
+    {% csrf_token %}
     <fieldset>
         {% if success %}
-        <p class="p2">ordonnance enregistré.</p>
+        <p class="p2">Ordonnance enregistrée.</p>
         {% endif %}
         {% if error_message %}
-                <p class="p1">{{ error_message }}</p>
+            <p class="p1">{{ error_message }}</p>
         {% endif %}
         <table id="true" class="table1">
             <tr>
-                <th>nom du médicament</th>
-                <th>nombre de boite</th>
-                <th>dossage</th>
+                <th>Nom du médicament</th>
+                <th>Quantité</th>
+                <th>Dosage</th>
             </tr>
             <tr> 
-                <div>
                 <td> 
-                    <div >
-                        <select name="nommedicament"  required>
-                            <option>choisir un médicament</option>
+                    <div>
+                        <select name="nommedicament[]" required>
+                            <option value="">Choisir un médicament</option>
                             {% for medicament in medicaments %}
-                            <option value="{medicament.idmedicament}">{{medicament.nommedicament}}</option>
+                            <option value="{{ medicament.idmedicament }}">{{ medicament.nommedicament }}</option>
                             {% endfor %}
-                            </select>
+                        </select>
                     </div>
                 </td>
-
-                <td>
-                     <div>
-                        <input type="text"  id="inputZip" name="quantite" >
-                    </div>
-                </td>
-
                 <td>
                     <div>
-                        <select name="dosage"  required>
-                            <option>choisir le dossage</option>
-                            {% for medicament in medicaments %}
-                            <option value="{medicament.idmedicament}">{{medicament.dosage}}</option>
-                            {% endfor %}
-                            </select>
+                        <input type="text" name="quantite[]" />
                     </div>
-
                 </td>
-            </div>
-                </tr>   
-    </table>
-    <div style="margin-left:620px">
-        <input type="checkbox"   name="ajout"  value="oui" onclick="ajouter()"/>Ajouter un médicament
-    </div>
-    <input type="text"  id="consultation" name="consultation" value="1">
+                <td>
+                    <div>
+                        <select name="dosage[]" required>
+                            <option value="">Choisir le dosage</option>
+                            {% for medicament in medicaments %}
+                            <option value="{{ medicament.dosage }}">{{ medicament.dosage }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </td>
+            </tr>   
+        </table>
+        <div style="margin-left:620px">
+            <input type="checkbox" name="ajout" value="oui" onclick="ajouter()" /> Ajouter un médicament
+        </div>
+        <input type="hidden" id="consultation" name="consulation" value="1">
     </fieldset>
-    <input type="submit"  name="valideconstante"  value="Enregister" class="btn btn-primary"/>
+    <input type="submit" name="valideconstante" value="Enregistrer" class="btn btn-primary"/>
 </form>
 </center>
 
-
 <script>
-    var counter = 12; // Start the counter at 12 to continue from the existing IDs
-
-    function ajouter(){
+    function ajouter() {
         var affichecheckbox = document.getElementsByName("ajout");
         var inputField = document.getElementById("true");
-        var inputField1 = document.getElementById("yes");
-    
-        for (var i = 0; i < affichecheckbox.length; i++){
-            if (affichecheckbox[i].checked){
+
+        for (var i = 0; i < affichecheckbox.length; i++) {
+            if (affichecheckbox[i].checked) {
                 if (affichecheckbox[i].value == "oui") {
                     var initialRowCount = inputField.rows.length;
                     var newRow = inputField.insertRow(-1);
                     var cell1 = newRow.insertCell(0);
                     var cell2 = newRow.insertCell(1);
                     var cell3 = newRow.insertCell(2);
-                    cell1.innerHTML = `<div> 
-                        <select name="nommedicament" required>
-                            <option>choisir un médicament</option>
+
+                    cell1.innerHTML = `<div>
+                        <select name="nommedicament[]" required>
+                            <option value="">Choisir un médicament</option>
                             {% for medicament in medicaments %}
-                            <option value="{medicament.nommedicament}">{{medicament.nommedicament}}</option>
+                            <option value="{{ medicament.idmedicament }}">{{ medicament.nommedicament }}</option>
                             {% endfor %}
                         </select>
                     </div>`;
-        
-                    cell2.innerHTML = `<div><input type="text" id="inputZip"></div>`;
-        
+
+                    cell2.innerHTML = `<div>
+                        <input type="text" name="quantite[]" />
+                    </div>`;
+
                     cell3.innerHTML = `<div>
-                        <select name="dosage" required>
-                            <option>choisir le dosage</option>
+                        <select name="dosage[]" required>
+                            <option value="">Choisir le dosage</option>
                             {% for medicament in medicaments %}
-                            <option value="{medicament.dosage}">{{medicament.dosage}}</option>
+                            <option value="{{ medicament.dosage }}">{{ medicament.dosage }}</option>
                             {% endfor %}
                         </select>
                     </div>`;
-    
-        
+
                     var finalRowCount = inputField.rows.length;
                     if (finalRowCount > initialRowCount) {
                         affichecheckbox[i].checked = false;
                     }
-                  
-                } else if (affichecheckbox[i].value == "oui1") {
-                    var initialRowCount = inputField1.rows.length;
-                    var newRow = inputField1.insertRow(-1);
-                    var cell1 = newRow.insertCell(0);
-                    var cell2 = newRow.insertCell(1);
-                    var cell3 = newRow.insertCell(2);
-                    var cell4 = newRow.insertCell(3);
-                    var cell5 = newRow.insertCell(4);
-    
-                    cell1.innerHTML = `<div>
-                        <select name="typeexamen" required>
-                            <option>choisir</option>
-                            <option value="Sérologie rétroviral">Sérologie rétroviral</option>
-                            <option value="IgG anti VHE">IgG anti VHE</option>
-                            <option value="IgM anti VHE">IgM anti VHE</option>
-                            <option value="Ac anti VHD">Ac anti VHD</option>
-                            <option value="Ac anti HBe">Ac anti HBe</option>
-                            <option value="Ag HBe">Ag HBe</option>
-                        </select>
-                    </div>`;
-    
-                    cell2.innerHTML = `<div>
-                        <input type="text" name="resultatnumerique">
-                    </div>`;
-    
-                    cell3.innerHTML = `<div class="custom-control custom-radio" id="presdiv11">
-                        <input type="radio" name="resultatmodalite" value="Positif" class="custom-control-input" id="radioPositif" />
-                        <label class="custom-control-label" for="radioPositif">Positif</label>
-                    </div>
-                    <div class="custom-control custom-radio" id="presdiv10">
-                        <input type="radio" name="resultatmodalite" value="Négatif" class="custom-control-input" id="radioNegatif" />
-                        <label class="custom-control-label" for="radioNegatif">Négatif</label>
-                    </div>`;
-    
-                    cell4.innerHTML = `<div>
-                        <select name="unite" required>
-                            <option>choisir</option>
-                            <option value="UI/ ml">UI/ ml</option>
-                            <option value="mmol/ l">mmol/ l</option>
-                            <option value="g/l">g/l</option>
-                            <option value="/mm3">/mm3</option>
-                            <option value="mmol/l">mmol/l</option>
-                            <option value="%">%</option>
-                        </select>
-                    </div>`;
-    
-                    cell5.innerHTML = `<div>
-                        <input type="text" name="prix">
-                    </div>`;
-    
-                    var finalRowCount = inputField1.rows.length;
-                    if (finalRowCount > initialRowCount) {
-                        affichecheckbox[i].checked = false;
-                    }
-    
-                    counter += 2; // Increment the counter by 2 to account for the two new IDs used
                 }
             }
         }
     }
-    
-    </script>
+</script>
 {% endblock %}

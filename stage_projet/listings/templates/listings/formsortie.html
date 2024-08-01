@@ -23,8 +23,9 @@
             <label >Patient concerné</label>
             <input  type="text" name="nom" id="nom" oninput="fetchPatientId()"/>
         </div>
+
         <div class="divsortie">
-            <label  >Date de sortie</label>
+            <label>Date de sortie</label>
             <input  type="date" name="datesortie" >
         </div>
 
@@ -72,10 +73,7 @@
                     <input  type="date" name="datedernierevisite" >
                 </div>
 
-                <div  class="divsortie">
-                    <label >Raison notifiée</label>
-                    <input  type="text" name="raison" >
-                </div>
+                
             </div>
             <!--fin-->
             <div class="test" id="motif3"> 
@@ -84,10 +82,7 @@
                     <input  type="date" name="datedetransfert" >
                 </div> 
 
-                <div  class="divsortie">
-                    <label >Raison</label>
-                    <input  type="text" name="raison" >
-                </div>
+                
 
                 <div  class="divsortie">
                     <label >Nouveau centre de suivi</label>
@@ -118,22 +113,13 @@
             <div class="divsortie">
                 <label>lieu du décès</label>
                 <div  class="custom-control custom-radio" id="presdiv11">
-                    <input type="radio"  name="lieudeces"  value="domicile"    class="custom-control-input" id="exampleRadios7" onclick="sortieautre()"/>
+                    <input type="radio"  name="lieudeces"  value="domicile"    class="custom-control-input" id="exampleRadios7" />
                     <label class="custom-control-label" for="exampleRadios7">domicile</label>
                 </div>
 
                 <div  class="custom-control custom-radio" id="presdiv10">
-                    <input type="radio"  name="lieudeces"  value="centre de santé"    class="custom-control-input" id="exampleRadios8" onclick="sortieautre()"/>
+                    <input type="radio"  name="lieudeces"  value="centre de santé" class="custom-control-input" id="exampleRadios8"/>
                     <label class="custom-control-label" for="exampleRadios8">centre de santé</label>
-                </div>
-
-
-                <div  class="custom-control custom-radio" id="presdiv17">
-                    <input type="radio"  name="lieudeces"  value="autre"    class="custom-control-input" id="exampleRadios20" onclick="sortieautre()"/>
-                    <label class="custom-control-label" for="exampleRadios20">autre</label>
-                </div>
-                <div class="test" id="motif5">
-                    <input  type="text" name="lieudeces"  placeholder"préciser"/>
                 </div>
             </div>
 
@@ -145,12 +131,12 @@
             <div class="divsortie">
                 <label>décès lié a l'hépatite </label>
                 <div  class="custom-control custom-radio" id="presdiv12">
-                    <input type="radio"  name="decesliea"  value="oui"    class="custom-control-input" id="exampleRadios5"/>
+                    <input type="radio"  name="decesliea"  value="hépatite"    class="custom-control-input" id="exampleRadios5"/>
                     <label class="custom-control-label" for="exampleRadios5">oui</label>
                 </div>
 
                 <div  class="custom-control custom-radio" id="presdiv13">
-                    <input type="radio"  name="decesliea"  value="non"    class="custom-control-input" id="exampleRadios6"/>
+                    <input type="radio"  name="decesliea"  value="autre"    class="custom-control-input" id="exampleRadios6"/>
                     <label class="custom-control-label" for="exampleRadios6">non</label>
                 </div>
             </div>
@@ -210,14 +196,15 @@
                     </div>
                 </div>
 
-                <div  class="divsortie">
-                    <label >Raison notifiée</label>
-                    <input  type="text" name="raison" >
-                </div>
+                
 
             </div>
-
-
+        <div id="raison" class="test">
+        <div  class="divsortie" id="raison" class="test">
+                <label >Raison</label>
+                <input  type="text" name="raison" >
+        </div>
+        </div>
         <div class="divsortie">
         <label>Observation</label>
         <textarea name="commentaire" placeholder="Observation" rows="5" cols="30"></textarea>
@@ -243,6 +230,8 @@ function sortie(){
     var inputField2= document.getElementById("motif2");
     var inputField3= document.getElementById("motif3");
     var inputField4= document.getElementById("motif4");
+    var inputField5= document.getElementById("raison");
+
     for (var i = 0; i < afficheRadio.length; i++) {
         if (afficheRadio[i].checked) {
             switch(afficheRadio[i].value){
@@ -251,14 +240,15 @@ function sortie(){
                     inputField2.style.display = "none";
                     inputField3.style.display = "none";
                     inputField4.style.display = "none";
-
+                    inputField5.style.display = "none";
                 break;
 
                 case 'perdu de vue':
                     inputField4.style.display = "none";
                     inputField1.style.display = "none";
                     inputField3.style.display = "none";
-                    inputField2.style.display = "block"; 
+                    inputField2.style.display = "block";
+                    inputField5.style.display = "block"; 
                 break;
 
 
@@ -266,41 +256,23 @@ function sortie(){
                     inputField4.style.display = "none";
                     inputField1.style.display = "none";
                     inputField2.style.display = "none";
-                    inputField3.style.display = "block"; 
+                    inputField3.style.display = "block";
+                    inputField5.style.display = "block"; 
                 break;
 
                 case 'refus de suivi':
                     inputField3.style.display = "none";
                     inputField1.style.display = "none";
                     inputField2.style.display = "none";
-                    inputField4.style.display = "block"; 
+                    inputField4.style.display = "block";
+                    inputField5.style.display = "block";
                 break;
             }
         }
     }
 }
 
-function sortieautre(){
-    var afficheRadio= document.getElementsByName("lieudeces");
-    var inputField1= document.getElementById("motif5");
-    for (var i = 0; i < afficheRadio.length; i++) {
-        if (afficheRadio[i].checked) {
-            switch(afficheRadio[i].value){
-                case 'autre':
-                inputField1.style.display = "block";
-                break;
 
-                case 'domicile':
-                inputField1.style.display = "none";
-                break;
-
-                case 'centre de santé':
-                inputField1.style.display = "none";
-                break;
-             }
-        }
-    }
-}
 
 
     function fetchPatientId() {

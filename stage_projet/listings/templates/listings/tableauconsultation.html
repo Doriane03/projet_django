@@ -23,6 +23,8 @@
                 <td>{{ notification.date_heure_notification }}</td>
                 <td><a  href="{% url 'box' patient_name=notification.patient.nom  %}">Consultation</a></td>
             </tr>
+            {% empty %}
+            <p>Aucune notification pour aujourd'hui.</p>
         {% endfor %}
     </tbody>
 </table>
