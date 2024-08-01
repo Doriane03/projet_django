@@ -1,9 +1,9 @@
 {% extends 'listings/template.html' %}
 {% block affichagedocpatient %}
 <center>
-    <div class="container_affiche">
+<div class="container_affiche">
         <div style="font-size:20px;text-transform:uppercase">dossier du patient{{ patient.numeropatient }}</div>
-    <div class="left_container">
+<div class="left_container">
 <pre>
 <h5>information personnelle</h5>
 Nom:{{patient.nom}}
@@ -24,62 +24,24 @@ Personne a contacter:{{patient.personne_a_contacter}}
 Contact de personne a contacter:0{{patient.telephone_cpu}}
 </pre>
 <hr/>
-
     <pre>
     <h5>Constante</h5>
-    Poids:{{constante.poids}}
-    Taille:{{constante.taille}}
-    Temperature:{{constante.temperature}}
-    Imc:{{constante.imc}}
-    Tas:{{constante.tas}}
-    Tad{{constante.tad}}
-    Pouls:{{constante.pouls}}
+    Poids:{{constantes.poids}}
+    Taille:{{constantes.taille}}
+    Temperature:{{constantes.temperature}}
+    Imc:{{constantes.imc}}
+    Tas:{{constantes.tas}}
+    Tad{{constantes.tad}}
+    Pouls:{{constantes.pouls}}
     </pre>
     </div>
 
+
+    
     <div class="right_container">
-<pre>
-<h5>information personnelle</h5>
-Nom:{{patient.nom}}
-Numero de lit:{{patient.numerodelit}}
-Nationalite:{{patient.nationalite}}
-Situation matrimoniale:{{patient.situation_matrimoniale}}
-Age:{{patient.age}}
-Nombre d'enfant{{patient.nombre_enfant}}
-Sexe:{{patient.sexe}}
-Premier contact:{{patient.contact1}}
-Deuxieme contact:{{patient.contact2}}
-Email:{{patient.email}}
-Profession:{{patient.profession}}
-Ville:{{patient.ville}}   
-Commune:{{patient.commune}}
-Quartier:{{patient.quartier}}   
-Personne a contacter:{{patient.personne_a_contacter}}  
-Contact de personne a contacter:{{patient.telephone_cpu}}
-</pre>
-<hr/>
-
-    <pre>
-    <h5>Constante</h5>
-    Nom:{{patient.nom}}
-    Numero de lit:{{patient.numerodelit}}
-    Nationalite:{{patient.nationalite}}
-    Situation matrimoniale:{{patient.situation_matrimoniale}}
-    Age:{{patient.age}}
-    Nombre d'enfant{{patient.nombre_enfant}}
-    Sexe:{{patient.sexe}}
-    Premier contact:{{patient.contact1}}
-    Deuxieme contact:{{patient.contact2}}
-    Email:{{patient.email}}
-    Profession:{{patient.profession}}
-    Ville:{{patient.ville}}   
-    Commune:{{patient.commune}}
-    Quartier:{{patient.quartier}}   
-    Personne a contacter:{{patient.personne_a_contacter}}  
-    Contact de personne a contacter:{{patient.telephone_cpu}}
-    </pre>
-    </div>
 
     </div>
+
+</div>
 </center>
 {% endblock %}

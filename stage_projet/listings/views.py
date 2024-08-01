@@ -346,9 +346,10 @@ def docpatient(request):
     if doc == 'ok' and pk:
         # Affiche le template affichedocpatient.html pour un patient spécifique
         patient = get_object_or_404(Patient, idpatient=pk)
-        constante=Constante.objects.filter(patient_id=pk)
-        print(constante)
-        return render(request, 'listings/affichagedocpatient.html', {'patient': patient,'constante':constante})
+        print(patient)
+        constantes = get_object_or_404(Constante, patient_id=pk)
+        print(constantes)
+        return render(request, 'listings/affichagedocpatient.html', {'patient': patient,'constantes':constantes})
     query = request.GET.get('query', '')
     if query:
         patients = Patient.objects.filter(numeropatient__icontains=query)
