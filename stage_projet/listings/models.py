@@ -449,7 +449,7 @@ class Facture(models.Model):
 class FactureForm(ModelForm):
     class Meta:
         model = Facture
-        fields = ['numerofact', 'caution_versee', 'date_versement','duree_sejour','modepaiment','cout_sejour','remboursement','rest_a_payer','patient']
+        fields = ['numerofact', 'caution_versee', 'date_versement','duree_sejour','modepaiment','cout_sejour','remboursement','rest_a_payer','patient','montantpaye']
 
 
 class Medicament(models.Model):#migration

@@ -496,18 +496,6 @@ def ordonnance(request):
     medicaments = Medicament.objects.all()
     success = False
     error_message = None
-    ordonnance = Ordonnance.objects.get(reford='11')
-
-    # Trouver la consultation correspondante
-    consultation = ordonnance.consulation
-
-    # Trouver le patient associé à la consultation
-    patient = consultation.patient
-
-    # Obtenir le nom du patient
-    nom_patient = patient.nom
-
-    print(nom_patient)
 
     if request.method == 'POST':
         # Récupération des données du formulaire
