@@ -74,10 +74,11 @@
                                 <div  class="custom-control custom-checkbox form-group" id="div14">
                                     <input type="checkbox"   name="motifdeconsultation[]"  value="Autre motif" onclick="pourlecheckbox()"  class="custom-control-input" id="exampleCheck12"/>
                                     <label class="custom-control-label" for="exampleCheck12" >Autre motif</label>
-                                <div id="motifdeconsultation"  class="test"> 
-                                    <input type="text"       name="motifdeconsultation"  placeholder="précisser"/>
-                                </div> 
                                  </div> 
+
+                                 <div id="motifdeconsultation"  class="test"> 
+                                    <input type="text" name="motifdeconsultation[]"  placeholder="précisser"/>
+                                </div> 
                             </div>
                         </div>
         </div>    
@@ -87,32 +88,32 @@
               <nav class="divcontenunav">prescripteur de la consultation</nav>
             </div>
                 <div class="divfrmconsul">
-                    <div class="left1">
-                            <div id="presdiv1" class="custom-control custom-radio">
+                    
+                            <div style="margin-right:67.5%;" class="custom-control custom-radio">
                                 <input type="radio"  name="prescripteur_consultation"  value="Hépato-Gastroentérologue" class="custom-control-input" id="exampleRadios1"/>
                                 <label class="custom-control-label" for="exampleRadios1" >Hépato-Gastroentérologue</label>
                             </div>
-                            <div id="presdiv2" class="custom-control custom-radio">
+                            <div style="margin-right:68.5%;" class="custom-control custom-radio">
                                 <input type="radio"  name="prescripteur_consultation"  value="Autre médecin spécialiste" class="custom-control-input" id="exampleRadios2"/>
                                 <label class="custom-control-label" for="exampleRadios2">Autre médecin spécialiste</label>
                             </div>
                       
-                            <div id="presdiv3" class="custom-control custom-radio">
+                            <div style="margin-right:72.5%;" class="custom-control custom-radio">
                                 <input type="radio"  name="prescripteur_consultation"  value="Médecin généraliste" class="custom-control-input" id="exampleRadios3"/>
                                 <label class="custom-control-label" for="exampleRadios3">Médecin généraliste</label>
                             </div>
-                    </div>
+                    
 
-                    <div class="right1">
-                            <div id="presdiv4" class="custom-control custom-radio"> 
+                    
+                            <div style="margin-right:55.3%;" class="custom-control custom-radio"> 
                                 <input type="radio"  name="prescripteur_consultation"  value="Personnel paramédical (IDE ou Sage-femme)" class="custom-control-input" id="exampleRadios4"/>
                                 <label class="custom-control-label" for="exampleRadios4">Personnel paramédical (IDE ou Sage-femme)</label>
                             </div>
-                            <div id="presdiv5" class="custom-control custom-radio">
+                            <div style="margin-right:68%;" class="custom-control custom-radio">
                                 <input type="radio"  name="prescripteur_consultation"  value="Venu(e) de lui (elle) même" class="custom-control-input" id="exampleRadios5"/>
                                 <label class="custom-control-label" for="exampleRadios5">Venu  (e)  de lui (elle) même</label>
                             </div>
-                    </div>
+                   
                 </div>
             
         </div>
@@ -121,16 +122,16 @@
             <div>
               <nav  class="divcontenunav">début de signe </nav>
             </div>
-            <div class="divfrmconsul1">
-                    <div  class="custom-control custom-radio">
+            
+                    <div style="margin-right:74.5%;" class="custom-control custom-radio">
                         <input type="radio"  name="debut_signe"  value="Inférieur à 6 mois" class="custom-control-input" id="exampleRadios6"/>
                         <label class="custom-control-label" for="exampleRadios6">Inférieur à 6 mois</label>
                     </div>
-                    <div  class="custom-control custom-radio">
+                    <div style="margin-right:68%;" class="custom-control custom-radio">
                         <input type="radio"  name="debut_signe"  value="Supérieur ou égal à 6 mois" class="custom-control-input" id="exampleRadios7"/>
                         <label class="custom-control-label" for="exampleRadios7">Supérieur ou égal à 6 mois</label>
                     </div>
-            </div>
+            
         </div>
   
         <div class="ok">
@@ -140,13 +141,13 @@
                  <div class="left">
                     <div class="divfrmconsul1">
                     <div id="divsd">
-                        <center> <label>signe digestif </label> </center>
+                           <label>signe digestif </label>  
                         <div  class="custom-control custom-radio">
-                            <input type="radio"  name="b1"  value="oui1"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios8"/>
+                            <input type="radio"  name="signe_digestifs"  value="oui"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios8"/>
                             <label class="custom-control-label" for="exampleRadios8">oui</label>
                         </div>
                         <div  class="custom-control custom-radio">
-                            <input type="radio"  name="b1"  value="non1"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios9"/>
+                            <input type="radio"  name="signe_digestifs"  value="non"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios9"/>
                             <label class="custom-control-label" for="exampleRadios9">non</label>
                         </div>
                         <input type="text" id="signedigestifs" name="signe_digestifs" placeholder="preciser" class="test"/>
@@ -158,11 +159,11 @@
                         <div id="divse">
                             <label class="labconsul1">signe extradigestif </label> 
                             <div  class="custom-control custom-radio">
-                                <input type="radio"  name="b1"  value="oui2"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios10"/>
+                                <input type="radio"  name="signe_extra_digestif"  value="oui"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios10"/>
                                 <label class="custom-control-label" for="exampleRadios10">oui</label>
                             </div>
                             <div  class="custom-control custom-radio">
-                                <input type="radio"  name="b1"  value="non2"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios11"/>
+                                <input type="radio"  name="signe_extra_digestif"  value="non"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios11"/>
                                 <label class="custom-control-label" for="exampleRadios11">non</label>
                             </div>
                             <input type="text"   id="signeextradigestif" name="signe_extra_digestif"  placeholder="preciser" class="test"/>
@@ -176,11 +177,11 @@
                         <div id="divsag">
                      <label>signe associé généraux</label>
                             <div  class="custom-control custom-radio">
-                                <input type="radio"  name="b1"  value="oui3"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios12"/>
+                                <input type="radio"  name="signe_asso_gene"  value="oui"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios12"/>
                                 <label class="custom-control-label" for="exampleRadios12">oui</label>
                             </div>
                             <div  class="custom-control custom-radio" id="divd4">
-                                <input type="radio"  name="b1"  value="non3"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios13"/>
+                                <input type="radio"  name="signe_asso_gene"  value="non"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios13"/>
                                 <label class="custom-control-label" for="exampleRadios13">non</label>
                             </div>  
                         
@@ -221,32 +222,36 @@
             <div>
               <nav class="divcontenunav">Mode de vie</nav>
             </div>
-                    <div class="left">
-                    <div class="divfrmconsul">
-                        <div class="untest1"> 
-                            <label >buvez-vous de l'alcol ?</label>
-                            <div   class="custom-control custom-radio" id="divg4" >
-                                <input type="radio"    name="b1"  value="oui4"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios15"/>
+                    
+                    <div class="p-2 g-col-6">
+
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label" style="margin-right:100px">buvez-vous de l'alcol ?</label>
+
+                            <div   class="custom-control custom-radio" id="divg4" style="margin-left:182.5px">
+                                <input type="radio"    name="nombredeverre_alcool"  value="oui"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios15"/>
                                 <label class="custom-control-label" for="exampleRadios15">oui</label>
                             </div>
-                            <div   class="custom-control custom-radio">
-                                <input type="radio"    name="b1"  value="non4"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios16"/>
+
+                            <div   class="custom-control custom-radio" style="margin-right:182.5px">
+                                <input type="radio"    name="nombredeverre_alcool"  value="non"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios16"/>
                                 <label class="custom-control-label" for="exampleRadios16">non</label>
                             </div>
+
                               <input type="text"  id="nombredeverredalcool" name="nombredeverre_alcool"  class="test" placeholder="preciser le nombre de verre/jour" />
                         </div>
                     </div>
                     
-                    <div class="divfrmconsul">
-                    
-                        <div class="untest2">
-                        <center><label >prenez-vous du tabac ?</label></center>
-                            <div   class="custom-control custom-radio" id="divg3">
-                                <input type="radio"    name="b1"  value="oui5"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios17"/>
+                    <div class="p-2 g-col-6">
+
+                        <div class="form-check form-check-inline">
+                          <label class="form-check-label" style="margin-right:100px" >prenez-vous du tabac ?</label> 
+                            <div   class="custom-control custom-radio" style="margin-left:150px">
+                                <input type="radio"    name="nombrepaquettabac"  value="oui"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios17"/>
                                 <label class="custom-control-label" for="exampleRadios17">oui</label>
                             </div>
-                            <div  class="custom-control custom-radio" id="divd3">
-                                <input type="radio"    name="b1"  value="non5"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios18"/>
+                            <div  class="custom-control custom-radio" style="margin-left:200px">
+                                <input type="radio"    name="nombrepaquettabac"  value="non"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios18"/>
                                 <label class="custom-control-label" for="exampleRadios18">non</label>
                             </div> 
                             <input type="text"  id="nombredepaquetdetabac" name="nombrepaquettabac"  class="test" placeholder="preciser le nombre de paquet/annnée" /> 
@@ -255,29 +260,29 @@
                     </div>
 
 
-                    <div class="divfrmconsul">
+                    <div class="p-0 g-col-6">
 
-                        <div class="untest4">
-                            <center><label >prenez-vous des médicaments?</label></center>
+                        <div class="form-check form-check-inline">
+                              <label class="form-check-label" style="margin-right:100px">prenez-vous des médicaments?</label> 
                             <div class="custom-control custom-radio" id="divg">
-                                <input type="radio"    name="b1"  value="oui6"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios19"/>
+                                <input type="radio"    name="medoc_en_cours"  value="oui"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios19"/>
                                 <label class="custom-control-label" for="exampleRadios19">oui</label>
                             </div>
                             <div   class="custom-control custom-radio"  id="divd">
-                                <input type="radio"    name="b1"  value="non6"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios20"/>
+                                <input type="radio"    name="medoc_en_cours"  value="non"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios20"/>
                                 <label class="custom-control-label" for="exampleRadios20">non</label>
                             </div> 
                               <input type="text"  id="medocencours" name="medoc_en_cours"  class="test" placeholder="preciser les médicaments" />
                          </div>
                     </div>
-                    </div>
+                   
                     
                     
-                    <div class="right">
-                    <div class="divfrmconsul">
+                    
+                    <div class="p-0 g-col-6">
 
-                        <div >
-                           <center><label >prenez-vous des médicaments traditionnels ?</label></center> 
+                        <div class="form-check form-check-inline">
+                             <label class="form-check-label" style="margin-right:100px">prenez-vous des médicaments traditionnels ?</label>  
                             <div   class="custom-control custom-radio"  id="divg2">
                                 <input type="radio"    name="prise_therap_tarditionnelle"  value="oui"    class="custom-control-input" id="exampleRadios21"/>
                                 <label class="custom-control-label" for="exampleRadios21">oui</label>
@@ -289,17 +294,15 @@
                         </div>
                     </div>
 
-                    <div class="divfrmconsul">
-
-                        
-                        <div class="untest3">
-                            <center><label >Bilan biologique antérieur à la consultation initiale </label></center>
+                    <div class="p-0 g-col-6">
+                        <div class="form-check form-check-inline" >
+                              <label class="form-check-label" style="margin-right:100px">Bilan biologique antérieur à la consultation initiale </label> 
                             <div  class="custom-control custom-radio"  id="divg1">
-                                <input type="radio"    name="b1"  value="oui7"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios23"/>
+                                <input type="radio"    name="Bilanbiologiqueant"  value="oui"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios23"/>
                                 <label class="custom-control-label" for="exampleRadios23">oui</label>
                             </div>
                             <div class="custom-control custom-radio"  id="divd1">
-                                <input type="radio"    name="b1"  value="non7"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios24"/>
+                                <input type="radio"    name="Bilanbiologiqueant"  value="non"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios24"/>
                                 <label class="custom-control-label" for="exampleRadios24">non</label>
                             </div> 
                        
@@ -308,37 +311,37 @@
 
                                                 <div   class="left">
                                                         <div >
-                                                            <center><label > aghbs</label></center>
+                                                              <label > aghbs</label> 
                                                             <div  class="custom-control custom-radio">
-                                                                <input type="radio"    name="aghbs"  value="o"    class="custom-control-input" id="exampleRadios25"/>
+                                                                <input type="radio"    name="aghbs"  value="oui"    class="custom-control-input" id="exampleRadios25"/>
                                                                 <label class="custom-control-label" for="exampleRadios25">oui</label>
                                                             </div>
                                                             <div  class="custom-control custom-radio">
-                                                                <input type="radio"    name="aghbs"  value="n"   class="custom-control-input" id="exampleRadios26"/>
+                                                                <input type="radio"    name="aghbs"  value="non"   class="custom-control-input" id="exampleRadios26"/>
                                                                 <label class="custom-control-label" for="exampleRadios26">non</label>
                                                             </div> 
                                                         </div> 
 
                                                         <div >
-                                                            <center><label > acanti_vhc</label></center>
+                                                              <label > acanti_vhc</label> 
                                                             <div  class="custom-control custom-radio">
-                                                                <input type="radio"    name="acanti_vhc"  value="o"    class="custom-control-input" id="exampleRadios27"/>
+                                                                <input type="radio"    name="acanti_vhc"  value="oui"    class="custom-control-input" id="exampleRadios27"/>
                                                                 <label class="custom-control-label" for="exampleRadios27">oui</label>
                                                             </div>
                                                             <div class="custom-control custom-radio">
-                                                                <input type="radio"    name="acanti_vhc"  value="n"   class="custom-control-input" id="exampleRadios28"/>
+                                                                <input type="radio"    name="acanti_vhc"  value="non"   class="custom-control-input" id="exampleRadios28"/>
                                                                 <label class="custom-control-label" for="exampleRadios28">non</label>
                                                             </div> 
                                                         </div> 
 
                                                         <div >
-                                                            <center><label > acanti_vhd </label></center>
+                                                              <label > acanti_vhd </label> 
                                                             <div  class="custom-control custom-radio">
-                                                                <input type="radio"    name="acanti_vhd"  value="o"    class="custom-control-input" id="exampleRadios29"/>
+                                                                <input type="radio"    name="acanti_vhd"  value="oui"    class="custom-control-input" id="exampleRadios29"/>
                                                                 <label class="custom-control-label" for="exampleRadios29">oui</label>
                                                             </div>
                                                             <div  class="custom-control custom-radio">
-                                                                <input type="radio"    name="acanti_vhd"  value="n"   class="custom-control-input" id="exampleRadios30"/>
+                                                                <input type="radio"    name="acanti_vhd"  value="non"   class="custom-control-input" id="exampleRadios30"/>
                                                                 <label class="custom-control-label" for="exampleRadios30">non</label>
                                                             </div> 
                                                         </div> 
@@ -346,26 +349,26 @@
 
                                                 <div   class="right">
                                                         <div >
-                                                        <center> <label > transaminase </label></center>
+                                                           <label > transaminase </label> 
                                                             <div  class="custom-control custom-radio">
-                                                                <input type="radio"    name="transaminase"  value="o"    class="custom-control-input" id="exampleRadios31"/>
+                                                                <input type="radio"    name="transaminase"  value="oui"    class="custom-control-input" id="exampleRadios31"/>
                                                                 <label class="custom-control-label" for="exampleRadios31">oui</label>
                                                             </div>
                                                             <div class="custom-control custom-radio">
-                                                                <input type="radio"    name="transaminase"  value="n"   class="custom-control-input" id="exampleRadios32"/>
+                                                                <input type="radio"    name="transaminase"  value="non"   class="custom-control-input" id="exampleRadios32"/>
                                                                 <label class="custom-control-label" for="exampleRadios32">non</label>
                                                             </div> 
                                                         </div> 
 
 
                                                         <div >
-                                                            <center><label > serologie_retrovi </label></center>
+                                                              <label > serologie_retrovi </label> 
                                                             <div  class="custom-control custom-radio">
-                                                                <input type="radio"    name="serologie_retrovi"  value="o"    class="custom-control-input" id="exampleRadios33"/>
+                                                                <input type="radio"    name="serologie_retrovi"  value="oui"    class="custom-control-input" id="exampleRadios33"/>
                                                                 <label class="custom-control-label" for="exampleRadios33">oui</label>
                                                             </div>
                                                             <div  class="custom-control custom-radio">
-                                                                <input type="radio"    name="serologie_retrovi"  value="n"   class="custom-control-input" id="exampleRadios34"/>
+                                                                <input type="radio"    name="serologie_retrovi"  value="non"   class="custom-control-input" id="exampleRadios34"/>
                                                                 <label class="custom-control-label" for="exampleRadios34">non</label>
                                                             </div> 
                                                         </div>
@@ -374,8 +377,8 @@
                                             </div>
                         </div>
                     </div>
-         </div> 
-    </div> 
+    </div>  
+    <div>
         <div>
           <nav class="divcontenunav">diagnostique retenu</nav>
         </div><br/>
