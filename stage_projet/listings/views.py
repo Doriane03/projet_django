@@ -325,11 +325,11 @@ def antecedantfamilial(request):#fais
         if form.is_valid():
             form.save()
             success =True
-            return render(request, 'listings/formantfamille.html', context={'message': message})
+            return render(request, 'listings/formantfamille.html', context={'success': success})
         else:
             print(form.errors)
             error_message = 'antécédant familial non enregistré.'
-    return render(request,'listings/formantfamille.html',{"patient_id1":patient_id1,'form.errors':form.errors,'error_message':error_message,'success':success}) 
+    return render(request,'listings/formantfamille.html',{"patient_id1":patient_id1,'error_message':error_message,'success':success}) 
 
 
 
@@ -572,6 +572,8 @@ def get_sortie_id(request):
         response = {'id': None}
     return JsonResponse(response)
 
-
+@login_required
+def calendar(request):
+    return render(request, 'listings/calendar.html')
 
 

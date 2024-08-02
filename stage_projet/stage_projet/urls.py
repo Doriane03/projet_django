@@ -54,6 +54,7 @@ urlpatterns = [
     path('dossier', views.dossier, name='dossier'),
     path('get_sortie_id/', views.get_sortie_id, name='get_sortie_id'),
     path('get_patient_id/', views.get_patient_id, name='get_patient_id'),
+    path('calendar', views.calendar, name='calendar'),
     
      
     #menu

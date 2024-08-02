@@ -21,11 +21,18 @@
         <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet"/>
         <link href="{% static 'listings/assets/plugins/bootstrap/css/bootstrap.min.css'%}" rel="stylesheet"/>
         <link href="{% static 'listings/assets/plugins/font-awesome/css/all.min.css'%}" rel="stylesheet"/>
+        
+        <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script> 
         <!-- Theme Styles -->
         <link href="{% static 'listings/connect.min.css' %}" rel="stylesheet"/>
         <link href="{% static 'listings/admin3.css' %}" rel="stylesheet"/>
         <link href="{% static 'listings/dark_theme.css' %}" rel="stylesheet"/>
         <link href="{% static 'listings/custom.css' %}" rel="stylesheet"/>
+
         <link rel="stylesheet" href="{% static 'listings/style.css' %}"/>
     </head>
         <body>
@@ -38,7 +45,7 @@
                         {% if user.type_personnel_soignant.nompersog == "INFIRMIERE" or user.type_personnel_soignant.nompersog == "INFIRMIER" %}
                                     <ul class="accordion-menu">
                                         <li>
-                                            <a  href="calendar.html" class="active"><i class="material-icons-outlined">calendar_today</i>Rendez-vous</a>
+                                            <a  href="{% url 'calendar' %}" class="active"><i class="material-icons-outlined">calendar_today</i>Rendez-vous</a>
                                         </li>
 
                                         <li>
@@ -175,7 +182,7 @@
                                             {% block tableaudocpatient %}{% endblock %}
                                             {% block dossier %}{% endblock %}
                                             {% block affichagedocpatient %}{% endblock %}
-                                        
+                                            {% block calendar %}{% endblock %}
                                     </div>
                                 </div>
                             </div>
@@ -184,7 +191,7 @@
                 </div>
             </div>
         <!-- Javascripts -->
-        <script src="{% static 'listings/assets/plugins/jquery/jquery-3.4.1.min.js' %} "></script>
+        <!-- <script src="{% static 'listings/assets/plugins/jquery/jquery-3.4.1.min.js' %} "></script>-->
         <script src="{% static 'listings/assets/plugins/bootstrap/popper.min.js' %}"></script>
         <script src="{% static 'listings/assets/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
         <script src="{% static 'listings/assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js' %}"></script>

@@ -1,1 +1,16 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.15/index.min.js" integrity="sha512-xCMh+IX6X2jqIgak2DBvsP6DNPne/t52lMbAUJSjr3+trFn14zlaryZlBcXbHKw8SbrpS0n3zlqSVmZPITRDSQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{% extends 'listings/template.html' %}
+
+{% block calendar %}
+<center>
+    <div class="container">
+        <div id="calendar"></div>
+    </div>
+
+</center>
+
+<script>
+    $(document).ready(function() {
+    $('#calendar').fullCalendar();
+ });
+ </script>
+{% endblock %}
