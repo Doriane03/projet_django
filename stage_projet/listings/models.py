@@ -316,7 +316,7 @@ class CustomUser(AbstractUser):
     date= models.fields.DateTimeField(default=timezone.now, null=True, blank=True)                                                                                
     service=models.ForeignKey(Service, on_delete=models.CASCADE, null=True, blank=True)
     type_personnel_soignant=models.ForeignKey(Type_personnel_soignant, on_delete=models.CASCADE, null=True, blank=True)
-
+    disponible=models.fields.BooleanField(default=False)
     USERNAME_FIELD='nom'
     REQUIRED_FIELDS=['username']
     def __str__(self):

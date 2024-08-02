@@ -387,7 +387,7 @@
         <input type="text"   placeholder="diagnostique retenu" name="diagnostique_retenu" class="inputcontenu"/>
         </div>
         </div>
-    <input type="text"   name="patient"  value="{{ patient_id }}"/>
+    <input type="hidden"   name="patient"  value="{{ patient_id }}"/>
     {% if request.user.is_authenticated %}
     {% if user.type_personnel_soignant.nompersog == "MEDECIN" %}
         <input type="hidden"   name="customUser"  value="{{ user.refpersoignant }}"/>
