@@ -78,7 +78,7 @@ def patient(request):
     success = False
     error_message = None
     medecin_type = Type_personnel_soignant.objects.get(nompersog='MEDECIN')
-    medecins = CustomUser.objects.filter(type_personnel_soignant=medecin_type)
+    medecins = CustomUser.objects.filter(type_personnel_soignant=medecin_type,disponible=True)
     if request.method == "POST":
         form = PatientForm(request.POST)
         if form.is_valid():
@@ -217,7 +217,9 @@ def sortie_patient(request):#fais
         form =SortieForm(request.POST)
         if form.is_valid():
             form.save()
-            success = True
+            #if 'patient_name' in request.session : 
+                #del request.session['patient_name']
+            success = True  
         else:
             error_message = "sortie non enregistrée."
             print(form.errors)
@@ -306,8 +308,13 @@ def antecedantgenecologique(request):#fais
 
 @login_required
 def tableauconsultation(request):#fais
-    notifications = Notification.objects.filter(customUser=request.user).order_by('date_heure_notification')
-    
+    #notifications = Notification.objects.filter(customUser=request.user).order_by('date_heure_notification')
+    today = localdate()
+
+    notifications = Notification.objects.filter(
+    customUser=request.user,
+    date_heure_notification__date=today
+    ).order_by('date_heure_notification')
     return render(request,'listings/tableauconsultation.html',{'notifications': notifications})
 
 
@@ -365,7 +372,7 @@ def docpatient(request):
         patients = Patient.objects.all()
     return render(request, 'listings/tableaudocpatient.html', {'patients': patients, 'query': query})
 
-@login_required 
+@login_required
 def disponibilite(request):
     try:
         type_medecin = Type_personnel_soignant.objects.get(nompersog='MEDECIN')
@@ -373,62 +380,85 @@ def disponibilite(request):
     except Type_personnel_soignant.DoesNotExist:
         medecins = CustomUser.objects.none()  # Aucun médecin trouvé
         print(medecins)
+
+    if request.method == "POST":
+        selected_medecins = request.POST.getlist('medecins')
+        CustomUser.objects.filter(refpersoignant__in=selected_medecins).update(disponible=True)
+        CustomUser.objects.exclude(refpersoignant__in=selected_medecins).update(disponible=False)
+
+        return render(request, 'listings/tableaumeddispodelasemaine.html', {'medecins': medecins})
+
     return render(request, 'listings/tableaumeddispodelasemaine.html', {'medecins': medecins})
 
 
 
 
 
+
+
 @login_required
-def bilanimg(request): #pas fais
+def bilanimg(request):
     success = False
     error_message = None
+    patient_name = request.session.get('patient_name', 'Nom du patient non trouvé')
+    patient = get_object_or_404(Patient, nom=patient_name)
+    patient_id1 = patient.idpatient
+
+    # Récupérer la dernière consultation
+    derniere_consultation_id = None
+    try:
+        derniere_consultation = Consultation.objects.filter(patient=patient).latest('date')
+        derniere_consultation_id = derniere_consultation.Numconsulta
+    except Consultation.DoesNotExist:
+        derniere_consultation = None
+
     if request.method == 'POST':
-        form = Bilan_imagerieForm(request.POST,request.FILES)
+        form = Bilan_imagerieForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            success =True
+            success = True
         else:
             print(form.errors)
-            error_message = 'bilan imagerie non enregistré.'
-    return render(request,'listings/formbilanimg.html',{'error_message':error_message,'success':success}) 
+            error_message = 'Bilan imagerie non enregistré.'
+
+    return render(request, 'listings/formbilanimg.html', {
+        'error_message': error_message,
+        'success': success,
+        'derniere_consultation_id': derniere_consultation_id,
+    })
+
 
 
 @login_required
 def bilanbio(request):
+    success = False
+    error_message = None
+    patient_name = request.session.get('patient_name', 'Nom du patient non trouvé')
+    patient = get_object_or_404(Patient, nom=patient_name)
+    patient_id1 = patient.idpatient
+
+    # Récupérer la dernière consultation
+    derniere_consultation_id = None
+    try:
+        derniere_consultation = Consultation.objects.filter(patient=patient).latest('date')
+        derniere_consultation_id = derniere_consultation.Numconsulta
+    except Consultation.DoesNotExist:
+        derniere_consultation = None
+
     if request.method == 'POST':
-        typeexamen = request.POST.getlist('typeexamen[]')
-        resultatnumerique = request.POST.getlist('resultatnumerique[]')
-        # Assurez-vous de récupérer les données correctement
-        resultatmodalite = request.POST.getlist('resultatmodalite[]')  # Pas besoin d'indexation ici
-        unite = request.POST.getlist('unite[]')
-        prix = request.POST.getlist('prix[]')
-        consultation_id = request.POST.get('consultation')
-
-        # Traiter les données
-        error_message = None
-        success = False
-        
-        try:
-            for i in range(len(typeexamen)):
-                Bilan_biologique.objects.create(
-                    typeexamen=typeexamen[i],
-                    resultatnumerique=resultatnumerique[i],
-                    resultatmodalite=resultatmodalite[i] if i < len(resultatmodalite) else '',  # Valeur par défaut si manquante
-                    unite=unite[i],
-                    prix=prix[i],
-                    consultation_id=consultation_id
-                )
+        form = Bilan_imagerieForm(request.POST)
+        if form.is_valid():
+            form.save()
             success = True
-        except Exception as e:
-            error_message = str(e)
+        else:
+            print(form.errors)
+            error_message = 'Bilan imagerie non enregistré.'
 
-        # Rendre le template avec les messages appropriés
-        return render(request, 'listings/bilanbio.html', {
-            'success': success,
-            'error_message': error_message
-        })
-    return render(request, 'listings/bilanbio.html')
+    return render(request, 'listings/bilanbio.html', {
+        'error_message': error_message,
+        'success': success,
+        'derniere_consultation_id': derniere_consultation_id,
+    })
 
 
 
@@ -496,6 +526,17 @@ def ordonnance(request):
     medicaments = Medicament.objects.all()
     success = False
     error_message = None
+    patient_name = request.session.get('patient_name', 'Nom du patient non trouvé')
+    patient = get_object_or_404(Patient, nom=patient_name)
+    patient_id1 = patient.idpatient
+
+    # Récupérer la dernière consultation
+    derniere_consultation_id = None
+    try:
+        derniere_consultation = Consultation.objects.filter(patient=patient).latest('date')
+        derniere_consultation_id = derniere_consultation.Numconsulta
+    except Consultation.DoesNotExist:
+        derniere_consultation = None
 
     if request.method == 'POST':
         # Récupération des données du formulaire
@@ -529,7 +570,8 @@ def ordonnance(request):
     return render(request, 'listings/formordonnance.html', {
         'medicaments': medicaments,
         'error_message': error_message,
-        'success': success
+        'success': success,
+        'derniere_consultation_id':derniere_consultation_id,
     })
 
 

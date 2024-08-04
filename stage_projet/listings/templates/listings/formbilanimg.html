@@ -23,7 +23,7 @@
             <label for="num" >Renseignement clinique</label>
         <textarea name="renseignementclinique" placeholder="renseignement clinique"  rows="4" cols="50"></textarea>
         </div>   
-        <input type="text"  name="consultation"  value="1"/>
+        <input type="hidden"  name="consultation"  value="{{derniere_consultation_id}}"/>
     </fieldset>
     <input type="submit"  name="validbilanimg"  value="Enregister" class="btn btn-primary"/>
 </form>
