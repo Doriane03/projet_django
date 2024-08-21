@@ -16,9 +16,7 @@
 </div>
     {% csrf_token %}
     <fieldset>
-      {% if success %}
-        <p class="p2">Constantes ajoutées'</p>
-        {% endif %}
+        
         {% if error_message %}
                 <p class="p1">{{ error_message }}</p>
         {% endif %}

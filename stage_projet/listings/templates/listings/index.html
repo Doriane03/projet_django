@@ -1,12 +1,12 @@
-{% extends 'listings/head.html' %}
-{% block content %}
+{% extends 'listings/template.html' %}
+{% block cnx %}
 <center><form method="POST" action="{% url 'login' %}" class="formcnx">
     {% csrf_token %}
     <fieldset>
             <input type="text"   placeholder="nom" name="username" class="inputformcnx" required/>
             <input type="password"  placeholder="mot de passe" name="password" class="inputformcnx" required/>
             {% if form.errors %}
-                <p class="p1">verifier le mot de passe</p>
+                <p class="p1">verifiez le mot de passe</p>
             {% endif %}
     </fieldset>
     <input type="submit"  name="connexion"  value="connexion" class="btn btn-primary"/>

@@ -1,10 +1,11 @@
 from  django.http import HttpResponse # type: ignore
 from django.http import JsonResponse
+from django.contrib.auth.views import LoginView
 from  django.shortcuts import render,redirect
 from  django.contrib.auth import  login , logout, authenticate # type: ignore
 from django.contrib.auth.models import Group, Permission
 from django.utils import timezone
-from django.utils.timezone import localtime, now
+from django.utils.timezone import localtime, now,localdate
 #pour la courbe
 from django.db.models import Avg
 import plotly.graph_objs as go
@@ -73,34 +74,37 @@ from django.contrib.auth.decorators import login_required
   
 #pour ma bd
 #recuperation de donnees
+
+
 @login_required
 def patient(request):
     success = False
     error_message = None
     medecin_type = Type_personnel_soignant.objects.get(nompersog='MEDECIN')
-    medecins = CustomUser.objects.filter(type_personnel_soignant=medecin_type,disponible=True)
+    medecins = CustomUser.objects.filter(type_personnel_soignant=medecin_type, disponible=True)
+    
     if request.method == "POST":
         form = PatientForm(request.POST)
         if form.is_valid():
             medecin_id = request.POST.get('medecin')
             if medecin_id:
-                medecin = CustomUser.objects.get(refpersoignant=medecin_id)
-                
+                medecin = get_object_or_404(CustomUser, refpersoignant=medecin_id)
                 try:
                     with transaction.atomic():
                         patient = form.save(commit=False)
                         patient.save()
                         Notification.objects.create(patient=patient, customUser=medecin, date_heure_assignation=timezone.now())
-                        success =True 
+                        success = True
                         return render(request, 'listings/formconstante.html', context={'success': success, 'Patient_idpatient': patient.idpatient, 'medecins': medecins})
                 except Exception as e:
                     error_message = f'Échec de la création de la notification : {e}'
             else:
                 error_message = 'Le médecin n\'a pas été sélectionné'
         else:
-            error_message = 'Le formulaire n"est pas valide'
-    else:
-        return render(request, 'listings/formpatient.html', context={'medecins': medecins,'error_message':error_message,'success':success})
+            error_message = 'Le formulaire n\'est pas valide'
+    
+    return render(request, 'listings/formpatient.html', context={'medecins': medecins, 'error_message': error_message, 'success': success})
+
 
 
 
@@ -206,7 +210,7 @@ def antecedantchirurgical(request): #fais
             success =True
         else:
             print(form.errors)
-            error_message = 'antécédant chirurgical  non enregistré .'
+            error_message = 'antécédant chirurgical  non enregistré.'
     return render(request, 'listings/formantchirurgical.html',{"patient_id1":patient_id1,'success':success,'error_message':error_message})
 
 @login_required 
@@ -446,7 +450,7 @@ def bilanbio(request):
         derniere_consultation = None
 
     if request.method == 'POST':
-        form = Bilan_imagerieForm(request.POST)
+        form = Bilan_biologiqueForm(request.POST)
         if form.is_valid():
             form.save()
             success = True
@@ -513,8 +517,8 @@ def chart(request):
     })
 
 @login_required
-def menu(request):
-    return render(request,'listings/chart.html')
+def template(request):
+    return render(request,'listings/template.html')
 
 @login_required
 def dossier(request):
@@ -617,5 +621,13 @@ def get_sortie_id(request):
 @login_required
 def calendar(request):
     return render(request, 'listings/calendar.html')
+    
 
+class CustomLoginView(LoginView):
+    template_name = "listings/index.html"
 
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            # Rediriger vers une autre page si l'utilisateur est déjà connecté
+            return redirect('template')  # Remplace 'home' par le nom de la vue vers laquelle tu veux rediriger
+        return super().dispatch(request, *args, **kwargs)

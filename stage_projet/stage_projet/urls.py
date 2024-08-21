@@ -18,20 +18,21 @@ Including another URLconf
 from django.contrib import admin # type: ignore
 from django.urls import path,include # type: ignore
 from listings import views  # type: ignore
+from .views import CustomLoginView 
 from django.contrib.auth.views import LoginView, LogoutView
 from django.conf import settings
 from django.conf.urls.static import static
 import os
 urlpatterns = [
     #connexion
-    path("", LoginView.as_view(template_name="listings/index.html"), name="login"),
+    path('', CustomLoginView.as_view(), name='login'),
     path("logout/", LogoutView.as_view(template_name="listings/index.html"), name="logout"),
     #fin
     #django admin
     path('admin/', admin.site.urls),
     #fin
 
-    path('menu',views.menu,name='menu'),
+    path('template',views.template,name='template'),
     path('patient',views.patient,name='patient'),
     path ('constante',views.constante,name='constante'),
     path ('disponibilite',views.disponibilite,name='disponibilite'),

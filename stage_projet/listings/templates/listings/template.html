@@ -34,26 +34,54 @@
         <link href="{% static 'listings/custom.css' %}" rel="stylesheet"/>
 
         <link rel="stylesheet" href="{% static 'listings/style.css' %}"/>
+        
+        
+
     </head>
         <body>
+        {% if request.user.is_authenticated %}
+        <script>
+            function ld() {
+                // Vérifie si la fonction a déjà été exécutée dans cette session
+                if (!sessionStorage.getItem('ldExecuted')) {
+                    var v1 = document.getElementById("n1");
+                    var v2 = document.getElementById("n2");
+                    var v3 = document.getElementById("n3");
+                    if (v1) {
+                        alert('Le bouton va être cliqué automatiquement.');
+                        v1.click();
+                    }else if(v2){
+                        alert('Le bouton va être cliqué automatiquement.');
+                        v2.click();
+                    }else if(v3){
+                        alert('Le bouton va être cliqué automatiquement.');
+                        v3.click();
+                    }
+                    // Marque la fonction comme exécutée dans sessionStorage
+                    sessionStorage.setItem('ldExecuted', 'true');
+                }
+            }
+    
+            window.onload = ld;
+        </script>
+
             <!--debut menu-->
             <div class="connect-container align-content-stretch d-flex flex-wrap">
                 <div class="page-sidebar">
                     <div class="logo-box"><a href="#" class="logo-text"><img src="{% static 'listings/logochu.jpg' %}"  width="100"  alt="photo2"/></a><a href="#" id="sidebar-close"><i class="material-icons">close</i></a> <a href="#" id="sidebar-state"><i class="material-icons">adjust</i><i class="material-icons compact-sidebar-icon">panorama_fish_eye</i></a></div>
                     <div class="page-sidebar-inner slimscroll">
-                        {% if request.user.is_authenticated %}
                         {% if user.type_personnel_soignant.nompersog == "INFIRMIERE" or user.type_personnel_soignant.nompersog == "INFIRMIER" %}
                                     <ul class="accordion-menu">
                                         <li>
-                                            <a  href="{% url 'calendar' %}" class="active"><i class="material-icons-outlined">calendar_today</i>Rendez-vous</a>
+                                            <a  href="{% url 'calendar' %}" class="active" id="n2"><i class="material-icons-outlined">calendar_today</i>Rendez-vous</a>
                                         </li>
 
-                                        <li>
-                                            <a  href="#" ><i class="material-icons-outlined">person-check</i>Médecin disponible</a> <!--faire une requete pour afficher une liste de tous les medecins connectes-->
-                                        </li>
+                                        <!--<li>
+                                            <a  href="#" ><i class="material-icons-outlined">person-check</i>Médecin disponible</a>
+                                        </li>-->
 
                                         <li>
-                                            <a  href="{% url 'patient' %}"  ><i class="material-icons-outlined">save</i>Enregister un patient</a>
+                                            <a  id="click1" href="{% url 'patient' %}" ><i class="material-icons-outlined">save</i>Enregister un patient</a>
                                         </li>
 
                                         <li>
@@ -68,12 +96,12 @@
 
                             {% elif user.type_personnel_soignant.nompersog == "MEDECIN" %}
                                     <ul class="accordion-menu">
-                                        <li>
+                                        <!--<li>
                                             <a  href="#" class="active"><i class="material-icons-outlined">visibility</i>Rendez-vous</a>
-                                        </li>
+                                        </li>-->
                                         
                                         <li>
-                                            <a  href="{% url 'tableauconsultation' %}"><i class="material-icons-outlined">visibility</i>Consultation</a>
+                                            <a  href="{% url 'tableauconsultation' %}" id="n1"><i class="material-icons-outlined">visibility</i>Consultation</a>
                                         </li>
             
                                         <li>
@@ -88,7 +116,7 @@
 
                                         
                                         <li>
-                                            <a  href="{% url 'logout' %}" ><i class="material-icons">logout</i>Déconnexion</a>
+                                            <a  href="{% url 'logout' %}"><i class="material-icons">logout</i>Déconnexion</a>
                                         </li>
 
                                     </ul>
@@ -105,7 +133,7 @@
                                         </li>
                                         
                                         <li>
-                                            <a  href="{% url 'chart' %}" ><i class="material-icons-outlined">show_chart</i>Afficher le tableau de bord</a>
+                                            <a  href="{% url 'chart' %}" id="n3"><i class="material-icons-outlined">show_chart</i>Afficher le tableau de bord</a>
                                         </li>
 
                                         <li>
@@ -118,7 +146,6 @@
 
                                     </ul>
                             {% endif %}
-                        {% endif %}
                     </div>
                 </div>
                 <!--fin menu-->
@@ -155,7 +182,6 @@
                         </nav>
                     
                     </div>
-                           
                             <div class="row">
                                 <div class="col-xl">
                                     <div class="card1">
@@ -187,11 +213,31 @@
                                 </div>
                             </div>
                         </div>
-                   
                 </div>
             </div>
+            {% else %}
+            <script>
+                function lg() {
+                    // Supprime le marqueur dans sessionStorage pour réinitialiser lors de la prochaine connexion
+                    sessionStorage.removeItem('ldExecuted');
+                }
+                // Appel de la fonction lg pour réinitialiser lors de la connexion
+                lg();
+            </script>
+    
+                <div class="image">
+                    <div class="div1"><img src="{% static 'static/listings/homme.png' %}" width="150" alt="photo1"/></div>
+                    <div class="div2"><img src="{% static 'static/listings/logochu.jpg' %}" width="100"  alt="photo2"/></div>
+                    <div class="text">{% block cnx %} {% endblock %}</div>
+                </div>
+
+        {% endif %}
+
         <!-- Javascripts -->
         <!-- <script src="{% static 'listings/assets/plugins/jquery/jquery-3.4.1.min.js' %} "></script>-->
+        
+        
+
         <script src="{% static 'listings/assets/plugins/bootstrap/popper.min.js' %}"></script>
         <script src="{% static 'listings/assets/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
         <script src="{% static 'listings/assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js' %}"></script>
