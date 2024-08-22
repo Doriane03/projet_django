@@ -22,6 +22,8 @@ from  listings.models  import Ordonnance # type: ignore
 from  listings.models  import Bilan_imagerie # type: ignore
 from  listings.models  import Bilan_biologique # type: ignore
 from  listings.models import Notification
+from  listings.models import Lit
+from  listings.models import Categorie
 #fin import
 from  listings.models  import CustomUser # type: ignore
 admin.site.register(CustomUser)
@@ -30,6 +32,13 @@ admin.site.register(CustomUser)
 class OrdonnancemedicamentInline(admin.TabularInline):#cherche à comprendre pourquoi
     model = Ordonnancemedicament
     extra = 1 
+
+class PatientlitAdmin(admin.ModelAdmin):
+    list_display = ('patient', 'lit', 'dateoccupation_fr')
+    def dateoccupation_fr(self, obj):
+        return obj.dateoccupation_fr()  # Appelle la méthode du modèle pour formater la date
+    dateoccupation_fr.short_description = 'Date d\'occupation'
+
 
 class NotificationAdmin(admin.ModelAdmin):
     list_display=('date_heure_notification','date_heure_assignation','patient','customUser') # type: ignore
@@ -67,7 +76,7 @@ class ConstanteAdmin(admin.ModelAdmin):
     list_display=('refconst','poids','taille','temperature','imc','tas','tad','pouls','patient') # type: ignore
 
 class ConsultationAdmin(admin.ModelAdmin):
-    list_display=('Numconsulta', 'motifdeconsultation', 'prescripteur_consultation', 'debut_signe', 'signe_digestifs', 'signe_extra_digestif', 'signe_asso_gene', 'nombredeverre_alcool', 'nombrepaquettabac', 'medoc_en_cours', 'prise_therap_tarditionnelle', 'aghbs', 'acanti_vhc', 'acanti_vhd', 'serologie_retrovi', 'transaminase', 'histoiredemaladie', 'date', 'resultat', 'renseignementclinic','Bilanbiologiqueant','diagnostique_retenu','patient', 'customUser') # type: ignore
+    list_display=('Numconsulta', 'motifdeconsultation', 'prescripteur_consultation', 'debut_signe', 'signe_digestifs', 'signe_extra_digestif', 'signe_asso_gene', 'nombredeverre_alcool', 'nombrepaquettabac', 'medoc_en_cours', 'prise_therap_tarditionnelle', 'aghbs', 'acanti_vhc', 'acanti_vhd', 'serologie_retrovi', 'transaminase', 'histoiredemaladie', 'date', 'resultat', 'renseignementclinic','Bilanbiologiqueant','diagnostique_retenu',,'typealcool','frequence','patient', 'customUser') # type: ignore
 
 class OrdonnanceAdmin(admin.ModelAdmin):
     list_display=('reford','consulation') # type: ignore
@@ -77,7 +86,7 @@ class Bilan_imagerieAdmin(admin.ModelAdmin):
     list_display=('numbilimg','echographie_ou_radiograpgie','renseignementclinique','consultation') # type: ignore
 
 class Bilan_biologiqueAdmin(admin.ModelAdmin):
-    list_display=('numbilanbio', 'typeexamen',  'resultatmodalite', 'unite','consultation','resultatnumerique','prix') # type: ignore
+    list_display=('numbilanbio', 'typeexamen',  'resultatmodalite', 'unite','consultation','resultatnumerique','prix','datedubilan','resultatdubilan') # type: ignore
     
 class Antecedant_familialAdmin(admin.ModelAdmin): #nouveau
     list_display=('refantfam', 'hepatie_vir_ASC', 'cirrhose_ASC', 'cpf_ASC','hepatie_vir_DSC', 'cirrhose_DSC', 'cpf_DSC','hepatie_vir_COL', 'cirrhose_COL', 'cpf_COL','patient')
@@ -91,6 +100,13 @@ class Antecedant_chirurgicalAdmin(admin.ModelAdmin):#nouveau
 
 class Antecedant_genecologiqueAdmin(admin.ModelAdmin):#nouveau
     list_display=('refantgen', 'datederniereregle', 'gestite', 'parite', 'prisecontraceptif', 'cesarienne', 'datecesarienne', 'date', 'patient')
+
+class LitAdmin(admin.ModelAdmin):#nouveau
+    list_display=('reflit', 'numlit','categorie')
+
+class CategorieAdmin(admin.ModelAdmin):#nouveau
+    list_display=('idcat', 'libcat')
+
 #fin
 #pour ma bd
 admin.site.register(Antecedant_medical,Antecedant_medicalAdmin) #nouveau
@@ -113,6 +129,9 @@ admin.site.register(Hospitalisation,HospitalisationAdmin)
 admin.site.register(Sortie,SortieAdmin)
 admin.site.register(Consultation,ConsultationAdmin)
 admin.site.register(Notification,NotificationAdmin)
+admin.site.register(Categorie, CategorieAdmin)
+admin.site.register(Lit, LitAdmin)
+admin.site.register(Patientlit, PatientlitAdmin)
 
 #fin
 # Register your models here.

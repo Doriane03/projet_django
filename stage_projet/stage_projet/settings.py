@@ -21,8 +21,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 env = environ.Env()
 environ.Env.read_env()
-LOGIN_URL = 'login'
 #LOGOUT_URL = '/'  # URL pour la déconnexion
+LOGIN_URL ='login'
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True 
 AUTH_USER_MODEL = "listings.CustomUser"
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -58,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'listings.middleware.DisableCacheMiddleware',
 ]
    
 

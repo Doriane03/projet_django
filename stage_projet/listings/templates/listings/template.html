@@ -40,37 +40,12 @@
     </head>
         <body>
         {% if request.user.is_authenticated %}
-        <script>
-            function ld() {
-                // Vérifie si la fonction a déjà été exécutée dans cette session
-                if (!sessionStorage.getItem('ldExecuted')) {
-                    var v1 = document.getElementById("n1");
-                    var v2 = document.getElementById("n2");
-                    var v3 = document.getElementById("n3");
-                    if (v1) {
-                        alert('Le bouton va être cliqué automatiquement.');
-                        v1.click();
-                    }else if(v2){
-                        alert('Le bouton va être cliqué automatiquement.');
-                        v2.click();
-                    }else if(v3){
-                        alert('Le bouton va être cliqué automatiquement.');
-                        v3.click();
-                    }
-                    // Marque la fonction comme exécutée dans sessionStorage
-                    sessionStorage.setItem('ldExecuted', 'true');
-                }
-            }
-    
-            window.onload = ld;
-        </script>
-
             <!--debut menu-->
             <div class="connect-container align-content-stretch d-flex flex-wrap">
                 <div class="page-sidebar">
                     <div class="logo-box"><a href="#" class="logo-text"><img src="{% static 'listings/logochu.jpg' %}"  width="100"  alt="photo2"/></a><a href="#" id="sidebar-close"><i class="material-icons">close</i></a> <a href="#" id="sidebar-state"><i class="material-icons">adjust</i><i class="material-icons compact-sidebar-icon">panorama_fish_eye</i></a></div>
                     <div class="page-sidebar-inner slimscroll">
-                        {% if user.type_personnel_soignant.nompersog == "INFIRMIERE" or user.type_personnel_soignant.nompersog == "INFIRMIER" %}
+                    {% if user.type_personnel_soignant.nompersog == "INFIRMIERE" or user.type_personnel_soignant.nompersog == "INFIRMIER" %}
                                     <ul class="accordion-menu">
                                         <li>
                                             <a  href="{% url 'calendar' %}" class="active" id="n2"><i class="material-icons-outlined">calendar_today</i>Rendez-vous</a>
@@ -122,7 +97,7 @@
                                     </ul>
 
 
-                            {% elif user.type_personnel_soignant.nompersog == "ADMIN" %}
+                            {% elif user.type_personnel_soignant.nompersog == "gestionnaire" %}
                                     <ul class="accordion-menu">
                                         <li>
                                             <a href="{% url 'adminform' %}"><i class="material-icons">person_edit</i>Créer un utilisateur</a>
@@ -145,7 +120,7 @@
                                         </li>
 
                                     </ul>
-                            {% endif %}
+                        {% endif %}
                     </div>
                 </div>
                 <!--fin menu-->
@@ -216,15 +191,6 @@
                 </div>
             </div>
             {% else %}
-            <script>
-                function lg() {
-                    // Supprime le marqueur dans sessionStorage pour réinitialiser lors de la prochaine connexion
-                    sessionStorage.removeItem('ldExecuted');
-                }
-                // Appel de la fonction lg pour réinitialiser lors de la connexion
-                lg();
-            </script>
-    
                 <div class="image">
                     <div class="div1"><img src="{% static 'static/listings/homme.png' %}" width="150" alt="photo1"/></div>
                     <div class="div2"><img src="{% static 'static/listings/logochu.jpg' %}" width="100"  alt="photo2"/></div>
@@ -235,9 +201,6 @@
 
         <!-- Javascripts -->
         <!-- <script src="{% static 'listings/assets/plugins/jquery/jquery-3.4.1.min.js' %} "></script>-->
-        
-        
-
         <script src="{% static 'listings/assets/plugins/bootstrap/popper.min.js' %}"></script>
         <script src="{% static 'listings/assets/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
         <script src="{% static 'listings/assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js' %}"></script>
@@ -252,6 +215,6 @@
         <script src="{% static 'listings/assets/plugins/flot/jquery.flot.resize.min.js' %}"></script>
         <script src="{% static 'listings/assets/plugins/flot/jquery.flot.tooltip.min.js' %}"></script>
         <script src="{% static 'listings/assets/js/pages/dashboard.js' %}"></script>
-
+    
     </body>
 </html>

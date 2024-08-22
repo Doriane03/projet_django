@@ -5,6 +5,7 @@ from django.db import models # type: ignore
 from django.forms import ModelForm # type: ignore
 from django.core.validators import MaxValueValidator,MinValueValidator # type: ignore
 from datetime import datetime,date
+from django.utils import formats
 #class sans clé secondaire    
 class Patient(models.Model): #modifie
     idpatient=models.fields.AutoField(primary_key=True)
@@ -172,8 +173,8 @@ class Antecedant_chirurgicalForm(ModelForm):
 class Antecedant_genecologique(models.Model):#nouvel ajout 
     refantgen=models.fields.AutoField(primary_key=True)
     datederniereregle=models.fields.DateField(blank=True,null=True,)
-    gestite=models.fields.CharField(max_length=100,blank=True,null=True,)
-    parite=models.fields.CharField(max_length=100,blank=True,null=True,)
+    gestite=models.fields.CharField(max_length=5,blank=True,null=True,)
+    parite=models.fields.CharField(max_length=5,blank=True,null=True,)
     MAYBECHOICE1=(
         ('oui','oui'),
         ('non','non'),
@@ -346,8 +347,10 @@ class Consultation(models.Model): #modifie
     signe_digestifs=models.fields.CharField(max_length=100, null=True, blank=True)
     signe_extra_digestif=models.fields.CharField(max_length=100, null=True, blank=True)
     signe_asso_gene=models.fields.CharField(max_length=100, null=True, blank=True)
-    nombredeverre_alcool=models.fields.IntegerField(null=True,blank=True)
-    nombrepaquettabac=models.fields.IntegerField(null=True, blank=True)
+    nombredeverre_alcool=models.fields.PositiveIntegerField(null=True,blank=True)
+    typealcool=models.fields.CharField(max_length=100, null=True, blank=True)
+    frequence=models.fields.CharField(max_length=10, null=True, blank=True)
+    nombrepaquettabac=models.fields.PositiveIntegerField(null=True, blank=True)
     medoc_en_cours=models.fields.CharField(max_length=253, null=True, blank=True)
     prise_therap_tarditionnelle=models.fields.CharField(max_length=10,null=True, blank=True)
     MAYBECHOICE=(
@@ -369,12 +372,12 @@ class Consultation(models.Model): #modifie
     patient=models.ForeignKey(Patient, on_delete=models.CASCADE,null=False) 
     customUser=models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     def __str__(self):
-        return f'{self.Numconsulta} {self.motifdeconsultation} {self.prescripteur_consultation} {self.debut_signe} {self.signe_digestifs} {self.signe_extra_digestif} {self.signe_asso_gene} {self.nombredeverre_alcool} {self.nombrepaquettabac} {self.medoc_en_cours} {self.prise_therap_tarditionnelle} {self.aghbs} {self.acanti_vhc} {self.acanti_vhd} {self.serologie_retrovi} {self.transaminase} {self.histoiredemaladie} {self.date} {self.resultat} {self.renseignementclinic} {self.diagnostique_retenu}  {self.patient} {self.customUser} '
+        return f'{self.Numconsulta} {self.motifdeconsultation} {self.prescripteur_consultation} {self.debut_signe} {self.signe_digestifs} {self.signe_extra_digestif} {self.signe_asso_gene} {self.nombredeverre_alcool} {self.nombrepaquettabac} {self.medoc_en_cours} {self.prise_therap_tarditionnelle} {self.aghbs} {self.acanti_vhc} {self.acanti_vhd} {self.serologie_retrovi} {self.transaminase} {self.histoiredemaladie} {self.date} {self.resultat} {self.renseignementclinic} {self.diagnostique_retenu}  {self.typealcool}  {self.frequence}  {self.patient} {self.customUser} '
 
 class ConsultationForm(ModelForm):
     class Meta:
         model = Consultation
-        fields = ['motifdeconsultation', 'prescripteur_consultation', 'debut_signe','signe_digestifs','signe_extra_digestif','signe_asso_gene','nombredeverre_alcool','nombrepaquettabac','medoc_en_cours','prise_therap_tarditionnelle','aghbs','acanti_vhc','acanti_vhd','serologie_retrovi','transaminase','histoiredemaladie','resultat','renseignementclinic','Bilanbiologiqueant','diagnostique_retenu','patient','customUser']
+        fields = ['motifdeconsultation', 'prescripteur_consultation', 'debut_signe','signe_digestifs','signe_extra_digestif','signe_asso_gene','nombredeverre_alcool','nombrepaquettabac','medoc_en_cours','prise_therap_tarditionnelle','aghbs','acanti_vhc','acanti_vhd','serologie_retrovi','transaminase','histoiredemaladie','resultat','renseignementclinic','Bilanbiologiqueant','diagnostique_retenu','typealcool','frequence','patient','customUser']
 
    
 class Hospitalisation(models.Model):
@@ -535,7 +538,7 @@ class OrdonnanceForm(ModelForm):
         fields = ['reford' ,'consulation','peut_contenir']
 
     
-class Ordonnancemedicament(models.Model):# nouvel ajout c'est la table de liaison deordonnance et medicament
+class Ordonnancemedicament(models.Model):# nouvel ajout c'est la table de liaison de ordonnance et medicament
     ordonnance = models.ForeignKey(Ordonnance, on_delete=models.CASCADE)
     medicament = models.ForeignKey(Medicament, on_delete=models.CASCADE)
     quantite = models.PositiveIntegerField(null=True, blank=True)
@@ -586,24 +589,59 @@ class Bilan_biologique(models.Model):
     )
     unite=models.fields.CharField(max_length=100,choices=MAYBECHOICE3)
     resultatnumerique=models.fields.CharField(max_length=100)
-    #datereceptionechantillon= models.fields.DateTimeField(null=True, blank=True) 
-    #dateremiseresultat= models.fields.DateTimeField(null=True, blank=True)  
+    resultatdubilan= models.fields.CharField(max_length=100)
+    datedubilan= models.fields.DateTimeField(null=True, blank=True)  
     prix=models.fields.CharField(max_length=100)                                                                          
     consultation=models.ForeignKey(Consultation, on_delete=models.CASCADE)
     def __str__(self):
-        return f'{self.numbilanbio} {self.typeexamen}  {self.resultatmodalite} {self.unite} {self.consultation}  {self.resultatnumerique} {self.prix}'
+        return f'{self.numbilanbio} {self.typeexamen}  {self.resultatmodalite} {self.unite} {self.consultation}  {self.resultatnumerique} {self.prix} {self.resultatdubilan} {self.datedubilan}'
 
 
 class Bilan_biologiqueForm(ModelForm):
     class Meta:
         model = Bilan_biologique
-        fields = ['typeexamen','resultatmodalite','unite', 'resultatnumerique','prix' ,'consultation']
+        fields = ['typeexamen','resultatmodalite','unite', 'resultatnumerique','prix' ,'consultation','datedubilan','resultatdubilan']
 
 class Notification(models.Model):
     customUser = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     date_heure_assignation = models.DateTimeField()
     date_heure_notification = models.DateTimeField(auto_now_add=True)
+
+class Categorie(models.Model):
+    idcat = models.fields.AutoField(primary_key=True)
+    libcat= models.fields.CharField(max_length=10)  
+
+class CategorieForm(ModelForm):
+    class Meta:
+        model = Categorie
+        fields = ['idcat','libcat']
+
+class Lit(models.Model):
+    reflit = models.fields.AutoField(primary_key=True)
+    numlit = models.fields.PositiveIntegerField()
+    categorie=models.ForeignKey(Categorie, on_delete=models.CASCADE)
+class LitForm(ModelForm):
+    class Meta:
+        model = Lit
+        fields = ['reflit' ,'numlit']
+
+## nouvel ajout c'est la table de liaison de ordonnance et medicament
+class Patientlit(models.Model):
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    lit = models.ForeignKey(Lit, on_delete=models.CASCADE)
+    dateoccupation = models.DateField(null=True, blank=True)
+
+    def dateoccupation_fr(self):
+        return formats.date_format(self.dateoccupation, "j F Y", use_l10n=True)
+
+    def __str__(self):
+        return f"{self.patient} occupe le lit {self.lit} le {self.dateoccupation}"
+
+class PatientlitForm(ModelForm):
+    class Meta:
+        model = Patientlit
+        fields = ['patient' ,'lit','dateoccupation']
 
 #fin class avec cle secondaire
 # Create your models here.

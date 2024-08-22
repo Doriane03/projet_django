@@ -1,11 +1,12 @@
 from  django.http import HttpResponse # type: ignore
 from django.http import JsonResponse
-from django.contrib.auth.views import LoginView
 from  django.shortcuts import render,redirect
 from  django.contrib.auth import  login , logout, authenticate # type: ignore
 from django.contrib.auth.models import Group, Permission
 from django.utils import timezone
 from django.utils.timezone import localtime, now,localdate
+from django.contrib.auth.views import LoginView
+from django.urls import reverse
 #pour la courbe
 from django.db.models import Avg
 import plotly.graph_objs as go
@@ -107,8 +108,8 @@ def patient(request):
 
 
 
-
-
+def index(request):#fais
+    return render(request, 'listings/index.html')
 
 #fin
 @login_required
@@ -516,9 +517,9 @@ def chart(request):
     'graph_image2': image_base64,
     })
 
-@login_required
-def template(request):
-    return render(request,'listings/template.html')
+#@login_required
+#def template(request):
+    #return render(request,'listings/template.html')
 
 @login_required
 def dossier(request):
@@ -621,13 +622,26 @@ def get_sortie_id(request):
 @login_required
 def calendar(request):
     return render(request, 'listings/calendar.html')
-    
+
 
 class CustomLoginView(LoginView):
-    template_name = "listings/index.html"
+    template_name = 'listings/index.html'
+    def get_success_url(self):
+        user = self.request.user
+        if user.is_authenticated:
+            if user.type_personnel_soignant and user.type_personnel_soignant.nompersog == "INFIRMIERE" or user.type_personnel_soignant.nompersog == "INFIRMIER":
+                return reverse('calendar')
+            elif user.type_personnel_soignant and user.type_personnel_soignant.nompersog == "MEDECIN":
+                return reverse('tableauconsultation')
+        else:
+            return reverse('index')
 
-    def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            # Rediriger vers une autre page si l'utilisateur est déjà connecté
-            return redirect('template')  # Remplace 'home' par le nom de la vue vers laquelle tu veux rediriger
-        return super().dispatch(request, *args, **kwargs)
+@login_required
+def custom_logout(request):
+    request.session.flush()
+    logout(request)
+    if not request.session.items():
+        return redirect('index')
+    else:
+       print(request, 'Certaines informations de session n\'ont pas été supprimées.')
+       return redirect('index')
