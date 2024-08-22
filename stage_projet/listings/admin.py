@@ -132,7 +132,7 @@ admin.site.register(Consultation,ConsultationAdmin)
 admin.site.register(Notification,NotificationAdmin)
 admin.site.register(Categorie, CategorieAdmin)
 admin.site.register(Lit, LitAdmin)
-admin.site.register(patientlit, PatientlitAdmin)
+admin.site.register(Patientlit, PatientlitAdmin)
 
 #fin
 # Register your models here.
