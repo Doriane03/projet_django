@@ -29,11 +29,11 @@ urlpatterns = [
     
     #fin
     #django admin
-    path('admin/', admin.site.urls),
+    
     #fin
+    path('admin/', admin.site.urls),
     path('',views.index,name='index'),
     path('login/',CustomLoginView.as_view(), name="login"),
-    path('logout/',views.custom_logout, name='logout'),
     #path('template/',views.template,name='template'),
     path('patient/',views.patient,name='patient'),
     path ('constante/',views.constante,name='constante'),
@@ -58,6 +58,8 @@ urlpatterns = [
     path('get_sortie_id/', views.get_sortie_id, name='get_sortie_id'),
     path('get_patient_id/', views.get_patient_id, name='get_patient_id'),
     path('calendar/', views.calendar, name='calendar'),
+    path('logout/',views.custom_logout, name='logout'),
+    
     
      
     #menu

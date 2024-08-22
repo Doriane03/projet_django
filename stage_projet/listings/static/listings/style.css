@@ -709,3 +709,29 @@ margin-left:25px;
   width: 100%;
   overflow: hidden;
 }
+
+
+
+.container_aff{
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.box_aff {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #4CAF50;
+  color: white;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.box_aff:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+}

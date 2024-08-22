@@ -1,4 +1,4 @@
-{% extends 'listings/template.html' %}
+{% extends 'listings/head.html' %}
 {% block cnx %}
 <center><form method="POST" action="{% url 'login' %}" class="formcnx">
     {% csrf_token %}
