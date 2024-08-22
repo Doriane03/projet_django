@@ -39,87 +39,95 @@
 
     </head>
         <body>
-        {% if request.user.is_authenticated %}
+        {% if request.user.is_authenticated and not request.user.is_superuser %}
             <!--debut menu-->
             <div class="connect-container align-content-stretch d-flex flex-wrap">
                 <div class="page-sidebar">
-                    <div class="logo-box"><a href="#" class="logo-text"><img src="{% static 'listings/logochu.jpg' %}"  width="100"  alt="photo2"/></a><a href="#" id="sidebar-close"><i class="material-icons">close</i></a> <a href="#" id="sidebar-state"><i class="material-icons">adjust</i><i class="material-icons compact-sidebar-icon">panorama_fish_eye</i></a></div>
+                    <div class="logo-box">
+                        <a href="#" class="logo-text">
+                            <img src="{% static 'listings/logochu.jpg' %}" width="100" alt="photo2"/>
+                        </a>
+                        <a href="#" id="sidebar-close"><i class="material-icons">close</i></a>
+                        <a href="#" id="sidebar-state">
+                            <i class="material-icons">adjust</i>
+                            <i class="material-icons compact-sidebar-icon">panorama_fish_eye</i>
+                        </a>
+                    </div>
                     <div class="page-sidebar-inner slimscroll">
-                    {% if user.type_personnel_soignant.nompersog == "INFIRMIERE" or user.type_personnel_soignant.nompersog == "INFIRMIER" %}
-                                    <ul class="accordion-menu">
-                                        <li>
-                                            <a  href="{% url 'calendar' %}" class="active" id="n2"><i class="material-icons-outlined">calendar_today</i>Rendez-vous</a>
-                                        </li>
-
-                                        <!--<li>
-                                            <a  href="#" ><i class="material-icons-outlined">person-check</i>Médecin disponible</a>
-                                        </li>-->
-
-                                        <li>
-                                            <a  id="click1" href="{% url 'patient' %}" ><i class="material-icons-outlined">save</i>Enregister un patient</a>
-                                        </li>
-
-                                        <li>
-                                            <a  href="{% url 'facture' %}"  ><i class="material-icons-outlined">save</i>Facture</a>
-                                        </li>
-                                        
-                                        
-                                        <li>
-                                            <a  href="{% url 'logout' %}"><i class="material-icons">logout</i>Déconnexion</a>
-                                        </li>
-                                    </ul>
-
-                            {% elif user.type_personnel_soignant.nompersog == "MEDECIN" %}
-                                    <ul class="accordion-menu">
-                                        <!--<li>
-                                            <a  href="#" class="active"><i class="material-icons-outlined">visibility</i>Rendez-vous</a>
-                                        </li>-->
-                                        
-                                        <li>
-                                            <a  href="{% url 'tableauconsultation' %}" id="n1"><i class="material-icons-outlined">visibility</i>Consultation</a>
-                                        </li>
-            
-                                        <li>
-                                            <a  href="{% url 'docpatient' %}"><i class="material-icons-outlined">folder</i>Consulter un dossier patients</a>
-                                           
-                                        </li>
-                                      
-            
-                                        <li>
-                                            <a  href="{% url 'sortie_patient' %}"><i class="material-icons-outlined">directions_walk</i>Autoriser une sortie</a>
-                                        </li>
-
-                                        
-                                        <li>
-                                            <a  href="{% url 'logout' %}"><i class="material-icons">logout</i>Déconnexion</a>
-                                        </li>
-
-                                    </ul>
-
-
-                            {% elif user.type_personnel_soignant.nompersog == "gestionnaire" %}
-                                    <ul class="accordion-menu">
-                                        <li>
-                                            <a href="{% url 'adminform' %}"><i class="material-icons">person_edit</i>Créer un utilisateur</a>
-                                        </li>
-            
-                                        <li>
-                                            <a  href="{% url 'modificationmdp' %} " class="active"><i class="material-icons-outlined">update</i>Changer un mot de passe</a>
-                                        </li>
-                                        
-                                        <li>
-                                            <a  href="{% url 'chart' %}" id="n3"><i class="material-icons-outlined">show_chart</i>Afficher le tableau de bord</a>
-                                        </li>
-
-                                        <li>
-                                            <a  href="{% url 'disponibilite' %}" ><i class="material-icons-outlined">person-check</i>Médecin disponible cette semaine</a> <!--faire une requete pour afficher une liste de tous les medecins connectes-->
-                                        </li>
-
-                                        <li>
-                                            <a  href="{% url 'logout' %}" ><i class="material-icons">logout</i>Déconnexion</a>
-                                        </li>
-
-                                    </ul>
+                        {% if request.user.type_personnel_soignant.nompersog == "INFIRMIERE" or request.user.type_personnel_soignant.nompersog == "INFIRMIER" %}
+                                <ul class="accordion-menu">
+                                    <li>
+                                        <a href="{% url 'calendar' %}" class="active" id="n2">
+                                            <i class="material-icons-outlined">calendar_today</i>Rendez-vous
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a id="click1" href="{% url 'patient' %}">
+                                            <i class="material-icons-outlined">save</i>Enregistrer un patient
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'facture' %}">
+                                            <i class="material-icons-outlined">save</i>Facture
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'logout' %}">
+                                            <i class="material-icons">logout</i>Déconnexion
+                                        </a>
+                                    </li>
+                                </ul>
+                            {% elif request.user.type_personnel_soignant.nompersog == "MEDECIN" %}
+                                <ul class="accordion-menu">
+                                    <li>
+                                        <a href="{% url 'tableauconsultation' %}" id="n1">
+                                            <i class="material-icons-outlined">visibility</i>Consultation
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'docpatient' %}">
+                                            <i class="material-icons-outlined">folder</i>Consulter un dossier patients
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'sortie_patient' %}">
+                                            <i class="material-icons-outlined">directions_walk</i>Autoriser une sortie
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'logout' %}">
+                                            <i class="material-icons">logout</i>Déconnexion
+                                        </a>
+                                    </li>
+                                </ul>
+                            {% elif request.user.type_personnel_soignant.nompersog == "gestionnaire" %}
+                                <ul class="accordion-menu">
+                                    <li>
+                                        <a href="{% url 'adminform' %}">
+                                            <i class="material-icons">person_edit</i>Créer un utilisateur
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'modificationmdp' %}" class="active">
+                                            <i class="material-icons-outlined">update</i>Changer un mot de passe
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'chart' %}" id="n3">
+                                            <i class="material-icons-outlined">show_chart</i>Afficher le tableau de bord
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'disponibilite' %}">
+                                            <i class="material-icons-outlined">person-check</i>Médecin disponible cette semaine
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'logout' %}">
+                                            <i class="material-icons">logout</i>Déconnexion
+                                        </a>
+                                    </li>
+                                </ul>
                         {% endif %}
                     </div>
                 </div>
@@ -134,87 +142,75 @@
                                 <li class="nav-item small-screens-sidebar-link">
                                     <a href="#" class="nav-link"><i class="material-icons-outlined">menu</i></a>
                                 </li>
-                            <!--profil image-->
+                                <!--profil image-->
                                 <li class="nav-item nav-profile dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <img src="{% static 'listings/homme.png' %}"  width="105px" alt="profile image">
-                                        <span>{{ user.nom }}</span>
+                                        <img src="{% static 'listings/homme.png' %}" width="105px" alt="profile image">
+                                        <span>{{ request.user.nom }}</span>
                                     </a>
                                 </li>
                                 <!--profil image fin-->
                             </ul>
-                             <!--rechercher-->
+                            <!--rechercher-->
                             <div class="collapse navbar-collapse" id="navbarNav"></div>
                             <div class="navbar-search">
                                 <form>
                                     <div class="form-group">
-                                        <input type="text" id="nav-search"   name="query" value="{{ query }}" placeholder="Numéro du patient">
+                                        <input type="text" id="nav-search" name="query" value="{{ query }}" placeholder="Numéro du patient">
                                     </div>
                                 </form>
                             </div>
-                       
-                        <!--rechercher fin-->
+                            <!--rechercher fin-->
                         </nav>
-                    
                     </div>
-                            <div class="row">
-                                <div class="col-xl">
-                                    <div class="card1">
-                                        <div class="card-body1">
-                                            {% block box %}{% endblock %}
-                                            {% block chart %}{% endblock %}
-                                            {% block tableaudisponibilites %}{% endblock %}
-                                            {% block tableauconsultation %} {% endblock %}
-                                            {% block formbilanbio %} {% endblock %}
-                                            {% block content%} {% endblock %}
-                                            {% block formbilanimg %} {% endblock %}
-                                            {% block formconstante %} {% endblock %}
-                                            {% block formmodifmdp %} {% endblock %}
-                                            {% block formfacture %} {% endblock %}
-                                            {% block consultationform %} {% endblock %}
-                                            {% block formpatient %} {% endblock %}
-                                            {% block formdiagnostique %} {% endblock %}
-                                            {% block formordonnance %}  {% endblock %}
-                                            {% block fromantmedical %}   {% endblock %}
-                                            {% block formantchirurgical %} {% endblock %}
-                                            {% block formantgynecologique %} {% endblock %}
-                                            {% block formsortie %} {% endblock %}
-                                            {% block formadmin %} {% endblock %}
-                                            {% block tableaudocpatient %}{% endblock %}
-                                            {% block dossier %}{% endblock %}
-                                            {% block affichagedocpatient %}{% endblock %}
-                                            {% block calendar %}{% endblock %}
-                                    </div>
+                    <div class="row">
+                        <div class="col-xl">
+                            <div class="card1">
+                                <div class="card-body1">
+                                    {% block box %}{% endblock %}
+                                    {% block chart %}{% endblock %}
+                                    {% block tableaudisponibilites %}{% endblock %}
+                                    {% block tableauconsultation %} {% endblock %}
+                                    {% block formbilanbio %} {% endblock %}
+                                    {% block content%} {% endblock %}
+                                    {% block formbilanimg %} {% endblock %}
+                                    {% block formconstante %} {% endblock %}
+                                    {% block formmodifmdp %} {% endblock %}
+                                    {% block formfacture %} {% endblock %}
+                                    {% block consultationform %} {% endblock %}
+                                    {% block formpatient %} {% endblock %}
+                                    {% block formdiagnostique %} {% endblock %}
+                                    {% block formordonnance %} {% endblock %}
+                                    {% block fromantmedical %} {% endblock %}
+                                    {% block formantchirurgical %} {% endblock %}
+                                    {% block formantgynecologique %} {% endblock %}
+                                    {% block formsortie %} {% endblock %}
+                                    {% block formadmin %} {% endblock %}
+                                    {% block tableaudocpatient %}{% endblock %}
+                                    {% block dossier %}{% endblock %}
+                                    {% block affichagedocpatient %}{% endblock %}
+                                    {% block calendar %}{% endblock %}
                                 </div>
                             </div>
                         </div>
+                    </div>
                 </div>
             </div>
-            {% else %}
-                <div class="image">
-                    <div class="div1"><img src="{% static 'static/listings/homme.png' %}" width="150" alt="photo1"/></div>
-                    <div class="div2"><img src="{% static 'static/listings/logochu.jpg' %}" width="100"  alt="photo2"/></div>
-                    <div class="text">{% block cnx %} {% endblock %}</div>
-                </div>
 
+            <!-- Javascripts -->
+            <script src="{% static 'listings/assets/plugins/bootstrap/popper.min.js' %}"></script>
+            <script src="{% static 'listings/assets/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+            <script src="{% static 'listings/assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js' %}"></script>
+            <script src="{% static 'listings/assets/js/connect.min.js' %}"></script>
+            <script src="{% static 'listings/assets/plugins/jquery-sparkline/jquery.sparkline.min.js' %}"></script>
+            <script src="{% static 'listings/assets/plugins/apexcharts/dist/apexcharts.min.js' %}"></script>
+            <script src="{% static 'listings/assets/plugins/blockui/jquery.blockUI.js' %}"></script>
+            <script src="{% static 'listings/assets/plugins/flot/jquery.flot.min.js' %}"></script>
+            <script src="{% static 'listings/assets/plugins/flot/jquery.flot.time.min.js' %}"></script>
+            <script src="{% static 'listings/assets/plugins/flot/jquery.flot.symbol.min.js' %}"></script>
+            <script src="{% static 'listings/assets/plugins/flot/jquery.flot.resize.min.js' %}"></script>
+            <script src="{% static 'listings/assets/plugins/flot/jquery.flot.tooltip.min.js' %}"></script>
         {% endif %}
 
-        <!-- Javascripts -->
-        <!-- <script src="{% static 'listings/assets/plugins/jquery/jquery-3.4.1.min.js' %} "></script>-->
-        <script src="{% static 'listings/assets/plugins/bootstrap/popper.min.js' %}"></script>
-        <script src="{% static 'listings/assets/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
-        <script src="{% static 'listings/assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js' %}"></script>
-        <script src="{% static 'listings/assets/js/connect.min.js' %}"></script>
-
-        <script src="{% static 'listings/assets/plugins/jquery-sparkline/jquery.sparkline.min.js' %}"></script>
-        <script src="{% static 'listings/assets/plugins/apexcharts/dist/apexcharts.min.js' %}"></script>
-        <script src="{% static 'listings/assets/plugins/blockui/jquery.blockUI.js' %}"></script>
-        <script src="{% static 'listings/assets/plugins/flot/jquery.flot.min.js' %}"></script>
-        <script src="{% static 'listings/assets/plugins/flot/jquery.flot.time.min.js' %}"></script>
-        <script src="{% static 'listings/assets/plugins/flot/jquery.flot.symbol.min.js' %}"></script>
-        <script src="{% static 'listings/assets/plugins/flot/jquery.flot.resize.min.js' %}"></script>
-        <script src="{% static 'listings/assets/plugins/flot/jquery.flot.tooltip.min.js' %}"></script>
-        <script src="{% static 'listings/assets/js/pages/dashboard.js' %}"></script>
-    
     </body>
 </html>

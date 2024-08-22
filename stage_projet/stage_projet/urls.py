@@ -26,13 +26,14 @@ from django.conf.urls.static import static
 import os
 urlpatterns = [
     #connexion
-    path('login/',CustomLoginView.as_view(), name="login"),
-    path('logout/',views.custom_logout, name='logout'),
+    
     #fin
     #django admin
     path('admin/', admin.site.urls),
     #fin
     path('',views.index,name='index'),
+    path('login/',CustomLoginView.as_view(), name="login"),
+    path('logout/',views.custom_logout, name='logout'),
     #path('template/',views.template,name='template'),
     path('patient/',views.patient,name='patient'),
     path ('constante/',views.constante,name='constante'),

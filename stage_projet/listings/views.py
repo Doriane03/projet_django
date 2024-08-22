@@ -6,6 +6,7 @@ from django.contrib.auth.models import Group, Permission
 from django.utils import timezone
 from django.utils.timezone import localtime, now,localdate
 from django.contrib.auth.views import LoginView
+from django.contrib.auth import get_user_model
 from django.urls import reverse
 #pour la courbe
 from django.db.models import Avg
@@ -624,17 +625,6 @@ def calendar(request):
     return render(request, 'listings/calendar.html')
 
 
-class CustomLoginView(LoginView):
-    template_name = 'listings/index.html'
-    def get_success_url(self):
-        user = self.request.user
-        if user.is_authenticated:
-            if user.type_personnel_soignant and user.type_personnel_soignant.nompersog == "INFIRMIERE" or user.type_personnel_soignant.nompersog == "INFIRMIER":
-                return reverse('calendar')
-            elif user.type_personnel_soignant and user.type_personnel_soignant.nompersog == "MEDECIN":
-                return reverse('tableauconsultation')
-        else:
-            return reverse('index')
 
 @login_required
 def custom_logout(request):
@@ -645,3 +635,29 @@ def custom_logout(request):
     else:
        print(request, 'Certaines informations de session n\'ont pas été supprimées.')
        return redirect('index')
+
+
+
+User = get_user_model()
+
+class CustomLoginView(LoginView):
+    template_name = 'listings/index.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        # Si l'utilisateur est connecté
+        if request.user.is_authenticated:
+            user = request.user
+            
+            # Rediriger les super utilisateurs vers l'admin
+            if user.is_superuser:
+                return redirect('/admin/')
+            
+            # Rediriger en fonction du type de personnel soignant
+            if user.type_personnel_soignant:
+                if user.type_personnel_soignant.nompersog in ["INFIRMIERE", "INFIRMIER"]:
+                    return redirect(reverse('calendar'))
+                elif user.type_personnel_soignant.nompersog == "MEDECIN":
+                    return redirect(reverse('tableauconsultation'))
+
+        # Si l'utilisateur n'est pas connecté, afficher la page d'index
+        return super().dispatch(request, *args, **kwargs)
