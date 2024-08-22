@@ -24,6 +24,7 @@ from  listings.models  import Bilan_biologique # type: ignore
 from  listings.models import Notification
 from  listings.models import Lit
 from  listings.models import Categorie
+from  listings.models import Patientlit
 #fin import
 from  listings.models  import CustomUser # type: ignore
 admin.site.register(CustomUser)
@@ -76,7 +77,7 @@ class ConstanteAdmin(admin.ModelAdmin):
     list_display=('refconst','poids','taille','temperature','imc','tas','tad','pouls','patient') # type: ignore
 
 class ConsultationAdmin(admin.ModelAdmin):
-    list_display=('Numconsulta', 'motifdeconsultation', 'prescripteur_consultation', 'debut_signe', 'signe_digestifs', 'signe_extra_digestif', 'signe_asso_gene', 'nombredeverre_alcool', 'nombrepaquettabac', 'medoc_en_cours', 'prise_therap_tarditionnelle', 'aghbs', 'acanti_vhc', 'acanti_vhd', 'serologie_retrovi', 'transaminase', 'histoiredemaladie', 'date', 'resultat', 'renseignementclinic','Bilanbiologiqueant','diagnostique_retenu',,'typealcool','frequence','patient', 'customUser') # type: ignore
+    list_display=('Numconsulta', 'motifdeconsultation', 'prescripteur_consultation', 'debut_signe', 'signe_digestifs', 'signe_extra_digestif', 'signe_asso_gene', 'nombredeverre_alcool', 'nombrepaquettabac', 'medoc_en_cours', 'prise_therap_tarditionnelle', 'aghbs', 'acanti_vhc', 'acanti_vhd', 'serologie_retrovi', 'transaminase', 'histoiredemaladie', 'date', 'resultat', 'renseignementclinic','Bilanbiologiqueant','diagnostique_retenu','typealcool','frequence','patient', 'customUser') # type: ignore
 
 class OrdonnanceAdmin(admin.ModelAdmin):
     list_display=('reford','consulation') # type: ignore
@@ -131,7 +132,7 @@ admin.site.register(Consultation,ConsultationAdmin)
 admin.site.register(Notification,NotificationAdmin)
 admin.site.register(Categorie, CategorieAdmin)
 admin.site.register(Lit, LitAdmin)
-admin.site.register(Patientlit, PatientlitAdmin)
+admin.site.register(patientlit, PatientlitAdmin)
 
 #fin
 # Register your models here.

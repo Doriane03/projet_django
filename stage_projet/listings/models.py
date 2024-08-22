@@ -619,8 +619,9 @@ class CategorieForm(ModelForm):
 
 class Lit(models.Model):
     reflit = models.fields.AutoField(primary_key=True)
-    numlit = models.fields.PositiveIntegerField()
-    categorie=models.ForeignKey(Categorie, on_delete=models.CASCADE)
+    numlit = models.fields.PositiveIntegerField(null=False, blank=False)
+    categorie = models.ForeignKey(Categorie, on_delete=models.CASCADE)
+
 class LitForm(ModelForm):
     class Meta:
         model = Lit
