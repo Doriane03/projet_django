@@ -9,12 +9,13 @@
                 <p>Antécédant<br/>chirurgical</p>
             </a>
         </div>
-        <div class="box-container">
-            <a href="{% url 'antecedantgenecologique' %}" class="box">
-                <p>Antécédant<br/>gynécologique</p>
-            </a>
-        </div>
-
+        {% if sexe =="féminin" %}
+            <div class="box-container">
+                <a href="{% url 'antecedantgenecologique' %}" class="box">
+                    <p>Antécédant<br/>gynécologique</p>
+                </a>
+            </div>
+        {% endif %}
         <div class="box-container">
             <a href="{% url 'antecedantfamilial' %}" class="box">
                 <p>Antécédant<br/>familial</p>

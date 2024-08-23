@@ -126,8 +126,12 @@ padding:10px
   padding:10px;
 }
 
+.divsexe{
+  color:red;
+}
 
-.divsortie>input[type="radio"]{
+
+.divsortie > input[type="radio"]{
   float:left;
   width:50%;
 }

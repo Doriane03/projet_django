@@ -6,6 +6,7 @@ from django.contrib.auth.models import Group, Permission
 from django.utils import timezone
 from django.utils.timezone import localtime, now,localdate
 from django.contrib.auth.views import LoginView
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 #pour la courbe
 from django.db.models import Avg
@@ -346,16 +347,18 @@ def antecedantfamilial(request):#fais
 
 
 
-from django.shortcuts import render, get_object_or_404
+
 @login_required
 def box(request,patient_name):
     print(patient_name)
     patient = get_object_or_404(Patient, nom=patient_name)
+    sexe=patient.sexe
     request.session['patient_name'] = patient.nom
     if not patient_name:
-        return render(request,'listings/tableauconsultation.html')
+        return render(request,'listings/tableauconsultation.html',sexe)
     
-    return render(request,'listings/boxclick.html')
+    return render(request,'listings/boxclick.html',sexe)
+
 
 @login_required
 def docpatient(request):
@@ -634,6 +637,8 @@ class CustomLoginView(LoginView):
                     return reverse('calendar')
                 elif user.type_personnel_soignant.nompersog == "MEDECIN":
                     return reverse('tableauconsultation')
+                elif user.type_personnel_soignant.nompersog == "ADMIN":
+                    return reverse('chart')
             # Ajoutez un cas de secours si le type_personnel_soignant est None
             return reverse('index')  # Par défaut redirige vers l'index si aucune condition n'est remplie
         else:
