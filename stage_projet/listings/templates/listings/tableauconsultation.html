@@ -5,14 +5,12 @@
 <center>
   <div class="formcontenu">
   <!-- view_notifications.html -->
-<h1>Tableau de consultation</h1>
+<h1> Mon tableau de consultation</h1>
 <table>
     <thead>
         <tr>
             <th>Nom du Patient</th>
             <th>Date et Heure d'Assignation</th>
-            <th>Date et Heure de Notification</th>
-            <th>Effectuer la consultation</th>
         </tr>
     </thead>
     <tbody>
@@ -20,8 +18,7 @@
             <tr>
                 <td>{{ notification.patient.nom  }}</td>
                 <td>{{ notification.date_heure_assignation }}</td>
-                <td>{{ notification.date_heure_notification }}</td>
-                <td><a  href="{% url 'box' patient_name=notification.patient.nom  %}">Consultation</a></td>
+                <td><a  href="{% url 'box' pt=notification.patient.numeropatient %}">Consultation</a></td>
             </tr>
             {% empty %}
             <p>Aucune notification pour aujourd'hui.</p>

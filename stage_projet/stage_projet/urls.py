@@ -34,7 +34,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.index,name='index'),
     path('login/',CustomLoginView.as_view(), name="login"),
-    #path('template/',views.template,name='template'),
     path('patient/',views.patient,name='patient'),
     path ('constante/',views.constante,name='constante'),
     path ('disponibilite/',views.disponibilite,name='disponibilite'),
@@ -53,7 +52,9 @@ urlpatterns = [
     path ('bilanbio/',views.bilanbio,name='bilanbio'),
     path ('docpatient/',views.docpatient,name='docpatient'),
     path ('tableauconsultation/',views.tableauconsultation,name='tableauconsultation'),
-    path('box/<str:patient_name>/', views.box, name='box'),
+
+    path('box/<str:pt>/', views.box, name='box'),
+
     path('dossier/', views.dossier, name='dossier'),
     path('get_sortie_id/', views.get_sortie_id, name='get_sortie_id'),
     path('get_patient_id/', views.get_patient_id, name='get_patient_id'),

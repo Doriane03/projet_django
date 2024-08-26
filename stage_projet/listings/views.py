@@ -62,6 +62,9 @@ from  listings.models  import Hospitalisation # type: ignore
 from  listings.models  import Service # type: ignore
 from  listings.models  import Chu # type: ignore
 from  listings.models  import Pays # type: ignore
+from  listings.models  import Lit # type: ignore
+from  listings.models  import Categorie # type: ignore
+from  listings.models  import Patientlit
 from  listings.models  import Type_personnel_soignant # type: ignore
 from  listings.models  import Personnel_soignant # type: ignore
 from  listings.models  import Facture # type: ignore
@@ -78,34 +81,77 @@ from django.contrib.auth.decorators import login_required
 #recuperation de donnees
 
 
+
+
 @login_required
 def patient(request):
     success = False
     error_message = None
-    medecin_type = Type_personnel_soignant.objects.get(nompersog='MEDECIN')
-    medecins = CustomUser.objects.filter(type_personnel_soignant=medecin_type, disponible=True)
     
+    try:
+        medecin_type = Type_personnel_soignant.objects.get(nompersog='MEDECIN')
+    except Type_personnel_soignant.DoesNotExist:
+        error_message = 'Type de personnel soignant pour médecin n\'existe pas.'
+        return render(request, 'listings/formpatient.html', context={'error_message': error_message})
+
+    lits = Lit.objects.all()
+    medecins = CustomUser.objects.filter(type_personnel_soignant=medecin_type, disponible=True)
+
     if request.method == "POST":
         form = PatientForm(request.POST)
+        print(f'Form POST data: {request.POST}')  # Debug print
         if form.is_valid():
             medecin_id = request.POST.get('medecin')
-            if medecin_id:
-                medecin = get_object_or_404(CustomUser, refpersoignant=medecin_id)
+            lit_id = request.POST.get('lit')
+            print(f'Médecin ID: {medecin_id}, Lit ID: {lit_id}')  # Debug print
+            
+            if medecin_id and lit_id:
                 try:
+                    medecin = CustomUser.objects.get(refpersoignant=medecin_id)
+                    lit = Lit.objects.get(pk=lit_id)
+                    
                     with transaction.atomic():
                         patient = form.save(commit=False)
                         patient.save()
-                        Notification.objects.create(patient=patient, customUser=medecin, date_heure_assignation=timezone.now())
+                        
+                        Patientlit.objects.create(
+                            patient=patient,
+                            lit=lit,
+                        )
+                        
+                        Notification.objects.create(
+                            patient=patient,
+                            customUser=medecin,
+                            date_heure_assignation=timezone.now()
+                        )
+                        
                         success = True
-                        return render(request, 'listings/formconstante.html', context={'success': success, 'Patient_idpatient': patient.idpatient, 'medecins': medecins})
+                        return render(request, 'listings/formconstante.html', context={
+                            'success': success,
+                            'Patient_idpatient': patient.idpatient,
+                            'medecins': medecins,
+                            'lits': lits
+                        })
+                
+                except CustomUser.DoesNotExist:
+                    error_message = 'Médecin sélectionné n\'existe pas.'
+                except Lit.DoesNotExist:
+                    error_message = 'Lit sélectionné n\'existe pas.'
                 except Exception as e:
                     error_message = f'Échec de la création de la notification : {e}'
             else:
-                error_message = 'Le médecin n\'a pas été sélectionné'
+                error_message = 'Le médecin ou le lit n\'a pas été sélectionné'
         else:
             error_message = 'Le formulaire n\'est pas valide'
+            print(f'Form errors: {form.errors}')  # Debug print
     
-    return render(request, 'listings/formpatient.html', context={'medecins': medecins, 'error_message': error_message, 'success': success})
+    return render(request, 'listings/formpatient.html', context={
+        'medecins': medecins,
+        'error_message': error_message,
+        'success': success,
+        'lits': lits
+    })
+
 
 
 
@@ -145,7 +191,7 @@ def consultation(request):#fais
     success = False
     error_message = None
     message = ''
-    patient_name = request.session.get('patient_name', 'Nom du patient non trouvé')
+    patient_name = request.session.get('patient_nom', 'Nom du patient non trouvé')
     dossier_nom = patient_name
     patient = Patient.objects.get(nom=dossier_nom)
     patient_id = patient.idpatient
@@ -183,7 +229,7 @@ def consultation(request):#fais
 def antecedantmedical(request):#fais
     success = False
     error_message = None
-    patient_name=request.session.get('patient_name', 'Nom du patient non trouvé')
+    patient_name=request.session.get('patient_nom', 'Nom du patient non trouvé')
     patient = Patient.objects.get(nom=patient_name)
     patient_id1 = patient.idpatient
     if request.method == 'POST':
@@ -202,7 +248,7 @@ def antecedantmedical(request):#fais
 def antecedantchirurgical(request): #fais
     success = False
     error_message = None
-    patient_name=request.session.get('patient_name', 'Nom du patient non trouvé')
+    patient_name=request.session.get('patient_nom', 'Nom du patient non trouvé')
     patient = Patient.objects.get(nom=patient_name)
     patient_id1 = patient.idpatient
     if request.method == 'POST':
@@ -299,7 +345,7 @@ def adminform(request):#fais
 def antecedantgenecologique(request):#fais
     success = False
     error_message = None
-    patient_name=request.session.get('patient_name', 'Nom du patient non trouvé')
+    patient_name=request.session.get('patient_nom', 'Nom du patient non trouvé')
     patient = Patient.objects.get(nom=patient_name)
     patient_id1 = patient.idpatient
     if request.method == 'POST':
@@ -316,7 +362,6 @@ def antecedantgenecologique(request):#fais
 def tableauconsultation(request):#fais
     #notifications = Notification.objects.filter(customUser=request.user).order_by('date_heure_notification')
     today = localdate()
-
     notifications = Notification.objects.filter(
     customUser=request.user,
     date_heure_notification__date=today
@@ -330,7 +375,7 @@ def tableauconsultation(request):#fais
 def antecedantfamilial(request):#fais
     success = False
     error_message = None
-    patient_name=request.session.get('patient_name', 'Nom du patient non trouvé')
+    patient_name=request.session.get('patient_nom', 'Nom du patient non trouvé')
     patient = Patient.objects.get(nom=patient_name)
     patient_id1 = patient.idpatient
     if request.method == 'POST':
@@ -349,15 +394,24 @@ def antecedantfamilial(request):#fais
 
 
 @login_required
-def box(request,patient_name):
-    print(patient_name)
-    patient = get_object_or_404(Patient, nom=patient_name)
-    sexe=patient.sexe
-    request.session['patient_name'] = patient.nom
-    if not patient_name:
-        return render(request,'listings/tableauconsultation.html',sexe)
+def box(request,pt):
+    print(pt)
+    #patient = get_object_or_404(Patient, nom=patient_name)
+    patient_id =Patient.objects.get(numeropatient=pt).idpatient
+    patient_nom=Patient.objects.get(idpatient=patient_id).nom
+    sexe =Patient.objects.get(nom=patient_nom).sexe #selection du sexe du patient dont le nom est patient_nom
+    print(patient_nom)
+    print(sexe)
+    print(patient_id)
+
+    request.session['patient_nom'] = patient_nom
+    if not patient_nom:
+        return render(request,'listings/tableauconsultation.html')
     
-    return render(request,'listings/boxclick.html',sexe)
+    return render(request, 'listings/boxclick.html', {'sexe': sexe})
+
+
+
 
 
 @login_required
@@ -408,7 +462,7 @@ def disponibilite(request):
 def bilanimg(request):
     success = False
     error_message = None
-    patient_name = request.session.get('patient_name', 'Nom du patient non trouvé')
+    patient_name = request.session.get('patient_nom', 'Nom du patient non trouvé')
     patient = get_object_or_404(Patient, nom=patient_name)
     patient_id1 = patient.idpatient
 
@@ -441,7 +495,7 @@ def bilanimg(request):
 def bilanbio(request):
     success = False
     error_message = None
-    patient_name = request.session.get('patient_name', 'Nom du patient non trouvé')
+    patient_name = request.session.get('patient_nom', 'Nom du patient non trouvé')
     patient = get_object_or_404(Patient, nom=patient_name)
     patient_id1 = patient.idpatient
 
@@ -534,7 +588,7 @@ def ordonnance(request):
     medicaments = Medicament.objects.all()
     success = False
     error_message = None
-    patient_name = request.session.get('patient_name', 'Nom du patient non trouvé')
+    patient_name = request.session.get('patient_nom', 'Nom du patient non trouvé')
     patient = get_object_or_404(Patient, nom=patient_name)
     patient_id1 = patient.idpatient
 

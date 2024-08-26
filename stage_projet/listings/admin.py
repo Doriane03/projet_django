@@ -71,7 +71,7 @@ class ServiceAdmin(admin.ModelAdmin):
     #list_display=('refpersoignant','mdp','nom','contact','email','date','Service','Type_personnel_soignant') # type: ignore
 
 class PatientAdmin(admin.ModelAdmin):
-    list_display=('idpatient', 'nom', 'contact1' ,'contact2', 'profession', 'email', 'age', 'sexe' , 'personne_a_contacter'  ,'ville',  'commune', 'quartier', 'nationalite' , 'nombre_enfant' , 'situation_matrimoniale','telephone_cpu','numerodelit','numeropatient') # type: ignore
+    list_display=('idpatient', 'nom', 'contact1' ,'contact2', 'profession', 'email', 'age', 'sexe' , 'personne_a_contacter'  ,'ville',  'commune', 'quartier', 'nationalite' , 'nombre_enfant' , 'situation_matrimoniale','telephone_cpu','numeropatient') # type: ignore
 
 class ConstanteAdmin(admin.ModelAdmin):
     list_display=('refconst','poids','taille','temperature','imc','tas','tad','pouls','patient') # type: ignore

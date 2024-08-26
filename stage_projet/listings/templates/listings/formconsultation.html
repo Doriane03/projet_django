@@ -252,8 +252,20 @@
                             
                         </div>
                         <div class="test" id="nombredeverredalcool">
-                            <input type="text"   name="nombredeverre_alcool" id="nombredeverredalcool"  placeholder="preciser le nombre de verre/jour" />
-                            <input type="text"   name="nombredeverre_alcool" id="nombredeverredalcool"  placeholder="preciser le nombre de verre/jour" />
+                            <table class="mdv">
+                                <caption>precision</caption>
+                                <tr><th>type d'alcool</th><th>nombre de verre</th><th>durée de consommation</th></tr>
+                                <tr><td><input type="text"   name="nombredeverre_alcool" id="nombredeverredalcool"  placeholder="preciser le nombre de verre/jour" /></td>
+                                <td><input type="text"   name="nombredeverre_alcool" id="nombredeverredalcool"  placeholder="preciser la duree de consommation" /></td>
+                                <td><select name="type" required>
+                                    <option>Choisir un type d'alcool</option>
+                                    <option value='bière'>bière</option>
+                                    <option value='vin'>vin</option>
+                                    <option value='whisky'>Whisky</option>
+                                    <option value='vody'>Vody</option>
+                                    <option value='pastis'>Pastis</option> 
+                                </select></td> </tr>
+                            </table>
                         </div>
                     </div>
                     
@@ -414,7 +426,7 @@
         
         </div>  
         </div>
-    <input type="hidden"   name="patient"  value="{{ patient_id }}"/>
+    <input type="text"   name="patient"  value="{{ patient_id }}"/>
     {% if request.user.is_authenticated %}
     {% if user.type_personnel_soignant.nompersog == "MEDECIN" %}
         <input type="hidden"   name="customUser"  value="{{ user.refpersoignant }}"/>

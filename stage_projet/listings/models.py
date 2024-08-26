@@ -19,24 +19,26 @@ class Patient(models.Model): #modifie
     profession=models.fields.CharField(max_length=100)
     ville=models.fields.CharField(max_length=100)
     age=models.fields.PositiveIntegerField()
-    class typesexe(models.TextChoices):
-        féminin="féminin"
-        masculin="masculin"
-    sexe=models.fields.CharField(choices=typesexe.choices, max_length=100)
-    commune=models.fields.CharField(max_length=100)
-    quartier=models.fields.CharField(max_length=100)
-    nationalite=models.fields.CharField(max_length=100)
-    situation_matrimoniale=models.fields.CharField(max_length=100)
+    
+    MAYBECHOICE1=(
+        ('féminin','féminin'),
+        ('masculin','masculin'),
+    )
+    
+    sexe=models.fields.CharField(max_length=10,choices=MAYBECHOICE1)
+    commune=models.fields.CharField(max_length=20)
+    quartier=models.fields.CharField(max_length=40)
+    nationalite=models.fields.CharField(max_length=40)
+    situation_matrimoniale=models.fields.CharField(max_length=12)
     nombre_enfant=models.fields.PositiveIntegerField(null=False)
-    numerodelit= models.fields.PositiveIntegerField(null=False)
     date= models.fields.DateTimeField(default=timezone.now) 
     def __str__(self):
-        return f'{self.idpatient} {self.nom} {self.numeropatient} {self.contact1} {self.contact2} {self.profession} {self.email} {self.age} {self.sexe}  {self.personne_a_contacter}  {self.ville}  {self.commune} {self.quartier}{self.nationalite}  {self.nombre_enfant}  {self.situation_matrimoniale} {self.telephone_cpu} {self.numerodelit}'
+        return f'{self.idpatient} {self.nom} {self.numeropatient} {self.contact1} {self.contact2} {self.profession} {self.email} {self.age} {self.sexe}  {self.personne_a_contacter}  {self.ville}  {self.commune} {self.quartier}{self.nationalite}  {self.nombre_enfant}  {self.situation_matrimoniale} {self.telephone_cpu}'
 
 class PatientForm(ModelForm):
     class Meta:
         model = Patient
-        fields = ['nom', 'contact1', 'contact2','email','personne_a_contacter','telephone_cpu','profession','ville','age','sexe','commune','quartier','nationalite','situation_matrimoniale','nombre_enfant','numerodelit','numeropatient']
+        fields = ['nom', 'contact1', 'contact2','email','personne_a_contacter','telephone_cpu','profession','ville','age','sexe','commune','quartier','nationalite','situation_matrimoniale','nombre_enfant','numeropatient']
 
 
 class Antecedant_medical(models.Model):#modifie
@@ -631,7 +633,7 @@ class LitForm(ModelForm):
 class Patientlit(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     lit = models.ForeignKey(Lit, on_delete=models.CASCADE)
-    dateoccupation = models.DateField(null=True, blank=True)
+    dateoccupation = models.DateField(auto_now=True)
 
     def dateoccupation_fr(self):
         return formats.date_format(self.dateoccupation, "j F Y", use_l10n=True)
@@ -642,7 +644,7 @@ class Patientlit(models.Model):
 class PatientlitForm(ModelForm):
     class Meta:
         model = Patientlit
-        fields = ['patient' ,'lit','dateoccupation']
+        fields = ['patient' ,'lit']
 
 #fin class avec cle secondaire
 # Create your models here.

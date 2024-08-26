@@ -168,3 +168,6 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'default from email'
 
+#pour utiliser les dates au format JOUR-MOIS-ANNEE
+LANGUAGE_CODE = 'fr'
+USE_L10N = True

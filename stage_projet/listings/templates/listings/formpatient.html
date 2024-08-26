@@ -20,9 +20,9 @@
         </div>
 
         <div class="divsortie">
-                <label for="medecins">medecins</label>
+                <label for="medecins">médecins</label>
                 <select name="medecin" required>
-                    <option>Choisir un medecin</option>
+                    <option>Choisir un médcin</option>
                     {% for medecin in medecins %}
                     <option value='{{ medecin.refpersoignant }}'>{{ medecin.nom }}</option>
                     {% endfor %}
@@ -31,30 +31,25 @@
 
         <div class="divsortie">
             <label for="lit">Numéro de lit</label>
-            <select name="numerodelit" required>
+            <select name="lit"  id="lit" required>
                 <option>Choisir un lit</option>
-                <option value='1'>1</option>
-                <option value='2'>2</option>
-                <option value='3'>3</option>
-                <option value='4'>4</option>
-                
+                {% for lit in lits %}
+                <option value='{{ lit.reflit }}'>Lit {{ lit.numlit }}</option>
+                {% endfor %}
             </select>
         </div>
-
 
         
         <div class="divsortie">
             <label for="nom" >Nom</label>
             <input type="text" placeholder="Nom" name="nom" id="nom" class="inputcontenu" required/>
         </div>
-        <div class="divsortie">
-            <label for="contact1" >Contact</label>
-            <input type="tel" minlength="10" maxlength="10" pattern="[0-9]{10}" placeholder="Numéro 1" name="contact1" id="contact1" class="inputcontenu" required/>
+        <div class="divsexe">
+            <label>Sexe</label>
+            <div><input type="radio" name="sexe" value="masculin" required id="msc" /><label for="msc" >Masculin</label></div>
+            <div><input type="radio" name="sexe" value="féminin" required id ="fem" /><label for="fem" >Féminin</label></div>
         </div>
-        <div class="divsortie">
-            <label for="contact2">Contact2</label>
-            <input type="tel"  minlength="10" maxlength="10" pattern="[0-9]{10}" placeholder="Numéro 2" name="contact2" id="contact2" class="inputcontenu" required/>
-        </div>
+
         <div class="divsortie">
             <label for="email" >Email</label>
             <input type="email" placeholder="Email" name="email" id="email" class="inputcontenu" required/>
@@ -65,16 +60,16 @@
             <input type="text" placeholder="Âge" name="age" id="age" class="inputcontenu" required/>
         </div>
 
-        <div class="divsexe">
-            <label >Sexe:</label>
-            <input type="radio" name="sexe" value="masculin" required id="msc" /><label for="msc" >Masculin</label>
-            <input type="radio" name="sexe" value="féminin" required id ="fem" /><label for="fem" >Féminin</label>
-        </div>
 
         <div class="divsortie">
-            <label for="profession" >Profession</label>
-            <input type="text" placeholder="Profession" name="profession" id="profession" class="inputcontenu" required/>
+            <label for="contact1" >Contact 1</label>
+            <input type="tel" minlength="10" maxlength="10" pattern="[0-9]{10}" placeholder="Numéro 1" name="contact1" id="contact1" class="inputcontenu" required/>
         </div>
+        <div class="divsortie">
+            <label for="contact2">Contact 2</label>
+            <input type="tel"  minlength="10" maxlength="10" pattern="[0-9]{10}" placeholder="Numéro 2" name="contact2" id="contact2" class="inputcontenu" required/>
+        </div>
+        
         <div class="divsortie">
             <label for="ville" >Ville</label>
             <input type="text" placeholder="Ville" name="ville" id="ville" class="inputcontenu" required/>
@@ -87,6 +82,13 @@
             <label for="quartier" >Quartier</label>
             <input type="text" placeholder="Quartier" name="quartier" id="quartier" class="inputcontenu" required/>
         </div>
+        
+
+        <div class="divsortie">
+            <label for="profession" >Profession</label>
+            <input type="text" placeholder="Profession" name="profession" id="profession" class="inputcontenu" required/>
+        </div>
+        
         <div class="divsortie">
             <label for="nationalite" >Nationalité</label>
             <input type="text" placeholder="Nationalité" name="nationalite" id="nationalite" class="inputcontenu" required/>
