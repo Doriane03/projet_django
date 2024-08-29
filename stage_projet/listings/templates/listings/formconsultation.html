@@ -75,12 +75,17 @@
                                     <input type="checkbox"   name="motifdeconsultation[]"  value="Autre motif" onclick="pourlecheckbox()"  class="custom-control-input" id="exampleCheck12"/>
                                     <label class="custom-control-label" for="exampleCheck12" >Autre motif</label>
                                  </div> 
-
-                                 <div id="motifdeconsultation"  class="test"> 
-                                    <input type="text" name="motifdeconsultation[]"  placeholder="précisser"/>
-                                </div> 
                             </div>
                         </div>
+
+                        <table class="test" id="motifdeconsultation">
+                            <tr><th>précisez le motif</th></tr>
+                            <tr>
+                                <td>    
+                                    <input type="text" name="motifdeconsultation[]"  placeholder="précisser"/>
+                                </td>
+                            </tr>
+                        </table>
         </div>    
 
         <div class="prescripteurdelaconsultation">
@@ -155,9 +160,18 @@
                         </div>
                     </div>
 
-                    <div class="test" id="signedigestifs">
-                        <input type="text" id="signedigestifs" name="signe_digestifs" placeholder="preciser" />
-                    </div>
+                    
+                        <table class="test" id="signedigestifs" >
+                            <tr><th>précisez le signe</th></tr>
+                            <tr>
+                                <td>    
+                                    <input type="text" id="signedigestifs" name="signe_digestifs" />
+                                </td>
+                            </tr>
+                        </table>
+                     
+                        
+                    
                     
                 </div>
          
@@ -177,9 +191,14 @@
                         </div>
 
                     </div> 
-                    <div id="signeextradigestif" class="test">
-                        <input type="text"    name="signe_extra_digestif"  placeholder="preciser" />
-                    </div>
+                        <table class="test" id="signeextradigestif" >
+                            <tr><th>précisez le signe</th></tr>
+                            <tr>
+                                <td>    
+                                    <input type="text"    name="signe_extra_digestif"/>
+                                </td>
+                            </tr>
+                        </table>
                 </div>
                 <div> 
                     <div class="p-2 g-col-6">
@@ -238,7 +257,7 @@
                     <div class="p-2 g-col-6">
 
                         <div class="form-check form-check-inline">
-                            <label class="form-check-label" style="margin-right:350px">buvez-vous de l'alcool ?</label>
+                            <label class="form-check-label" style="margin-right:342px">buvez-vous de l'alcool ?</label>
 
                             <div   class="custom-control custom-radio" id="divd1" >
                                 <input type="radio"    name="nombredeverre_alcool"  value="oui"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios15"/>
@@ -251,22 +270,31 @@
                             </div>
                             
                         </div>
-                        <div class="test" id="nombredeverredalcool">
-                            <table class="mdv">
-                                <caption>precision</caption>
-                                <tr><th>type d'alcool</th><th>nombre de verre</th><th>durée de consommation</th></tr>
-                                <tr><td><input type="text"   name="nombredeverre_alcool" id="nombredeverredalcool"  placeholder="preciser le nombre de verre/jour" /></td>
-                                <td><input type="text"   name="nombredeverre_alcool" id="nombredeverredalcool"  placeholder="preciser la duree de consommation" /></td>
-                                <td><select name="type" required>
-                                    <option>Choisir un type d'alcool</option>
-                                    <option value='bière'>bière</option>
-                                    <option value='vin'>vin</option>
-                                    <option value='whisky'>Whisky</option>
-                                    <option value='vody'>Vody</option>
-                                    <option value='pastis'>Pastis</option> 
-                                </select></td> </tr>
+                        
+                            <table class="test" id="nombredeverredalcool">
+                                <tr><th>type d'alcool</th><th>nombre de verre</th><th>fréquence de consommation</th></tr>
+                                <tr>
+                                    <td>    
+                                        <select name="typealcool" required>
+                                                <option>Choisir un type d'alcool</option>
+                                                <option value='bière'>bière</option>
+                                                <option value='vin'>vin</option>
+                                                <option value='whisky'>Whisky</option>
+                                                <option value='vody'>Vody</option>
+                                                <option value='pastis'>Pastis</option> 
+                                        </select>
+                                    </td>
+
+                                    <td>
+                                        <input type="text"   name="nombredeverre_alcool" id="nombredeverredalcool"  />
+                                    </td>
+
+                                    <td>
+                                    <input type="text"   name="frequence" id="nombredeverredalcool" />
+                                    </td>
+                                </tr>
                             </table>
-                        </div>
+                        
                     </div>
                     
                     <div class="p-2 g-col-6">
@@ -283,9 +311,18 @@
                             </div> 
                         </div> 
 
-                        <div id="nombredepaquetdetabac" class="test"> 
-                        <input type="text"   name="nombrepaquettabac" id="nombredepaquetdetabac"   placeholder="preciser le nombre de paquet/annnée" />
-                        </div> 
+                        
+
+                            <table class="test" id="nombredepaquetdetabac">
+                                <tr><th>nombre de paquet de tabac</th></tr>
+                                <tr>
+                                    <td>    
+                                        <input type="text"   name="nombrepaquettabac" id="nombredepaquetdetabac"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        
+                       
                     </div>
 
 
@@ -303,9 +340,18 @@
                             </div> 
                               
                          </div>
-                        <div id="medocencours" class="test">
-                         <input type="text"   name="medoc_en_cours"   placeholder="preciser les médicaments" />
-                        </div>
+                        
+
+                            <table class="test" id="medocencours">
+                                <tr><th>précisez les medicaments</th></tr>
+                                <tr>
+                                    <td>   
+                                        <textarea name="medoc_en_cours" rows="5" cols="30"></textarea> 
+                                    </td>
+                                </tr>
+                            </table>
+                         
+                       
                     </div>
                    
                     
@@ -421,12 +467,11 @@
           <nav class="divcontenunav">diagnostique retenu</nav>
         </div><br/>    
         <div class="divsortie">
-        <label class="form-check-label" style="margin-left:20px">diagnostique retenu</label>
-        <input type="text"   placeholder="diagnostique retenu" name="diagnostique_retenu" class="inputcontenu"/>
-        
+        <label class="form-check-label" style="margin-left:34.5px">diagnostique retenu</label>
+        <textarea name="diagnostique_retenu" placeholder="diagnostique retenu" rows="5" cols="30"></textarea>
         </div>  
         </div>
-    <input type="text"   name="patient"  value="{{ patient_id }}"/>
+    <input type="hidden"   name="patient"  value="{{ patient_id }}"/>
     {% if request.user.is_authenticated %}
     {% if user.type_personnel_soignant.nompersog == "MEDECIN" %}
         <input type="hidden"   name="customUser"  value="{{ user.refpersoignant }}"/>

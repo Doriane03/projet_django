@@ -8,6 +8,7 @@ from django.utils.timezone import localtime, now,localdate
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
+from django.core.mail import send_mail
 #pour la courbe
 from django.db.models import Avg
 import plotly.graph_objs as go
@@ -269,8 +270,6 @@ def sortie_patient(request):#fais
         form =SortieForm(request.POST)
         if form.is_valid():
             form.save()
-            #if 'patient_name' in request.session : 
-                #del request.session['patient_name']
             success = True  
         else:
             error_message = "sortie non enregistrée."
@@ -676,9 +675,21 @@ def get_sortie_id(request):
         response = {'id': None}
     return JsonResponse(response)
 
+
+from django.core.exceptions import ObjectDoesNotExist
 @login_required
 def calendar(request):
-    return render(request,'listings/calendar.html')
+    today = timezone.now().date()
+    
+    try:
+        rdv = Sortie.objects.get(rdvdate=today)
+        print('yes')
+    except Sortie.DoesNotExist:
+        rdv = None
+        print('non')
+    
+    return render(request, 'listings/calendar.html')
+
 
 
 class CustomLoginView(LoginView):
@@ -707,3 +718,29 @@ def custom_logout(request):
     else:
        print(request, 'Certaines informations de session n\'ont pas été supprimées.')
        return redirect('index')
+
+
+
+
+def envoiedemail(request):
+    today = timezone.now().date()
+    # Filtrez les objets en fonction de la date
+    emails_to_send = Sortie.objects.filter(date_to_send=today, sent=False)
+    emails = Sortie.objects.filter(daterdv=today).values_list('patient__email', flat=True)
+    for email in emails_to_send:
+        subject ="Rappel"
+        message ="Bonjour/bonsoir juste pour vous informer que vous avez un rendez-vous aujourd'hui."
+        recipient_list = [emails]
+
+        try:
+            # Envoyer l'e-mail
+            send_mail(subject, message, 'josephinedorianekouadio@gmail.com', recipient_list)
+            
+            # Marquer l'e-mail comme envoyé
+            email.sent = True
+            email.save()
+
+        except Exception as e:
+            # Log or handle the error appropriately
+            print(f"Failed to send email to {email.recipient_email}: {e}")
+

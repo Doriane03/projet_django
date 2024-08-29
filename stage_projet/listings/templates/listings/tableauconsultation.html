@@ -3,17 +3,15 @@
 {% block tableauconsultation %}
 
 <center>
-  <div class="formcontenu">
-  <!-- view_notifications.html -->
-<h1> Mon tableau de consultation</h1>
-<table>
-    <thead>
+    <h2>Mon tableau de consultation</h2>
+<table id="table3" class="formcontenu">
+        
         <tr>
             <th>Nom du Patient</th>
             <th>Date et Heure d'Assignation</th>
         </tr>
-    </thead>
-    <tbody>
+    
+   
         {% for notification in notifications %}
             <tr>
                 <td>{{ notification.patient.nom  }}</td>
@@ -21,11 +19,10 @@
                 <td><a  href="{% url 'box' pt=notification.patient.numeropatient %}">Consultation</a></td>
             </tr>
             {% empty %}
-            <p>Aucune notification pour aujourd'hui.</p>
+            <p>Aucun patient envoyé pour consultation pour l'instant.</p>
         {% endfor %}
-    </tbody>
+  
 </table>
 
-  </div>
 </center>
 {% endblock %}

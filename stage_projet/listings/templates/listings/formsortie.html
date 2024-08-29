@@ -21,40 +21,36 @@
        
         <div  class="divsortie">
             <label >Patient concerné</label>
-            <input  type="text" name="nom" id="nom" oninput="fetchPatientId()"/>
+            <input  type="text" name="nom" id="nom" oninput="fetchPatientId()" required/>
         </div>
 
         <div class="divsortie">
             <label>Date de sortie</label>
-            <input  type="date" name="datesortie" >
+            <input  type="date" name="datesortie" required>
         </div>
 
-            <div class="divsortie" >
-                
-                    <label  id="lab"> Motif de sortie</label>
-                    <div class="form-check form-check-inline" style=" margin-right: 20px;">
-                        <input type="radio"  name="motifsortie"  value="décès"   onclick="sortie()" class="form-check-input" id="exampleRadios1"/>
-                        <label class="form-check-label" for="exampleRadios1">décès</label>
+            <div class="divsortie" required>
+                    <label> Motif de sortie</label>
+                    <div class="form-check form-check-inline">
+                        <input type="radio"  name="motifsortie"  value="décès"   onclick="sortie()" class="form-check-input" id="inlineRadio1"/>
+                        <label class="form-check-label" for="inlineRadio1">décès</label>
                     </div>
 
                                     
-                    <div  class="form-check form-check-inline" id="presdiv7">
+                    <div  class="form-check form-check-inline" >
                         <input type="radio"  name="motifsortie"  value="perdu de vue"   onclick="sortie()" class="form-check-input" id="exampleRadios2"/>
                         <label class="form-check-label" for="exampleRadios2">perdu de vue</label>
                             
                     </div>
 
-                
-
-
-                    <div  class="form-check form-check-inline" id="presdiv9">
+                    <div  class="form-check form-check-inline" >
                         <input type="radio"  name="motifsortie"  value="transfert de dossier"   onclick="sortie()" class="form-check-input" id="exampleRadios3"/>
                         <label class="form-check-label"  for="exampleRadios3">transfert de dossier</label>
                         
                     </div>
                         
 
-                    <div  class="form-check form-check-inline" id="presdiv8">
+                    <div  class="form-check form-check-inline">
                         <input type="radio"  name="motifsortie"  value="refus de suivi"   onclick="sortie()" class="form-check-input" id="exampleRadios4"/>
                         <label class="form-check-label" for="exampleRadios4">refus de suivi</label>
                     </div>
@@ -90,7 +86,7 @@
 
 
                 <div  class="divsortie">
-                    <label >Numéro de dossier dans le centre de transfert</label>
+                    <label >Numéro de dossier dans le centre</label>
                     <input  type="text" name="numerodedossierdanslecentredetransfert" >
                 </div>
                 
@@ -111,14 +107,14 @@
 
             <div class="divsortie">
                 <label>lieu du décès</label>
-                <div  class="custom-control custom-radio" id="presdiv11">
-                    <input type="radio"  name="lieudeces"  value="domicile"    class="custom-control-input" id="exampleRadios7" />
-                    <label class="custom-control-label" for="exampleRadios7">domicile</label>
+                <div  class="form-check" id="presdiv11">
+                    <input type="radio"  name="lieudeces"  value="domicile"    class="form-check-input" id="exampleRadios7" />
+                    <label class="form-check-label" for="exampleRadios7">domicile</label>
                 </div>
 
-                <div  class="custom-control custom-radio" id="presdiv10">
-                    <input type="radio"  name="lieudeces"  value="centre de santé" class="custom-control-input" id="exampleRadios8"/>
-                    <label class="custom-control-label" for="exampleRadios8">centre de santé</label>
+                <div  class="form-check" id="presdiv10">
+                    <input type="radio"  name="lieudeces"  value="centre de santé" class="form-check-input" id="exampleRadios8"/>
+                    <label class="form-check-label" for="exampleRadios8">centre de santé</label>
                 </div>
             </div>
 
@@ -129,14 +125,14 @@
 
             <div class="divsortie">
                 <label>décès lié a l'hépatite </label>
-                <div  class="custom-control custom-radio" id="presdiv12">
-                    <input type="radio"  name="decesliea"  value="hépatite"    class="custom-control-input" id="exampleRadios5"/>
-                    <label class="custom-control-label" for="exampleRadios5">oui</label>
+                <div  class="form-check" id="presdiv12">
+                    <input type="radio"  name="decesliea"  value="hépatite"    class="form-check-input" id="exampleRadios5"/>
+                    <label class="form-check-label" for="exampleRadios5">oui</label>
                 </div>
 
-                <div  class="custom-control custom-radio" id="presdiv13">
-                    <input type="radio"  name="decesliea"  value="autre"    class="custom-control-input" id="exampleRadios6"/>
-                    <label class="custom-control-label" for="exampleRadios6">non</label>
+                <div  class="form-check" id="presdiv13">
+                    <input type="radio"  name="decesliea"  value="autre"    class="form-check-input" id="exampleRadios6"/>
+                    <label class="form-check-label" for="exampleRadios6">non</label>
                 </div>
             </div>
         </div>
@@ -153,40 +149,38 @@
             <div class="divsortie">
                 <label>Type de relance</label>
 
-                <div  class="custom-control custom-radio" id="presdiv12">
-                    <input type="radio"  name="typederelance"  value=" Visite à domicile"    class="custom-control-input" id="exampleRadios9"/>
-                    <label class="custom-control-label" for="exampleRadios9">Visite à domicile</label>
+                <div  class="form-check" id="presdiv13">
+                    <input type="radio"  name="typederelance"  value=" Visite à domicile"    class="form-check-input" id="exampleRadios9"/>
+                    <label class="form-check-label" for="exampleRadios9">Visite à domicile</label>
                 </div>
 
-                <div  class="custom-control custom-radio" id="presdiv11">
-                    <input type="radio"  name="typederelance"  value="Entretien au téléphone"    class="custom-control-input" id="exampleRadios10"/>
-                    <label class="custom-control-label" for="exampleRadios10">Entretien au téléphone</label>
+                <div  class="form-check" id="presdiv11">
+                    <input type="radio"  name="typederelance"  value="Entretien au téléphone"    class="form-check-input" id="exampleRadios10"/>
+                    <label class="form-check-label" for="exampleRadios10">Entretien au téléphone</label>
                 </div>
-
-
-                <div  class="custom-control custom-radio" id="presdiv13">
-                    <input type="radio"  name="typederelance"  value="Personne contact"    class="custom-control-input" id="exampleRadios11"/>
-                    <label class="custom-control-label" for="exampleRadios11">Personne contact</label>
+                <div  class="form-check" id="presdiv13">
+                    <input type="radio"  name="typederelance"  value="Personne contact"    class="form-check-input" id="exampleRadios11"/>
+                    <label class="form-check-label" for="exampleRadios11">Personne contact</label>
                 </div>
             </div><br/>
 
             <div class="divsortie">
                     <label>Type de nouvelle</label>
-                    <div  class="custom-control custom-radio" id="presdiv16">
-                        <input type="radio"  name="typedenouvelle"  value="Patient a été vu"    class="custom-control-input" id="exampleRadios12"/>
-                        <label class="custom-control-label" for="exampleRadios12">Patient a été vu</label>
+                    <div  class="form-check" id="presdiv16">
+                        <input type="radio"  name="typedenouvelle"  value="Patient a été vu"    class="form-check-input" id="exampleRadios12"/>
+                        <label class="form-check-label" for="exampleRadios12">Patient a été vu</label>
                     </div>
-                    <div  class="custom-control custom-radio" id="presdiv11">
-                        <input type="radio"  name="typedenouvelle"  value="Entretien au téléphone"    class="custom-control-input" id="exampleRadios13"/>
-                        <label class="custom-control-label" for="exampleRadios13">Entretien au téléphone</label>
+                    <div  class="form-check" id="presdiv20">
+                        <input type="radio"  name="typedenouvelle"  value="Entretien au téléphone"    class="form-check-input" id="exampleRadios13"/>
+                        <label class="form-check-label" for="exampleRadios13">Entretien au téléphone</label>
                     </div>
-                    <div  class="custom-control custom-radio" id="presdiv14">
-                        <input type="radio"  name="typedenouvelle"  value="Pas de nouvelle fiable"    class="custom-control-input" id="exampleRadios14"/>
-                        <label class="custom-control-label" for="exampleRadios14">Pas de nouvelle fiable</label>
+                    <div  class="form-check" id="presdiv18">
+                        <input type="radio"  name="typedenouvelle"  value="Pas de nouvelle fiable"    class="form-check-input" id="exampleRadios14"/>
+                        <label class="form-check-label" for="exampleRadios14">Pas de nouvelle fiable</label>
                     </div>
-                    <div  class="custom-control custom-radio" id="presdiv15">
-                        <input type="radio"  name="typedenouvelle"  value="Patient en vie selon une personne fiable"    class="custom-control-input" id="exampleRadios15"/>
-                        <label class="custom-control-label" for="exampleRadios15">Patient en vie selon <br/>une personne fiable</label>
+                    <div  class="form-check" id="presdiv19">
+                        <input type="radio"  name="typedenouvelle"  value="Patient en vie selon une personne fiable"    class="form-check-input" id="exampleRadios15"/>
+                        <label class="form-check-label" for="exampleRadios15">Patient en vie selon une personne fiable</label>
                     </div>
                 </div>
 
@@ -194,15 +188,43 @@
 
             </div>
         <div id="raison" class="test">
-        <div  class="divsortie" id="raison" class="test">
-                <label >Raison</label>
-                <input  type="text" name="raison" >
-        </div>
+            
+            <div  class="divsortie" id="raison">
+                    <label >Raison</label>
+                    <input  type="text" name="raison" required>
+            </div>
+
         </div>
         <div class="divsortie">
         <label>Observation</label>
         <textarea name="commentaire" placeholder="Observation" rows="5" cols="30"></textarea>
         </div>
+
+        <div class="divsortie">
+            <label>rendez-vous prochain</label>
+
+            <div  class="form-check form-check-inline" id="presdiv12">
+                <input type="radio"  name="rdv"  value="oui" class="form-check-input" id="exampleRadios40" onclick="sortie()"/>
+                <label class="form-check-label" for="exampleRadios40">oui</label>
+            </div>
+
+            <div  class="form-check form-check-inline" id="presdiv13">
+                <input type="radio"  name="rdv"  value="non" class="form-check-input" id="exampleRadios50" onclick="sortie()"/>
+                <label class="form-check-label" for="exampleRadios50">non</label>
+            </div>
+        </div>
+
+        
+            <table class="test" id="rdvdate">
+                <tr><th>Date</th></tr>
+                <tr>
+                    <td>   
+                        <input type="date"  name="rdvdate" id="val"/>
+                    </td>
+                </tr>
+            </table>
+            
+       
        
 
         <div class="divsortie">
@@ -226,6 +248,8 @@ function sortie(){
     var inputField4= document.getElementById("motif4");
     var inputField5= document.getElementById("raison");
     var inputField6= document.getElementById("datedernierevisite");
+    var inputField7= document.getElementById("rdvdate");
+    var afficheRadio1= document.getElementsByName("rdv");
 
     for (var i = 0; i < afficheRadio.length; i++) {
         if (afficheRadio[i].checked) {
@@ -245,6 +269,13 @@ function sortie(){
                     inputField2.style.display = "block";
                     inputField5.style.display = "block"; 
                     inputField6.style.display = "block";
+                    //var a = document.getElementById("motif1");
+                    //var inputs = a.getElementsByTagName("input");
+
+                    //for (var i = 0; i < inputs.length; i++) {
+                        //inputs[i].value = ""; // Vider la valeur de chaque input
+                    //}
+
                 break;
 
 
@@ -253,7 +284,7 @@ function sortie(){
                     inputField1.style.display = "none";
                     inputField2.style.display = "none";
                     inputField3.style.display = "block";
-                    inputField5.style.display = "block"; 
+                    inputField5.style.display = "block";
                 break;
 
                 case 'refus de suivi':
@@ -266,9 +297,22 @@ function sortie(){
                 break;
             }
         }
+    }for (var j = 0; j < afficheRadio1.length; j++) {
+        if(afficheRadio1[j].checked){
+            switch(afficheRadio1[j].value){
+                case 'oui':
+                    inputField7.style.display = "block";
+                break;
+                case 'non':
+                    inputField7.style.display = "none";
+                    document.getElementById("val").value="";
+                break;
+
+            }
+            
+        }
     }
 }
-
 
 
 

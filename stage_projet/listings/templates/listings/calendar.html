@@ -5,12 +5,14 @@
     <div class="container">
         <div id="calendar"></div>
     </div>
-
 </center>
 
 <script>
     $(document).ready(function() {
-    $('#calendar').fullCalendar();
- });
+        $('#calendar').fullCalendar({
+            locale: 'fr',
+            
+        });
+    });
  </script>
 {% endblock %}

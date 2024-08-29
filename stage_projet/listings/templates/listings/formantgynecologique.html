@@ -21,7 +21,7 @@
 
 
             <div class="divsortie">
-                <label  >gestite</label>
+                <label>gestite</label>
                 <input  type="text" name="gestite" />
             </div>
 
@@ -41,10 +41,15 @@
                     <input  class="form-check-input" type="radio" name="cesarienne" id="inlineRadio4" value="non" onclick="antecedantgyn()" />
                     <label class="form-check-label" for="inlineRadio4">non</label>
                 </div>
-                <div class="test" id="resultat1" style="margin-right:93px">
-                    <label class="form-check-label" for="inlineRadio5">date</label>
-                    <input  type="date" name="datecesarienne" id="inlineRadio5" style="padding:10px"/>
-                </div>
+                
+                    <table class="test" id="resultat1">
+                        <tr><th>date de la césarienne</th></tr>
+                        <tr>
+                            <td>   
+                                <input  type="date" name="datecesarienne" id="inlineRadio5"/>
+                            </td>
+                        </tr>
+                    </table>
             </div>
 
 

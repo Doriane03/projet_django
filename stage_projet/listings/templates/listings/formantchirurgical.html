@@ -24,12 +24,18 @@
                  <label class="form-check-label" for="inlineRadio2">non</label>
              </div>
 
-             <div class="test"  id="resultat2">
-                <label class="form-check-label">date avp</label>
-                <input  type="date" name="dateavp" id="dateavp" style="padding:10px;"/>  
-            </div>
+            
+                <table class="test"  id="resultat2">
+                    <tr><th>date de l'avp</th></tr>
+                    <tr>
+                        <td>   
+                            <input  type="date" name="dateavp" id="dateavp" />
+                        </td>
+                    </tr>
+                </table>
+                
 
-         </div>
+        </div>
 
 
         <div class="divsortie" >
@@ -43,12 +49,15 @@
                 <input class="form-check-input" type="radio" name="operachir" id="inlineRadio4" value="non" onclick="antecedantchiroperachir()"/>
                 <label class="form-check-label" for="inlineRadio4">non</label>
             </div>
-
-            <div class="test" id="resultat3" style="margin-right:20px" >
-                <label class="form-check-label">date de l'opération </label>
-                <input  type="date" name="datoperachir" id="dateopera" style="padding:10px;margin-right:50px"/>
-                
-            </div>
+                <table class="test" id="resultat3">
+                    <tr><th>date de l'opération</th></tr>
+                    <tr>
+                        <td>   
+                            <input  type="date" name="datoperachir" id="dateopera"/>
+                        </td>
+                    </tr>
+                </table>
+           
         </div>
         <input  type="hidden" name="patient" value="{{patient_id1}}"/> 
     </fieldset>

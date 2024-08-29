@@ -63,8 +63,23 @@ float: left;
 }
 
 .test{
-  display: none;
+display:none;
 }
+
+.test tr>td input[type='text']{
+  width:100%;
+  padding:8px;
+}
+
+.test tr>td select{
+  width:100%;
+  padding:8px;
+}
+.test tr>td textarea{
+  width:100%;
+  padding:8px;
+}
+
 .test>input[type='text']{
   padding:8px;
   width:30%;
@@ -74,51 +89,60 @@ float: left;
   padding:8px;
   width: 30%;
 }
+.test tr>td input[type='date']{
+  width:100%;
+  padding:8px;
+}
+
 /*formulaire de sortie*/
 .divsortie{
   overflow: hidden;
   padding:5px;
 }
-.divsortie >label{
+.divsortie>label{
   float:left;
-  width:150px;
-  padding:10px;
+  width:250px;
+  text-align: start;
+  margin-left: 5px;
+
+  /*j'avais min padding 15px*/
 }
 .divsortie>input[type="text"]{
 float:left;
-margin:3px;
+margin-left:4px;
 width:50%;
 padding:10px
+
 }
 
 
 .divsortie input[type="password"]{
   float:left;
-  margin:3px;
+  margin-left:4px;
   width:50%;
   padding:10px
   }
 
 .divsortie input[type="email"]{
     float:left;
-    margin:3px;
+    margin-left:4px;
     width:50%;
     padding:10px
 }
 
 .divsortie input[type="tel"]{
       float:left;
-      margin:3px;
+      margin-left:4px;
       width:50%;
       padding:10px
 }
     
   
-#lab{
+/*#lab{
   float:left;
   width:150px;
   padding:10px;
-}
+}*/
 .divsortie>input[type="date"]{
   float:left;
   margin:3px;
@@ -128,7 +152,9 @@ padding:10px
 
 .divsexe>label{
   float:left;
-  width:150px;
+  width:250px;
+  text-align: start;
+  margin-left: 5px;
 }
 .divsexe{
   overflow: hidden;
@@ -137,30 +163,40 @@ padding:10px
 
 .divsexe div{
   float:left;
-  width:30.5%;
+  width:25%;
 }
-
-.divsortie > input[type="radio"]{
+.divsortie>input[type="radio"]{
   float:left;
   width:50%;
+}
+
+.divsortie input[type="radio"]{
+  float:left;
 }
 
 .divsortie>select{
   float:left;
   width:50%;
   padding:10px;
+  margin-left:4px;
 }
 
 .divsortie textarea{
   float:left;
   width:50%;
   padding:10px;
+  margin-left:4px;
 }
 /*fin*/
 
 .formcontenu{
 width:70%;
 background-color: #f8faf9;
+}
+
+.formcontenutab{
+  width:90%;
+  background-color: #f8faf9;
 }
 
 .formcontenu ::first-letter{
@@ -175,14 +211,11 @@ padding:10px;
 .selectcontenu{
 display:block;
 }
-
 .divcontenunav{
-padding:10px;
+padding:5px;
 width:100%;
 font-weight:bold;
-font-size:20px;
-border-top-left-radius:5px;
-border-top-right-radius:5px;
+font-size:18px;
 color: black;
 background-color: deepskyblue;
 text-align: left;
@@ -310,12 +343,23 @@ margin-right:38%;
   margin-left:1%;
 }
 #presdiv16{
-  margin-right:17.5%;
+  margin-right:40.6%;
 }
 #presdiv17{
   margin-right:14.5%;
 }
 
+#presdiv18{
+  margin-right:6.9%;
+}
+
+#presdiv19{
+  margin-left:6.1%;
+}
+
+#presdiv20{
+  margin-right:35.9%;
+}
 #div3{
 margin-right:63%;
 }
@@ -546,7 +590,10 @@ display: flex;
 align-items: center;
 }
 .content>label{
-margin-left:25px;
+  float:left;
+  width:250px;
+  text-align: start;
+  margin-left: 5px;
 }
 #divg{
   margin-right:56px; 
@@ -600,19 +647,21 @@ margin-left:25px;
   width:100%;
   border-collapse: collapse;
 }
-.table1  th,td{
-  text-align: center; /* Centrer horizontalement */
-  vertical-align: middle; /* Centrer verticalement */
+.table1 td div >input{
+  width:100%;
+  padding: 8px;
+}
+.table1 td div >select{
+  width: 100%;
+  border: none;
+  background-color:rgb(238, 238, 238);
   padding: 8px;
 }
 .table1 th{
   background-color: #f2f2f2;
   border: 1px solid #ddd;
-}
-.table1 select {
-  width: 100%;
-  border: none;
-  background-color:rgb(238, 238, 238);
+  text-align: center; /* Centrer horizontalement */
+  vertical-align: middle;
 }
 
 .table2{
@@ -674,8 +723,6 @@ margin-left:25px;
     justify-content: center;
 }
 
-
-
 .patient-links {
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* 4 colonnes */
@@ -723,9 +770,9 @@ margin-left:25px;
   overflow: hidden;
 }
 
-
-
-.mdv{
-  border: 1px solid black;
-  text-align: center;
+#table3 th{
+text-align: center;
+}
+#table3 td{
+  text-align:center;
 }
