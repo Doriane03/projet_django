@@ -97,7 +97,7 @@ class Antecedant_medicalAdmin(admin.ModelAdmin):#nouveau
     list_display=('refant', 'dyslipidemie', 'cirrhose',  'hepatiteviraleb', 'datehepvirb', 'hepatiteviralec',  'datehepvirc', 'hepatiteviraled', 'datehepvird', 'vaccination_vhb', 'dosevhb',  'vaccination_vha',  'dosevha', 'transfusion_sanguine',   'ictere', 'rapportsexuelnonprotege', 'partageobjettoilette', 'accidexposang', 'toxicomanie', 'diabete', 'hta',  'transplanhepatique', 'precisionautre',  'date', 'patient')
 
 class Antecedant_chirurgicalAdmin(admin.ModelAdmin):#nouveau
-    list_display=('refantchir', 'operachir', 'datoperachir', 'avp', 'dateavp', 'date','patient')
+    list_display=('refantchir', 'operachir', 'datoperachir', 'avp', 'dateavp', 'date','patient','autre')
 
 class Antecedant_genecologiqueAdmin(admin.ModelAdmin):#nouveau
     list_display=('refantgen', 'datederniereregle', 'gestite', 'parite', 'prisecontraceptif', 'cesarienne', 'datecesarienne', 'date', 'patient')

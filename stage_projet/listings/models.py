@@ -155,7 +155,7 @@ class Antecedant_chirurgical(models.Model):#nouvel ajout
         ('oui','oui'),
         ('non','non'),
     )
-    operachir=models.fields.CharField(max_length=3,choices=MAYBECHOICE1,)
+    operachir=models.fields.CharField(max_length=3,choices=MAYBECHOICE1)
     datoperachir=models.fields.DateField(blank=True,null=True)
     MAYBECHOICE2=(
         ('oui','oui'),
@@ -164,13 +164,14 @@ class Antecedant_chirurgical(models.Model):#nouvel ajout
     avp=models.fields.CharField(max_length=3,choices=MAYBECHOICE2,)
     dateavp=models.fields.DateField(blank=True,null=True,)
     date= models.fields.DateTimeField(default=timezone.now)  
-    patient=models.ForeignKey(Patient, on_delete=models.CASCADE)                                                                            
+    patient=models.ForeignKey(Patient, on_delete=models.CASCADE)
+    autre = models.TextField(blank=True, null=True)                                                                  
     def __str__(self):
-        return f'{self.refantchir} {self.operachir} {self.datoperachir} {self.avp} {self.dateavp} {self.date} {self.patient}'
+        return f'{self.refantchir} {self.operachir} {self.datoperachir} {self.avp} {self.dateavp} {self.date} {self.autre} {self.patient}'
 class Antecedant_chirurgicalForm(ModelForm):
     class Meta:
         model = Antecedant_chirurgical
-        fields = ['operachir','datoperachir' ,'avp','dateavp','patient']    
+        fields = ['operachir','datoperachir','avp','dateavp','autre','patient']    
     
 class Antecedant_genecologique(models.Model):#nouvel ajout 
     refantgen=models.fields.AutoField(primary_key=True)

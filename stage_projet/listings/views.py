@@ -244,23 +244,33 @@ def antecedantmedical(request):#fais
     return render(request,'listings/fromantmedical.html',{"patient_id1":patient_id1,'success':success,'error_message':error_message }) 
 
 
-
 @login_required
-def antecedantchirurgical(request): #fais
+def antecedantchirurgical(request):
     success = False
     error_message = None
-    patient_name=request.session.get('patient_nom', 'Nom du patient non trouvé')
-    patient = Patient.objects.get(nom=patient_name)
+    patient_name = request.session.get('patient_nom', 'Nom du patient non trouvé')
+    patient = get_object_or_404(Patient, nom=patient_name)
     patient_id1 = patient.idpatient
+
     if request.method == 'POST':
         form = Antecedant_chirurgicalForm(request.POST)
         if form.is_valid():
-            form.save()
-            success =True
+            if Antecedant_chirurgical.objects.filter(patient=patient).exists():
+                error_message = 'Les antécédents chirurgicaux ont déjà été enregistrés pour ce patient.'
+            else:
+                antecedant = form.save(commit=False)
+                antecedant.patient = patient
+                antecedant.save()
+                success = True
         else:
             print(form.errors)
-            error_message = 'antécédant chirurgical  non enregistré.'
-    return render(request, 'listings/formantchirurgical.html',{"patient_id1":patient_id1,'success':success,'error_message':error_message})
+            error_message = 'Antécédent chirurgical non enregistré.'
+
+    return render(request, 'listings/formantchirurgical.html', {
+        "patient_id1": patient_id1,
+        'success': success,
+        'error_message': error_message
+    })
 
 @login_required 
 def sortie_patient(request):#fais
@@ -450,12 +460,6 @@ def disponibilite(request):
         return render(request, 'listings/tableaumeddispodelasemaine.html', {'medecins': medecins})
 
     return render(request, 'listings/tableaumeddispodelasemaine.html', {'medecins': medecins})
-
-
-
-
-
-
 
 @login_required
 def bilanimg(request):
