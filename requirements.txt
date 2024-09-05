@@ -51,5 +51,8 @@ yagmail-0.15.293
 dnspython-2.6.1
 email-validator-2.2.0
 
-
+cron-descriptor-1.4.5 
+django-celery-beat-2.7.0
+django-timezone-field-7.0
+python-crontab-3.2.0
 
