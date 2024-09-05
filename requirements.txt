@@ -36,8 +36,6 @@ redis-5.0.8
 tzdata-2024.1
 vine-5.1.0
 wcwidth-0.2.13
-
-
 cachetools-5.5.0
 certifi-2024.8.30
 charset-normalizer-3.3.2
@@ -50,5 +48,8 @@ premailer-3.10.0
 requests-2.32.3
 urllib3-2.2.2
 yagmail-0.15.293
+dnspython-2.6.1
+email-validator-2.2.0
+
 
 
