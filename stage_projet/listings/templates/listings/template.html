@@ -27,7 +27,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script> 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/locale/fr.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/locale/fr.js"></script>
         <!-- Theme Styles -->
         <link href="{% static 'listings/connect.min.css' %}" rel="stylesheet"/>
         <link href="{% static 'listings/admin3.css' %}" rel="stylesheet"/>
@@ -76,6 +76,13 @@
                                     </ul>
                                 {% elif request.user.type_personnel_soignant.nompersog == "MEDECIN" %}
                                     <ul class="accordion-menu">
+
+                                        <li>
+                                            <a href="{% url 'boxhospi' %}">
+                                                <i class="material-icons">hospitalisation</i>hospitalisation
+                                            </a>
+                                        </li>
+                                        
                                         <li>
                                             <a href="{% url 'tableauconsultation' %}" id="n1">
                                                 <i class="material-icons-outlined">visibility</i>Consultation
@@ -91,11 +98,16 @@
                                                 <i class="material-icons-outlined">directions_walk</i>Autoriser une sortie
                                             </a>
                                         </li>
+                                        
+
                                         <li>
                                             <a href="{% url 'logout' %}">
                                                 <i class="material-icons">logout</i>Déconnexion
                                             </a>
                                         </li>
+
+                                        
+
                                     </ul>
                                 {% elif request.user.type_personnel_soignant.nompersog == "ADMIN" %}
                                     <ul class="accordion-menu">
@@ -188,6 +200,7 @@
                                             {% block affichagedocpatient %}{% endblock %}
                                             {% block calendar %}{% endblock %}
                                             {% block affiche %}{% endblock %}
+                                            {% block boxhospi %}{% endblock %}
                                             
                                         </div>
                                     </div>

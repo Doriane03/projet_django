@@ -9,6 +9,8 @@ from django.contrib.auth.views import LoginView
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.core.mail import send_mail
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
 #pour la courbe
 from django.db.models import Avg
 import plotly.graph_objs as go
@@ -173,16 +175,13 @@ def constante(request):#fais
             constante.save()
             if constante and constante.refconst:
                 success = True 
-                return render(request, 'listings/formpatient.html', context={'form_errors': form.errors,'success':success})
+                return render(request, 'listings/formpatient.html', context={'success':success})
             else:
                 error_message='Constantes non ajoutées pour le patient'
         else:
             error_message='Le formulaire contient des erreurs.'
     else:
-        return render(request, 'listings/formconstante.html',{'error_message':error_message,'form_errors': form.errors})
-
-
-
+        return render(request, 'listings/formconstante.html',{'error_message':error_message})
 
 
 
@@ -207,15 +206,22 @@ def consultation(request):#fais
 
             # Récupérer les motifs sélectionnés
             motifs = request.POST.getlist('motifdeconsultation[]')
+            print(motifs)
+
             motifs_str = ','.join(motifs)
+
             motifs1 = request.POST.getlist('signe_asso_gene[]')
+
             motifs_str1 = ','.join(motifs1)
-            consultation.motifdeconsultation = motifs_str1
+
+            consultation.motifdeconsultation = motifs_str
+            consultation.signe_asso_gene = motifs_str1
 
             # Sauvegarder l'instance de Consultation
             consultation.save()
 
             print(motifs_str)
+
             if consultation and consultation.Numconsulta:
                 success =True
             else:
@@ -223,7 +229,6 @@ def consultation(request):#fais
         else:
             error_message = 'Le formulaire contient des erreurs.'
     return render(request, 'listings/formconsultation.html', context={'success': success, 'patient_id': patient_id,'error_message':error_message})
-
 
 
 @login_required
@@ -236,8 +241,11 @@ def antecedantmedical(request):#fais
     if request.method == 'POST':
         form = Antecedant_medicalForm(request.POST)
         if form.is_valid():
-            form.save()
-            success =True
+            if Antecedant_medical.objects.filter(patient=patient).exists():
+                error_message = 'Les antécédents médicaux ont déjà été enregistrés pour ce patient.'
+            else:
+                form.save()
+                success =True
         else:
             print(form.errors)
             error_message ='antécédant médical non enregistré.'
@@ -272,6 +280,7 @@ def antecedantchirurgical(request):
         'error_message': error_message
     })
 
+
 @login_required 
 def sortie_patient(request):#fais
     success = False
@@ -280,11 +289,18 @@ def sortie_patient(request):#fais
         form =SortieForm(request.POST)
         if form.is_valid():
             form.save()
-            success = True  
+            success = True 
+            return render(request, 'listings/formsortie.html', {'success': success})
         else:
             error_message = "sortie non enregistrée."
             print(form.errors)
-    return render(request, 'listings/formsortie.html', {'success': success, 'error_message': error_message})
+            return render(request, 'listings/formsortie.html', {'error_message': error_message})
+           
+    else:
+        form = SortieForm()
+    return render(request, 'listings/formsortie.html', {'form': form})
+
+
 
 @login_required
 def modificationmdp(request):#fais
@@ -315,9 +331,6 @@ def modificationmdp(request):#fais
         'success': success,
         'error_message': error_message
     })
-
-
-
 
 @login_required
 def adminform(request):#fais
@@ -360,8 +373,11 @@ def antecedantgenecologique(request):#fais
     if request.method == 'POST':
         form =Antecedant_genecologiqueForm(request.POST)
         if form.is_valid():
-            form.save()
-            success=True
+            if Antecedant_genecologique.objects.filter(patient=patient).exists():
+                error_message = 'Les antécédents gynécologiques ont déjà été enregistrés pour ce patient.'
+            else:
+                form.save()
+                success=True
         else:
             error_message = 'antécédant gynécologique  non ajouté.'
     return render(request, 'listings/formantgynecologique.html',{"patient_id1":patient_id1,'success': success,'error_message':error_message})
@@ -390,11 +406,13 @@ def antecedantfamilial(request):#fais
     if request.method == 'POST':
         form = Antecedant_familialForm(request.POST)
         if form.is_valid():
-            form.save()
-            success =True
+            if Antecedant_familial.objects.filter(patient=patient).exists():
+                error_message = 'Les antécédents familiaux ont déjà été enregistrés pour ce patient.'
+            else:
+                form.save()
+                success =True
             return render(request, 'listings/formantfamille.html', context={'success': success})
         else:
-            print(form.errors)
             error_message = 'antécédant familial non enregistré.'
     return render(request,'listings/formantfamille.html',{"patient_id1":patient_id1,'error_message':error_message,'success':success}) 
 
@@ -419,7 +437,10 @@ def box(request,pt):
     
     return render(request, 'listings/boxclick.html', {'sexe': sexe})
 
-
+@login_required
+def boxhospi(request):
+    
+    return render(request, 'listings/boxhospi.html')
 
 
 
@@ -430,18 +451,197 @@ def docpatient(request):
     pk = request.GET.get('pk', '')
 
     if doc == 'ok' and pk:
-        # Affiche le template affichedocpatient.html pour un patient spécifique
         patient = get_object_or_404(Patient, idpatient=pk)
-        print(patient)
         constantes = get_object_or_404(Constante, patient_id=pk)
-        print(constantes)
-        return render(request, 'listings/affichagedocpatient.html', {'patient': patient,'constantes':constantes})
-    query = request.GET.get('query', '')
+        return render(request, 'listings/affichagedocpatient.html', {'patient': patient, 'constantes': constantes})
+    
     if query:
         patients = Patient.objects.filter(numeropatient__icontains=query)
     else:
         patients = Patient.objects.all()
+    
     return render(request, 'listings/tableaudocpatient.html', {'patients': patients, 'query': query})
+
+
+
+
+from reportlab.lib.units import inch
+
+@login_required
+def patient_pdf(request, pk):
+    # Récupérer le patient, ses antécédents médicaux, chirurgicaux, et les données de Refconst
+    patient = get_object_or_404(Patient, idpatient=pk)
+    ant_medicals = Antecedant_medical.objects.filter(patient=patient)
+    ant_chirurgicals = Antecedant_chirurgical.objects.filter(patient=patient)
+    refconsts = Constante.objects.filter(patient=patient)
+    
+    # Créer une réponse HTTP pour le PDF
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = f'inline; filename="patient_{patient.idpatient}.pdf"'
+    
+    # Créer le PDF
+    p = canvas.Canvas(response, pagesize=letter)
+    width, height = letter
+    
+    p.setFont('Helvetica-Bold', 18)
+    p.drawString(50, height - 50, "Fiche Patient")
+
+    # Informations du patient
+    p.setFont('Helvetica', 12)
+    y = height - 100
+    p.drawString(50, y, f"Nom : {patient.nom or 'Non renseigné'}")
+    y -= 20
+    p.drawString(50, y, f"Numéro Patient : {patient.numeropatient or 'Non renseigné'}")
+    y -= 20
+    p.drawString(50, y, f"Âge : {patient.age if patient.age else 'Non renseigné'}")
+    y -= 20
+    p.drawString(50, y, f"Sexe : {patient.sexe or 'Non renseigné'}")
+    y -= 20
+    p.drawString(50, y, f"Adresse : {patient.ville or 'Non renseigné'}")
+    y -= 20
+    p.drawString(50, y, f"Commune : {patient.commune or 'Non renseigné'}")
+    y -= 20
+    p.drawString(50, y, f"Quartier : {patient.quartier or 'Non renseigné'}")
+    y -= 20
+    p.drawString(50, y, f"Nationalité : {patient.nationalite or 'Non renseigné'}")
+    y -= 20
+    p.drawString(50, y, f"Situation Matrimoniale : {patient.situation_matrimoniale or 'Non renseigné'}")
+    y -= 20
+    p.drawString(50, y, f"Nombre d'enfants : {patient.nombre_enfant if patient.nombre_enfant else 'Non renseigné'}")
+    y -= 20
+    p.drawString(50, y, f"Téléphone CPU : {patient.telephone_cpu}")
+    y -= 20
+    p.drawString(50, y, f"Profession : {patient.profession or 'Non renseigné'}")
+    y -= 20
+    p.drawString(50, y, f"Téléphone 1 : {patient.contact1 if patient.contact1 else 'Non renseigné'}")
+    y -= 20
+    p.drawString(50, y, f"Téléphone 2 : {patient.contact2 if patient.contact2 else 'Non renseigné'}")
+    y -= 20
+    p.drawString(50, y, f"Email : {patient.email if patient.email else 'Non renseigné'}")
+    y -= 20
+    p.drawString(50, y, f"Personne à contacter : {patient.personne_a_contacter or 'Non renseigné'}")
+    y -= 20
+    p.drawString(50, y, f"Numéro de la personne à contacter : {patient.telephone_cpu or 'Non renseigné'}")
+    y -= 20
+    
+    p.drawString(50, y, "-"*80)
+    y -= 20
+    p.setFont('Helvetica-Bold', 14)
+    p.drawString(50, y, "Antécédents Médicaux")
+    p.setFont('Helvetica', 12)
+    y -= 20
+    
+    for ant_medical in ant_medicals:
+        p.drawString(50, y, f"Dyslipidémie : {ant_medical.dyslipidemie or 'Non renseigné'}")
+        y -= 20
+        p.drawString(50, y, f"Cirrhose : {ant_medical.cirrhose or 'Non renseigné'}")
+        y -= 20
+        p.drawString(50, y, f"Hépatite virale B : {ant_medical.hepatiteviraleb or 'Non renseigné'}")
+        y -= 20
+        p.drawString(50, y, f"Date Hépatite B : {ant_medical.datehepvirb.strftime('%d/%m/%Y') if ant_medical.datehepvirb else 'Non renseigné'}")
+        y -= 20
+        p.drawString(50, y, f"Hépatite virale C : {ant_medical.hepatiteviralec or 'Non renseigné'}")
+        y -= 20
+        p.drawString(50, y, f"Date Hépatite C : {ant_medical.datehepvirc.strftime('%d/%m/%Y') if ant_medical.datehepvirc else 'Non renseigné'}")
+        y -= 20
+        p.drawString(50, y, f"Hépatite virale D : {ant_medical.hepatiteviraled or 'Non renseigné'}")
+        y -= 20
+        p.drawString(50, y, f"Date Hépatite D : {ant_medical.datehepvird.strftime('%d/%m/%Y') if ant_medical.datehepvird else 'Non renseigné'}")
+        y -= 20
+        p.drawString(50, y, f"Vaccination VHB : {ant_medical.vaccination_vhb or 'Non renseigné'}")
+        y -= 20
+        p.drawString(50, y, f"Dose VHB : {ant_medical.dosevhb or 'Non renseigné'}")
+        y -= 20
+        p.drawString(50, y, f"Vaccination VHA : {ant_medical.vaccination_vha or 'Non renseigné'}")
+        y -= 20
+        p.drawString(50, y, f"Dose VHA : {ant_medical.dosevha or 'Non renseigné'}")
+        y -= 20
+        p.drawString(50, y, f"Transfusion sanguine : {ant_medical.transfusion_sanguine or 'Non renseigné'}")
+        y -= 20
+        p.drawString(50, y, f"Date Transfusion : {ant_medical.datransing.strftime('%d/%m/%Y') if ant_medical.datransing else 'Non renseigné'}")
+        y -= 20
+        p.drawString(50, y, f"Ictère : {ant_medical.ictere or 'Non renseigné'}")
+        y -= 20
+        p.drawString(50, y, f"Rapport sexuel non protégé : {ant_medical.rapportsexuelnonprotege or 'Non renseigné'}")
+        y -= 20
+        p.drawString(50, y, f"Partage objet toilette : {ant_medical.partageobjettoilette or 'Non renseigné'}")
+        y -= 20
+        p.drawString(50, y, f"Accident exposant au sang : {ant_medical.accidexposang or 'Non renseigné'}")
+        y -= 20
+        p.drawString(50, y, f"Toxicomanie : {ant_medical.toxicomanie or 'Non renseigné'}")
+        y -= 20
+        p.drawString(50, y, f"Diabète : {ant_medical.diabete or 'Non renseigné'}")
+        y -= 20
+        p.drawString(50, y, f"HTA : {ant_medical.hta or 'Non renseigné'}")
+        y -= 20
+        p.drawString(50, y, f"Transplantation hépatique : {ant_medical.transplanhepatique or 'Non renseigné'}")
+        y -= 20
+        p.drawString(50, y, f"Précisions autres : {ant_medical.precisionautre or 'Non renseigné'}")
+        y -= 20
+        
+        # Saut de page si nécessaire
+        if y < 100:
+            p.showPage()
+            y = height - 50
+    
+    p.drawString(50, y, "-"*80)
+    y -= 20
+    p.setFont('Helvetica-Bold', 14)
+    p.drawString(50, y, "Antécédents Chirurgicaux")
+    p.setFont('Helvetica', 12)
+    y -= 20
+    
+    for ant_chirurgical in ant_chirurgicals:
+        p.drawString(50, y, f"Opération chirurgicale : {ant_chirurgical.operachir or 'Non renseigné'}")
+        y -= 20
+        p.drawString(50, y, f"Date opération : {ant_chirurgical.datoperachir.strftime('%d/%m/%Y') if ant_chirurgical.datoperachir else 'Non renseigné'}")
+        y -= 20
+        p.drawString(50, y, f"Accident de voiture : {ant_chirurgical.avp or 'Non renseigné'}")
+        y -= 20
+        p.drawString(50, y, f"Date accident : {ant_chirurgical.dateavp.strftime('%d/%m/%Y') if ant_chirurgical.dateavp else 'Non renseigné'}")
+        y -= 20
+        p.drawString(50, y, f"Autre : {ant_chirurgical.autre or 'Non renseigné'}")
+        y -= 20
+        
+        # Saut de page si nécessaire
+        if y < 100:
+            p.showPage()
+            y = height - 50
+
+    p.drawString(50, y, "-"*80)
+    y -= 20
+    p.setFont('Helvetica-Bold', 14)
+    p.drawString(50, y, "Données de Référence")
+    p.setFont('Helvetica', 12)
+    y -= 20
+
+    for ref in refconsts:
+        p.drawString(50, y, f"Poids : {ref.poids or 'Non renseigné'}kg")
+        y -= 20
+        p.drawString(50, y, f"Taille : {ref.taille or 'Non renseigné'}M")
+        y -= 20
+        p.drawString(50, y, f"Température : {ref.temperature or 'Non renseigné'}°C")
+        y -= 20
+        p.drawString(50, y, f"IMC : {ref.imc or 'Non renseigné'}")
+        y -= 20
+        p.drawString(50, y, f"TAS : {ref.tas or 'Non renseigné'}")
+        y -= 20
+        p.drawString(50, y, f"TAD : {ref.tad or 'Non renseigné'}")
+        y -= 20
+        p.drawString(50, y, f"Pouls : {ref.pouls or 'Non renseigné'}bpm")
+        y -= 20
+        
+        # Saut de page si nécessaire
+        if y < 100:
+            p.showPage()
+            y = height - 50
+
+    p.showPage()
+    p.save()
+    
+    return response
+
+
 
 @login_required
 def disponibilite(request):
@@ -680,19 +880,29 @@ def get_sortie_id(request):
     return JsonResponse(response)
 
 
-from django.core.exceptions import ObjectDoesNotExist
+
 @login_required
 def calendar(request):
-    today = timezone.now().date()
-    
-    try:
-        rdv = Sortie.objects.get(rdvdate=today)
-        print('yes')
-    except Sortie.DoesNotExist:
-        rdv = None
-        print('non')
-    
     return render(request, 'listings/calendar.html')
+
+
+
+def jestfullcalendar(request):
+    # Filtrer les sorties qui ont une date de rendez-vous
+    sorties = Sortie.objects.filter(rdvdate__isnull=False).select_related('patient', 'customUser')
+
+    # Préparer les données pour FullCalendar
+    sortie_data = []
+    for sortie in sorties:
+        event = {
+            'title': "Rendez-vous",  # Vous pouvez personnaliser ce titre selon vos besoins
+            'start': sortie.rdvdate.isoformat(),  # Date de début au format ISO
+            'end': sortie.rdvdate.isoformat(),  # Date de fin au format ISO (ici égal à la date de début)
+            'description': f"Patient: {sortie.patient.nom}, Docteur: {sortie.customUser.nom}"  # Combiner les informations
+        }
+        sortie_data.append(event)
+
+    return JsonResponse(sortie_data, safe=False)
 
 
 
@@ -722,8 +932,6 @@ def custom_logout(request):
     else:
        print(request, 'Certaines informations de session n\'ont pas été supprimées.')
        return redirect('index')
-
-
 
 
 def envoiedemail(request):

@@ -74,20 +74,20 @@ class PatientAdmin(admin.ModelAdmin):
     list_display=('idpatient', 'nom', 'contact1' ,'contact2', 'profession', 'email', 'age', 'sexe' , 'personne_a_contacter'  ,'ville',  'commune', 'quartier', 'nationalite' , 'nombre_enfant' , 'situation_matrimoniale','telephone_cpu','numeropatient') # type: ignore
 
 class ConstanteAdmin(admin.ModelAdmin):
-    list_display=('refconst','poids','taille','temperature','imc','tas','tad','pouls','patient') # type: ignore
+    list_display=('refconst','poids','taille','temperature','imc','tas','tad','pouls','patient','date') # type: ignore
 
 class ConsultationAdmin(admin.ModelAdmin):
-    list_display=('Numconsulta', 'motifdeconsultation', 'prescripteur_consultation', 'debut_signe', 'signe_digestifs', 'signe_extra_digestif', 'signe_asso_gene', 'nombredeverre_alcool', 'nombrepaquettabac', 'medoc_en_cours', 'prise_therap_tarditionnelle', 'aghbs', 'acanti_vhc', 'acanti_vhd', 'serologie_retrovi', 'transaminase', 'histoiredemaladie', 'date', 'resultat', 'renseignementclinic','Bilanbiologiqueant','diagnostique_retenu','typealcool','frequence','patient', 'customUser') # type: ignore
+    list_display=('Numconsulta', 'motifdeconsultation', 'prescripteur_consultation', 'debut_signe', 'signe_digestifs', 'signe_extra_digestif', 'signe_asso_gene', 'nombredeverre_alcool', 'nombrepaquettabac', 'medoc_en_cours', 'prise_therap_tarditionnelle', 'aghbs', 'acanti_vhc', 'acanti_vhd', 'serologie_retrovi', 'transaminase', 'date','Bilanbiologiqueant','diagnostique_retenu','typealcool','frequence','patient', 'customUser') # type: ignore
 
 class OrdonnanceAdmin(admin.ModelAdmin):
-    list_display=('reford','consulation') # type: ignore
+    list_display=('reford','consulation','date') # type: ignore
     inlines = [OrdonnancemedicamentInline]
 
 class Bilan_imagerieAdmin(admin.ModelAdmin):
-    list_display=('numbilimg','echographie_ou_radiograpgie','renseignementclinique','consultation') # type: ignore
+    list_display=('numbilimg','echographie_ou_radiograpgie','renseignementclinique','consultation','date') # type: ignore
 
 class Bilan_biologiqueAdmin(admin.ModelAdmin):
-    list_display=('numbilanbio', 'typeexamen',  'resultatmodalite', 'unite','consultation','resultatnumerique','prix','datedubilan','resultatdubilan') # type: ignore
+    list_display=('numbilanbio', 'typeexamen', 'unite','consultation','resultatnumerique','prix','datedubilan','resultatdubilan') # type: ignore
     
 class Antecedant_familialAdmin(admin.ModelAdmin): #nouveau
     list_display=('refantfam', 'hepatie_vir_ASC', 'cirrhose_ASC', 'cpf_ASC','hepatie_vir_DSC', 'cirrhose_DSC', 'cpf_DSC','hepatie_vir_COL', 'cirrhose_COL', 'cpf_COL','patient')

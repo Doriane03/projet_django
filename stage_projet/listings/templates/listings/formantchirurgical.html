@@ -61,11 +61,11 @@
         <div class="divsortie" >
             <label>Autre Antécédant chirurgical</label>
              <div class="form-check form-check-inline">
-                 <input class="form-check-input" type="radio"  name="autre" id="inlineRadio3" value="oui" onclick="antecedantchirautre()"/>
+                 <input class="form-check-input" type="radio"  name="autre1" id="inlineRadio3" value="oui" onclick="antecedantchirautre()"/>
                  <label class="form-check-label" for="inlineRadio3">oui</label>
              </div>
              <div class="form-check form-check-inline">
-                 <input class="form-check-input" type="radio" name="autre" id="inlineRadio4" value="non" onclick="antecedantchirautre()"/>
+                 <input class="form-check-input" type="radio" name="autre1" id="inlineRadio4" value="non" onclick="antecedantchirautre()"/>
                  <label class="form-check-label" for="inlineRadio4">non</label>
              </div>
 
@@ -76,13 +76,6 @@
                             <input  type="text" name="autre" id="autrechamp"/>
                         </td>
                     </tr>
-
-                    <tr>
-                        <td>   
-                            <input  type="checkbox" name="ajout" value="oui" onclick="ajouter()"/>ajouter un autre antécédant chirurgical
-                        </td>
-                    </tr>
-
                 </table>
 
         </div>
@@ -113,7 +106,7 @@ function antecedantchiravp(){
 }
 
 function antecedantchirautre(){
-    var afficheRadio= document.getElementsByName("autre");
+    var afficheRadio= document.getElementsByName("autre1");
     for (var i = 0; i < afficheRadio.length; i++) {
         if (afficheRadio[i].checked) {
             switch(afficheRadio[i].value){
@@ -154,26 +147,7 @@ function antecedantchiroperachir(){
     }
 }
 
-function ajouter() {
-    var checkbox = document.querySelector("input[name='ajout']");
-    
-    var tableBody = document.getElementById("autre");
 
-    if (checkbox.checked && checkbox.value === "oui") {
-
-        var checkboxRow = checkbox.closest('tr');
-        
-        if (checkboxRow) {
-
-            var newRow = tableBody.insertRow(checkboxRow.rowIndex);
-            var cell1 = newRow.insertCell(0);
-            cell1.innerHTML = `
-                <input type="text" name="autre[]" id="autrechamp"/>
-            `;
-            checkbox.checked = false;
-        }
-    }
-}
 
 
 </script>

@@ -5,14 +5,63 @@
     <div class="container">
         <div id="calendar"></div>
     </div>
+
+    <div id="eventModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="eventModalLabel">Détails du rendez-vous</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Titre:</strong> <span id="eventTitle"></span></p>
+                    <p><strong>Description:</strong> <span id="eventDescription"></span></p>
+                    <p><strong>Début:</strong> <span id="eventStart"></span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </center>
 
 <script>
     $(document).ready(function() {
         $('#calendar').fullCalendar({
             locale: 'fr',
-            
+            editable: true,
+            selectable: true,
+            selectHelper: true,
+            eventSources: [
+                {
+                    url: '/api/jestfullcalendar/', // Assurez-vous que cette URL est correcte
+                    failure: function() {
+                        console.log('Erreur de chargement des événements');
+                    }
+                }
+            ],
+
+            // Applique la classe CSS personnalisée aux événements
+            eventRender: function(event, element) {
+                $(element).addClass('custom-event');
+            },
+
+            // Fonction appelée lorsqu'un événement est cliqué
+            eventClick: function(event, jsEvent, view) {
+                // Met à jour les informations dans la modale
+                $('#eventTitle').text(event.title);
+                $('#eventDescription').text(event.description || 'Aucune description');
+                $('#eventStart').text(event.start.format('YYYY-MM-DD HH:mm'));
+                //$('#eventEnd').text(event.end ? event.end.format('YYYY-MM-DD HH:mm') : 'Non défini');
+
+                // Affiche la modale
+                $('#eventModal').modal('show');
+            }
         });
     });
- </script>
+</script>
+
 {% endblock %}

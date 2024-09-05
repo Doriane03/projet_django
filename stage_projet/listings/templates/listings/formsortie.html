@@ -54,6 +54,11 @@
                         <input type="radio"  name="motifsortie"  value="refus de suivi"   onclick="sortie()" class="form-check-input" id="exampleRadios4"/>
                         <label class="form-check-label" for="exampleRadios4">refus de suivi</label>
                     </div>
+
+                    <div  class="form-check form-check-inline">
+                        <input type="radio"  name="motifsortie"  value="gueri"   onclick="sortie()" class="form-check-input" id="exampleRadios4"/>
+                        <label class="form-check-label" for="exampleRadios4">guerison</label>
+                    </div>
     
             </div>
         <div>
@@ -93,11 +98,6 @@
             </div>
 
 
-
-
-
-
-
         <!--debut-->
         </div> <div class="test" id="motif1"> 
             <div class="divsortie">
@@ -119,7 +119,7 @@
             </div>
 
                 <div  class="divsortie">
-                    <label >cause du décès</label>
+                    <label>cause du décès</label>
                     <input  type="text" name="causedudeces"/>
                 </div>
 
@@ -149,16 +149,16 @@
             <div class="divsortie">
                 <label>Type de relance</label>
 
-                <div  class="form-check" id="presdiv13">
+                <div  class="form-check" id="presdiv21">
                     <input type="radio"  name="typederelance"  value=" Visite à domicile"    class="form-check-input" id="exampleRadios9"/>
                     <label class="form-check-label" for="exampleRadios9">Visite à domicile</label>
                 </div>
 
-                <div  class="form-check" id="presdiv11">
+                <div  class="form-check" id="presdiv20">
                     <input type="radio"  name="typederelance"  value="Entretien au téléphone"    class="form-check-input" id="exampleRadios10"/>
                     <label class="form-check-label" for="exampleRadios10">Entretien au téléphone</label>
                 </div>
-                <div  class="form-check" id="presdiv13">
+                <div  class="form-check" id="presdiv22">
                     <input type="radio"  name="typederelance"  value="Personne contact"    class="form-check-input" id="exampleRadios11"/>
                     <label class="form-check-label" for="exampleRadios11">Personne contact</label>
                 </div>
@@ -187,14 +187,15 @@
                 
 
             </div>
-        <div id="raison" class="test">
             
-            <div  class="divsortie" id="raison">
-                    <label >Raison</label>
-                    <input  type="text" name="raison" required>
+            
+                
+            <div  class="divsortie test" id="raison" >
+                        <label>Raison</label>
+                        <input  type="text" name="raison">
             </div>
 
-        </div>
+
         <div class="divsortie">
         <label>Observation</label>
         <textarea name="commentaire" placeholder="Observation" rows="5" cols="30"></textarea>
@@ -204,12 +205,12 @@
             <label>rendez-vous prochain</label>
 
             <div  class="form-check form-check-inline" id="presdiv12">
-                <input type="radio"  name="rdv"  value="oui" class="form-check-input" id="exampleRadios40" onclick="sortie()"/>
+                <input type="radio"  name="rdv"  value="oui" class="form-check-input" id="exampleRadios40" onclick="rdv()"/>
                 <label class="form-check-label" for="exampleRadios40">oui</label>
             </div>
 
             <div  class="form-check form-check-inline" id="presdiv13">
-                <input type="radio"  name="rdv"  value="non" class="form-check-input" id="exampleRadios50" onclick="sortie()"/>
+                <input type="radio"  name="rdv"  value="non" class="form-check-input" id="exampleRadios50" onclick="rdv()"/>
                 <label class="form-check-label" for="exampleRadios50">non</label>
             </div>
         </div>
@@ -224,9 +225,6 @@
                 </tr>
             </table>
             
-       
-       
-
         <div class="divsortie">
             <input type="hidden" name="patient" id="patient" class="inputcontenu" readonly/>
         </div>
@@ -235,87 +233,110 @@
         <input type="hidden"   name="customUser"  value="{{ user.refpersoignant }}"/>
     {% endif %}
     {% endif %}
+
+    
     </fieldset>
     <input  type="submit" name="validesortie" value="Valider" class="btn btn-primary"/ >
 </form>
-
 <script>
-function sortie(){
-    var afficheRadio= document.getElementsByName("motifsortie");
-    var inputField1= document.getElementById("motif1");
-    var inputField2= document.getElementById("motif2");
-    var inputField3= document.getElementById("motif3");
-    var inputField4= document.getElementById("motif4");
-    var inputField5= document.getElementById("raison");
-    var inputField6= document.getElementById("datedernierevisite");
-    var inputField7= document.getElementById("rdvdate");
-    var afficheRadio1= document.getElementsByName("rdv");
+    // Fonction pour gérer l'affichage des champs en fonction du motif de sortie
+    function sortie() {
+        var afficheRadio = document.getElementsByName("motifsortie");
+        var inputField1 = document.getElementById("motif1");
+        var inputField2 = document.getElementById("motif2");
+        var inputField3 = document.getElementById("motif3");
+        var inputField4 = document.getElementById("motif4");
+        var inputField5 = document.getElementById("raison");
+        var inputField6 = document.getElementById("datedernierevisite");
 
-    for (var i = 0; i < afficheRadio.length; i++) {
-        if (afficheRadio[i].checked) {
-            switch(afficheRadio[i].value){
-                case 'décès':
-                    inputField1.style.display = "block";
-                    inputField2.style.display = "none";
-                    inputField3.style.display = "none";
-                    inputField4.style.display = "none";
-                    inputField5.style.display = "none";
-                break;
-
-                case 'perdu de vue':
-                    inputField4.style.display = "none";
-                    inputField1.style.display = "none";
-                    inputField3.style.display = "none";
-                    inputField2.style.display = "block";
-                    inputField5.style.display = "block"; 
-                    inputField6.style.display = "block";
-                    //var a = document.getElementById("motif1");
-                    //var inputs = a.getElementsByTagName("input");
-
-                    //for (var i = 0; i < inputs.length; i++) {
-                        //inputs[i].value = ""; // Vider la valeur de chaque input
-                    //}
-
-                break;
-
-
-                case 'transfert de dossier':
-                    inputField4.style.display = "none";
-                    inputField1.style.display = "none";
-                    inputField2.style.display = "none";
-                    inputField3.style.display = "block";
-                    inputField5.style.display = "block";
-                break;
-
-                case 'refus de suivi':
-                    inputField3.style.display = "none";
-                    inputField1.style.display = "none";
-                    inputField2.style.display = "none";
-                    inputField4.style.display = "block";
-                    inputField5.style.display = "block";
-                    inputField6.style.display = "block";
-                break;
-            }
+        function hideAllFields() {
+            inputField1.style.display = "none";
+            inputField2.style.display = "none";
+            inputField3.style.display = "none";
+            inputField4.style.display = "none";
+            inputField5.style.display = "none";
+            inputField6.style.display = "none";
         }
-    }for (var j = 0; j < afficheRadio1.length; j++) {
-        if(afficheRadio1[j].checked){
-            switch(afficheRadio1[j].value){
-                case 'oui':
-                    inputField7.style.display = "block";
-                break;
-                case 'non':
-                    inputField7.style.display = "none";
-                    document.getElementById("val").value="";
-                break;
 
-            }
-            
+        function clearInputs() {
+            var fields = [inputField1, inputField2, inputField3, inputField4, inputField5, inputField6];
+            fields.forEach(function(field) {
+                if (field) {
+                    var inputs = field.getElementsByTagName("input");
+                    for (var i = 0; i < inputs.length; i++) {
+                        if (inputs[i].type === "radio") {
+                            inputs[i].checked = false;
+                        } else if(inputs[i].type === "text") {
+                            inputs[i].value = "";
+                        }else if(inputs[i].type === "date") {
+                            inputs[i].value = "";
+                        }
+                    }
+                }
+            });
+        }
+
+        // Initialisation de l'état
+        hideAllFields();
+
+        // Traiter les boutons radio pour le motif
+        for (var i = 0; i < afficheRadio.length; i++) {
+            afficheRadio[i].addEventListener('change', function() {
+                hideAllFields(); // Masquer tous les champs avant d'afficher les champs pertinents
+                clearInputs(); // Vider les champs
+
+                if (this.checked) {
+                    switch (this.value) {
+                        case 'décès':
+                            inputField1.style.display = "block";
+                            break;
+                        case 'perdu de vue':
+                            inputField2.style.display = "block";
+                            inputField5.style.display = "block";
+                            inputField6.style.display = "block";
+                            break;
+                        case 'transfert de dossier':
+                            inputField3.style.display = "block";
+                            inputField5.style.display = "block";
+                            break;
+                        case 'refus de suivi':
+                            inputField4.style.display = "block";
+                            inputField5.style.display = "block";
+                            inputField6.style.display = "block";
+                            break;
+                    }
+                }
+            });
         }
     }
-}
 
+    // Fonction pour gérer l'affichage du rendez-vous
+    function rdv() {
+        var inputField7 = document.getElementById("rdvdate");
+        var afficheRadio1 = document.getElementsByName("rdv");
 
+        // Assurez-vous que le champ est masqué au départ
+        inputField7.style.display = "none";
 
+        // Traiter les boutons radio pour le rendez-vous
+        for (var j = 0; j < afficheRadio1.length; j++) {
+            afficheRadio1[j].addEventListener('change', function() {
+                if (this.checked) {
+                    switch (this.value) {
+                        case 'oui':
+                            inputField7.style.display = "block";
+                            break;
+                        case 'non':
+                            inputField7.style.display = "none";
+                            document.getElementById("val").value = ""; // Réinitialiser la valeur
+                            break;
+                    }
+                }
+            });
+        }
+    }
+
+    // Fonction pour obtenir l'ID du patient via l'API
     function fetchPatientId() {
         var nom = document.getElementById('nom').value;
         if (nom) {
@@ -328,7 +349,14 @@ function sortie(){
             document.getElementById('patient').value = '';
         }
     }
+
+    // Assurez-vous d'appeler les fonctions lors du chargement de la page
+    document.addEventListener('DOMContentLoaded', function() {
+        sortie();
+        rdv();
+    });
 </script>
+
 </center>
 {% endblock %}
 

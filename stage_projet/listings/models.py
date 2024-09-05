@@ -16,7 +16,7 @@ class Patient(models.Model): #modifie
     email=models.fields.EmailField(max_length=254,blank=True,null=True,)
     personne_a_contacter=models.fields.CharField(max_length=100)
     telephone_cpu=models.fields.PositiveIntegerField(null=False)
-    profession=models.fields.CharField(max_length=100)
+    profession=models.fields.CharField(max_length=49)
     ville=models.fields.CharField(max_length=100)
     age=models.fields.PositiveIntegerField()
     
@@ -344,7 +344,7 @@ class Personnel_soignant(models.Model):
     
 class Consultation(models.Model): #modifie
     Numconsulta=models.fields.AutoField(primary_key=True)
-    motifdeconsultation=models.fields.CharField(max_length=254 ,null=True, blank=True)
+    motifdeconsultation=models.fields.TextField(null=True, blank=True)
     prescripteur_consultation=models.fields.CharField(max_length=100,null=True, blank=True)
     debut_signe=models.fields.CharField(max_length=100,null=True, blank=True)
     signe_digestifs=models.fields.CharField(max_length=100, null=True, blank=True)
@@ -354,7 +354,7 @@ class Consultation(models.Model): #modifie
     typealcool=models.fields.CharField(max_length=100, null=True, blank=True)
     frequence=models.fields.CharField(max_length=10, null=True, blank=True)
     nombrepaquettabac=models.fields.PositiveIntegerField(null=True, blank=True)
-    medoc_en_cours=models.fields.CharField(max_length=253, null=True, blank=True)
+    medoc_en_cours=models.fields.TextField(null=True, blank=True)
     prise_therap_tarditionnelle=models.fields.CharField(max_length=10,null=True, blank=True)
     MAYBECHOICE=(
         ('oui','oui'),
@@ -367,25 +367,23 @@ class Consultation(models.Model): #modifie
     acanti_vhd=models.fields.CharField(max_length=3,choices=MAYBECHOICE,null=True, blank=True)
     serologie_retrovi=models.fields.CharField(max_length=3,choices=MAYBECHOICE,null=True, blank=True)
     transaminase=models.fields.CharField(max_length=3,choices=MAYBECHOICE,null=True, blank=True)
-    histoiredemaladie=models.fields.CharField(max_length=254,null=True, blank=True)
     date= models.fields.DateTimeField(default=timezone.now)                                                                                
-    resultat=models.fields.CharField(max_length=254, null=True, blank=True)
-    renseignementclinic=models.fields.CharField(max_length=254, null=True, blank=True)
     diagnostique_retenu=models.fields.CharField(max_length=254,null=True, blank=True)
     patient=models.ForeignKey(Patient, on_delete=models.CASCADE,null=False) 
     customUser=models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     def __str__(self):
-        return f'{self.Numconsulta} {self.motifdeconsultation} {self.prescripteur_consultation} {self.debut_signe} {self.signe_digestifs} {self.signe_extra_digestif} {self.signe_asso_gene} {self.nombredeverre_alcool} {self.nombrepaquettabac} {self.medoc_en_cours} {self.prise_therap_tarditionnelle} {self.aghbs} {self.acanti_vhc} {self.acanti_vhd} {self.serologie_retrovi} {self.transaminase} {self.histoiredemaladie} {self.date} {self.resultat} {self.renseignementclinic} {self.diagnostique_retenu}  {self.typealcool}  {self.frequence}  {self.patient} {self.customUser} '
+        return f'{self.Numconsulta} {self.motifdeconsultation} {self.prescripteur_consultation} {self.debut_signe} {self.signe_digestifs} {self.signe_extra_digestif} {self.signe_asso_gene} {self.nombredeverre_alcool} {self.nombrepaquettabac} {self.medoc_en_cours} {self.prise_therap_tarditionnelle} {self.aghbs} {self.acanti_vhc} {self.acanti_vhd} {self.serologie_retrovi} {self.transaminase}  {self.date} {self.diagnostique_retenu}  {self.typealcool}  {self.frequence}  {self.patient} {self.customUser} '
 
 class ConsultationForm(ModelForm):
     class Meta:
         model = Consultation
-        fields = ['motifdeconsultation', 'prescripteur_consultation', 'debut_signe','signe_digestifs','signe_extra_digestif','signe_asso_gene','nombredeverre_alcool','nombrepaquettabac','medoc_en_cours','prise_therap_tarditionnelle','aghbs','acanti_vhc','acanti_vhd','serologie_retrovi','transaminase','histoiredemaladie','resultat','renseignementclinic','Bilanbiologiqueant','diagnostique_retenu','typealcool','frequence','patient','customUser']
+        fields = ['motifdeconsultation', 'prescripteur_consultation', 'debut_signe','signe_digestifs','signe_extra_digestif','signe_asso_gene','nombredeverre_alcool','nombrepaquettabac','medoc_en_cours','prise_therap_tarditionnelle','aghbs','acanti_vhc','acanti_vhd','serologie_retrovi','transaminase','Bilanbiologiqueant','diagnostique_retenu','typealcool','frequence','patient','customUser']
 
    
 class Hospitalisation(models.Model):
     idhospitalisation=models.fields.AutoField(primary_key=True)
     service=models.ForeignKey(Service, on_delete=models.CASCADE) 
+    origine=models.fields.CharField(max_length=28,null=True, blank=True)
     datehospitalisation= models.fields.DateTimeField(default=timezone.now)    
     consultation=models.ForeignKey(Consultation, on_delete=models.CASCADE)                                                                             
     def __str__(self):
@@ -399,14 +397,14 @@ class HospitalisationForm(ModelForm):
 class Sortie(models.Model):#migration
     refsortie=models.fields.AutoField(primary_key=True)
     datesortie=models.fields.DateField(null=True, blank=True,default=date.today) 
-    motifsortie=models.fields.CharField(max_length=70)
+    motifsortie=models.fields.CharField(max_length=21)
     remplipar=models.fields.CharField(max_length=100)
 
 #pour le deces
     datedeces=models.fields.DateField(null=True, blank=True)
     causedudeces=models.fields.CharField(max_length=100,null=True, blank=True)
-    lieudeces=models.fields.CharField(max_length=30,null=True, blank=True)
-    decesliea=models.fields.CharField(max_length=10,null=True, blank=True)
+    lieudeces=models.fields.CharField(max_length=15,null=True, blank=True)
+    decesliea=models.fields.CharField(max_length=8,null=True, blank=True)
 #fin
 #pour refus de suivi
     daterefus=models.fields.DateField(null=True, blank=True,default=date.today)
@@ -504,9 +502,10 @@ class Constante(models.Model):
     tas=models.fields.CharField(max_length=30)
     tad=models.fields.CharField(max_length=30)
     pouls=models.fields.CharField(max_length=30)
-    patient=models.ForeignKey(Patient, on_delete=models.CASCADE) 
+    patient=models.ForeignKey(Patient, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True)
     def __str__(self):
-        return f'{self.refconst} {self.poids} {self.taille} {self.temperature} {self.patient}'
+        return f'{self.refconst} {self.poids} {self.taille} {self.temperature} {self.patient} {self.date}'
     
 class ConstanteForm(ModelForm):
     class Meta:
@@ -532,8 +531,9 @@ class Ordonnance(models.Model):
     reford=models.fields.AutoField(primary_key=True) 
     consulation=models.ForeignKey(Consultation, on_delete=models.CASCADE) 
     peut_contenir=models.ManyToManyField(Medicament, through="Ordonnancemedicament")
+    date = models.DateTimeField(auto_now_add=True)
     def __str__(self):
-        return f'{self.reford} {self.consulation} {self.peut_contenir}'
+        return f'{self.reford} {self.consulation} {self.peut_contenir} {self.date}'
 
 
 class OrdonnanceForm(ModelForm):
@@ -546,8 +546,9 @@ class Ordonnancemedicament(models.Model):# nouvel ajout c'est la table de liaiso
     ordonnance = models.ForeignKey(Ordonnance, on_delete=models.CASCADE)
     medicament = models.ForeignKey(Medicament, on_delete=models.CASCADE)
     quantite = models.PositiveIntegerField(null=True, blank=True)
+    date = models.DateTimeField(auto_now_add=True)
     def __str__(self):
-        return f"{self.medicament} x {self.quantite} dans {self.ordonnance}"
+        return f"{self.medicament} x {self.quantite} dans {self.ordonnance} {self.date}"
 
 class OrdonnancemedicamentForm(ModelForm):
     class Meta:
@@ -560,9 +561,10 @@ class Bilan_imagerie(models.Model):
     numbilimg=models.fields.AutoField(primary_key=True)
     echographie_ou_radiograpgie=models.ImageField(upload_to='images/', null=True, blank=True)
     renseignementclinique=models.fields.CharField(max_length=254,null=True, blank=True)
-    consultation=models.ForeignKey(Consultation, on_delete=models.CASCADE) 
+    consultation=models.ForeignKey(Consultation, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True) 
     def __str__(self):
-        return f'{self.numbilimg} {self.echographie_ou_radiograpgie} {self.renseignementclinique} {self.consultation}'
+        return f'{self.numbilimg} {self.echographie_ou_radiograpgie} {self.renseignementclinique} {self.consultation} {self.date}'
 
 class Bilan_imagerieForm(ModelForm):
     class Meta:
@@ -580,11 +582,6 @@ class Bilan_biologique(models.Model):
         ('Ag HBe','Ag HBe'),
     )
     typeexamen=models.fields.CharField(max_length=100,choices=MAYBECHOICE1)
-    MAYBECHOICE2=(
-        ('positif','positif'),
-        ('négatif','négatif'),
-    )
-    resultatmodalite=models.fields.CharField(max_length=100,choices=MAYBECHOICE2) 
     MAYBECHOICE3=(
         ('UI/ ml','UI/ ml'),
         ('mmol/ l','mmol/ l'),
@@ -598,13 +595,13 @@ class Bilan_biologique(models.Model):
     prix=models.fields.CharField(max_length=100)                                                                          
     consultation=models.ForeignKey(Consultation, on_delete=models.CASCADE)
     def __str__(self):
-        return f'{self.numbilanbio} {self.typeexamen}  {self.resultatmodalite} {self.unite} {self.consultation}  {self.resultatnumerique} {self.prix} {self.resultatdubilan} {self.datedubilan}'
+        return f'{self.numbilanbio} {self.typeexamen} {self.unite} {self.consultation}  {self.resultatnumerique} {self.prix} {self.resultatdubilan} {self.datedubilan}'
 
 
 class Bilan_biologiqueForm(ModelForm):
     class Meta:
         model = Bilan_biologique
-        fields = ['typeexamen','resultatmodalite','unite', 'resultatnumerique','prix' ,'consultation','datedubilan','resultatdubilan']
+        fields = ['typeexamen','unite', 'resultatnumerique','prix' ,'consultation','datedubilan','resultatdubilan']
 
 class Notification(models.Model):
     customUser = models.ForeignKey(CustomUser, on_delete=models.CASCADE)

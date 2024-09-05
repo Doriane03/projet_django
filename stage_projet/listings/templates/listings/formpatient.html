@@ -86,16 +86,38 @@
 
         <div class="divsortie">
             <label for="profession" >Profession</label>
-            <input type="text" placeholder="Profession" name="profession" id="profession" class="inputcontenu" required/>
+            <select name="profession"  id="profession" required>
+                <option>Choisir une profession</option>
+                <option value="Agriculteurs exploitants">Agriculteurs exploitants</option>
+                <option value="Artisans">Artisans</option>
+                <option value="Commerçants">Commerçants</option>
+                <option value="Chefs d'entreprise">Chefs d'entreprise</option>
+
+                <option value="Cadres et professions intellectuelles supérieures">Cadres et professions intellectuelles supérieures</option>
+                <option value="Professions intermédiaires">Professions intermédiaires</option>
+                <option value="Employés">Employés</option>
+                <option value="Ouvriers">Ouvriers</option>
+
+
+                <option value="Retraités">Retraités</option>
+                <option value="Autres personnes sans activité professionnelle">Autres personnes sans activité professionnelle</option>
+                <option value="Élèves et étudiants">Élèves et étudiants</option>
+            </select>
         </div>
         
         <div class="divsortie">
-            <label for="nationalite" >Nationalité</label>
+            <label for="nationalite">Nationalité</label>
             <input type="text" placeholder="Nationalité" name="nationalite" id="nationalite" class="inputcontenu" required/>
         </div>
         <div class="divsortie">
             <label for="situation_matrimoniale">Situation matrimoniale</label>
-            <input type="text" placeholder="Situation matrimoniale" name="situation_matrimoniale" id="situation_matrimoniale" class="inputcontenu" required/>
+                <select name="situation_matrimoniale"  id="situation_matrimoniale" required>
+                    <option>Choisir une Situation matrimoniale</option>
+                    <option value="Célibataire">Célibataire</option>
+                    <option value="Divorcé">Divorcé</option>
+                    <option value="Marié">Marié</option>
+                    <option value="Veuf (ve)">Veuf (ve) </option>
+                </select>
         </div>
         <div class="divsortie">
             <label for="nombre_enfant" >Nombre d'enfant</label>

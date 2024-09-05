@@ -343,23 +343,30 @@ margin-right:38%;
   margin-left:1%;
 }
 #presdiv16{
-  margin-right:40.6%;
+  margin-right:15.8%;
 }
 #presdiv17{
   margin-right:14.5%;
 }
 
 #presdiv18{
-  margin-right:6.9%;
+  margin-left:18.5%;
 }
 
 #presdiv19{
-  margin-left:6.1%;
+  margin-left:32.5%;
 }
 
 #presdiv20{
-  margin-right:35.9%;
+  margin-right:10%;
 }
+#presdiv21{
+  margin-right:15.1%;
+}
+#presdiv22{
+  margin-left:15.6%;
+}
+
 #div3{
 margin-right:63%;
 }
@@ -775,4 +782,15 @@ text-align: center;
 }
 #table3 td{
   text-align:center;
+}
+
+.fc-event.custom-event {
+  background-color: hsl(195,100%,50%);/* Fond bleu */
+  color: white; /* Texte blanc */
+  border: none; /* Enlever les bordures, si souhaité */
+}
+
+.fc-event.custom-event .fc-title {
+  color: white; /* Assure que le texte de l'événement reste blanc */
+  font-size: 15px;
 }

@@ -20,30 +20,30 @@
 
                             <div class="left">
                                 <div class="custom-control custom-checkbox form-group" id="div3">
-                                    <input type="checkbox"   name="motifdeconsultation[]"  value="Asthénie" onclick="pourlecheckbox()" class="custom-control-input" id="exampleCheck1" />
+                                    <input type="checkbox"   name="motifdeconsultation[]"  value="Asthénie" onclick="" class="custom-control-input" id="exampleCheck1" />
                                     <label class="custom-control-label" for="exampleCheck1">Asthénie</label>
                                 </div>
                                 <div class="custom-control custom-checkbox form-group" id="div4">
-                                    <input type="checkbox"   name="motifdeconsultation[]"  value="Ictère" onclick="pourlecheckbox()" class="custom-control-input" id="exampleCheck2" />
+                                    <input type="checkbox"   name="motifdeconsultation[]"  value="Ictère" onclick="" class="custom-control-input" id="exampleCheck2" />
                                     <label class="custom-control-label" for="exampleCheck2">Ictère</label>
                                 </div>
 
                                 <div class="custom-control custom-checkbox form-group" id="div5">
-                                    <input type="checkbox"   name="motifdeconsultation[]"  value="Fièvre" onclick="pourlecheckbox()" class="custom-control-input" id="exampleCheck3" />
+                                    <input type="checkbox"   name="motifdeconsultation[]"  value="Fièvre" onclick="" class="custom-control-input" id="exampleCheck3" />
                                     <label class="custom-control-label" for="exampleCheck3">Fièvre</label>
                                 </div>
 
                                 <div class="custom-control custom-checkbox form-group" id="div6">
-                                    <input type="checkbox"   name="motifdeconsultation[]"  value="Urines foncées" onclick="pourlecheckbox()" class="custom-control-input" id="exampleCheck4" />
+                                    <input type="checkbox"   name="motifdeconsultation[]"  value="Urines foncées" onclick="" class="custom-control-input" id="exampleCheck4" />
                                     <label class="custom-control-label" for="exampleCheck4">Urines foncées</label>
                                 </div>
                                 <div class="custom-control custom-checkbox form-group" id="div7">
-                                    <input type="checkbox"   name="motifdeconsultation[]"  value="Douleur abdominale" onclick="pourlecheckbox()" class="custom-control-input" id="exampleCheck5"/>
+                                    <input type="checkbox"   name="motifdeconsultation[]"  value="Douleur abdominale" onclick="" class="custom-control-input" id="exampleCheck5"/>
                                     <label class="custom-control-label" for="exampleCheck5">Douleur abdominale</label>
                                 </div>
 
                                 <div class="custom-control custom-checkbox form-group" >
-                                    <input type="checkbox"   name="motifdeconsultation[]"  value="Anomalies du bilan hépatique" onclick="pourlecheckbox()" class="custom-control-input" id="exampleCheck6"/>
+                                    <input type="checkbox"   name="motifdeconsultation[]"  value="Anomalies du bilan hépatique" onclick="" class="custom-control-input" id="exampleCheck6"/>
                                     <label class="custom-control-label" for="exampleCheck6">Anomalies du bilan hépatique</label>
                                 </div>
 
@@ -51,23 +51,23 @@
 
                             <div class="right">
                                 <div  class="custom-control custom-checkbox form-group" id="div9">
-                                    <input type="checkbox"   name="motifdeconsultation[]"  valu="Cytolyse hépatique" onclick="pourlecheckbox()" class="custom-control-input" id="exampleCheck7" />
+                                    <input type="checkbox"   name="motifdeconsultation[]"  valu="Cytolyse hépatique" onclick="" class="custom-control-input" id="exampleCheck7" />
                                     <label class="custom-control-label" for="exampleCheck7">Cytolyse hépatique</label>
                                 </div>
                                 <div  class="custom-control custom-checkbox form-group" id="div10">
-                                    <input type="checkbox"   name="motifdeconsultation[]"  value="AgHBs positif" onclick="pourlecheckbox()" class="custom-control-input" id="exampleCheck8"/>
+                                    <input type="checkbox"   name="motifdeconsultation[]"  value="AgHBs positif" onclick="" class="custom-control-input" id="exampleCheck8"/>
                                     <label class="custom-control-label" for="exampleCheck8">AgHBs positif</label>
                                 </div>
                                 <div class="custom-control custom-checkbox form-group"  id="div11">
-                                    <input type="checkbox"   name="motifdeconsultation[]"  value="Ac anti HVC positif" onclick="pourlecheckbox()"  class="custom-control-input" id="exampleCheck9"/>
+                                    <input type="checkbox"   name="motifdeconsultation[]"  value="Ac anti HVC positif" onclick=""  class="custom-control-input" id="exampleCheck9"/>
                                     <label  class="custom-control-label" for="exampleCheck9">Ac anti HVC positif</label>
                                 </div>
                                 <div  class="custom-control custom-checkbox form-group" id="div12">
-                                    <input type="checkbox"   name="motifdeconsultation[]"  value="Ac anti VHD positif et Ag HBs positif" onclick="pourlecheckbox()" class="custom-control-input" id="exampleCheck10"/>
+                                    <input type="checkbox"   name="motifdeconsultation[]"  value="Ac anti VHD positif et Ag HBs positif" onclick="" class="custom-control-input" id="exampleCheck10"/>
                                     <label class="custom-control-label" for="exampleCheck10" >Ac anti VHD positif et Ag HBs positif</label>
                                 </div>
                                 <div  class="custom-control custom-checkbox form-group" id="div13">
-                                    <input type="checkbox"   name="motifdeconsultation[]"  value="Interprétation de résultats de dépistage" onclick="pourlecheckbox()"  class="custom-control-input" id="exampleCheck11"/>
+                                    <input type="checkbox"   name="motifdeconsultation[]"  value="Interprétation de résultats de dépistage" onclick=""  class="custom-control-input" id="exampleCheck11"/>
                                     <label class="custom-control-label" for="exampleCheck11" >Interprétation de résultats de dépistage hépatite virale</label>
                                 </div>
 
@@ -482,6 +482,7 @@
 </form></center>
 
 <script>
+
 function pourlecheckbox() {
     var affichecheckbox= document.getElementsByName('motifdeconsultation[]');
     var inputField = document.getElementById("motifdeconsultation");
@@ -489,10 +490,7 @@ function pourlecheckbox() {
         if (affichecheckbox[i].checked) {
             if (affichecheckbox[i].value=='Autre motif') {
                 inputField.style.display = "block";
-            }else if(affichecheckbox[i].value !='Autre motif') {
-                inputField.style.display="none";
             }
-            break; // Sortir de la boucle une fois le bouton coché trouvé
         }
     }
 }

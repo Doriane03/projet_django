@@ -18,7 +18,7 @@ Including another URLconf
 from django.contrib import admin # type: ignore
 from django.urls import path# type: ignore
 from listings import views  # type: ignore
-from listings.views import CustomLoginView,custom_logout
+from listings.views import CustomLoginView,custom_logout,patient_pdf
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.views import  LogoutView
 from django.conf import settings
@@ -34,6 +34,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.index,name='index'),
     path('login/',CustomLoginView.as_view(), name="login"),
+    path('boxhospi/',views.boxhospi, name="boxhospi"),
+    path('pdf/<int:pk>/', patient_pdf, name='patient_pdf'),
     path('patient/',views.patient,name='patient'),
     path ('constante/',views.constante,name='constante'),
     path ('disponibilite/',views.disponibilite,name='disponibilite'),
@@ -59,6 +61,7 @@ urlpatterns = [
     path('get_sortie_id/', views.get_sortie_id, name='get_sortie_id'),
     path('get_patient_id/', views.get_patient_id, name='get_patient_id'),
     path('calendar/', views.calendar, name='calendar'),
+    path('api/jestfullcalendar/', views.jestfullcalendar, name='jestfullcalendar'),
     path('logout/',views.custom_logout, name='logout'),
     
     
