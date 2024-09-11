@@ -31,16 +31,19 @@ AUTH_USER_MODEL = "listings.CustomUser"
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-4*mw^d-76p=hr633o94b02ar!&)yqik)u!ca2kp%9=ped%9+#e'
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['127.0.0.1','localhost']
+DEBUG = True  
+ALLOWED_HOSTS = ['*']
 
 env = environ.Env()
 environ.Env.read_env()
 
+# For django-celery-beat
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 # Application definition
 
 INSTALLED_APPS = [
+    'django_celery_beat',#pour l'email celery
+    'django_celery_results',#pour l'email celery
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -171,3 +174,19 @@ DEFAULT_FROM_EMAIL = 'default from email'
 #pour utiliser les dates au format JOUR-MOIS-ANNEE
 LANGUAGE_CODE = 'fr'
 USE_L10N = True
+
+
+# Celery Settings #pour l'envoie des email de en arriere plan
+CELERY_BROKER_URL = 'redis://localhost:6379/0' # or your broker URL
+CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP=True
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'  # or your result backend
+#CELERY_RESULT_BACKEND = 'django-db'
+#CELERY_CACHE_BACKEND = 'django-cache'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'UTC'  # or your timezone
+
+
+
+

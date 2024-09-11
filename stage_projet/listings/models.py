@@ -10,7 +10,7 @@ from django.utils import formats
 class Patient(models.Model): #modifie
     idpatient=models.fields.AutoField(primary_key=True)
     nom=models.fields.CharField(max_length=255)
-    numeropatient=models.fields.CharField(max_length=100,)
+    numeropatient=models.fields.CharField(max_length=100)
     contact1=models.fields.PositiveIntegerField(blank=True,null=True)
     contact2=models.fields.PositiveIntegerField(blank=True,null=True)
     email=models.fields.EmailField(max_length=254,blank=True,null=True,)
@@ -19,12 +19,10 @@ class Patient(models.Model): #modifie
     profession=models.fields.CharField(max_length=49)
     ville=models.fields.CharField(max_length=100)
     age=models.fields.PositiveIntegerField()
-    
     MAYBECHOICE1=(
         ('féminin','féminin'),
         ('masculin','masculin'),
     )
-    
     sexe=models.fields.CharField(max_length=10,choices=MAYBECHOICE1)
     commune=models.fields.CharField(max_length=20)
     quartier=models.fields.CharField(max_length=40)
@@ -49,119 +47,60 @@ class Antecedant_medical(models.Model):#modifie
         ('ne sait pas','ne sait pas'),
     )
     dyslipidemie=models.fields.CharField(max_length=11,choices=MAYBECHOICE1)
+    
+    cirrhose=models.fields.CharField(max_length=11,choices=MAYBECHOICE1)
+    
+    hepatiteviraleb=models.fields.CharField(max_length=11,choices=MAYBECHOICE1)
+    datehepvirb=models.fields.DateField(blank=True,null=True)
+    
+    hepatiteviralec=models.fields.CharField(max_length=11,choices=MAYBECHOICE1)
+    datehepvirc=models.fields.DateField(blank=True,null=True)
+    
+    hepatiteviraled=models.fields.CharField(max_length=11,choices=MAYBECHOICE1)
+    datehepvird=models.fields.DateField(blank=True,null=True)
+    
+    vaccination_vhb=models.fields.CharField(max_length=11,choices=MAYBECHOICE1)
+    dosevhb=models.fields.CharField(max_length=40,blank=True,null=True)
+    
+    vaccination_vha=models.fields.CharField(max_length=11,choices=MAYBECHOICE1)
+    dosevha=models.fields.CharField(max_length=40,blank=True,null=True)
     MAYBECHOICE2=(
         ('oui','oui'),
         ('non','non'),
-        ('ne sait pas','ne sait pas'),
     )
-    cirrhose=models.fields.CharField(max_length=11,choices=MAYBECHOICE2)
-    MAYBECHOICE3=(
-        ('oui','oui'),
-        ('non','non'),
-        ('ne sait pas','ne sait pas'),
-    )
-    hepatiteviraleb=models.fields.CharField(max_length=11,choices=MAYBECHOICE3)
-    datehepvirb=models.fields.DateField(blank=True,null=True)
-    MAYBECHOICE4=(
-        ('oui','oui'),
-        ('non','non'),
-        ('ne sait pas','ne sait pas'),
-    )
-    hepatiteviralec=models.fields.CharField(max_length=11,choices=MAYBECHOICE4)
-    datehepvirc=models.fields.DateField(blank=True,null=True)
-    MAYBECHOICE5=(
-        ('oui','oui'),
-        ('non','non'),
-        ('ne sait pas','ne sait pas'),
-    )
-    hepatiteviraled=models.fields.CharField(max_length=11,choices=MAYBECHOICE5)
-    datehepvird=models.fields.DateField(blank=True,null=True)
-    MAYBECHOICE6=(
-        ('oui','oui'),
-        ('non','non'),
-        ('ne sait pas','ne sait pas'),
-    )
-    vaccination_vhb=models.fields.CharField(max_length=11,choices=MAYBECHOICE6)
-    dosevhb=models.fields.CharField(max_length=40,blank=True,null=True)
-    MAYBECHOICE7=(
-        ('oui','oui'),
-        ('non','non'),
-        ('ne sait pas','ne sait pas'),
-    )
-    vaccination_vha=models.fields.CharField(max_length=11,choices=MAYBECHOICE7)
-    dosevha=models.fields.CharField(max_length=40,blank=True,null=True)
-    MAYBECHOICE8=(
-        ('oui','oui'),
-        ('non','non'),
-    )
-    transfusion_sanguine=models.fields.CharField(max_length=3,choices=MAYBECHOICE8)
+    transfusion_sanguine=models.fields.CharField(max_length=3,choices=MAYBECHOICE2)
     datransing=models.fields.DateField(blank=True,null=True)
-    MAYBECHOICE9=(
-        ('oui','oui'),
-        ('non','non'),
-        ('ne sait pas','ne sait pas'),
-    )
-    ictere=models.fields.CharField(max_length=11,choices=MAYBECHOICE9)
-    MAYBECHOICE10=(
-        ('oui','oui'),
-        ('non','non'),
-    )
-    rapportsexuelnonprotege=models.fields.CharField(max_length=3,choices=MAYBECHOICE10,)
-    MAYBECHOICE11=(
-        ('oui','oui'),
-        ('non','non'),
-    )
-    partageobjettoilette=models.fields.CharField(max_length=3,choices=MAYBECHOICE11,)
-    MAYBECHOICE12=(
-        ('oui','oui'),
-        ('non','non'),
-    )
-    accidexposang=models.fields.CharField(max_length=3,choices=MAYBECHOICE12,)
-    MAYBECHOICE13=(
-        ('oui','oui'),
-        ('non','non'),
-    )
-    toxicomanie=models.fields.CharField(max_length=3,choices=MAYBECHOICE13,)
-    MAYBECHOICE14=(
-        ('oui','oui'),
-        ('non','non'),
-    )
-    diabete=models.fields.CharField(max_length=3,choices=MAYBECHOICE14,)
-    MAYBECHOICE15=(
-        ('oui','oui'),
-        ('non','non'),
-        ('ne sait pas','ne sait pas'),
-    )
-    hta=models.fields.CharField(max_length=11,choices=MAYBECHOICE15,)
-    MAYBECHOICE16=(
-        ('oui','oui'),
-        ('non','non'),
-    )
-    transplanhepatique=models.fields.CharField(max_length=3,choices=MAYBECHOICE16,)
-    precisionautre=models.fields.CharField(max_length=200,blank=True,null=True,)
+    ictere=models.fields.CharField(max_length=11,choices=MAYBECHOICE1)
+    rapportsexuelnonprotege=models.fields.CharField(max_length=3,choices=MAYBECHOICE2,)
+    partageobjettoilette=models.fields.CharField(max_length=3,choices=MAYBECHOICE2,)
+    accidexposang=models.fields.CharField(max_length=3,choices=MAYBECHOICE2,)
+    toxicomanie=models.fields.CharField(max_length=3,choices=MAYBECHOICE2,)
+    diabete=models.fields.CharField(max_length=3,choices=MAYBECHOICE2,)
+    hta=models.fields.CharField(max_length=11,choices=MAYBECHOICE1,)
+    transplanhepatique=models.fields.CharField(max_length=3,choices=MAYBECHOICE2)
+    ulceregastroduodenal=models.fields.CharField(max_length=3,choices=MAYBECHOICE2)#new
+    epigastralgies=models.fields.CharField(max_length=3,choices=MAYBECHOICE2)#new
+    hemorragiedigestive=models.fields.CharField(max_length=3,choices=MAYBECHOICE2,blank=True,null=True)#new
+    precisionautre=models.fields.CharField(max_length=200,blank=True,null=True)
     date= models.fields.DateTimeField(default=timezone.now)                                                                                
     patient=models.ForeignKey(Patient, on_delete=models.CASCADE)
     def __str__(self):
-        return f'{self.refant} {self.dyslipidemie} {self.cirrhose}  {self.hepatiteviraleb} {self.datehepvirb} {self.hepatiteviralec}  {self.datehepvirc} {self.hepatiteviraled} {self.datehepvird} {self.vaccination_vhb} {self.dosevhb}  {self.vaccination_vha}  {self.dosevha} {self.transfusion_sanguine}   {self.ictere} {self.rapportsexuelnonprotege} {self.partageobjettoilette} {self.accidexposang} {self.toxicomanie} {self.diabete} {self.hta}  {self.transplanhepatique}  {self.precisionautre}  {self.date} {self.patient}'
+        return f'{self.refant} {self.dyslipidemie} {self.cirrhose}  {self.hepatiteviraleb} {self.datehepvirb} {self.hepatiteviralec}  {self.datehepvirc} {self.hepatiteviraled} {self.datehepvird} {self.vaccination_vhb} {self.dosevhb}  {self.vaccination_vha}  {self.dosevha} {self.transfusion_sanguine} {self.epigastralgies} {self.ictere} {self.rapportsexuelnonprotege} {self.partageobjettoilette} {self.accidexposang} {self.toxicomanie} {self.diabete} {self.hta}  {self.transplanhepatique}  {self.precisionautre} {self.hemorragiedigestive} {self.date} {self.patient}'
 
 class Antecedant_medicalForm(ModelForm):
     class Meta:
         model = Antecedant_medical
-        fields = ['dyslipidemie','cirrhose' ,'hepatiteviralec','datehepvirc' ,'hepatiteviraleb','datehepvirb' ,'hepatiteviraled','datehepvird' ,'vaccination_vhb','dosevhb' ,'vaccination_vha','dosevha','transfusion_sanguine','datransing','ictere','rapportsexuelnonprotege' ,'partageobjettoilette','accidexposang','toxicomanie','diabete','hta' ,'transplanhepatique','precisionautre','patient']   
+        fields = ['dyslipidemie','cirrhose' ,'hepatiteviralec','datehepvirc' ,'hepatiteviraleb','datehepvirb' ,'hepatiteviraled','datehepvird' ,'vaccination_vhb','dosevhb' ,'vaccination_vha','dosevha','transfusion_sanguine','datransing','ictere','rapportsexuelnonprotege' ,'partageobjettoilette','accidexposang','toxicomanie','diabete','hta' ,'transplanhepatique','precisionautre','epigastralgies','patient']   
 
 class Antecedant_chirurgical(models.Model):#nouvel ajout 
     refantchir=models.fields.AutoField(primary_key=True)
-    MAYBECHOICE1=(
+    MAYBECHOICE=(
         ('oui','oui'),
         ('non','non'),
     )
-    operachir=models.fields.CharField(max_length=3,choices=MAYBECHOICE1)
+    operachir=models.fields.CharField(max_length=3,choices=MAYBECHOICE)
     datoperachir=models.fields.DateField(blank=True,null=True)
-    MAYBECHOICE2=(
-        ('oui','oui'),
-        ('non','non'),
-    )
-    avp=models.fields.CharField(max_length=3,choices=MAYBECHOICE2,)
+    avp=models.fields.CharField(max_length=3,choices=MAYBECHOICE,)
     dateavp=models.fields.DateField(blank=True,null=True,)
     date= models.fields.DateTimeField(default=timezone.now)  
     patient=models.ForeignKey(Patient, on_delete=models.CASCADE)
@@ -178,16 +117,12 @@ class Antecedant_genecologique(models.Model):#nouvel ajout
     datederniereregle=models.fields.DateField(blank=True,null=True,)
     gestite=models.fields.CharField(max_length=5,blank=True,null=True,)
     parite=models.fields.CharField(max_length=5,blank=True,null=True,)
-    MAYBECHOICE1=(
+    MAYBECHOICE=(
         ('oui','oui'),
         ('non','non'),
     )
-    prisecontraceptif=models.fields.CharField(max_length=3,choices=MAYBECHOICE1,)
-    MAYBECHOICE2=(
-        ('oui','oui'),
-        ('non','non'),
-    )
-    cesarienne=models.fields.CharField(max_length=3,choices=MAYBECHOICE2,)
+    prisecontraceptif=models.fields.CharField(max_length=3,choices=MAYBECHOICE,)
+    cesarienne=models.fields.CharField(max_length=3,choices=MAYBECHOICE,)
     datecesarienne=models.fields.DateField(blank=True,null=True,)
     date= models.fields.DateTimeField(default=timezone.now)    
     patient=models.ForeignKey(Patient, on_delete=models.CASCADE)                                                                                 
@@ -201,70 +136,28 @@ class Antecedant_genecologiqueForm(ModelForm):
 
 class Antecedant_familial(models.Model):#nouvel ajout
     refantfam=models.fields.AutoField(primary_key=True)
-    MAYBECHOICE1=(
+    MAYBECHOICE=(
         ('oui','oui'),
         ('non','non'),
         ('ne sait pas','ne sait pas'),
     )
-    hepatie_vir_ASC=models.fields.CharField(max_length=11,choices=MAYBECHOICE1,)
+    hepatie_vir_ASC=models.fields.CharField(max_length=11,choices=MAYBECHOICE,)
     
-    MAYBECHOICE2=(
-        ('oui','oui'),
-        ('non','non'),
-        ('ne sait pas','ne sait pas'),
-    )
-    cirrhose_ASC=models.fields.CharField(max_length=11,choices=MAYBECHOICE2,)
+    cirrhose_ASC=models.fields.CharField(max_length=11,choices=MAYBECHOICE,)
     
-    MAYBECHOICE3=(
-        ('oui','oui'),
-        ('non','non'),
-        ('ne sait pas','ne sait pas'),
-    ) 
-    cpf_ASC=models.fields.CharField(max_length=11,choices=MAYBECHOICE3,)
+    cpf_ASC=models.fields.CharField(max_length=11,choices=MAYBECHOICE,)
+     
+    hepatie_vir_DSC=models.fields.CharField(max_length=11,choices=MAYBECHOICE,)
     
+    cirrhose_DSC=models.fields.CharField(max_length=11,choices=MAYBECHOICE,)
     
-    MAYBECHOICE4=(
-        ('oui','oui'),
-        ('non','non'),
-        ('ne sait pas','ne sait pas'),
-    )
-    hepatie_vir_DSC=models.fields.CharField(max_length=11,choices=MAYBECHOICE4,)
+    cpf_DSC=models.fields.CharField(max_length=11,choices=MAYBECHOICE,)
     
-    MAYBECHOICE5=(
-        ('oui','oui'),
-        ('non','non'),
-        ('ne sait pas','ne sait pas'),
-    )
-    cirrhose_DSC=models.fields.CharField(max_length=11,choices=MAYBECHOICE5,)
+    hepatie_vir_COL=models.fields.CharField(max_length=11,choices=MAYBECHOICE,)
     
-    MAYBECHOICE6=(
-        ('oui','oui'),
-        ('non','non'),
-        ('ne sait pas','ne sait pas'),
-    ) 
-    cpf_DSC=models.fields.CharField(max_length=11,choices=MAYBECHOICE6,)
+    cirrhose_COL=models.fields.CharField(max_length=11,choices=MAYBECHOICE,)
     
-    
-    MAYBECHOICE7=(
-        ('oui','oui'),
-        ('non','non'),
-        ('ne sait pas','ne sait pas'),
-    )
-    hepatie_vir_COL=models.fields.CharField(max_length=11,choices=MAYBECHOICE7,)
-    
-    MAYBECHOICE8=(
-        ('oui','oui'),
-        ('non','non'),
-        ('ne sait pas','ne sait pas'),
-    )
-    cirrhose_COL=models.fields.CharField(max_length=11,choices=MAYBECHOICE8,)
-    
-    MAYBECHOICE9=(
-        ('oui','oui'),
-        ('non','non'),
-        ('ne sait pas','ne sait pas'),
-    ) 
-    cpf_COL=models.fields.CharField(max_length=11,choices=MAYBECHOICE9,)
+    cpf_COL=models.fields.CharField(max_length=11,choices=MAYBECHOICE,)
     date= models.fields.DateTimeField(default=timezone.now) 
     patient=models.ForeignKey(Patient, on_delete=models.CASCADE)                                                                          
     def __str__(self):
@@ -360,39 +253,45 @@ class Consultation(models.Model): #modifie
         ('oui','oui'),
         ('non','non'),
     )
-    Bilanbiologiqueant=models.fields.CharField(max_length=10,choices=MAYBECHOICE)
-    prise_therap_tarditionnelle=models.fields.CharField(max_length=10,choices=MAYBECHOICE)
+    Bilanbiologiqueant=models.fields.CharField(max_length=3,choices=MAYBECHOICE)
+    prise_therap_tarditionnelle=models.fields.CharField(max_length=3,choices=MAYBECHOICE)
     aghbs=models.fields.CharField(max_length=3,choices=MAYBECHOICE,null=True, blank=True)
     acanti_vhc=models.fields.CharField(max_length=3,choices=MAYBECHOICE,null=True, blank=True)
     acanti_vhd=models.fields.CharField(max_length=3,choices=MAYBECHOICE,null=True, blank=True)
     serologie_retrovi=models.fields.CharField(max_length=3,choices=MAYBECHOICE,null=True, blank=True)
     transaminase=models.fields.CharField(max_length=3,choices=MAYBECHOICE,null=True, blank=True)
-    date= models.fields.DateTimeField(default=timezone.now)                                                                                
+
+    datetransa=models.fields.DateTimeField(null=True, blank=True)
+    dateacanti_vhc=models.fields.DateTimeField(null=True, blank=True) 
+    dateacanti_vhd=models.fields.DateTimeField(null=True, blank=True)
+    dateaghbs=models.fields.DateTimeField(null=True, blank=True)
+    dateserologie_retrovi=models.fields.DateTimeField(null=True, blank=True)
+
+    date=models.fields.DateTimeField(default=timezone.now)                                                                                
     diagnostique_retenu=models.fields.CharField(max_length=254,null=True, blank=True)
     patient=models.ForeignKey(Patient, on_delete=models.CASCADE,null=False) 
     customUser=models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     def __str__(self):
-        return f'{self.Numconsulta} {self.motifdeconsultation} {self.prescripteur_consultation} {self.debut_signe} {self.signe_digestifs} {self.signe_extra_digestif} {self.signe_asso_gene} {self.nombredeverre_alcool} {self.nombrepaquettabac} {self.medoc_en_cours} {self.prise_therap_tarditionnelle} {self.aghbs} {self.acanti_vhc} {self.acanti_vhd} {self.serologie_retrovi} {self.transaminase}  {self.date} {self.diagnostique_retenu}  {self.typealcool}  {self.frequence}  {self.patient} {self.customUser} '
+        return f'{self.Numconsulta} {self.motifdeconsultation} {self.prescripteur_consultation} {self.dateserologie_retrovi} {self.dateaghbs} {self.dateacanti_vhd} {self.dateacanti_vhc} {self.datetransa} {self.debut_signe} {self.signe_digestifs} {self.signe_extra_digestif} {self.signe_asso_gene} {self.nombredeverre_alcool} {self.nombrepaquettabac} {self.medoc_en_cours} {self.prise_therap_tarditionnelle} {self.aghbs} {self.acanti_vhc} {self.acanti_vhd} {self.serologie_retrovi} {self.transaminase}  {self.date} {self.diagnostique_retenu}  {self.typealcool}  {self.frequence}  {self.patient} {self.customUser} '
 
 class ConsultationForm(ModelForm):
     class Meta:
         model = Consultation
-        fields = ['motifdeconsultation', 'prescripteur_consultation', 'debut_signe','signe_digestifs','signe_extra_digestif','signe_asso_gene','nombredeverre_alcool','nombrepaquettabac','medoc_en_cours','prise_therap_tarditionnelle','aghbs','acanti_vhc','acanti_vhd','serologie_retrovi','transaminase','Bilanbiologiqueant','diagnostique_retenu','typealcool','frequence','patient','customUser']
+        fields = ['motifdeconsultation', 'prescripteur_consultation', 'debut_signe','signe_digestifs','dateserologie_retrovi','dateaghbs','dateacanti_vhd','dateacanti_vhc','datetransa','signe_extra_digestif','signe_asso_gene','nombredeverre_alcool','nombrepaquettabac','medoc_en_cours','prise_therap_tarditionnelle','aghbs','acanti_vhc','acanti_vhd','serologie_retrovi','transaminase','Bilanbiologiqueant','diagnostique_retenu','typealcool','frequence','patient','customUser']
 
    
 class Hospitalisation(models.Model):
-    idhospitalisation=models.fields.AutoField(primary_key=True)
-    service=models.ForeignKey(Service, on_delete=models.CASCADE) 
+    idhospitalisation=models.fields.AutoField(primary_key=True) 
     origine=models.fields.CharField(max_length=28,null=True, blank=True)
     datehospitalisation= models.fields.DateTimeField(default=timezone.now)    
     consultation=models.ForeignKey(Consultation, on_delete=models.CASCADE)                                                                             
     def __str__(self):
-        return f'{self.idhospitalisation} {self.service} {self.datehospitalisation} {self.consultation}'
+        return f'{self.idhospitalisation} {self.origine} {self.datehospitalisation} {self.consultation}'
 
 class HospitalisationForm(ModelForm):
     class Meta:
         model = Hospitalisation
-        fields = ['service','datehospitalisation' ,'consultation']
+        fields = ['datehospitalisation' ,'consultation']
 
 class Sortie(models.Model):#migration
     refsortie=models.fields.AutoField(primary_key=True)
@@ -422,16 +321,17 @@ class Sortie(models.Model):#migration
     nouveaucentredesuivi=models.fields.CharField(max_length=100,null=True, blank=True)
     numerodedossierdanslecentredetransfert=models.fields.CharField(max_length=255,null=True, blank=True)
     rdvdate=models.fields.DateField(null=True, blank=True)
+    nompracticien=models.fields.CharField(max_length=60,null=False, blank=False)
 #fin
     patient=models.ForeignKey(Patient, on_delete=models.CASCADE)
     customUser=models.ForeignKey(CustomUser,on_delete=models.CASCADE)                                                                                
     def __str__(self):
-        return f'{self.refsortie} {self.datesortie} {self.patient} {self.motifsortie} {self.customUser} {self.datedetransfert}  {self.numerodedossierdanslecentredetransfert} {self.nouveaucentredesuivi} {self.raison} {self.commentaire}  {self.typedenouvelle} {self.typederelance}  {self.datederniererelance}  {self.datedernierevisite} {self.daterefus}  {self.remplipar}   {self.datedeces}  {self.causedudeces} {self.lieudeces}  {self.decesliea} {self.rdvdate} '
+        return f'{self.refsortie} {self.datesortie} {self.patient} {self.motifsortie} {self.customUser} {self.datedetransfert}  {self.numerodedossierdanslecentredetransfert} {self.nouveaucentredesuivi} {self.raison} {self.commentaire}  {self.typedenouvelle} {self.typederelance}  {self.datederniererelance}  {self.datedernierevisite} {self.daterefus}  {self.remplipar}   {self.datedeces}  {self.causedudeces} {self.lieudeces} {self.nompracticien} {self.decesliea} {self.rdvdate} '
 
 class SortieForm(ModelForm):
     class Meta:
         model = Sortie
-        fields = ['motifsortie','datesortie', 'remplipar', 'datedeces','causedudeces','lieudeces','decesliea','daterefus','datedernierevisite','datederniererelance','typederelance','typederelance','typedenouvelle','raison','commentaire','datedetransfert','nouveaucentredesuivi','numerodedossierdanslecentredetransfert','customUser','rdvdate','patient']    
+        fields = ['motifsortie','datesortie', 'remplipar', 'datedeces','causedudeces','lieudeces','decesliea','daterefus','datedernierevisite','datederniererelance','typederelance','typederelance','typedenouvelle','raison','commentaire','datedetransfert','nouveaucentredesuivi','numerodedossierdanslecentredetransfert','customUser','rdvdate','patient','nompracticien']    
 
 
 class Facture(models.Model):
@@ -460,35 +360,43 @@ class FactureForm(ModelForm):
 class Medicament(models.Model):#migration
     idmedicament=models.fields.AutoField(primary_key=True)
     MAYBECHOICE1=(
-        ('TDF','TDF') ,
-        ('TAF','TAF'),
-        ('Entecavir','Entecavir'),
-        ('Lamivudine','Lamivudine'),
-        ('Adéfovir',' Adéfovir'),
-        ('Telbivudine','Telbivudine'),
-        ('Interferon pegylé','Interferon pegylé'),
-        ('Interféron pégylé','Interféron pégylé'),
-
+        ('TDF 300 mg/j','TDF 300 mg/j') ,
+        ('TAF 25 mg/j','TAF 25 mg/j'),
+        ('Entecavir 0.5 mg/j','Entecavir 0.5 mg/j'),
+        ('Lamivudine 100 mg/j','Lamivudine 100 mg/j'),
+        ('Adéfovir 25 mg/j','Adéfovir 25 mg/j'),
+        ('Telbivudine 600 mg/j','Telbivudine 600 mg/j'),
+        ('Interferon pegylé 180 g/semaine','Interferon pegylé 180 g/semaine'),
+        ('TDF 300 mg + Interféron pégylé  180 g/semaine','TDF 300 mg + Interféron pégylé  180 g/semaine'),
+        ('Bulevirtide','Bulevirtide'),
+        ('Interferon pégylé  180 g/semaine','Interferon pégylé  180 g/semaine'),
+        ('Sofosbuvir + Velpatasvir Cp avec Sofosbuvir 400 mg et Velpatasvir 100 mg 1 cp/j','Sofosbuvir + Velpatasvir Cp avec Sofosbuvir 400 mg et Velpatasvir 100 mg 1 cp/j'),
+        ('Sofosbuvir + Ledipasvir Cp  avec Sofosbuvir 400 mg et Ledipasvir 90 mg 1 cp/j','Sofosbuvir + Ledipasvir Cp  avec Sofosbuvir 400 mg et Ledipasvir 90 mg 1 cp/j'),
+        ('Sofosbuvir + daclastavir  avec Sofosbuvir Cp à 400 mg et daclastavir 60 mg  1 cp/j','Sofosbuvir + daclastavir  avec Sofosbuvir Cp à 400 mg et daclastavir 60 mg  1 cp/j'),
+        ('Sofosbuvir + daclastavir  avec Sofosbuvir Cp à 400 mg et daclastavir 30 mg  1 cp/j ','Sofosbuvir + daclastavir  avec Sofosbuvir Cp à 400 mg et daclastavir 30 mg  1 cp/j'),
+        ('Sofosbuvir + daclastavir  avec Sofosbuvir Cp à 400 mg et daclastavir 90 mg  1 cp/j','Sofosbuvir + daclastavir  avec Sofosbuvir Cp à 400 mg et daclastavir 90 mg  1 cp/j'),
+        ('Ribavirine Cp à 200 ou 400 mg  1000 mg/j si pds < 75 kg 1200 mg/j si pds ≥ 75 kg','Ribavirine Cp à 200 ou 400 mg  1000 mg/j si pds < 75 kg 1200 mg/j si pds ≥ 75 kg'),
+        ('Dasabuvir  Cp à 250 mg 1 comprimé matin et soir','Dasabuvir  Cp à 250 mg 1 comprimé matin et soir'),
+        ('Paritaprevir/ritonavir + Ombitasvir Cp avec Paritaprevir 75 mg, ritonavir 50 mg et Ombitasvir 12,5 mg 2 comprimés une fois par jour','Paritaprevir/ritonavir + Ombitasvir Cp avec Paritaprevir 75 mg, ritonavir 50 mg et Ombitasvir 12,5 mg 2 comprimés une fois par jour'),
+        ('Vitamine E','Vitamine E'),
+        ('EPO','EPO'),
+        ('G CSF','G CSF'),
+        ('Thrombopoietine','Thrombopoietine'),
+        ('Vaccination VHA','Vaccination VHA'),
+        ('Vaccination VHB','Vaccination VHB'),
+        ('Grazoprevir + Elbasvir Cp avec Grazoprevir 100 mg et Elbasvir 50 mg 1 cp par jour','Grazoprevir + Elbasvir Cp avec Grazoprevir 100 mg et Elbasvir 50 mg 1 cp par jour'),
+        ('Glecaprevir + Pibrentasvir Cp avec Glecaprevir 100 mg et Pibrentasvir 40 mg 3 cp une fois par jour','Glecaprevir + Pibrentasvir Cp avec Glecaprevir 100 mg et Pibrentasvir 40 mg 3 cp une fois par jour'),
+        ('Sofosbuvir + Velpatasvir + Voxilaprevir Comprimés avec Sofosbuvir 400 mg et Velpatasvir 100 mg et Voxilaprevir 100 mg 1 comprimé par jour','Sofosbuvir + Velpatasvir + Voxilaprevir Comprimés avec Sofosbuvir 400 mg et Velpatasvir 100 mg et Voxilaprevir 100 mg 1 comprimé par jour'),
     )
-    nommedicament=models.fields.CharField(max_length=100,choices=MAYBECHOICE1)
-    
-    MAYBECHOICE2=(
-        ('300 mg/j','300 mg/j'),
-        ('25 mg/j','25 mg/j'),
-        ('0.5 mg/j','0.5 mg/j'),
-        ('100 mg/j','100 mg/j'),
-        ('600 mg/j','600 mg/j'),
-        ('180 mg/semaine','180 mg/semaine'),
-    )
-    dosage=models.fields.CharField(max_length=100,choices=MAYBECHOICE2)
+    nommedicament=models.fields.CharField(max_length=150,choices=MAYBECHOICE1)
     dateprescription= models.fields.DateTimeField(default=timezone.now)                                                                                
     def __str__(self):
-        return f'{self.idmedicament} {self.nommedicament} {self. dosage} {self.dateprescription}'
+        return f'{self.idmedicament} {self.nommedicament} {self.dateprescription}'
 
 class MedicamentForm(ModelForm):
     class Meta:
         model = Medicament
-        fields = ['nommedicament' ,'dosage','dateprescription']
+        fields = ['nommedicament','dateprescription']
 #fin class sans clé secondaire
 
 #debut class avec clé secondaire
@@ -502,15 +410,24 @@ class Constante(models.Model):
     tas=models.fields.CharField(max_length=30)
     tad=models.fields.CharField(max_length=30)
     pouls=models.fields.CharField(max_length=30)
+    MAYBECHOICE=(
+        ('oui','oui'),
+        ('non','non'),
+    )
+    sih=models.fields.CharField(max_length=3,choices=MAYBECHOICE,null=True, blank=True)#signe insuffisance hepatocellulaire  #new
+    shp=models.fields.CharField(max_length=3,choices=MAYBECHOICE,null=True, blank=True)#signe hypertension portable #new
+    lmc=models.fields.CharField(max_length=3,null=True, blank=True)#new
+    lxo=models.fields.CharField(max_length=3,null=True, blank=True)#new
+    resultattoucherectal=models.fields.CharField(max_length=3,null=True, blank=True)#new
     patient=models.ForeignKey(Patient, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
     def __str__(self):
-        return f'{self.refconst} {self.poids} {self.taille} {self.temperature} {self.patient} {self.date}'
+        return f'{self.refconst} {self.poids} {self.taille} {self.temperature} {self.patient} {self.shp}{self.lmc} {self.lxo} {self.resultattoucherectal} {self.sih} {self.date}'
     
 class ConstanteForm(ModelForm):
     class Meta:
         model = Constante
-        fields = ['poids', 'taille', 'temperature','imc','tas','tad','pouls','patient']
+        fields = ['poids', 'taille', 'temperature','imc','tas','tad','pouls','resultattoucherectal','shp','lmc','lxo','sih','patient']
 
 
 class Diagnostique(models.Model):
@@ -546,6 +463,8 @@ class Ordonnancemedicament(models.Model):# nouvel ajout c'est la table de liaiso
     ordonnance = models.ForeignKey(Ordonnance, on_delete=models.CASCADE)
     medicament = models.ForeignKey(Medicament, on_delete=models.CASCADE)
     quantite = models.PositiveIntegerField(null=True, blank=True)
+    raison=models.fields.CharField(max_length=18)
+    taitementhospi=models.fields.BooleanField(default=False)
     date = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return f"{self.medicament} x {self.quantite} dans {self.ordonnance} {self.date}"
@@ -559,23 +478,24 @@ class OrdonnancemedicamentForm(ModelForm):
 
 class Bilan_imagerie(models.Model):
     numbilimg=models.fields.AutoField(primary_key=True)
-    echographie_ou_radiograpgie=models.ImageField(upload_to='images/', null=True, blank=True)
-    renseignementclinique=models.fields.CharField(max_length=254,null=True, blank=True)
+    typeexam=models.fields.CharField(max_length=21)
+    resultat=models.ImageField(upload_to='images/', null=True, blank=True)
+    dateexam=models.DateTimeField(null=True, blank=True) 
     consultation=models.ForeignKey(Consultation, on_delete=models.CASCADE)
-    date = models.DateTimeField(auto_now_add=True) 
+    date= models.DateTimeField(auto_now_add=True)
     def __str__(self):
-        return f'{self.numbilimg} {self.echographie_ou_radiograpgie} {self.renseignementclinique} {self.consultation} {self.date}'
+        return f'{self.numbilimg} {self.typeexam} {self.resultat} {self.dateexam} {self.consultation} {self.date}'
 
 class Bilan_imagerieForm(ModelForm):
     class Meta:
         model = Bilan_imagerie
-        fields = ['echographie_ou_radiograpgie','renseignementclinique' ,'consultation']
+        fields = ['typeexam','resultat' ,'dateexam','consultation']
 
 class Bilan_biologique(models.Model):
     numbilanbio=models.fields.AutoField(primary_key=True)
     MAYBECHOICE1=(
-        ('Sérologie rétroviral','Sérologie rétroviral'),
-        ('IgG anti VHE','IgG anti VHE'),
+        ('Hémogramme','Hémogramme'),
+        ('Blan hépatique','Blan hépatique'),
         ('IgM anti VHE','IgM anti VHE'),
         ('Ac anti VHD','Ac anti VHD'),
         ('Ac anti HBe','Ac anti HBe'),
@@ -583,10 +503,11 @@ class Bilan_biologique(models.Model):
     )
     typeexamen=models.fields.CharField(max_length=100,choices=MAYBECHOICE1)
     MAYBECHOICE3=(
-        ('UI/ ml','UI/ ml'),
+        ('Ul/l','Ul/ ml'),
         ('mmol/ l','mmol/ l'),
         ('g/l','g/l'),
         ('/mm3','/mm3'),
+        ('%','%'),
     )
     unite=models.fields.CharField(max_length=100,choices=MAYBECHOICE3)
     resultatnumerique=models.fields.CharField(max_length=100)

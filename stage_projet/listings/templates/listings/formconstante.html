@@ -54,6 +54,30 @@
                 <label >pouls</label>
                 <input type="text" placeholder="pouls en  battements/mn " name="pouls" class="inputcontenu"/>
             </div>
+            {% if sexe == "féminin" %}
+            <div class="divsortie">
+              <label>signe insuffisance hépatocéllulaire</label>
+              <input type="text" placeholder="pouls en  battements/mn " name="sih" class="inputcontenu"/>
+            </div>
+            <div class="divsortie">
+              <label>signe hypertension portable</label>
+              <input type="text"  name="shp" class="inputcontenu"/>
+            </div>
+            <div class="content">
+              <label>Flèche hépatique</label>  
+                  <div class="leftconts">
+                  <input type="text"   placeholder="lmc" name="lmc" class="inputcontenu" />
+                  </div>
+                  <div class="rightconts">
+                    <input type="text"   placeholder="lxo" name="lxo" class="inputcontenu"/>
+                  </div>
+            </div>
+
+            <div class="divsortie">
+              <label>toucher rectal</label>
+              <input type="text" name="resultattoucherectal" class="inputcontenu"/>
+            </div>
+            {% endif %}
             <input type="hidden" id="patient" name="patient" value="{{ Patient_idpatient }}" />
     </fieldset>
     <input type="submit"  name="valideconstante"  value="Enregister" class="btn btn-primary"/>
