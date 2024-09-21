@@ -112,6 +112,44 @@
         </div>
     </div>
 
+
+    <div class="p-2 g-col-6">
+        <label  class="form-check-label" style="margin-right:200px">ulcère gastro-duodénal</label> 
+         <div class="form-check form-check-inline" style="margin-right:50px">
+             <input class="form-check-input" type="radio" name="ulceregastroduodenal" id="inlineRadio19" value="oui" onclick="antecedantmedical()"/>
+             <label class="form-check-label" for="inlineRadio19">oui</label>
+         </div>
+         <div class="form-check form-check-inline" style="margin-right:50px">
+             <input class="form-check-input" type="radio" name="ulceregastroduodenal" id="inlineRadio20" value="non" onclick="antecedantmedical()"/>
+             <label class="form-check-label" for="inlineRadio20">non</label>
+         </div>
+
+    </div>
+
+    <div class="p-2 g-col-6">
+        <label  class="form-check-label" style="margin-right:260px">épigastralgies</label> 
+         <div class="form-check form-check-inline" style="margin-right:50px">
+             <input class="form-check-input" type="radio" name="epigastralgies" id="inlineRadio19" value="oui" onclick="antecedantmedical()"/>
+             <label class="form-check-label" for="inlineRadio19">oui</label>
+         </div>
+         <div class="form-check form-check-inline" style="margin-right:50px">
+             <input class="form-check-input" type="radio" name="epigastralgies" id="inlineRadio20" value="non" onclick="antecedantmedical()"/>
+             <label class="form-check-label" for="inlineRadio20">non</label>
+         </div>
+    </div>
+
+    <div class="p-2 g-col-6">
+        <label  class="form-check-label" style="margin-right:210px">hémorragie digestive</label> 
+         <div class="form-check form-check-inline" style="margin-right:50px">
+             <input class="form-check-input" type="radio" name="hemorragiedigestive" id="inlineRadio19" value="oui" onclick="antecedantmedical()"/>
+             <label class="form-check-label" for="inlineRadio19">oui</label>
+         </div>
+         <div class="form-check form-check-inline" style="margin-right:50px">
+             <input class="form-check-input" type="radio" name="hemorragiedigestive" id="inlineRadio20" value="non" onclick="antecedantmedical()"/>
+             <label class="form-check-label" for="inlineRadio20">non</label>
+         </div>
+    </div>
+
     <div class="p-2 g-col-6">
         <label  class="form-check-label" style="margin-right:302px">Autres</label> 
         <div class="form-check form-check-inline" style="margin-right:50px">
@@ -311,25 +349,25 @@
         </div>
 
         <div class="p-2 g-col-6">
-            <label  class="form-check-label" style="margin-right:96px"> vaccination VHB</label> 
+            <label  class="form-check-label" style="margin-right:96px"> vaccination VHA</label> 
              <div class="form-check form-check-inline" style="margin-right:50px">
-                 <input class="form-check-input" type="radio" name="vaccination_vhb" id="inlineRadio16" value="oui" onclick="antecedantmedical()"/>
+                 <input class="form-check-input" type="radio" name="vaccination_vha" id="inlineRadio16" value="oui" onclick="antecedantmedical()"/>
                  <label class="form-check-label" for="inlineRadio16">oui</label>
              </div>
              <div class="form-check form-check-inline" style="margin-right:50px">
-                 <input class="form-check-input" type="radio" name="vaccination_vhb" id="inlineRadio17" value="non" onclick="antecedantmedical()"/>
+                 <input class="form-check-input" type="radio" name="vaccination_vha" id="inlineRadio17" value="non" onclick="antecedantmedical()"/>
                  <label class="form-check-label" for="inlineRadio17">non</label>
              </div>
              <div class="form-check form-check-inline" style="margin-right:50px">
-                 <input class="form-check-input" type="radio" name="vaccination_vhb" id="inlineRadio18" value="ne sait pas" onclick="antecedantmedical()"/>
+                 <input class="form-check-input" type="radio" name="vaccination_vha" id="inlineRadio18" value="ne sait pas" onclick="antecedantmedical()"/>
                  <label class="form-check-label" for="inlineRadio18">ne sait pass</label>
              </div>
 
-             <table class="test" id="affich4">
+             <table class="test" id="affich5">
                 <tr><th>Nombre de dose</th></tr>
                 <tr>
                     <td>   
-                        <input  type="text" name="dosevhb" id="dosevhb"/>
+                        <input  type="text" name="dosevha" id="dosevha"/>
                     </td>
                 </tr>
             </table>
@@ -339,42 +377,7 @@
 
 
 
-        <div class="p-2 g-col-6">
-            <label  class="form-check-label" style="margin-right:96px">ulcère gastro-duodénal</label> 
-             <div class="form-check form-check-inline" style="margin-right:50px">
-                 <input class="form-check-input" type="radio" name="ulceregastroduodenal" id="inlineRadio19" value="oui" onclick="antecedantmedical()"/>
-                 <label class="form-check-label" for="inlineRadio19">oui</label>
-             </div>
-             <div class="form-check form-check-inline" style="margin-right:50px">
-                 <input class="form-check-input" type="radio" name="ulceregastroduodenal" id="inlineRadio20" value="non" onclick="antecedantmedical()"/>
-                 <label class="form-check-label" for="inlineRadio20">non</label>
-             </div>
-
-        </div>
-
-        <div class="p-2 g-col-6">
-            <label  class="form-check-label" style="margin-right:96px">épigastralgies</label> 
-             <div class="form-check form-check-inline" style="margin-right:50px">
-                 <input class="form-check-input" type="radio" name="epigastralgies" id="inlineRadio19" value="oui" onclick="antecedantmedical()"/>
-                 <label class="form-check-label" for="inlineRadio19">oui</label>
-             </div>
-             <div class="form-check form-check-inline" style="margin-right:50px">
-                 <input class="form-check-input" type="radio" name="epigastralgies" id="inlineRadio20" value="non" onclick="antecedantmedical()"/>
-                 <label class="form-check-label" for="inlineRadio20">non</label>
-             </div>
-        </div>
-
-        <div class="p-2 g-col-6">
-            <label  class="form-check-label" style="margin-right:96px">hémorragie digestive</label> 
-             <div class="form-check form-check-inline" style="margin-right:50px">
-                 <input class="form-check-input" type="radio" name="hemorragiedigestive" id="inlineRadio19" value="oui" onclick="antecedantmedical()"/>
-                 <label class="form-check-label" for="inlineRadio19">oui</label>
-             </div>
-             <div class="form-check form-check-inline" style="margin-right:50px">
-                 <input class="form-check-input" type="radio" name="hemorragiedigestive" id="inlineRadio20" value="non" onclick="antecedantmedical()"/>
-                 <label class="form-check-label" for="inlineRadio20">non</label>
-             </div>
-        </div>
+        
 
         
 

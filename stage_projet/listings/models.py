@@ -75,7 +75,7 @@ class Antecedant_medical(models.Model):#modifie
     partageobjettoilette=models.fields.CharField(max_length=3,choices=MAYBECHOICE2,)
     accidexposang=models.fields.CharField(max_length=3,choices=MAYBECHOICE2,)
     toxicomanie=models.fields.CharField(max_length=3,choices=MAYBECHOICE2,)
-    diabete=models.fields.CharField(max_length=3,choices=MAYBECHOICE2,)
+    diabete=models.fields.CharField(max_length=11,choices=MAYBECHOICE1,)
     hta=models.fields.CharField(max_length=11,choices=MAYBECHOICE1,)
     transplanhepatique=models.fields.CharField(max_length=3,choices=MAYBECHOICE2)
     ulceregastroduodenal=models.fields.CharField(max_length=3,choices=MAYBECHOICE2)#new
@@ -250,16 +250,20 @@ class Consultation(models.Model): #modifie
     medoc_en_cours=models.fields.TextField(null=True, blank=True)
     prise_therap_tarditionnelle=models.fields.CharField(max_length=10,null=True, blank=True)
     MAYBECHOICE=(
+        ('positif','positif'),
+        ('négatif','négatif'),
+    )
+    MAYBECHOICE1=(
         ('oui','oui'),
         ('non','non'),
     )
-    Bilanbiologiqueant=models.fields.CharField(max_length=3,choices=MAYBECHOICE)
-    prise_therap_tarditionnelle=models.fields.CharField(max_length=3,choices=MAYBECHOICE)
-    aghbs=models.fields.CharField(max_length=3,choices=MAYBECHOICE,null=True, blank=True)
-    acanti_vhc=models.fields.CharField(max_length=3,choices=MAYBECHOICE,null=True, blank=True)
-    acanti_vhd=models.fields.CharField(max_length=3,choices=MAYBECHOICE,null=True, blank=True)
-    serologie_retrovi=models.fields.CharField(max_length=3,choices=MAYBECHOICE,null=True, blank=True)
-    transaminase=models.fields.CharField(max_length=3,choices=MAYBECHOICE,null=True, blank=True)
+    Bilanbiologiqueant=models.fields.CharField(max_length=3,choices=MAYBECHOICE1)
+    prise_therap_tarditionnelle=models.fields.CharField(max_length=3,choices=MAYBECHOICE1)
+    aghbs=models.fields.CharField(max_length=7,choices=MAYBECHOICE,null=True, blank=True)
+    acanti_vhc=models.fields.CharField(max_length=7,choices=MAYBECHOICE,null=True, blank=True)
+    acanti_vhd=models.fields.CharField(max_length=7,choices=MAYBECHOICE,null=True, blank=True)
+    serologie_retrovi=models.fields.CharField(max_length=7,choices=MAYBECHOICE,null=True, blank=True)
+    transaminase=models.fields.DateTimeField(null=True, blank=True)
 
     datetransa=models.fields.DateTimeField(null=True, blank=True)
     dateacanti_vhc=models.fields.DateTimeField(null=True, blank=True) 
@@ -282,16 +286,17 @@ class ConsultationForm(ModelForm):
    
 class Hospitalisation(models.Model):
     idhospitalisation=models.fields.AutoField(primary_key=True) 
-    origine=models.fields.CharField(max_length=28,null=True, blank=True)
-    datehospitalisation= models.fields.DateTimeField(default=timezone.now)    
+    #origine=models.fields.CharField(max_length=28,null=True, blank=True)
+    datehospitalisation=models.fields.DateTimeField(default=timezone.now)
+    datehospitalisationsortie=models.fields.DateTimeField(null=True, blank=True)
     consultation=models.ForeignKey(Consultation, on_delete=models.CASCADE)                                                                             
     def __str__(self):
-        return f'{self.idhospitalisation} {self.origine} {self.datehospitalisation} {self.consultation}'
+        return f'{self.idhospitalisation} {self.datehospitalisation} {self.datehospitalisationsortie} {self.consultation} '
 
 class HospitalisationForm(ModelForm):
     class Meta:
         model = Hospitalisation
-        fields = ['datehospitalisation' ,'consultation']
+        fields = ['datehospitalisation' ,'consultation','datehospitalisationsortie']
 
 class Sortie(models.Model):#migration
     refsortie=models.fields.AutoField(primary_key=True)
@@ -360,43 +365,54 @@ class FactureForm(ModelForm):
 class Medicament(models.Model):#migration
     idmedicament=models.fields.AutoField(primary_key=True)
     MAYBECHOICE1=(
-        ('TDF 300 mg/j','TDF 300 mg/j') ,
-        ('TAF 25 mg/j','TAF 25 mg/j'),
-        ('Entecavir 0.5 mg/j','Entecavir 0.5 mg/j'),
-        ('Lamivudine 100 mg/j','Lamivudine 100 mg/j'),
-        ('Adéfovir 25 mg/j','Adéfovir 25 mg/j'),
-        ('Telbivudine 600 mg/j','Telbivudine 600 mg/j'),
-        ('Interferon pegylé 180 g/semaine','Interferon pegylé 180 g/semaine'),
-        ('TDF 300 mg + Interféron pégylé  180 g/semaine','TDF 300 mg + Interféron pégylé  180 g/semaine'),
+        ('TDF','TDF ') ,
+        ('TAF','TAF'),
+        ('Entecavir','Entecavir'),
+        ('Lamivudine','Lamivudine'),
+        ('Adéfovir','Adéfovir'),
+        ('Telbivudine','Telbivudine'),
+        ('Interferon pegylé','Interferon pegylé'),
         ('Bulevirtide','Bulevirtide'),
-        ('Interferon pégylé  180 g/semaine','Interferon pégylé  180 g/semaine'),
-        ('Sofosbuvir + Velpatasvir Cp avec Sofosbuvir 400 mg et Velpatasvir 100 mg 1 cp/j','Sofosbuvir + Velpatasvir Cp avec Sofosbuvir 400 mg et Velpatasvir 100 mg 1 cp/j'),
-        ('Sofosbuvir + Ledipasvir Cp  avec Sofosbuvir 400 mg et Ledipasvir 90 mg 1 cp/j','Sofosbuvir + Ledipasvir Cp  avec Sofosbuvir 400 mg et Ledipasvir 90 mg 1 cp/j'),
-        ('Sofosbuvir + daclastavir  avec Sofosbuvir Cp à 400 mg et daclastavir 60 mg  1 cp/j','Sofosbuvir + daclastavir  avec Sofosbuvir Cp à 400 mg et daclastavir 60 mg  1 cp/j'),
-        ('Sofosbuvir + daclastavir  avec Sofosbuvir Cp à 400 mg et daclastavir 30 mg  1 cp/j ','Sofosbuvir + daclastavir  avec Sofosbuvir Cp à 400 mg et daclastavir 30 mg  1 cp/j'),
-        ('Sofosbuvir + daclastavir  avec Sofosbuvir Cp à 400 mg et daclastavir 90 mg  1 cp/j','Sofosbuvir + daclastavir  avec Sofosbuvir Cp à 400 mg et daclastavir 90 mg  1 cp/j'),
-        ('Ribavirine Cp à 200 ou 400 mg  1000 mg/j si pds < 75 kg 1200 mg/j si pds ≥ 75 kg','Ribavirine Cp à 200 ou 400 mg  1000 mg/j si pds < 75 kg 1200 mg/j si pds ≥ 75 kg'),
-        ('Dasabuvir  Cp à 250 mg 1 comprimé matin et soir','Dasabuvir  Cp à 250 mg 1 comprimé matin et soir'),
-        ('Paritaprevir/ritonavir + Ombitasvir Cp avec Paritaprevir 75 mg, ritonavir 50 mg et Ombitasvir 12,5 mg 2 comprimés une fois par jour','Paritaprevir/ritonavir + Ombitasvir Cp avec Paritaprevir 75 mg, ritonavir 50 mg et Ombitasvir 12,5 mg 2 comprimés une fois par jour'),
         ('Vitamine E','Vitamine E'),
         ('EPO','EPO'),
         ('G CSF','G CSF'),
         ('Thrombopoietine','Thrombopoietine'),
         ('Vaccination VHA','Vaccination VHA'),
         ('Vaccination VHB','Vaccination VHB'),
-        ('Grazoprevir + Elbasvir Cp avec Grazoprevir 100 mg et Elbasvir 50 mg 1 cp par jour','Grazoprevir + Elbasvir Cp avec Grazoprevir 100 mg et Elbasvir 50 mg 1 cp par jour'),
-        ('Glecaprevir + Pibrentasvir Cp avec Glecaprevir 100 mg et Pibrentasvir 40 mg 3 cp une fois par jour','Glecaprevir + Pibrentasvir Cp avec Glecaprevir 100 mg et Pibrentasvir 40 mg 3 cp une fois par jour'),
-        ('Sofosbuvir + Velpatasvir + Voxilaprevir Comprimés avec Sofosbuvir 400 mg et Velpatasvir 100 mg et Voxilaprevir 100 mg 1 comprimé par jour','Sofosbuvir + Velpatasvir + Voxilaprevir Comprimés avec Sofosbuvir 400 mg et Velpatasvir 100 mg et Voxilaprevir 100 mg 1 comprimé par jour'),
+        ('Interferon pégylé','Interferon pégylé'),
+        ('Sofosbuvir','Sofosbuvir'),
+        ('Velpatasvir Cp 100 mg','Velpatasvir Cp 100 mg'),
+        ('Sofosbuvir 400 mg','Sofosbuvir 400 mg'),
+        ('Ledipasvir Cp','Ledipasvir Cp'),
+        ('Ledipasvir 90 mg ',' Ledipasvir 90 mg'),
+        ('Dasabuvir  Cp à 250 mg ',' Dasabuvir  Cp à 250 mg'),
+        ('Paritaprevir/ritonavir','Paritaprevir/ritonavir'),
+        ('Elbasvir Cp avec Grazoprevir 100 mg et Elbasvir 50 mg ','Elbasvir Cp avec Grazoprevir 100 mg et Elbasvir 50 mg '),
+    )
+    MAYBECHOICE2=(
+        ('300 mg/j','300 mg/j') ,
+        ('25 mg/j','TAF 25 mg/j'),
+        (' 0.5 mg/j','0.5 mg/j'),
+        ('100 mg/j','100 mg/j'),
+        ('25 mg/j','25 mg/j'),
+        ('600 mg/j','600 mg/j'),
+        ('180 g/semaine','180 g/semaine'),
+        ('400 mg','400 mg'),
+        ('1 cp/j','1 cp/j'),
+        ('400 mg','400 mg'),
+        ('1 comprimé matin et soir','1 comprimé matin et soir'),
+        ('3 cp une fois par jour','3 cp une fois par jour'),  
     )
     nommedicament=models.fields.CharField(max_length=150,choices=MAYBECHOICE1)
-    dateprescription= models.fields.DateTimeField(default=timezone.now)                                                                                
+    dosage=models.fields.CharField(max_length=30,choices=MAYBECHOICE2,null=True,blank=True) 
+    dateajout = models.DateTimeField(auto_now_add=True)                                                                              
     def __str__(self):
-        return f'{self.idmedicament} {self.nommedicament} {self.dateprescription}'
+        return f'{self.idmedicament} {self.nommedicament} {self.dosage} {self.dateajout}'
 
 class MedicamentForm(ModelForm):
     class Meta:
         model = Medicament
-        fields = ['nommedicament','dateprescription']
+        fields = ['nommedicament','dosage']
 #fin class sans clé secondaire
 
 #debut class avec clé secondaire
@@ -463,17 +479,15 @@ class Ordonnancemedicament(models.Model):# nouvel ajout c'est la table de liaiso
     ordonnance = models.ForeignKey(Ordonnance, on_delete=models.CASCADE)
     medicament = models.ForeignKey(Medicament, on_delete=models.CASCADE)
     quantite = models.PositiveIntegerField(null=True, blank=True)
-    raison=models.fields.CharField(max_length=18)
-    taitementhospi=models.fields.BooleanField(default=False)
-    date = models.DateTimeField(auto_now_add=True)
+    raison=models.fields.CharField(max_length=18)#new
+    dateajout= models.DateTimeField(auto_now_add=True)
     def __str__(self):
-        return f"{self.medicament} x {self.quantite} dans {self.ordonnance} {self.date}"
+        return f"{self.medicament} x {self.quantite} dans {self.ordonnance} {self.dateajout}"
 
 class OrdonnancemedicamentForm(ModelForm):
     class Meta:
         model = Ordonnancemedicament
         fields = ['ordonnance' ,'medicament','quantite']
-
 #fin class sans clé secondaire
 
 class Bilan_imagerie(models.Model):

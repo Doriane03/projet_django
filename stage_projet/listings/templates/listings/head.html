@@ -5,9 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>mon site</title>
-        <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900&display=swap" rel="stylesheet"/>
-        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700&display=swap" rel="stylesheet"/>
-        <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet"/>
+        <link rel="icon" type="image/x-icon" href="{% static 'listings/favicon.ico' %}">
+        
         <link href="{% static 'listings/assets/plugins/bootstrap/css/bootstrap.min.css'%}" rel="stylesheet"/>
         <link href="{% static 'listings/assets/plugins/font-awesome/css/all.min.css'%}" rel="stylesheet"/>
 
@@ -30,22 +29,6 @@
     <div class="div2"><img src="{% static 'listings/logochu.jpg' %}"  width="100"  alt="photo2"/></div>
     <div class="text">{% block cnx %}{% endblock %}</div>
   </div>
-      
-        
-  
-    <!--<footer>
-
-        <div>
-
-          <span>ouiiii</span>
-
-        </div>
-
-      </footer>-->
-      <script src="{% static 'listings/assets/plugins/jquery/jquery-3.4.1.min.js' %} "></script>
-      <script src="{% static 'listings/assets/plugins/bootstrap/popper.min.js' %}"></script>
-      <script src="{% static 'listings/assets/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
-      <script src="{% static 'listings/assets/plugins/jquery.slimscroll/jquery.slimscroll.min.js' %}"></script>
-      <script src="{% static 'listings/assets/js/connect.min.js' %}"></script>
+    
 </body>
 </html>

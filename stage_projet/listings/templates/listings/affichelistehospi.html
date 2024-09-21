@@ -1,0 +1,25 @@
+{% extends 'listings/template.html' %}
+{% block listehospital %}
+<center>
+    <h1>Liste des Patients hospitalisés</h1>
+    <div class="patient-links">
+        {% if suivie %}
+            {% for result in results %}
+                <a href="{% url 'listetraitement1' pk=result.idpatient resul=suivie %}" class="patient-link">{{ result.nom }}</a>
+            {% empty %}
+                <p>Aucun patient trouvé.</p>
+            {% endfor %}
+
+
+        {% elif autorisation %}
+            {% for result in results %}
+                <a href="{% url 'listetraitement1' pk=result.idpatient  resul=autorisation%}" class="patient-link">{{ result.nom }}</a>
+            {% empty %}
+                <p>Aucun patient trouvé.</p>
+            {% endfor %}
+
+        {% endif %}
+    </div>
+</center>
+{% endblock %}
+

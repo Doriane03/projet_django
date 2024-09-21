@@ -85,7 +85,7 @@
     <div style="margin-left:620px">
       <input type="checkbox"   name="ajout"  value="oui1" onclick="ajouter()"/>Ajouter un nouvel examen
     </div>
-    <input type="hidden"  name="consultation"  value="{{derniere_consultation_id}}"/>
+    <input type="text"  name="consultation"  value="{{derniere_consultation_id}}"/>
     </fieldset>
     <input type="submit"  name="validbilanimg"  value="Enregister" class="btn btn-primary"/>
 </form>
@@ -111,7 +111,6 @@
                     <select name="typeexamen" required>
                         <option>choisir</option>
                         <option value="Sérologie rétroviral">Sérologie rétroviral</option>
-                        <option value="IgG anti VHE">IgG anti VHE</option>
                         <option value="IgM anti VHE">IgM anti VHE</option>
                         <option value="Ac anti VHD">Ac anti VHD</option>
                         <option value="Ac anti HBe">Ac anti HBe</option>

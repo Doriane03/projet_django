@@ -16,14 +16,24 @@
                 <p class="p1">{{ error_message }}</p>
         {% endif %}
         <div class="divsortie">
-            <label for="num" >Image</label>
-        <input type="file"   placeholder="image" name="echographie_ou_radiograpgie" class="inputcontenu"  accept="image/*" required/>
+            <label for="num" >type exament</label>
+        <input type="text"   placeholder="type examen" name="typeexam" class="inputcontenu"  accept="image/*" required/>
         </div>
         <div class="divsortie">
+            <label for="num" >résultat en image</label>
+        <input type="file"   placeholder="image" name="resultat" class="inputcontenu"  accept="image/*" required/>
+        </div>
+
+        <div class="divsortie">
+            <label for="num" >date</label>
+        <input type="date"   name="dateexam" class="inputcontenu"  accept="image/*" required/>
+        </div>
+
+        <!--<div class="divsortie">
             <label for="num" >Renseignement clinique</label>
         <textarea name="renseignementclinique" placeholder="renseignement clinique"  rows="4" cols="50"></textarea>
-        </div>   
-        <input type="hidden"  name="consultation"  value="{{derniere_consultation_id}}"/>
+        </div> -->  
+        <input type="text"  name="consultation"  value="{{derniere_consultation_id}}"/>
     </fieldset>
     <input type="submit"  name="validbilanimg"  value="Enregister" class="btn btn-primary"/>
 </form>

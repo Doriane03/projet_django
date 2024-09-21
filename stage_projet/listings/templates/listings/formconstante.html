@@ -3,7 +3,7 @@
 {% block formconstante %}
 <center>
 
-<form method="post" action="{% url 'constante' %}"  class="formcontenu">
+<form method="post" action="{% url 'constante' idpatient  medecin_id %}"  class="formcontenu">
 {% if form_errors %}
   <ul>
   {% for field, errors in form_errors.items %}
@@ -54,7 +54,7 @@
                 <label >pouls</label>
                 <input type="text" placeholder="pouls en  battements/mn " name="pouls" class="inputcontenu"/>
             </div>
-            {% if sexe == "féminin" %}
+            {% if resul %}
             <div class="divsortie">
               <label>signe insuffisance hépatocéllulaire</label>
               <input type="text" placeholder="pouls en  battements/mn " name="sih" class="inputcontenu"/>
@@ -78,7 +78,7 @@
               <input type="text" name="resultattoucherectal" class="inputcontenu"/>
             </div>
             {% endif %}
-            <input type="hidden" id="patient" name="patient" value="{{ Patient_idpatient }}" />
+            <input type="hidden" id="patient" name="patient" value="{{idpatient}}" />
     </fieldset>
     <input type="submit"  name="valideconstante"  value="Enregister" class="btn btn-primary"/>
 </form>

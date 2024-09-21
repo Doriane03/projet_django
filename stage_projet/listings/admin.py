@@ -50,7 +50,7 @@ class Type_personnel_soignantAdmin(admin.ModelAdmin):
     list_display=('idpersoignant','nompersog','date') # type: ignore
 
 class HospitalisationAdmin(admin.ModelAdmin):
-    list_display=('idhospitalisation','origine','datehospitalisation','consultation') # type: ignore
+    list_display=('idhospitalisation','datehospitalisation','datehospitalisationsortie','consultation') # type: ignore
 
 class SortieAdmin(admin.ModelAdmin):
     list_display=('refsortie', 'datesortie',  'motifsortie', 'datedetransfert',  'numerodedossierdanslecentredetransfert', 'nouveaucentredesuivi', 'raison', 'commentaire',  'typedenouvelle', 'typederelance',  'datederniererelance',  'datedernierevisite', 'daterefus',  'remplipar',   'datedeces',  'causedudeces', 'lieudeces',  'decesliea','customUser','rdvdate','patient','nompracticien') # type: ignore
@@ -59,7 +59,7 @@ class FactureAdmin(admin.ModelAdmin):
     list_display=('idfact', 'numerofact', 'montantpaye',  'caution_versee', 'date_versement', 'duree_sejour', 'modepaiment', 'cout_sejour', 'remboursement', 'rest_a_payer', 'date', 'patient') # type: ignore
 
 class MedicamentAdmin(admin.ModelAdmin):
-    list_display=('idmedicament','nommedicament','dateprescription') # type: ignore
+    list_display=('idmedicament','nommedicament','dosage','dateajout') # type: ignore
 
 class ChuAdmin(admin.ModelAdmin):
     list_display=('numchu','nomchu','datecreation') # type: ignore

@@ -5,12 +5,10 @@
    {% csrf_token %}
    
        {% for medecin in medecins %}
-          
-               <label>
-                   <input type="checkbox" name="medecins" value="{{ medecin.refpersoignant }}">{{ medecin.nom }}
-                   
-               </label><br/> 
-          
+            <label style="display: block; text-align: start; margin-left:5px">
+                <input type="checkbox" name="medecins" value="{{ medecin.refpersoignant }}">
+                {{ medecin.nom }}
+            </label>
        {% endfor %}
    
        <input  type="submit" name="ajouter" value="Valider" class="btn btn-primary"/ >

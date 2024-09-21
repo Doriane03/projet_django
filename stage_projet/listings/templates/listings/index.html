@@ -8,6 +8,13 @@
             {% if form.errors %}
                 <p class="p1">verifiez le mot de passe</p>
             {% endif %}
+            {% if messages %}
+            <ul>
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+            </ul>
+{% endif %}
     </fieldset>
     <input type="submit"  name="connexion"  value="connexion" class="btn btn-primary"/>
    <!-- <a href="#" class="aformcnx">mot de passe oublié?</a>-->

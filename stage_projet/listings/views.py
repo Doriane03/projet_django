@@ -8,7 +8,7 @@ from django.utils.timezone import localtime, now,localdate
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
-from django.core.mail import send_mail
+#from django.core.mail import send_mail
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 #pour la courbe
@@ -83,19 +83,17 @@ from django.contrib.auth.decorators import login_required
 #pour ma bd
 #recuperation de donnees
 
-
-
-
 @login_required
 def patient(request):
     success = False
     error_message = None
-    
+    form = PatientForm()  # Initialiser le formulaire par défaut
+
     try:
         medecin_type = Type_personnel_soignant.objects.get(nompersog='MEDECIN')
     except Type_personnel_soignant.DoesNotExist:
         error_message = 'Type de personnel soignant pour médecin n\'existe pas.'
-        return render(request, 'listings/formpatient.html', context={'error_message': error_message})
+        return render(request, 'listings/formpatient.html', context={'error_message': error_message, 'form': form})
 
     lits = Lit.objects.all()
     medecins = CustomUser.objects.filter(type_personnel_soignant=medecin_type, disponible=True)
@@ -103,58 +101,52 @@ def patient(request):
     if request.method == "POST":
         form = PatientForm(request.POST)
         print(f'Form POST data: {request.POST}')  # Debug print
+        
         if form.is_valid():
-            medecin_id = request.POST.get('medecin')
-            lit_id = request.POST.get('lit')
-            print(f'Médecin ID: {medecin_id}, Lit ID: {lit_id}')  # Debug print
+            numero_de_patient = form.cleaned_data.get('numeropatient')  # Assure-toi que c'est le bon champ
             
-            if medecin_id and lit_id:
-                try:
-                    medecin = CustomUser.objects.get(refpersoignant=medecin_id)
-                    lit = Lit.objects.get(pk=lit_id)
-                    
-                    with transaction.atomic():
+            # Vérifier si le numéro de patient existe déjà
+            if Patient.objects.filter(numeropatient=numero_de_patient).exists():
+                error_message = 'Ce numéro de patient existe déjà. Veuillez en fournir un nouveau.'
+            else:
+                # Si le numéro de patient n'existe pas, continuer à enregistrer
+                medecin_id = request.POST.get('medecin')
+                lit_id = request.POST.get('lit')
+                
+                if medecin_id and lit_id:
+                    try:
+                        medecin = CustomUser.objects.get(refpersoignant=medecin_id)
+                        lit = Lit.objects.get(pk=lit_id)
+
                         patient = form.save(commit=False)
                         patient.save()
-                        
+
                         Patientlit.objects.create(
                             patient=patient,
                             lit=lit,
                         )
-                        
-                        Notification.objects.create(
-                            patient=patient,
-                            customUser=medecin,
-                            date_heure_assignation=timezone.now()
-                        )
-                        
                         success = True
-                        return render(request, 'listings/formconstante.html', context={
-                            'success': success,
-                            'Patient_idpatient': patient.idpatient,
-                            'medecins': medecins,
-                            'lits': lits
-                        })
-                
-                except CustomUser.DoesNotExist:
-                    error_message = 'Médecin sélectionné n\'existe pas.'
-                except Lit.DoesNotExist:
-                    error_message = 'Lit sélectionné n\'existe pas.'
-                except Exception as e:
-                    error_message = f'Échec de la création de la notification : {e}'
-            else:
-                error_message = 'Le médecin ou le lit n\'a pas été sélectionné'
+                        return redirect('constante', idpatient=patient.idpatient, medecin_id=medecin_id)
+
+                    except CustomUser.DoesNotExist:
+                        error_message = "Médecin introuvable."
+                    except Lit.DoesNotExist:
+                        error_message = "Lit introuvable."
+                    except Exception as e:
+                        error_message = f"Une erreur est survenue : {str(e)}"
+                else:
+                    error_message = 'Le médecin ou le lit n\'a pas été sélectionné'
         else:
             error_message = 'Le formulaire n\'est pas valide'
             print(f'Form errors: {form.errors}')  # Debug print
     
     return render(request, 'listings/formpatient.html', context={
         'medecins': medecins,
+        'lits': lits,
         'error_message': error_message,
         'success': success,
-        'lits': lits
+        'form': form , # Renvoie le formulaire en cas de GET ou d'erreur
     })
-
 
 
 
@@ -162,81 +154,123 @@ def index(request):#fais
     return render(request, 'listings/index.html')
 
 #fin
+
 @login_required
-def constante(request):#fais
+def constante(request,idpatient, medecin_id):
     success = False
     error_message = None
+    patient = Patient.objects.get(idpatient=idpatient)  # Récupérer le patient
+
     if request.method == "POST":
         form = ConstanteForm(request.POST)
         if form.is_valid():
             poids = form.cleaned_data['poids']
             taille = form.cleaned_data['taille']
             constante = form.save(commit=False)
+            constante.patient = patient  # Lier la constante au patient
             constante.save()
-            if constante and constante.refconst:
-                success = True 
-                return render(request, 'listings/formpatient.html', context={'success':success})
-            else:
-                error_message='Constantes non ajoutées pour le patient'
+            
+            # Création de la notification
+            medecin = CustomUser.objects.get(refpersoignant=medecin_id)  # Récupérer le médecin
+            Notification.objects.create(
+                patient=patient,
+                customUser=medecin,
+                date_heure_assignation=timezone.now()
+            )
+            success = True 
+            return redirect('patient') 
+
         else:
-            error_message='Le formulaire contient des erreurs.'
+            error_message = 'Le formulaire contient des erreurs.'
     else:
-        return render(request, 'listings/formconstante.html',{'error_message':error_message})
+        form = ConstanteForm()  # Prépare le formulaire si la méthode n'est pas POST
+
+    return render(request, 'listings/formconstante.html', {
+        'form': form,
+        'error_message': error_message,
+        'success': success,
+        'idpatient':idpatient,
+        'medecin_id':medecin_id,
+    })
 
 
 
 # views.py
+
 @login_required
-def consultation(request):#fais
+def consultation(request,cst):
     success = False
     error_message = None
     message = ''
-    patient_name = request.session.get('patient_nom', 'Nom du patient non trouvé')
-    dossier_nom = patient_name
-    patient = Patient.objects.get(nom=dossier_nom)
-    patient_id = patient.idpatient
-    request.session['patient_id']=patient_id
+    if cst=="cst":
+        patient_name = request.session.get('numeropatient', 'Nom du patient non trouvé')
+        dossier_nom = patient_name
+        try:
+            patient = Patient.objects.get(numeropatient=dossier_nom)
+        except Patient.DoesNotExist:
+            error_message = 'Patient non trouvé'
+            return render(request, 'listings/formconsultation.html', {
+                'success': success,
+                'error_message': error_message
+            })
 
-    if request.method == "POST":
-        form = ConsultationForm(request.POST)
-        if form.is_valid():
-            # Créer une nouvelle instance de Consultation
-            consultation = form.save(commit=False)
-            consultation.patient = patient
+        patient_id = patient.idpatient
+        request.session['patient_id'] = patient_id
 
-            # Récupérer les motifs sélectionnés
-            motifs = request.POST.getlist('motifdeconsultation[]')
-            print(motifs)
+        if request.method == "POST":
+            form = ConsultationForm(request.POST)
+            if form.is_valid():
+                # Créer une nouvelle instance de Consultation
+                consultation = form.save(commit=False)
+                consultation.patient = patient
+                
+                # Récupérer les motifs sélectionnés
+                motifs = request.POST.getlist('motifdeconsultation[]')
+                motifs_str = ','.join(motifs)
+                motifs1 = request.POST.getlist('signe_asso_gene[]')
+                motifs_str1 = ','.join(motifs1)
+                
+                # Récupération de la valeur du diagnostic
+                diagnostique = request.POST.get('diagnostique_retenu')
+                
+                # Mettre à jour les attributs de la consultation
+                consultation.motifdeconsultation = motifs_str
+                consultation.signe_asso_gene = motifs_str1
+                
+                # Sauvegarder la consultation avant de créer des objets liés
+                consultation.save()
 
-            motifs_str = ','.join(motifs)
-
-            motifs1 = request.POST.getlist('signe_asso_gene[]')
-
-            motifs_str1 = ','.join(motifs1)
-
-            consultation.motifdeconsultation = motifs_str
-            consultation.signe_asso_gene = motifs_str1
-
-            # Sauvegarder l'instance de Consultation
-            consultation.save()
-
-            print(motifs_str)
-
-            if consultation and consultation.Numconsulta:
-                success =True
+                if diagnostique == "hospitalisation":
+                    # Créer une nouvelle instance d'Hospitalisation
+                    nvhospi = Hospitalisation(
+                        datehospitalisationsortie=None,  # Ou définissez une date par défaut si nécessaire
+                        consultation=consultation
+                    )
+                    nvhospi.save()
+                
+                if consultation and consultation.Numconsulta:
+                    success = True
+                else:
+                    error_message = 'Consultation non enregistrée'
             else:
-                error_message ='Consultation non enregistrée'
-        else:
-            error_message = 'Le formulaire contient des erreurs.'
-    return render(request, 'listings/formconsultation.html', context={'success': success, 'patient_id': patient_id,'error_message':error_message})
+                print(form.errors)
+                error_message = 'Le formulaire contient des erreurs.'
+    elif cst=="hospi":
+        print('oui')
+    return render(request, 'listings/formconsultation.html', {
+        'success': success,
+        'patient_id': patient_id,
+        'error_message': error_message,
+        'cst':cst,
+    })
 
 
 @login_required
 def antecedantmedical(request):#fais
     success = False
     error_message = None
-    patient_name=request.session.get('patient_nom', 'Nom du patient non trouvé')
-    patient = Patient.objects.get(nom=patient_name)
+    patient_name=request.session.get('numeropatient', 'Nom du patient non trouvé')
+    patient = Patient.objects.get(numeropatient=patient_name)
     patient_id1 = patient.idpatient
     if request.method == 'POST':
         form = Antecedant_medicalForm(request.POST)
@@ -256,8 +290,8 @@ def antecedantmedical(request):#fais
 def antecedantchirurgical(request):
     success = False
     error_message = None
-    patient_name = request.session.get('patient_nom', 'Nom du patient non trouvé')
-    patient = get_object_or_404(Patient, nom=patient_name)
+    patient_name=request.session.get('numeropatient', 'Nom du patient non trouvé')
+    patient = get_object_or_404(Patient, numeropatient=patient_name)
     patient_id1 = patient.idpatient
 
     if request.method == 'POST':
@@ -281,30 +315,52 @@ def antecedantchirurgical(request):
     })
 
 
-@login_required 
-def sortie_patient(request):#fais
+@login_required
+def sortie_patient(request):
     success = False
     error_message = None
+
     if request.method == 'POST':
-        form =SortieForm(request.POST)
-        if form.is_valid():
-            form.save()
-            success = True 
-            return render(request, 'listings/formsortie.html', {'success': success})
+        # Récupération de la valeur du datesortie
+        datesortie = request.POST.get('datesortie')
+        idp = request.POST.get('patient')
+
+        if datesortie:
+            form = SortieForm(request.POST)
+            if form.is_valid():
+                # Récupérer les hospitalisations correspondantes
+                hospitalisations = Hospitalisation.objects.filter(
+                    consultation__patient_id=idp,
+                    consultation__diagnostique_retenu='hospitalisation'  # Assurez-vous que c'est nécessaire
+                )
+
+                if hospitalisations.exists():  # Vérifiez s'il y a des enregistrements à mettre à jour
+                    hospitalisations.update(datehospitalisationsortie=datesortie)
+                    form.save()  # Sauvegarder l'instance de formulaire après mise à jour des enregistrements
+                    success = True
+                else:
+                    error_message = "Aucune hospitalisation trouvée pour ce patient."
+            else:
+                error_message = "Erreur dans le formulaire : " + str(form.errors)
+
         else:
-            error_message = "sortie non enregistrée."
-            print(form.errors)
-            return render(request, 'listings/formsortie.html', {'error_message': error_message})
-           
+            error_message = "La date de sortie ne peut pas être vide."
+
     else:
         form = SortieForm()
-    return render(request, 'listings/formsortie.html', {'form': form})
+
+    return render(request, 'listings/formsortie.html', {
+        'form': form,
+        'success': success,
+        'error_message': error_message
+    })
+
 
 
 
 @login_required
 def modificationmdp(request):#fais
-    customUsers = CustomUser.objects.all()
+    customUsers =CustomUser.objects.filter(is_superuser=False) # recuperations utilisateur qui ne sont pas superuser
     user = None
     success = False
     error_message = None
@@ -319,7 +375,6 @@ def modificationmdp(request):#fais
                 user.set_password(new_password)
                 user.save()
                 update_session_auth_hash(request, user)
-                
                 success = True
             except CustomUser.DoesNotExist:
                 error_message = 'Utilisateur non trouvé.'
@@ -367,8 +422,8 @@ def adminform(request):#fais
 def antecedantgenecologique(request):#fais
     success = False
     error_message = None
-    patient_name=request.session.get('patient_nom', 'Nom du patient non trouvé')
-    patient = Patient.objects.get(nom=patient_name)
+    patient_name=request.session.get('numeropatient', 'Nom du patient non trouvé')
+    patient = Patient.objects.get(numeropatient=patient_name)
     patient_id1 = patient.idpatient
     if request.method == 'POST':
         form =Antecedant_genecologiqueForm(request.POST)
@@ -382,16 +437,33 @@ def antecedantgenecologique(request):#fais
             error_message = 'antécédant gynécologique  non ajouté.'
     return render(request, 'listings/formantgynecologique.html',{"patient_id1":patient_id1,'success': success,'error_message':error_message})
 
-
 @login_required
-def tableauconsultation(request):#fais
-    #notifications = Notification.objects.filter(customUser=request.user).order_by('date_heure_notification')
-    today = localdate()
-    notifications = Notification.objects.filter(
-    customUser=request.user,
-    date_heure_notification__date=today
-    ).order_by('date_heure_notification')
-    return render(request,'listings/tableauconsultation.html',{'notifications': notifications})
+def tableauconsultation(request, cst):
+    if cst == 'cst':
+        today = localdate()
+        notifications = Notification.objects.filter(
+            customUser=request.user,
+            date_heure_notification__date=today
+        ).order_by('date_heure_notification')
+
+        # Vérifie si des notifications existent
+        if not notifications.exists():
+            message = "Aucune notification trouvée pour aujourd'hui."
+        else:
+            message = None
+
+        return render(request, 'listings/tableauconsultation.html', {
+            'notifications': notifications,
+            'message': message,
+            'cst':cst,
+        })
+
+    return render(request, 'listings/tableauconsultation.html', {
+        'notifications': None,
+        'message': "Paramètre 'cst' non valide.",
+        'cst':cst,
+    })
+
 
 
 
@@ -400,8 +472,8 @@ def tableauconsultation(request):#fais
 def antecedantfamilial(request):#fais
     success = False
     error_message = None
-    patient_name=request.session.get('patient_nom', 'Nom du patient non trouvé')
-    patient = Patient.objects.get(nom=patient_name)
+    patient_name=request.session.get('numeropatient', 'Nom du patient non trouvé')
+    patient = Patient.objects.get(numeropatient=patient_name)
     patient_id1 = patient.idpatient
     if request.method == 'POST':
         form = Antecedant_familialForm(request.POST)
@@ -421,27 +493,20 @@ def antecedantfamilial(request):#fais
 
 
 @login_required
-def box(request,pt):
+def box(request,pt,cst):
     print(pt)
     #patient = get_object_or_404(Patient, nom=patient_name)
     patient_id =Patient.objects.get(numeropatient=pt).idpatient
-    patient_nom=Patient.objects.get(idpatient=patient_id).nom
-    sexe =Patient.objects.get(nom=patient_nom).sexe #selection du sexe du patient dont le nom est patient_nom
+    patient_nom=Patient.objects.get(numeropatient=pt).nom
+    sexe =Patient.objects.get(numeropatient=pt).sexe #selection du sexe du patient dont le nom est patient_nom
     print(patient_nom)
     print(sexe)
     print(patient_id)
-
-    request.session['patient_nom'] = patient_nom
+    request.session['numeropatient'] = pt
     if not patient_nom:
         return render(request,'listings/tableauconsultation.html')
     
-    return render(request, 'listings/boxclick.html', {'sexe': sexe})
-
-@login_required
-def boxhospi(request):
-    
-    return render(request, 'listings/boxhospi.html')
-
+    return render(request, 'listings/boxclick.html', {'sexe': sexe,'cst':cst})
 
 
 @login_required
@@ -662,30 +727,47 @@ def disponibilite(request):
     return render(request, 'listings/tableaumeddispodelasemaine.html', {'medecins': medecins})
 
 @login_required
-def bilanimg(request):
+def bilanimg(request,cst):
     success = False
     error_message = None
-    patient_name = request.session.get('patient_nom', 'Nom du patient non trouvé')
-    patient = get_object_or_404(Patient, nom=patient_name)
-    patient_id1 = patient.idpatient
+    if cst=='cst':
+        patient_name = request.session.get('numeropatient', 'Nom du patient non trouvé')
+        patient = get_object_or_404(Patient, numeropatient=patient_name)
+        patient_id1 = patient.idpatient
 
-    # Récupérer la dernière consultation
-    derniere_consultation_id = None
-    try:
-        derniere_consultation = Consultation.objects.filter(patient=patient).latest('date')
-        derniere_consultation_id = derniere_consultation.Numconsulta
-    except Consultation.DoesNotExist:
-        derniere_consultation = None
+        # Récupérer la dernière consultation
+        derniere_consultation_id = None
+        try:
+            derniere_consultation = Consultation.objects.filter(patient=patient).latest('date')
+            derniere_consultation_id = derniere_consultation.Numconsulta
+        except Consultation.DoesNotExist:
+            derniere_consultation = None
 
-    if request.method == 'POST':
-        form = Bilan_imagerieForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            success = True
-        else:
-            print(form.errors)
-            error_message = 'Bilan imagerie non enregistré.'
-
+        if request.method == 'POST':
+            form = Bilan_imagerieForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                success = True
+            else:
+                print(form.errors)
+                error_message = 'Bilan imagerie non enregistré.'
+    elif cst=="hospi":
+        pk = request.session.get('pk')
+        drconsul= Consultation.objects.filter(patient_id=pk).order_by('-date').first()
+        idp=drconsul.Numconsulta
+        if request.method == 'POST':
+            form = Bilan_imagerieForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                success = True
+            else:
+                print(form.errors)
+                error_message = 'Bilan imagerie  d"hospi non enregistré.'
+        return render(request, 'listings/formbilanimg.html', {
+        'error_message': error_message,
+        'success': success,
+        'derniere_consultation_id': idp,})
+        
     return render(request, 'listings/formbilanimg.html', {
         'error_message': error_message,
         'success': success,
@@ -695,30 +777,48 @@ def bilanimg(request):
 
 
 @login_required
-def bilanbio(request):
+def bilanbio(request,cst):
     success = False
     error_message = None
-    patient_name = request.session.get('patient_nom', 'Nom du patient non trouvé')
-    patient = get_object_or_404(Patient, nom=patient_name)
-    patient_id1 = patient.idpatient
+    if cst=='cst':
+        patient_name = request.session.get('numeropatient', 'Nom du patient non trouvé')
+        patient = get_object_or_404(Patient, numeropatient=patient_name)
+        patient_id1 = patient.idpatient
 
-    # Récupérer la dernière consultation
-    derniere_consultation_id = None
-    try:
-        derniere_consultation = Consultation.objects.filter(patient=patient).latest('date')
-        derniere_consultation_id = derniere_consultation.Numconsulta
-    except Consultation.DoesNotExist:
-        derniere_consultation = None
+        # Récupérer la dernière consultation
+        derniere_consultation_id = None
+        try:
+            derniere_consultation = Consultation.objects.filter(patient=patient).latest('date')
+            derniere_consultation_id = derniere_consultation.Numconsulta
+        except Consultation.DoesNotExist:
+            derniere_consultation = None
 
-    if request.method == 'POST':
-        form = Bilan_biologiqueForm(request.POST)
-        if form.is_valid():
-            form.save()
-            success = True
-        else:
-            print(form.errors)
-            error_message = 'Bilan imagerie non enregistré.'
+        if request.method == 'POST':
+            form = Bilan_biologiqueForm(request.POST)
+            if form.is_valid():
+                form.save()
+                success = True
+            else:
+                print(form.errors)
+                error_message = 'Bilan imagerie non enregistré.'
+    elif cst=='hospi':
+        pk = request.session.get('pk')
+        drconsul= Consultation.objects.filter(patient_id=pk).order_by('-date').first()
+        idp=drconsul.Numconsulta
 
+        if request.method == 'POST':
+            form = Bilan_biologiqueForm(request.POST)
+            if form.is_valid():
+                form.save()
+                success = True
+            else:
+                print(form.errors)
+                error_message = 'Bilan imagerie non enregistré.'
+        return render(request, 'listings/bilanbio.html', {
+            'error_message': error_message,
+            'success': success,
+            'derniere_consultation_id': idp,
+        })
     return render(request, 'listings/bilanbio.html', {
         'error_message': error_message,
         'success': success,
@@ -787,63 +887,95 @@ def dossier(request):
 
 
 @login_required
-def ordonnance(request):
+def ordonnance(request,cst):
     medicaments = Medicament.objects.all()
     success = False
     error_message = None
-    patient_name = request.session.get('patient_nom', 'Nom du patient non trouvé')
-    patient = get_object_or_404(Patient, nom=patient_name)
-    patient_id1 = patient.idpatient
+    if cst=='cst':
+        patient_name = request.session.get('numeropatient', 'Nom du patient non trouvé')
+        patient = get_object_or_404(Patient, numeropatient=patient_name)
+        patient_id1 = patient.idpatient
 
-    # Récupérer la dernière consultation
-    derniere_consultation_id = None
-    try:
-        derniere_consultation = Consultation.objects.filter(patient=patient).latest('date')
-        derniere_consultation_id = derniere_consultation.Numconsulta
-    except Consultation.DoesNotExist:
-        derniere_consultation = None
+        # Récupérer la dernière consultation
+        derniere_consultation_id = None
+        try:
+            derniere_consultation = Consultation.objects.filter(patient=patient).latest('date')
+            derniere_consultation_id = derniere_consultation.Numconsulta
+        except Consultation.DoesNotExist:
+            derniere_consultation = None
 
-    if request.method == 'POST':
-        # Récupération des données du formulaire
-        consulation_id = request.POST.get('consulation')
-        medicaments_ids = request.POST.getlist('nommedicament[]')
-        quantites = request.POST.getlist('quantite[]')
-        dosages = request.POST.getlist('dosage[]')
+        if request.method == 'POST':
+            # Récupération des données du formulaire
+            consulation_id = request.POST.get('consulation')
+            medicaments_ids = request.POST.getlist('nommedicament[]')
+            quantites = request.POST.getlist('quantite[]')
+            dosages = request.POST.getlist('dosage[]')
 
-        # Validation des données
-        if consulation_id and medicaments_ids:
-            try:
-                # Créer une instance de Ordonnance
-                consulation = Consultation.objects.get(pk=consulation_id)
-                ordonnance = Ordonnance.objects.create(consulation=consulation)
+            # Validation des données
+            if consulation_id and medicaments_ids:
+                try:
+                    # Créer une instance de Ordonnance
+                    consulation = Consultation.objects.get(pk=consulation_id)
+                    ordonnance = Ordonnance.objects.create(consulation=consulation)
 
-                # Ajouter les médicaments via la table de liaison
-                for medicament_id, quantite in zip(medicaments_ids, quantites):
-                    if medicament_id and quantite:
-                        medicament = Medicament.objects.get(pk=medicament_id)
-                        Ordonnancemedicament.objects.create(
-                            ordonnance=ordonnance,
-                            medicament=medicament,
-                            quantite=quantite
-                        )
-                
-                success = True
-            except Exception as e:
-                print(e)
-                error_message = 'Erreur lors de l\'enregistrement de l\'ordonnance.'
+                    # Ajouter les médicaments via la table de liaison
+                    for medicament_id, quantite in zip(medicaments_ids, quantites):
+                        if medicament_id and quantite:
+                            medicament = Medicament.objects.get(pk=medicament_id)
+                            Ordonnancemedicament.objects.create(
+                                ordonnance=ordonnance,
+                                medicament=medicament,
+                                quantite=quantite
+                            )
+                    
+                    success = True
+                except Exception as e:
+                    print(e)
+                    error_message = 'Erreur lors de l\'enregistrement de l\'ordonnance.'
+    elif cst=='hospi':
+        kp = request.session.get('pk')
+        drconsul= Consultation.objects.filter(patient_id=kp).order_by('-date').first()
+        idp=drconsul.Numconsulta
+        if request.method == 'POST':
+            # Récupération des données du formulaire
+            consulation_id = request.POST.get('consulation')
+            medicaments_ids = request.POST.getlist('nommedicament[]')
+            quantites = request.POST.getlist('quantite[]')
+            dosages = request.POST.getlist('dosage[]')
 
+            # Validation des données
+            if consulation_id and medicaments_ids:
+                try:
+                    # Créer une instance de Ordonnance
+                    consulation = Consultation.objects.get(pk=consulation_id)
+                    ordonnance = Ordonnance.objects.create(consulation=consulation)
+
+                    # Ajouter les médicaments via la table de liaison
+                    for medicament_id, quantite in zip(medicaments_ids, quantites):
+                        if medicament_id and quantite:
+                            medicament = Medicament.objects.get(pk=medicament_id)
+                            Ordonnancemedicament.objects.create(
+                                ordonnance=ordonnance,
+                                medicament=medicament,
+                                quantite=quantite
+                            )
+                    
+                    success = True
+                except Exception as e:
+                    print(e)
+                    error_message = 'Erreur lors de l\'enregistrement de l\'ordonnance.'
+        return render(request, 'listings/formordonnance.html', {
+            'medicaments': medicaments,
+            'error_message': error_message,
+            'success': success,
+            'derniere_consultation_id':idp,})
+        
     return render(request, 'listings/formordonnance.html', {
         'medicaments': medicaments,
         'error_message': error_message,
         'success': success,
         'derniere_consultation_id':derniere_consultation_id,
     })
-
-
-
-
-
-
 
 @login_required
 def facture(request):#fais
@@ -911,48 +1043,104 @@ class CustomLoginView(LoginView):
     def get_success_url(self):
         user = self.request.user
         if user.is_authenticated:
-            if user.type_personnel_soignant:
-                if user.type_personnel_soignant.nompersog == "INFIRMIERE" or user.type_personnel_soignant.nompersog == "INFIRMIER":
-                    return reverse('calendar')
+            if user.is_superuser:
+                return reverse('admin:index')  # Redirige vers l'interface admin
+            elif user.type_personnel_soignant:
+                if user.type_personnel_soignant.nompersog in ["INFIRMIERE", "INFIRMIER"]:
+                    return reverse('calendar')  # Redirige vers le calendrier
                 elif user.type_personnel_soignant.nompersog == "MEDECIN":
-                    return reverse('tableauconsultation')
+                    return reverse('tableauconsultation',kwargs={'cst':'cst'})  # Redirige vers le tableau de consultation
                 elif user.type_personnel_soignant.nompersog == "ADMIN":
-                    return reverse('chart')
-            # Ajoutez un cas de secours si le type_personnel_soignant est None
-            return reverse('index')  # Par défaut redirige vers l'index si aucune condition n'est remplie
-        else:
-            return reverse('index')  # Redirige vers l'index si l'utilisateur n'est pas authentifié
+                    return reverse('chart')  # Redirige vers la page de l'admin utilisateur
+            # Si l'utilisateur est authentifié mais n'est pas un super utilisateur ni un type personnel soignant
+            return reverse('index')  # Redirige vers l'index par défaut
+        return reverse('index')  # Redirige vers l'index si l'utilisateur n'est pas authentifié
 
 @login_required
 def custom_logout(request):
-    request.session.flush()
-    logout(request)
-    if not request.session.items():
-        return redirect('index')
+    logout(request)  # Déconnexion de l'utilisateur
+    return redirect('index')
+
+
+
+
+#l'envoie de mail
+from listings.tasks import relance
+from django_celery_beat.models import PeriodicTask,CrontabSchedule
+from django.core.mail import send_mail
+
+def envoiemail(request):
+    relance.delay()
+    return HttpResponse("done")
+
+
+
+import json
+def schedule_mail(request):
+    schedule,created =CrontabSchedule.objects.get_or_create(hour=16,minute=7)
+    task=PeriodicTask.objects.create(crontab=schedule,name="schedule_mail_task_"+"8",task='stage_projet.tasks.relance',args=json.dumps(([2,3])))#args=json.dumps(([2,3]))
+    return HttpResponse("done")
+
+
+#hospitalisation
+from django.db.models import Count, Q
+
+@login_required
+def listehospi(request):
+    # Récupération des paramètres de l'URL
+    suivie = request.GET.get('suivie')
+    autorisation = request.GET.get('autorisation')
+    
+    
+    # Affichage pour débogage
+    print(f"suivie: '{suivie}'")
+    print(f"autorisation: '{autorisation}'")
+    
+    # Requête ORM pour obtenir les résultats
+
+# Nous filtrons les patients selon les conditions spécifiées
+    results = Patient.objects.filter(
+        consultation__hospitalisation__datehospitalisationsortie__isnull=True,
+        consultation__diagnostique_retenu='hospitalisation'
+    ).values('nom','idpatient').annotate(
+        count=Count('idpatient')
+    )
+    
+    # Décider de rendre la page avec ou sans contexte
+    if suivie == 'suivie':
+        return render(request, 'listings/affichelistehospi.html', context={'results': results,'suivie':suivie})
+    elif autorisation == 'autorisation':
+        return render(request, 'listings/affichelistehospi.html', context={'results': results,'autorisation':autorisation})
+        
     else:
-       print(request, 'Certaines informations de session n\'ont pas été supprimées.')
-       return redirect('index')
+        # Vous pouvez aussi choisir de passer un message ou une autre information dans le contexte si nécessaire
+        return render(request, 'listings/affichelistehospi.html', context={})
 
 
-def envoiedemail(request):
-    today = timezone.now().date()
-    # Filtrez les objets en fonction de la date
-    emails_to_send = Sortie.objects.filter(date_to_send=today, sent=False)
-    emails = Sortie.objects.filter(daterdv=today).values_list('patient__email', flat=True)
-    for email in emails_to_send:
-        subject ="Rappel"
-        message ="Bonjour/bonsoir juste pour vous informer que vous avez un rendez-vous aujourd'hui."
-        recipient_list = [emails]
 
-        try:
-            # Envoyer l'e-mail
-            send_mail(subject, message, 'josephinedorianekouadio@gmail.com', recipient_list)
-            
-            # Marquer l'e-mail comme envoyé
-            email.sent = True
-            email.save()
+def listetraitement(request,hospi):
+    if hospi=='hospi':
+        return render(request, 'listings/boxchoix.html',context={'hospi':hospi})
 
-        except Exception as e:
-            # Log or handle the error appropriately
-            print(f"Failed to send email to {email.recipient_email}: {e}")
 
+
+
+
+
+@login_required
+def listetraitement1(request,pk,resul):
+    if pk and resul=="suivie":
+        request.session['pk'] = pk
+        return render(request, 'listings/boxhospi.html',context={'resul':resul})
+    
+    if pk and resul=="autorisation":
+        return render(request, 'listings/formsortie.html')
+    
+    return render(request, 'listings/boxchoix.html')
+
+
+
+
+
+
+     

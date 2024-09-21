@@ -2,10 +2,12 @@
 
 {% block formordonnance %}
 <center>
-<form method="post" action="" class="formcontenutab">
-    <div>
-        <nav class="divcontenunav">ordonnance</nav>
+<form method="post" action="" class="formcontenutab"> 
+    <div  class="divcontenunav" style="display: flex; justify-content: space-between;">
+        <div>Ordonnance</div>
+        <div>Date de prescription:<input type="date" id="dateField" readonly /></div>
     </div>
+        
     {% csrf_token %}
     <fieldset>
         {% if success %}
@@ -51,7 +53,7 @@
         <div style="margin-left:620px">
             <input type="checkbox" name="ajout" value="oui" onclick="ajouter()" /> Ajouter un médicament
         </div>
-        <input type="hidden" id="consultation" name="consulation" value="{{derniere_consultation_id}}">
+        <input type="text" id="consultation" name="consulation" value="{{derniere_consultation_id}}">
     </fieldset>
     <input type="submit" name="valideconstante" value="Enregistrer" class="btn btn-primary"/>
 </form>
@@ -101,5 +103,32 @@
             }
         }
     }
+
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const dateField = document.getElementById('dateField');
+    
+        // Obtenir la date d'aujourd'hui
+        const today = new Date();
+        
+        // Formater la date au format YYYY-MM-DD
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0'); // Les mois commencent à 0
+        const day = String(today.getDate()).padStart(2, '0');
+    
+        const formattedDate = `${year}-${month}-${day}`;
+        
+        // Afficher la date dans le champ
+        dateField.value = formattedDate;
+    });
+
+    
+
 </script>
+
+
+
+
+
 {% endblock %}
