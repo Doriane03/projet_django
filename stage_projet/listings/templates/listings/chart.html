@@ -7,8 +7,8 @@
               <div class="card-body">
                   <div class="stats-info">
                       <h5 class="card-title">{{ nombre_de_patients }}
-                        <div class="stats-icon change-success">
-                            <i class="material-icons">group</i>
+                        <div class="stats-icon ">
+                            <i class="material-icons" style="color:deepskyblue;">group</i>
                         </div>
                       </h5> 
                       <p class="stats-text">Nombre de patient</p>
@@ -22,8 +22,8 @@
               <div class="card-body">
                   <div class="stats-info">
                       <h5 class="card-title">{{nombre_deces}}
-                        <div class="stats-icon change-danger">
-                            <i class="material-icons">group</i>
+                        <div class="stats-icon">
+                            <i class="material-icons" style="color:deepskyblue;">group</i>
                         </div>
                       </h5>
                       <p class="stats-text">Nombre de décès</p>
@@ -36,8 +36,8 @@
               <div class="card-body">
                   <div class="stats-info">
                       <h5 class="card-title">{{hospitalisation_count}}
-                        <div class="stats-icon change-success">
-                            <i class="material-icons">hotel</i>
+                        <div class="stats-icon ">
+                            <i class="material-icons " style="color:deepskyblue;">hotel</i>
                         </div>
                       </h5>
                       <p class="stats-text">Nombre de patient hospitalisé</p>
@@ -54,21 +54,21 @@
             <div class="card-body">
                 <div class="stats-info">
                     <h5 class="card-title">{{nombre_patients_feminins}}
-                         <div class="stats-icon change-success">
-                        <i class="material-icons">woman</i>
+                         <div class="stats-icon ">
+                        <i class="material-icons" style="color:deepskyblue;">woman</i>
                         </div>
                     
                     </h5>
-                    <p class="stats-text">Nombre de patient femme</p>
+                    <p class="stats-text">patient femme</p>
                 </div>
 
-                <div class="stats-info">
+                <div class="stats-info" style="margin-left:15px">
                     <h5 class="card-title">{{masculin_count}}
-                        <div class="stats-icon change-success">
-                            <i class="material-icons">man</i>
+                        <div class="stats-icon">
+                            <i class="material-icons" style="color:deepskyblue;">man</i>
                         </div> 
                     </h5>
-                    <p class="stats-text">Nombre de patient homme</p>
+                    <p class="stats-text">patient homme</p>
 
                 </div>
 
@@ -80,28 +80,24 @@
         <div class="card card-transparent stats-card">
             <div class="card-body">
                 <div class="stats-info">
-                    <h5 class="card-title">{{average_age}}
-                        <div class="stats-icon change-success">
-                            <i class="material-icons">trending_up</i>
-                        </div>
-                    </h5>
-                    <p class="stats-text">la moyenne de l'age</p>
-                </div>
-                
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4 col-md-12">
-        <div class="card card-transparent stats-card">
-            <div class="card-body">
-                <div class="stats-info">
-                    <h5 class="card-title">0
-                        <div class="stats-icon change-success">
-                            <i class="material-icons">hotel</i>
-                        </div>
-                    </h5>
                     
-                    <p class="stats-text">Nonbre de patients en consultation reguliere</p>
+                        <p class="stats-text">la moyenne de l'age</p>
+                    
+                    <p class="card-title">{{average_age}}</p>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-12">
+        <div class="card card-transparent stats-card">
+            <div class="card-body">
+                <div class="stats-info">
+                    
+                        <p class="stats-text">Nonbre de patients en consultation reguliere</p>
+                   
+                    <p class="card-title">{{consulreg}}</p>
+                    
                 </div>
                 
             </div>

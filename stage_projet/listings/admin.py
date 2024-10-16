@@ -24,7 +24,10 @@ from  listings.models  import Bilan_biologique # type: ignore
 from  listings.models import Notification
 from  listings.models import Lit
 from  listings.models import Categorie
-from  listings.models import Patientlit
+from  listings.models import hospitalisationlit
+from  listings.models import Examen_physique
+from  listings.models import Examens_bio
+from  listings.models import Bilan_biologiqueexamens
 #fin import
 from  listings.models  import CustomUser # type: ignore
 admin.site.register(CustomUser)
@@ -34,11 +37,12 @@ class OrdonnancemedicamentInline(admin.TabularInline):#cherche à comprendre pou
     model = Ordonnancemedicament
     extra = 1 
 
-class PatientlitAdmin(admin.ModelAdmin):
-    list_display = ('patient', 'lit', 'dateoccupation_fr')
-    def dateoccupation_fr(self, obj):
-        return obj.dateoccupation_fr()  # Appelle la méthode du modèle pour formater la date
-    dateoccupation_fr.short_description = 'Date d\'occupation'
+class Bilan_biologiqueexamensInline(admin.TabularInline):#cherche à comprendre pourquoi
+    model = Bilan_biologiqueexamens
+    extra = 1 
+class hospitalisationlitInline(admin.TabularInline):
+    model = hospitalisationlit
+    extra = 1 
 
 
 class NotificationAdmin(admin.ModelAdmin):
@@ -50,7 +54,8 @@ class Type_personnel_soignantAdmin(admin.ModelAdmin):
     list_display=('idpersoignant','nompersog','date') # type: ignore
 
 class HospitalisationAdmin(admin.ModelAdmin):
-    list_display=('idhospitalisation','datehospitalisation','datehospitalisationsortie','consultation') # type: ignore
+    list_display=('idhospitalisation','date','patient') # type: ignore
+    inlines = [hospitalisationlitInline]
 
 class SortieAdmin(admin.ModelAdmin):
     list_display=('refsortie', 'datesortie',  'motifsortie', 'datedetransfert',  'numerodedossierdanslecentredetransfert', 'nouveaucentredesuivi', 'raison', 'commentaire',  'typedenouvelle', 'typederelance',  'datederniererelance',  'datedernierevisite', 'daterefus',  'remplipar',   'datedeces',  'causedudeces', 'lieudeces',  'decesliea','customUser','rdvdate','patient','nompracticien') # type: ignore
@@ -71,23 +76,28 @@ class ServiceAdmin(admin.ModelAdmin):
     #list_display=('refpersoignant','mdp','nom','contact','email','date','Service','Type_personnel_soignant') # type: ignore
 
 class PatientAdmin(admin.ModelAdmin):
-    list_display=('idpatient', 'nom', 'contact1' ,'contact2', 'profession', 'email', 'age', 'sexe' , 'personne_a_contacter'  ,'ville',  'commune', 'quartier', 'nationalite' , 'nombre_enfant' , 'situation_matrimoniale','telephone_cpu','numeropatient') # type: ignore
+    list_display=('idpatient', 'nom', 'contact1' ,'contact2', 'profession','date', 'email', 'age', 'sexe' , 'personne_a_contacter'  ,'ville',  'commune', 'quartier', 'nationalite' , 'nombre_enfant' , 'situation_matrimoniale','telephone_cpu','numeropatient') # type: ignore
 
 class ConstanteAdmin(admin.ModelAdmin):
-    list_display=('refconst','poids','taille','temperature','imc','tas','tad','pouls','resultattoucherectal','shp','lmc','lxo','sih','patient','date') # type: ignore
+    list_display=('refconst','poids','taille','temperature','imc','tas','tad','pouls','patient','dateajout') # type: ignore
 
 class ConsultationAdmin(admin.ModelAdmin):
     list_display=('Numconsulta', 'motifdeconsultation', 'prescripteur_consultation', 'debut_signe', 'signe_digestifs', 'signe_extra_digestif', 'signe_asso_gene', 'nombredeverre_alcool', 'nombrepaquettabac', 'medoc_en_cours', 'prise_therap_tarditionnelle', 'aghbs', 'acanti_vhc', 'acanti_vhd', 'serologie_retrovi', 'transaminase','dateserologie_retrovi','dateaghbs','dateacanti_vhd','dateacanti_vhc','datetransa', 'date','Bilanbiologiqueant','diagnostique_retenu','typealcool','frequence','patient', 'customUser') # type: ignore
 
 class OrdonnanceAdmin(admin.ModelAdmin):
-    list_display=('reford','consulation','date') # type: ignore
+    list_display=('reford','patient','date') # type: ignore
     inlines = [OrdonnancemedicamentInline]
 
 class Bilan_imagerieAdmin(admin.ModelAdmin):
-    list_display=('numbilimg','typeexam','resultat' ,'dateexam','consultation','date') # type: ignore
+    list_display=('numbilimg','resultat' ,'dateexam','patient','dateajout','service','echographie','rensignementclinique','radiographie') # type: ignore
 
 class Bilan_biologiqueAdmin(admin.ModelAdmin):
-    list_display=('numbilanbio', 'typeexamen', 'unite','consultation','resultatnumerique','prix','datedubilan','resultatdubilan') # type: ignore
+    list_display=('numbilanbio', 'date','patient') # type: ignore
+    inlines = [Bilan_biologiqueexamensInline]
+    
+class Examens_bioAdmin(admin.ModelAdmin):
+    list_display=('idexamen', 'typeexamen', 'unite') # type: ignore
+    
     
 class Antecedant_familialAdmin(admin.ModelAdmin): #nouveau
     list_display=('refantfam', 'hepatie_vir_ASC', 'cirrhose_ASC', 'cpf_ASC','hepatie_vir_DSC', 'cirrhose_DSC', 'cpf_DSC','hepatie_vir_COL', 'cirrhose_COL', 'cpf_COL','patient')
@@ -108,6 +118,8 @@ class LitAdmin(admin.ModelAdmin):#nouveau
 class CategorieAdmin(admin.ModelAdmin):#nouveau
     list_display=('idcat', 'libcat')
 
+class Examen_physiqueAdmin(admin.ModelAdmin):#nouveau
+    list_display=('idExamen_physique','patient' ,'sih','shp','lmc','lxo','resultattoucherectal','etat_de_conscience','observation','date')
 #fin
 #pour ma bd
 admin.site.register(Antecedant_medical,Antecedant_medicalAdmin) #nouveau
@@ -132,7 +144,8 @@ admin.site.register(Consultation,ConsultationAdmin)
 admin.site.register(Notification,NotificationAdmin)
 admin.site.register(Categorie, CategorieAdmin)
 admin.site.register(Lit, LitAdmin)
-admin.site.register(Patientlit, PatientlitAdmin)
+admin.site.register(Examen_physique,Examen_physiqueAdmin)
+admin.site.register(Examens_bio,Examens_bioAdmin)
 
 #fin
 # Register your models here.

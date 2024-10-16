@@ -13,12 +13,20 @@
 
         {% elif autorisation %}
             {% for result in results %}
-                <a href="{% url 'listetraitement1' pk=result.idpatient  resul=autorisation%}" class="patient-link">{{ result.nom }}</a>
+                <a href="{% url 'listetraitement1' pk=result.idpatient  resul=autorisation %}" class="patient-link">{{ result.nom }}</a>
             {% empty %}
                 <p>Aucun patient trouvé.</p>
             {% endfor %}
 
+        {% elif surveillance %}
+            {% for result in results %}
+                <a href="{% url 'listetraitement1' pk=result.idpatient  resul=surveillance %}" class="patient-link">{{ result.nom }}</a>
+            {% empty %}
+                <p>Aucun patient trouvé.</p>
+            {% endfor %}
+                
         {% endif %}
+
     </div>
 </center>
 {% endblock %}

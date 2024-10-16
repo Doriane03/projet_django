@@ -1,12 +1,33 @@
 
 {% extends 'listings/template.html' %}
-
 {% block formbilanimg %}
+<style>
+    table {
+        border-collapse: separate; /* Permet d'utiliser border-spacing */
+        border-spacing:8px; /* Ajustez la valeur selon vos besoins */
+        width: 100%;
+    }
+    th, td {
+        padding:0px;
+        margin:0px;
+        text-align: left;,
+        width:100%;
+    }
+    .td_div{
+        margin-left:125px;
+        width:49%;
+    }
+</style>
 <center>
 <form method="post" action=""  class="formcontenu" enctype="multipart/form-data">
-<div>
-<nav class="divcontenunav">bilan imagerie</nav>
-</div>
+    <div  class="divcontenunav" style="display: flex; justify-content: space-between;">
+        <div>Service d'imagerie médicale</div>
+        <div>Date:<input type="date" id="dateField" readonly /></div>
+    </div>
+    <!--<div>
+<nav class="divcontenunav">Service d'imagerie médicale</nav>
+<div>Date de prescription:<input type="date" id="dateField" readonly /></div>
+</div>-->
 {% csrf_token %}
     <fieldset>
         {% if success %}
@@ -16,26 +37,115 @@
                 <p class="p1">{{ error_message }}</p>
         {% endif %}
         <div class="divsortie">
-            <label for="num" >type exament</label>
-        <input type="text"   placeholder="type examen" name="typeexam" class="inputcontenu"  accept="image/*" required/>
+            <label>résultat en image</label>
+            <div class="form-check form-check-inline">
+                <input type="radio" name="nb1" value="radiographie" class="form-check-input" id="exampleRadios29" onclick="echo_radio()"/>
+                <label class="form-check-label" for="exampleRadios29">radiographie</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="radio" name="nb1" value="echographie" class="form-check-input" id="exampleRadios30" onclick="echo_radio()"/>
+                <label class="form-check-label" for="exampleRadios30">échographie</label>
+            </div> 
+        
+        </div>
+        <div  class="test td_div" id="radio">
+            <table> 
+                <tr>
+                    <th>Radiographie de</th>
+                    <th>Image</th>
+                </tr>
+                <tr>
+                    <td><input type="text" name="radiographie" id="n5"/></td>
+                    <td><input type="file" placeholder="Image" name="resultat" accept="image/*" id="n3" /></td>
+                </tr>
+            </table>
+            
+        </div>
+        <div class="test td_div" id="echo">
+            <table>
+                <tr><th>échographie de</th><th>image</th></tr>
+                <tr>
+                    <td><input type="text" name="echographie" id="n2"/></td>
+                    <td><input type="file" placeholder="image" name="resultat" accept="image/*" id="n4" /></td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="divsortie">
+            <label for="num" >service</label>
+        <input type="text"   placeholder="service" name="service" class="inputcontenu" required/>
         </div>
         <div class="divsortie">
-            <label for="num" >résultat en image</label>
-        <input type="file"   placeholder="image" name="resultat" class="inputcontenu"  accept="image/*" required/>
+            <label for="num" >renseignements cliniques</label>
+        <input type="text"   placeholder="renseignements cliniques" name="rensignementclinique" class="inputcontenu"/>
         </div>
 
         <div class="divsortie">
             <label for="num" >date</label>
-        <input type="date"   name="dateexam" class="inputcontenu"  accept="image/*" required/>
+        <input type="date"   name="dateexam" class="inputcontenu"/>
         </div>
 
         <!--<div class="divsortie">
             <label for="num" >Renseignement clinique</label>
         <textarea name="renseignementclinique" placeholder="renseignement clinique"  rows="4" cols="50"></textarea>
         </div> -->  
-        <input type="text"  name="consultation"  value="{{derniere_consultation_id}}"/>
+        <input type="hidden"  name="patient"  value="{{derniere_consultation_id}}"/>
     </fieldset>
     <input type="submit"  name="validbilanimg"  value="Enregister" class="btn btn-primary"/>
 </form>
 </center>
+
+<script>
+   
+    document.addEventListener('DOMContentLoaded', function() {
+        const dateField = document.getElementById('dateField');
+    
+        // Obtenir la date d'aujourd'hui
+        const today = new Date();
+        
+        // Formater la date au format YYYY-MM-DD
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0'); // Les mois commencent à 0
+        const day = String(today.getDate()).padStart(2, '0');
+    
+        const formattedDate = `${year}-${month}-${day}`;
+        
+        // Afficher la date dans le champ
+        dateField.value = formattedDate;
+    });
+
+    function echo_radio() {
+        var afficheRadio1 = document.getElementsByName('nb1');
+        var inputField = document.getElementById("radio");
+        var inputField1 = document.getElementById("echo");
+    
+        // Cacher les deux tableaux initialement
+        inputField.style.display = "none";
+        inputField1.style.display = "none";
+    
+        // Vérifier quel bouton radio est sélectionné
+        for (var i = 0; i < afficheRadio1.length; i++) {
+            if (afficheRadio1[i].checked) {
+                switch (afficheRadio1[i].value) {
+                    case 'radiographie':
+                        // Afficher le tableau de radiographie
+                        inputField.style.display = "block";
+                        // Vider les champs d'échographie
+                        document.getElementById("n2").value = ""; // Champ texte pour échographie
+                        document.getElementById("n4").value = ""; // Champ fichier pour échographie
+                        break;
+                    case 'echographie':
+                        // Afficher le tableau d'échographie
+                        inputField1.style.display = "block";
+                        // Vider les champs de radiographie
+                        document.getElementById("n5").value = ""; // Champ texte pour radiographie
+                        document.getElementById("n3").value = ""; // Champ fichier pour radiographie
+                        break;
+                }
+            }
+        }
+    }
+    
+</script>
+
 {% endblock %}

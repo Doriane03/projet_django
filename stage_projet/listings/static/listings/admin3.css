@@ -1,5 +1,5 @@
 body {
-    color: #6c757d;
+    color: #000000;
     background: #FFFFFF;
 }
 
@@ -8,13 +8,15 @@ a {
 }
 
 .card {
-    background: #F8F8F7;
+    background: #ffffff;
     box-shadow: none;
+    /*#F8F8F7;*/
 }
 
 .page-sidebar {
-    background:hsl(208, 91%, 46%);
+    background: deepskyblue;
     box-shadow: none;
+    /*hsl(208, 91%, 46%);*/
 }
 
 .page-sidebar:before {
@@ -90,8 +92,9 @@ a {
 }
 
 .compact-sidebar .page-sidebar:before {
-    background:hsl(208, 91%, 46%);
+    background: deepskyblue;
     box-shadow: none;
+    /*hsl(208, 91%, 46%);*/
 }
 
 .compact-sidebar .accordion-menu ul {

@@ -1,8 +1,8 @@
 {% extends 'listings/template.html' %}
 {% block formpatient %}
 <center>
-<form method="post" action="{% url 'patient' %}" class="formcontenu" enctype="multipart/form-data">
-  <div>
+<form method="post" action="{% url 'patient'  cst='cst' %}" class="formcontenu" enctype="multipart/form-data">
+<div>
     <nav class="divcontenunav">Patient</nav>
 </div>
     {% csrf_token %}
@@ -21,66 +21,54 @@
 
         <div class="divsortie">
                 <label for="medecins">médecins</label>
-                <select name="medecin" required>
+                <select name="medecin"  required>
                     <option>Choisir un médcin</option>
                     {% for medecin in medecins %}
                     <option value='{{ medecin.refpersoignant }}'>{{ medecin.nom }}</option>
                     {% endfor %}
                 </select>
         </div>
-
         <div class="divsortie">
-            <label for="lit">Numéro de lit</label>
-            <select name="lit"  id="lit" required>
-                <option>Choisir un lit</option>
-                {% for lit in lits %}
-                <option value='{{ lit.reflit }}'>Lit {{ lit.numlit }}</option>
-                {% endfor %}
-            </select>
-        </div>
-
-        
-        <div class="divsortie">
-            <label for="nom" >Nom</label>
+            <label for="nom" >Nom et prénom</label>
             <input type="text" placeholder="Nom" name="nom" id="nom" class="inputcontenu" required/>
         </div>
         <div class="divsexe">
             <label>Sexe</label>
-            <div><input type="radio" name="sexe" value="masculin" required id="msc" /><label for="msc" >Masculin</label></div>
-            <div><input type="radio" name="sexe" value="féminin" required id ="fem" /><label for="fem" >Féminin</label></div>
+            <div><input type="radio" name="sexe" value="masculin"  id="msc" /><label for="msc"required  >Masculin</label></div>
+            <div><input type="radio" name="sexe" value="féminin"  id ="fem" /><label for="fem" required>Féminin</label></div>
         </div>
 
         <div class="divsortie">
             <label for="email" >Email</label>
-            <input type="email" placeholder="Email" name="email" id="email" class="inputcontenu" required/>
+            <input type="email" placeholder="Email" name="email" id="email" class="inputcontenu"  pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"/>
         </div>
         
         <div class="divsortie">
             <label for="age" >Âge</label>
-            <input type="text" placeholder="Âge" name="age" id="age" class="inputcontenu" required/>
+            <input type="text" placeholder="Âge" name="age" id="age" class="inputcontenu"  title="Veuillez entrer uniquement des chiffres" minlength="1" maxlength="3" required/>
         </div>
 
 
         <div class="divsortie">
             <label for="contact1" >Contact 1</label>
-            <input type="tel" minlength="10" maxlength="10" pattern="[0-9]{10}" placeholder="Numéro 1" name="contact1" id="contact1" class="inputcontenu" required/>
+            <input type="tel"  placeholder="Numéro 1" name="contact1" id="contact1" class="inputcontenu" minlength="10" maxlength="20" required/>
         </div>
         <div class="divsortie">
             <label for="contact2">Contact 2</label>
-            <input type="tel"  minlength="10" maxlength="10" pattern="[0-9]{10}" placeholder="Numéro 2" name="contact2" id="contact2" class="inputcontenu" required/>
+            <input type="tel"   placeholder="Numéro 2" name="contact2" id="contact2" class="inputcontenu"  minlength="10" maxlength="20" required/>
         </div>
         
         <div class="divsortie">
             <label for="ville" >Ville</label>
-            <input type="text" placeholder="Ville" name="ville" id="ville" class="inputcontenu" required/>
+            <input type="text" placeholder="Ville" name="ville" id="ville" class="inputcontenu" />
         </div>
         <div class="divsortie">
             <label for="commune" >Commune</label>
-            <input type="text" placeholder="Commune" name="commune" id="commune" class="inputcontenu" required/>
+            <input type="text" placeholder="Commune" name="commune" id="commune" class="inputcontenu" />
         </div>
         <div class="divsortie">
             <label for="quartier" >Quartier</label>
-            <input type="text" placeholder="Quartier" name="quartier" id="quartier" class="inputcontenu" required/>
+            <input type="text" placeholder="Quartier" name="quartier" id="quartier" class="inputcontenu" />
         </div>
         
 
@@ -107,11 +95,11 @@
         
         <div class="divsortie">
             <label for="nationalite">Nationalité</label>
-            <input type="text" placeholder="Nationalité" name="nationalite" id="nationalite" class="inputcontenu" required/>
+            <input type="text" placeholder="Nationalité" name="nationalite" id="nationalite" class="inputcontenu" />
         </div>
         <div class="divsortie">
             <label for="situation_matrimoniale">Situation matrimoniale</label>
-                <select name="situation_matrimoniale"  id="situation_matrimoniale" required>
+                <select name="situation_matrimoniale"  id="situation_matrimoniale" >
                     <option>Choisir une Situation matrimoniale</option>
                     <option value="Célibataire">Célibataire</option>
                     <option value="Divorcé">Divorcé</option>
@@ -121,7 +109,7 @@
         </div>
         <div class="divsortie">
             <label for="nombre_enfant" >Nombre d'enfant</label>
-            <input type="text" placeholder="Nombre d'enfant" name="nombre_enfant" id="nombre_enfant" class="inputcontenu" required/>
+            <input type="text" placeholder="Nombre d'enfant" name="nombre_enfant" id="nombre_enfant" class="inputcontenu" minlength="1" maxlength="3"/>
         </div>
         <div class="divsortie">
             <label for="personne_a_contacter" >Personne à contacter</label>
@@ -129,11 +117,67 @@
         </div>
         <div class="divsortie">
             <label for="telephone_cpu" >Contact de la personne à contacter</label>
-            <input type="tel"  minlength="10" maxlength="10" pattern="[0-9]{10}" placeholder="Contact de la personne à contacter" name="telephone_cpu" id="telephone_cpu" class="inputcontenu" required/>
+            <input type="tel" placeholder="Contact de la personne à contacter" name="telephone_cpu" id="telephone_cpu" class="inputcontenu"  minlength="10" maxlength="20" required/>
         </div>
 
     </fieldset>
-    <input type="submit" name="validepatient" value="Enregistrer" class="btn btn-primary" required/>
+    <input type="submit" name="validepatient" value="Enregistrer" class="btn btn-primary" />
 </form>
 </center>
+<script>
+    // Fonction pour empêcher la saisie de caractères non numériques
+    function restrictInput(elementId) {
+        document.getElementById(elementId).addEventListener('input', function () {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+    }
+
+    // Appliquer la fonction à chaque champ
+    restrictInput('num');
+    restrictInput('nombre_enfant');
+
+    function restrictInput1(elementId) {
+        const input = document.getElementById(elementId);
+        
+        input.addEventListener('input', function () {
+            // Remplace les caractères non numériques
+            this.value = this.value.replace(/[^0-9]/g, '');
+    
+            // Validation pour les valeurs en dehors de l'intervalle 1-101
+            const value = parseInt(this.value, 10);
+    
+            // Vérifie si la valeur est valide
+            if (this.value !== '' && (value < 1 || value > 101)) {
+                this.setCustomValidity('La valeur doit être comprise entre 1 et 101.'); // Message d'erreur personnalisé
+            } else {
+                this.setCustomValidity(''); // Réinitialise le message d'erreur si la valeur est correcte
+            }
+        });
+    }
+    
+    
+    // Appliquer la fonction à chaque champ
+    restrictInput1('age');
+
+
+
+        // Fonction pour restreindre l'entrée pour le numéro de contact
+        function restrictContactInput(elementId) {
+            document.getElementById(elementId).addEventListener('input', function () {
+                // On remplace les caractères non numériques et certains caractères valides
+                this.value = this.value.replace(/[^0-9+\s()-]/g, '');
+            });
+        }
+        restrictContactInput('telephone_cpu');
+        restrictContactInput('contact1');
+        restrictContactInput('contact2');
+</script>
+
+<!--<script>
+    // Script pour empêcher la saisie de caractères non numériques
+    document.getElementById('age','telephone_cpu').addEventListener('input', function (e) {
+        this.value = this.value.replace(/[^0-9]/g, '');
+    });
+</script>-->
+
 {% endblock %}

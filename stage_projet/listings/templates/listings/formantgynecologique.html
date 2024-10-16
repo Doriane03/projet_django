@@ -16,13 +16,13 @@
 
             <div class="divsortie">
                 <label  >parité</label>
-                <input  type="text" name="parite" />
+                <input  type="text" name="parite" id='parite' />
             </div>
 
 
             <div class="divsortie">
                 <label>gestite</label>
-                <input  type="text" name="gestite" />
+                <input  type="text" name="gestite" id='gestite' />
             </div>
 
             <div class="divsortie">
@@ -92,6 +92,17 @@ function antecedantgyn(){
             }
         }
     }
+
+    // Fonction pour empêcher la saisie de caractères non numériques
+    function restrictInput(elementId) {
+        document.getElementById(elementId).addEventListener('input', function () {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+    }
+
+    // Appliquer la fonction à chaque champ
+    restrictInput('parite');
+    restrictInput('gestite');
 
 </script>
 

@@ -1,21 +1,34 @@
 {% extends 'listings/template.html' %}
 
 {% block tableauconsultation %}
-
+<style>
+    table {
+        border-collapse: separate; /* Permet d'utiliser border-spacing */
+        border-spacing:8px; /* Ajustez la valeur selon vos besoins */
+        width: 100%;
+       
+    }
+    th, td {
+        padding:0px;
+        margin:0px;
+        text-align: left;,
+        width:100%; 
+    }
+</style>
 <center>
     <h2>Mon tableau de consultation</h2>
-<table id="table3" class="formcontenu">
+<table class="formcontenu">
         
         <tr>
-            <th>Nom du Patient</th>
-            <th>Date et Heure d'Assignation</th>
+            <th>Patients</th>
+            <th>Date et Heure</th>
         </tr>
 
         {% for notification in notifications %}
             <tr>
                 <td>{{ notification.patient.nom  }}</td>
                 <td>{{ notification.date_heure_assignation }}</td>
-                <td><a  href="{% url 'box' pt=notification.patient.numeropatient cst='cst' %}">Consultation</a></td>
+                <td><a  href="{% url 'box' pt=notification.patient.numeropatient cst='cst' %}"  class="anav">Consultation</a></td>
             </tr>
             {% empty %}
             <p>Aucun patient envoyé pour consultation pour l'instant.</p>

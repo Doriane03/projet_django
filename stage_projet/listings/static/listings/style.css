@@ -9,7 +9,10 @@
         background-size: cover;
         opacity: 1;
   }
-
+html,body{
+  margin: 0px;
+  padding: 0px;
+}
 
 .text {
     font-weight: bold;
@@ -78,11 +81,7 @@ display:none;
 
 .test input[type='checkbox']{
   width:100%;
-  padding:8px;
 }
-
-
-
 .test tr>td textarea{
   width:100%;
   padding:8px;
@@ -223,8 +222,10 @@ display:block;
 padding:5px;
 width:100%;
 font-weight:bold;
+text-align:start;
 font-size:18px;
 color: black;
+text-indent: 5px;
 background-color: deepskyblue;
 text-align: left;
 font-family: Georgia, 'Times New Roman', Times, serif;
@@ -396,13 +397,13 @@ margin-right:29%;
 }
 
 #div9{
-margin-right:62%;
+margin-right:50%;
 }
 #div10{
-margin-right:71%;
+margin-right:69%;
 }
 #div11{
-margin-right:62%;
+margin-left:12%;
 }
 #div12{
 margin-right:33%;
@@ -425,17 +426,17 @@ border-bottom:1px solid black;
 .left{
 float:left;
 margin-left:5%;
-border: 1px solid black;
+border: 0px solid black;
 }
 .leftconsul{
   float:left;
-  border: 1px solid black;
+  border: 0px solid black;
   width:49%;
 }
 
 .rightconsul{
     float:right;
-    border: 1px solid black;
+    border: 0px solid black;
     width:49%;
 }
 
@@ -460,7 +461,7 @@ margin-right:24%;
 .right{
 float:right;
 margin-right:5%;
-border: 1px solid black;
+border: 0px solid black;
 }
 .right1{
 float:right;
@@ -547,9 +548,7 @@ font-size:15px;
 border-top-left-radius:5px;
 border-top-right-radius:5px;
 }
-#signeasso{
-  overflow: hidden;
-}
+
 .labconsul1{
   display: block;
 
@@ -559,9 +558,11 @@ border-top-right-radius:5px;
 }
 .p1{
 color: red;
+text-align: center;
 }
 .p2{
   color: green; 
+  text-align: center;
 }
 
 .untest1{
@@ -606,17 +607,19 @@ color: red;
   border-bottom:1px solid black;
   }
 
-.card-body1{
+/* .card-body1{
   background-color: white;
-  flex: 1; /* Take the remaining space */
-  overflow-y: auto; /* Enable vertical scrolling if needed */
-  padding: 20px;
-}
-.card1{
+  flex: 1; /*Take the remaining space */
+  /*overflow-y: auto; /* Enable vertical scrolling if needed */
+  /*padding: 20px;
+
+  .card1{
   display: flex;
   flex-direction: column;
   height: 100vh;
-}
+}/*
+}*/
+
 
 .content{
 display: flex; 
@@ -832,8 +835,8 @@ text-align: center;
   text-align: center; /* Centre le contenu textuel */
   display: flex;
   justify-content: center;
-
 }
+
 .tablecont>tr>th{
   color: brown;
 }
@@ -849,3 +852,18 @@ text-align: center;
   justify-content: space-between;
   align-items: center; /* Pour centrer verticalement */
 }
+
+.signe_physique {
+  text-align: justify;
+  margin-left: 10px;
+ }
+
+
+ .contentleft2 {
+  float: left;
+  margin-right: 100px;
+ }
+
+ .anav{
+  text-decoration: none;
+ }

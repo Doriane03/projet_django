@@ -1,5 +1,11 @@
 {% extends 'listings/template.html' %}
 {% block formsortie %}
+<style>
+    #dateInput:disabled {
+        background-color: #f0f0f0;
+    }
+</style>
+
 <center><form method="post" action="{% url 'sortie_patient' %}"  class="formcontenu">
     <div>
         <nav class="divcontenunav">sortie</nav>
@@ -18,10 +24,10 @@
             <label > Fiche remplie par</label>
             <input  type="text" name="remplipar"/ >
         </div>
-       
+        
         <div  class="divsortie">
             <label >Patient concerné</label>
-            <input  type="text" name="nom" id="nom" oninput="fetchPatientId()" required/>
+            <input  type="text" name="nom" id="nom" value="{{nom}}"  readonly required/>
         </div>
 
         <div class="divsortie">
@@ -54,12 +60,6 @@
                         <input type="radio"  name="motifsortie"  value="refus de suivi"   onclick="sortie()" class="form-check-input" id="exampleRadios4"/>
                         <label class="form-check-label" for="exampleRadios4">refus de suivi</label>
                     </div>
-
-                    <div  class="form-check form-check-inline">
-                        <input type="radio"  name="motifsortie"  value="guéri"   onclick="sortie()" class="form-check-input" id="exampleRadios4"/>
-                        <label class="form-check-label" for="exampleRadios4">guérison</label>
-                    </div>
-    
             </div>
         <div>
             <!--debut-->
@@ -183,9 +183,6 @@
                         <label class="form-check-label" for="exampleRadios15">Patient en vie selon une personne fiable</label>
                     </div>
                 </div>
-
-                
-
             </div>
             
             
@@ -214,32 +211,32 @@
                 <label class="form-check-label" for="exampleRadios50">non</label>
             </div>
 
-            <table class="test" id="rdvdate">
-                <tr><th>Date</th>  <th>Médecin</th></tr>
-                <tr>
-                    <td>   
-                        <input type="date"  name="rdvdate" id="val"/>
-                    </td>
-                    {% if request.user.is_authenticated %}
-                    {% if user.type_personnel_soignant.nompersog == "MEDECIN" %}
-                        <td>   
-                            <input type="text"  name="nompracticien"  value="{{ user.nom }}"  id="val" readonly />
-                        </td>
-
-                    {% endif %}
-                    {% endif %}
-                    
-
-                </tr>
-            </table>
-
         </div>
 
+        <table class="test" id="rdvdate" style="display:block;
+        width:50%;
+        margin-left:120px;">
+                        <tr><th>Date</th>  <th>Médecin</th></tr>
+                        <tr>
+                            <td>   
+                                <input type="date"  name="rdvdate" id="val"/>
+                            </td>
+                            {% if request.user.is_authenticated %}
+                            {% if user.type_personnel_soignant.nompersog == "MEDECIN" %}
+                                <td>   
+                                    <input type="text"  name="nompracticien"  value="{{ user.nom }}"  id="val" readonly />
+                                </td>
         
+                            {% endif %}
+                            {% endif %}
+                            
+        
+                        </tr>
+                    </table>
         
             
         <div class="divsortie">
-            <input type="hidden" name="patient" id="patient" class="inputcontenu" readonly/>
+            <input type="hidden" name="patient" id="patient"   value="{{idpatient}}" class="inputcontenu" readonly/>
         </div>
     {% if request.user.is_authenticated %}
     {% if user.type_personnel_soignant.nompersog == "MEDECIN" %}
@@ -251,6 +248,7 @@
     </fieldset>
     <input  type="submit" name="validesortie" value="Valider" class="btn btn-primary"/ >
 </form>
+
 <script>
     // Fonction pour gérer l'affichage des champs en fonction du motif de sortie
     function sortie() {
@@ -357,27 +355,21 @@
         }
     }
 
-    // Fonction pour obtenir l'ID du patient via l'API
-    function fetchPatientId() {
-        var nom = document.getElementById('nom').value;
-        if (nom) {
-            fetch(`/get_sortie_id/?nom=${nom}`)
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('patient').value = data.id ? data.id : 'Patient non trouvé';
-                });
-        } else {
-            document.getElementById('patient').value = '';
-        }
-    }
-
+    
     // Assurez-vous d'appeler les fonctions lors du chargement de la page
     document.addEventListener('DOMContentLoaded', function() {
         sortie();
         rdv();
     });
-</script>
+    //pour le input date de rdv
+    const today = new Date().toISOString().split('T')[0];
+        
+        // Définir l'attribut 'min' pour empêcher la sélection des dates antérieures
+    document.getElementById('val').setAttribute('min', today);
 
+    
+</script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 </center>
 {% endblock %}
 

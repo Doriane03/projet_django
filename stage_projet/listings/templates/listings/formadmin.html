@@ -3,17 +3,19 @@
 {% block formadmin %}
 <center>
 <form method="post" action="{% url 'adminform' %}" class="formcontenu">
+       
 <div>
 <nav class="divcontenunav">ajout personnel soignant</nav>
 </div>
-    {% csrf_token %}
-    <fieldset class="fieldsetgd">
-        {% if success %}
-        <p class="p2">Utilisateur crée.</p>
+{% if success %}
+            <p class="p2">Utilisateur crée.</p>
         {% endif %}
         {% if error_message %}
                 <p class="p1">{{ error_message }}</p>
         {% endif %}
+    {% csrf_token %}
+    <fieldset class="fieldsetgd">
+        
         <div class="divsortie">
             <label >Nom</label>
             <input type="text"   placeholder="nom" name="nom" />
@@ -26,13 +28,13 @@
 
         <div class="divsortie">
             <label >Contact</label>
-            <input type="tel"  minlength="10" maxlength="10" pattern="[0-9]{10}" placeholder="contact" name="contact" />
+            <input type="tel"  placeholder="contact"  id="contact" class="inputcontenu" name="contact" />
         </div>
 
         
         <div class="divsortie">
-            <label >Mot de passe</label>
-            <input type="password"   placeholder="mot de passe" name="mdp" />
+            <label for="password">Mot de passe</label>
+            <input type="password" placeholder="mot de passe" name="mdp" id="password"  required />
         </div>
 
         <div class="divsortie">
@@ -61,4 +63,27 @@
     <input type="submit"  name="ceercompte"  value="CREER LE COMPTE" class="btn btn-primary"/>
 </form>
 </center>
+<script>
+    // Fonction pour restreindre l'entrée pour le mot de passe
+    function restrictPasswordInput(elementId) {
+        document.getElementById(elementId).addEventListener('input', function () {
+            // On remplace les caractères non autorisés et limite à 8 caractères
+            this.value = this.value.replace(/[^A-Za-z\d@$!%*?&]/g, '').slice(0, 8);
+        });
+    }
+
+    // Fonction pour restreindre l'entrée pour le numéro de contact
+    function restrictContactInput(elementId) {
+        document.getElementById(elementId).addEventListener('input', function () {
+            // On remplace les caractères non numériques et certains caractères valides
+            this.value = this.value.replace(/[^0-9+\s()-]/g, '');
+        });
+    }
+
+    // Appliquer les fonctions à chaque champ
+    restrictPasswordInput('password');
+    restrictContactInput('contact');
+
+</script>
+
 {% endblock %}

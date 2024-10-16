@@ -1,5 +1,33 @@
 {% extends 'listings/template.html' %}
 {% block consultationform %}
+<style>
+    .contentleft1 {
+        display: flex; /* Utiliser Flexbox */
+        gap:5px; /* Espace entre les inputs */
+        float:right;
+        margin-right:115px;
+    }
+    .contentleft1 input {
+        width:190px; /* Largeur fixe pour les inputs */
+        padding: 8px; /* Espacement intérieur */
+        box-sizing: border-box; 
+    }
+    .contentleft3{
+        margin-right: 100px;
+        float: left;
+    }
+    table {
+        border-collapse: separate; /* Permet d'utiliser border-spacing */
+        border-spacing:8px; /* Ajustez la valeur selon vos besoins */
+        width: 100%;
+    }
+    th, td {
+        padding:0px;
+        margin:0px;
+        text-align: left;
+        width:100%;
+    }
+</style>
 <center> <form method="POST" action="{% url 'consultation' cst='cst' %}" class="formcontenu">
 
     {% csrf_token %}
@@ -19,61 +47,61 @@
                         <div class="divfrmconsul">
 
                             <div class="leftconsul">
-                                <div class="custom-control custom-checkbox form-group" id="div3">
-                                    <input type="checkbox"   name="motifdeconsultation[]"  value="Asthénie"  class="custom-control-input" id="exampleCheck1" />
-                                    <label class="custom-control-label" for="exampleCheck1">Asthénie</label>
+                                <div  class="form-check" style="margin-right:64%">
+                                    <input type="checkbox"   name="motifdeconsultation[]"  value="Asthénie"  class="form-check-input" id="exampleCheck1" />
+                                    <label class="form-check-label" for="exampleCheck1">Asthénie</label>
                                 </div>
-                                <div class="custom-control custom-checkbox form-group" id="div4">
-                                    <input type="checkbox"   name="motifdeconsultation[]"  value="Ictère"  class="custom-control-input" id="exampleCheck2" />
-                                    <label class="custom-control-label" for="exampleCheck2">Ictère</label>
-                                </div>
-
-                                <div class="custom-control custom-checkbox form-group" id="div5">
-                                    <input type="checkbox"   name="motifdeconsultation[]"  value="Fièvre"  class="custom-control-input" id="exampleCheck3" />
-                                    <label class="custom-control-label" for="exampleCheck3">Fièvre</label>
+                                <div class="form-check" style="margin-right:69%">
+                                    <input type="checkbox"   name="motifdeconsultation[]"  value="Ictère"   class="form-check-input" id="exampleCheck2" />
+                                    <label class="form-check-label" for="exampleCheck2">Ictère</label>
                                 </div>
 
-                                <div class="custom-control custom-checkbox form-group" id="div6">
-                                    <input type="checkbox"   name="motifdeconsultation[]"  value="Urines foncées"  class="custom-control-input" id="exampleCheck4" />
-                                    <label class="custom-control-label" for="exampleCheck4">Urines foncées</label>
-                                </div>
-                                <div class="custom-control custom-checkbox form-group" id="div7">
-                                    <input type="checkbox"   name="motifdeconsultation[]"  value="Douleur abdominale"  class="custom-control-input" id="exampleCheck5"/>
-                                    <label class="custom-control-label" for="exampleCheck5">Douleur abdominale</label>
+                                <div class="form-check" style="margin-right:68.5%">
+                                    <input type="checkbox"   name="motifdeconsultation[]"  value="Fièvre"  class="form-check-input" id="exampleCheck3" />
+                                    <label class="form-check-label" for="exampleCheck3">Fièvre</label>
                                 </div>
 
-                                <div class="custom-control custom-checkbox form-group"  >
-                                    <input type="checkbox"   name="motifdeconsultation[]"  value="Anomalies du bilan hépatique"  class="custom-control-input" id="exampleCheck6"/>
-                                    <label class="custom-control-label" for="exampleCheck6">Anomalies du bilan hépatique</label>
+                                <div class="form-check"  style="margin-right:54.5%">
+                                    <input type="checkbox"   name="motifdeconsultation[]"  value="Urines foncées"   class="form-check-input" id="exampleCheck4" />
+                                    <label class="form-check-label"  for="exampleCheck4">Urines foncées</label>
+                                </div>
+                                <div class="form-check" style="margin-right:45.4%">
+                                    <input type="checkbox"   name="motifdeconsultation[]"  value="Douleur abdominale"   class="form-check-input" id="exampleCheck5"/>
+                                    <label class="form-check-label"  for="exampleCheck5">Douleur abdominale</label>
+                                </div>
+
+                                <div class="form-check"  style="margin-right:30.5%" >
+                                    <input type="checkbox"   name="motifdeconsultation[]"  value="Anomalies du bilan hépatique"  class="form-check-input" id="exampleCheck6"/>
+                                    <label class="form-check-label" for="exampleCheck6">Anomalies du bilan hépatique</label>
                                 </div>
 
                             </div>
 
                             <div class="rightconsul">
-                                <div  class="custom-control custom-checkbox form-group" id="div9">
-                                    <input type="checkbox"   name="motifdeconsultation[]"  valu="Cytolyse hépatique"  class="custom-control-input" id="exampleCheck7" />
-                                    <label class="custom-control-label" for="exampleCheck7">Cytolyse hépatique</label>
+                                <div  class="form-check" style="margin-right:60.9%">
+                                    <input type="checkbox"   name="motifdeconsultation[]"  valu="Cytolyse hépatique"  class="form-check-input"  id="exampleCheck7" />
+                                    <label class="form-check-label" for="exampleCheck7">Cytolyse hépatique</label>
                                 </div>
-                                <div  class="custom-control custom-checkbox form-group" id="div10">
-                                    <input type="checkbox"   name="motifdeconsultation[]"  value="AgHBs positif"  class="custom-control-input" id="exampleCheck8"/>
-                                    <label class="custom-control-label" for="exampleCheck8">AgHBs positif</label>
+                                <div  class="form-check"  style="margin-right:70%">
+                                    <input type="checkbox"   name="motifdeconsultation[]"  value="AgHBs positif"  class="form-check-input"  id="exampleCheck8"/>
+                                    <label class="form-check-label" for="exampleCheck8">AgHBs positif</label>
                                 </div>
-                                <div class="custom-control custom-checkbox form-group"  id="div11">
-                                    <input type="checkbox"   name="motifdeconsultation[]"  value="Ac anti HVC positif"   class="custom-control-input" id="exampleCheck9"/>
-                                    <label  class="custom-control-label" for="exampleCheck9">Ac anti HVC positif</label>
+                                <div class="form-check"  style="margin-right:61.9%">
+                                    <input type="checkbox"   name="motifdeconsultation[]"  value="Ac anti HVC positif"   class="form-check-input"  id="exampleCheck9"/>
+                                    <label  class="form-check-label" for="exampleCheck9">Ac anti HVC positif</label>
                                 </div>
-                                <div  class="custom-control custom-checkbox form-group" id="div12">
-                                    <input type="checkbox"   name="motifdeconsultation[]"  value="Ac anti VHD positif et Ag HBs positif"  class="custom-control-input" id="exampleCheck10"/>
-                                    <label class="custom-control-label" for="exampleCheck10" >Ac anti VHD positif et Ag HBs positif</label>
+                                <div class="form-check" style="margin-right:33.9%">
+                                    <input type="checkbox"   name="motifdeconsultation[]"  value="Ac anti VHD positif et Ag HBs positif"  class="form-check-input"  id="exampleCheck10"/>
+                                    <label class="form-check-label" for="exampleCheck10" >Ac anti VHD positif et Ag HBs positif</label>
                                 </div>
-                                <div  class="custom-control custom-checkbox form-group" id="div13">
-                                    <input type="checkbox"   name="motifdeconsultation[]"  value="Interprétation de résultats de dépistage"   class="custom-control-input" id="exampleCheck11"/>
-                                    <label class="custom-control-label" for="exampleCheck11" >Interprétation de résultats de dépistage hépatite virale</label>
+                                <div  class="form-check" style="margin-right:3.3%">
+                                    <input type="checkbox"   name="motifdeconsultation[]"  value="Interprétation de résultats de dépistage"   class="form-check-input"  id="exampleCheck11"/>
+                                    <label class="form-check-label" for="exampleCheck11" >Interprétation de résultats de dépistage hépatite virale</label>
                                 </div>
 
-                                <div  class="custom-control custom-checkbox form-group" id="div14">
-                                    <input type="checkbox"   name="motifdeconsultation[]"  value="Autre motif" onclick="pourlecheckbox()"  class="custom-control-input" id="exampleCheck12"/>
-                                    <label class="custom-control-label" for="exampleCheck12" >Autre motif</label>
+                                <div  class="form-check" style="margin-right:73%">
+                                    <input type="checkbox"   name="motifdeconsultation[]"  value="Autre motif" onclick="pourlecheckbox()"  class="form-check-input"  id="exampleCheck12"/>
+                                    <label class="form-check-label" for="exampleCheck12" >Autre motif</label>
                                  </div> 
                             </div>
                         </div>
@@ -94,29 +122,29 @@
             </div>
                 <div class="divfrmconsul">
                     
-                            <div style="margin-right:67.5%;" class="custom-control custom-radio">
-                                <input type="radio"  name="prescripteur_consultation"  value="Hépato-Gastroentérologue" class="custom-control-input" id="exampleRadios1"/>
-                                <label class="custom-control-label" for="exampleRadios1" >Hépato-Gastroentérologue</label>
+                            <div style="margin-right:68%;" class="form-check">
+                                <input type="radio"  name="prescripteur_consultation"  value="Hépato-Gastroentérologue" class="form-check-input" id="exampleRadios1"/>
+                                <label class="form-check-label" for="exampleRadios1" >Hépato-Gastroentérologue</label>
                             </div>
-                            <div style="margin-right:68.5%;" class="custom-control custom-radio">
-                                <input type="radio"  name="prescripteur_consultation"  value="Autre médecin spécialiste" class="custom-control-input" id="exampleRadios2"/>
-                                <label class="custom-control-label" for="exampleRadios2">Autre médecin spécialiste</label>
+                            <div style="margin-right:69%;" class="form-check">
+                                <input type="radio"  name="prescripteur_consultation"  value="Autre médecin spécialiste" class="form-check-input" id="exampleRadios2"/>
+                                <label class="form-check-label" for="exampleRadios2">Autre médecin spécialiste</label>
                             </div>
                       
-                            <div style="margin-right:72.5%;" class="custom-control custom-radio">
-                                <input type="radio"  name="prescripteur_consultation"  value="Médecin généraliste" class="custom-control-input" id="exampleRadios3"/>
-                                <label class="custom-control-label" for="exampleRadios3">Médecin généraliste</label>
+                            <div style="margin-right:73.1%;" class="form-check">
+                                <input type="radio"  name="prescripteur_consultation"  value="Médecin généraliste" class="form-check-input" id="exampleRadios3"/>
+                                <label class="form-check-label" for="exampleRadios3">Médecin généraliste</label>
                             </div>
                     
 
                     
-                            <div style="margin-right:55.3%;" class="custom-control custom-radio"> 
-                                <input type="radio"  name="prescripteur_consultation"  value="Personnel paramédical (IDE ou Sage-femme)" class="custom-control-input" id="exampleRadios4"/>
-                                <label class="custom-control-label" for="exampleRadios4">Personnel paramédical (IDE ou Sage-femme)</label>
+                            <div style="margin-right:54.3%;" class="form-check"> 
+                                <input type="radio"  name="prescripteur_consultation"  value="Personnel paramédical (IDE ou Sage-femme)" class="form-check-input" id="exampleRadios4"/>
+                                <label class="form-check-label" for="exampleRadios4">Personnel paramédical (IDE ou Sage-femme)</label>
                             </div>
-                            <div style="margin-right:68%;" class="custom-control custom-radio">
-                                <input type="radio"  name="prescripteur_consultation"  value="Venu(e) de lui (elle) même" class="custom-control-input" id="exampleRadios5"/>
-                                <label class="custom-control-label" for="exampleRadios5">Venu  (e)  de lui (elle) même</label>
+                            <div style="margin-right:68%;" class="form-check">
+                                <input type="radio"  name="prescripteur_consultation"  value="Venu(e) de lui (elle) même" class="form-check-input" id="exampleRadios5"/>
+                                <label class="form-check-label" for="exampleRadios5">Venu  (e)  de lui (elle) même</label>
                             </div>
                    
                 </div>
@@ -128,13 +156,13 @@
               <nav  class="divcontenunav">début de signe </nav>
             </div>
             
-                    <div style="margin-right:74.5%;" class="custom-control custom-radio">
-                        <input type="radio"  name="debut_signe"  value="Inférieur à 6 mois" class="custom-control-input" id="exampleRadios6"/>
-                        <label class="custom-control-label" for="exampleRadios6">Inférieur à 6 mois</label>
+                    <div style="margin-right:75.5%;" class="form-check">
+                        <input type="radio"  name="debut_signe"  value="Inférieur à 6 mois" class="form-check-input" id="exampleRadios6"/>
+                        <label class="form-check-label" for="exampleRadios6">Inférieur à 6 mois</label>
                     </div>
-                    <div style="margin-right:68.5%;" class="custom-control custom-radio">
-                        <input type="radio"  name="debut_signe"  value="Supérieur ou égal à 6 mois" class="custom-control-input" id="exampleRadios7"/>
-                        <label class="custom-control-label" for="exampleRadios7">Supérieur ou égal à 6 mois</label>
+                    <div style="margin-right:68.5%;" class="form-check">
+                        <input type="radio"  name="debut_signe"  value="Supérieur ou égal à 6 mois" class="form-check-input" id="exampleRadios7"/>
+                        <label class="form-check-label" for="exampleRadios7">Supérieur ou égal à 6 mois</label>
                     </div>
             
         </div>
@@ -148,15 +176,14 @@
                     <div class="p-2 g-col-6">
 
                         <div class="form-check form-check-inline">
-                    
-                        <label class="form-check-label" style="margin-right:400px">signe digestif </label>  
-                        <div  class="custom-control custom-radio" id="divd1">
-                            <input type="radio"  name="signe_digestifs"  value="oui"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios8"/>
-                            <label class="custom-control-label" for="exampleRadios8">oui</label>
+                        <label class="form-check-label" style="margin-right:410px">signe digestif </label>  
+                        <div  class="form-check form-check-inline" id="divd1">
+                            <input type="radio"  name="signe_digestifs"  value="oui"   onclick="signedigstif()" class="form-check-input" id="exampleRadios8"/>
+                            <label class="form-check-label" for="exampleRadios8">oui</label>
                         </div>
-                        <div  class="custom-control custom-radio" id="divd1">
-                            <input type="radio"  name="signe_digestifs"  value="non"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios9"/>
-                            <label class="custom-control-label" for="exampleRadios9">non</label>
+                        <div class="form-check form-check-inline" id="divd1">
+                            <input type="radio"  name="signe_digestifs"  value="non"   onclick="signedigstif()" class="form-check-input" id="exampleRadios9"/>
+                            <label class="form-check-label" for="exampleRadios9">non</label>
                         </div>
                     </div>
 
@@ -179,14 +206,14 @@
 
                     <div class="form-check form-check-inline">
                 
-                    <label class="form-check-label" style="margin-right:370px">signe extradigestif </label> 
-                            <div  class="custom-control custom-radio" id="divd1">
-                                <input type="radio"  name="signe_extra_digestif"  value="oui"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios10"/>
-                                <label class="custom-control-label" for="exampleRadios10">oui</label>
+                    <label class="form-check-label" style="margin-right:375px">signe extradigestif </label> 
+                            <div  class="form-check form-check-inline" id="divd1">
+                                <input type="radio"  name="signe_extra_digestif"  value="oui"   onclick="signedigstif()" class="form-check-input" id="exampleRadios10"/>
+                                <label class="form-check-label" for="exampleRadios10">oui</label>
                             </div>
-                            <div  class="custom-control custom-radio" id="divd1">
-                                <input type="radio"  name="signe_extra_digestif"  value="non"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios11"/>
-                                <label class="custom-control-label" for="exampleRadios11">non</label>
+                            <div  class="form-check form-check-inline"  id="divd1">
+                                <input type="radio"  name="signe_extra_digestif"  value="non"   onclick="signedigstif()" class="form-check-input" id="exampleRadios11"/>
+                                <label class="form-check-label" for="exampleRadios11">non</label>
                             </div>
                         </div>
 
@@ -206,13 +233,13 @@
                         <div class="form-check form-check-inline">
                     
                         <label class="form-check-label" style="margin-right:345px">signe associé généraux</label>
-                            <div  class="custom-control custom-radio" id="divd1">
-                                <input type="radio"  name="signe_asso_gene"  value="oui"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios12"/>
-                                <label class="custom-control-label" for="exampleRadios12">oui</label>
+                            <div  class="form-check form-check-inline" id="divd1">
+                                <input type="radio"  name="signe_asso_gene"  value="oui"   onclick="signedigstif()" class="form-check-input" id="exampleRadios12"/>
+                                <label class="form-check-label" for="exampleRadios12">oui</label>
                             </div>
-                            <div  class="custom-control custom-radio" id="divd1">
-                                <input type="radio"  name="signe_asso_gene"  value="non"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios13"/>
-                                <label class="custom-control-label" for="exampleRadios13">non</label>
+                            <div  class="form-check form-check-inline" id="divd1">
+                                <input type="radio"  name="signe_asso_gene"  value="non"   onclick="signedigstif()" class="form-check-input" id="exampleRadios13"/>
+                                <label class="form-check-label" for="exampleRadios13">non</label>
                             </div>  
                         
                         </div>
@@ -221,66 +248,35 @@
                             <table class="test"  id="signeasso">
                                 <tr><th>précisez</th></tr>
                                 <tr>
-                                    <td>   
-                                        <div class="custom-control custom-checkbox form-group" id="test1">
-                                            <input type="checkbox"   name="signe_asso_gene[]"  value="Asthénie" class="custom-control-input" id="exampleCheck16" />
-                                            <label class="custom-control-label" for="exampleCheck16">Asthénie</label>
-                                        </div>
-                                        
+                                    <td>  
+                                        <div class="form-check">
+                                            <input type="checkbox"   name="signe_asso_gene[]"  value="Asthénie" class="form-check-input" id="exampleCheck16" />
+                                            <label class="form-check-label" for="exampleCheck16">Asthénie</label>
+                                        </div> 
                                     </td>
                                     <td>   
-                                        <div class="custom-control custom-checkbox form-group" id="test2">
-                                            <input type="checkbox"   name="signe_asso_gene[]"  value="Anorexie "  class="custom-control-input" id="exampleCheck17" />
-                                            <label class="custom-control-label" for="exampleCheck17">Anorexie</label>
+                                        <div class="form-check form-check-inline">
+                                            <input type="checkbox"   name="signe_asso_gene[]"  value="Anorexie " class="form-check-input" id="exampleCheck17" />
+                                            <label class="form-check-label" for="exampleCheck17">Anorexie</label>
                                         </div>
                                     </td>
                                 </tr>
 
                                 <tr>
                                     <td>   
-                                        <div class="custom-control custom-checkbox form-group">
-                                            <input type="checkbox"   name="signe_asso_gene[]"  value="Amaigrissement" class="custom-control-input" id="exampleCheck18" />
-                                            <label class="custom-control-label" for="exampleCheck18">Amaigrissement</label>
+                                        <div class="form-check form-check-inline">
+                                            <input type="checkbox"   name="signe_asso_gene[]"  value="Amaigrissement" class="form-check-input" id="exampleCheck18" />
+                                            <label class="form-check-label" for="exampleCheck18">Amaigrissement</label>
                                         </div> 
                                     </td>
                                     <td>   
-                                        <div class="custom-control custom-checkbox form-group" id="test4">
-                                            <input type="checkbox"   name="signe_asso_gene[]"  value="Fièvre"  class="custom-control-input" id="exampleCheck19" />
-                                            <label class="custom-control-label" for="exampleCheck19">Fièvre</label>
+                                        <div class="form-check form-check-inline">
+                                            <input type="checkbox"   name="signe_asso_gene[]"  value="Fièvre"  class="form-check-input" id="exampleCheck19" />
+                                            <label class="form-check-label" for="exampleCheck19">Fièvre</label>
                                         </div>
                                     </td>
                                 </tr>
-
-
                             </table>
-
-
-
-                            <!-- <div class="left">
-                                <div class="custom-control custom-checkbox form-group" id="test1">
-                                    <input type="checkbox"   name="signe_asso_gene[]"  value="Asthénie" class="custom-control-input" id="exampleCheck16" />
-                                    <label class="custom-control-label" for="exampleCheck16">Asthénie</label>
-                                </div>
-                                <div class="custom-control custom-checkbox form-group" id="test2">
-                                    <input type="checkbox"   name="signe_asso_gene[]"  value="Anorexie "  class="custom-control-input" id="exampleCheck17" />
-                                    <label class="custom-control-label" for="exampleCheck17">Anorexie</label>
-                                </div>
-
-                            </div>
-                            <div   class="right">
-
-                                <div class="custom-control custom-checkbox form-group">
-                                    <input type="checkbox"   name="signe_asso_gene[]"  value="Amaigrissement" class="custom-control-input" id="exampleCheck18" />
-                                    <label class="custom-control-label" for="exampleCheck18">Amaigrissement</label>
-                                </div>
-                                <div class="custom-control custom-checkbox form-group" id="test4">
-                                    <input type="checkbox"   name="signe_asso_gene[]"  value="Fièvre"  class="custom-control-input" id="exampleCheck19" />
-                                    <label class="custom-control-label" for="exampleCheck19">Fièvre</label>
-                                </div>
-
-                            </div>-->
-                            
-                     
                         </div>
 
                     </div> 
@@ -298,27 +294,27 @@
                         <div class="form-check form-check-inline">
                             <label class="form-check-label" style="margin-right:342px">buvez-vous de l'alcool ?</label>
 
-                            <div   class="custom-control custom-radio" id="divd1" >
-                                <input type="radio"    name="nombredeverre_alcool"  value="oui"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios15"/>
-                                <label class="custom-control-label" for="exampleRadios15">oui</label>
+                            <div class="form-check form-check-inline" id="divd1" >
+                                <input type="radio"    name="nombredeverre_alcool"  value="oui"   onclick="signedigstif()" class="form-check-input" id="exampleRadios15"/>
+                                <label class="form-check-label" for="exampleRadios15">oui</label>
                             </div>
 
-                            <div   class="custom-control custom-radio" id="divd1">
-                                <input type="radio"    name="nombredeverre_alcool"  value="non"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios16"/>
-                                <label class="custom-control-label" for="exampleRadios16">non</label>
+                            <div class="form-check form-check-inline"  id="divd1">
+                                <input type="radio"    name="nombredeverre_alcool"  value="non"   onclick="signedigstif()" class="form-check-input" id="exampleRadios16"/>
+                                <label class="form-check-label" for="exampleRadios16">non</label>
                             </div>
                             
                         </div>
                         
                             <table class="test" id="nombredeverredalcool">
-                                <tr><th>type d'alcool</th><th>nombre de verre</th><th>fréquence de consommation</th></tr>
+                                <tr><th>type d'alcool</th><th>nombre de verre/jours</th><th>fréquence de consommation/jours</th></tr>
                                 <tr>
                                     <td>    
                                         <select name="typealcool" required>
                                                 <option>Choisir un type d'alcool</option>
                                                 <option value='bière'>bière</option>
                                                 <option value='vin'>vin</option>
-                                                <option value='whisky'>Whisky</option>
+                                                <option value='liqeur'>liqeur</option>
                                                 <option value='vody'>Vody</option>
                                                 <option value='pastis'>Pastis</option> 
                                         </select>
@@ -329,7 +325,7 @@
                                     </td>
 
                                     <td>
-                                    <input type="text"   name="frequence" id="nombredeverredalcool" />
+                                    <input type="text"   name="frequence" />
                                     </td>
                                 </tr>
                             </table>
@@ -340,13 +336,13 @@
 
                         <div class="form-check form-check-inline">
                           <label class="form-check-label" style="margin-right:345px" >prenez-vous du tabac ?</label> 
-                            <div   class="custom-control custom-radio" id="divd1">
-                                <input type="radio"    name="nombrepaquettabac"  value="oui"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios17"/>
-                                <label class="custom-control-label" for="exampleRadios17">oui</label>
+                            <div class="form-check form-check-inline"  id="divd1">
+                                <input type="radio"    name="nombrepaquettabac"  value="oui"   onclick="signedigstif()" class="form-check-input" id="exampleRadios17"/>
+                                <label class="form-check-label" for="exampleRadios17">oui</label>
                             </div>
-                            <div  class="custom-control custom-radio" id="divd1">
-                                <input type="radio"    name="nombrepaquettabac"  value="non"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios18"/>
-                                <label class="custom-control-label" for="exampleRadios18">non</label>
+                            <div class="form-check form-check-inline"  id="divd1">
+                                <input type="radio"    name="nombrepaquettabac"  value="non"   onclick="signedigstif()" class="form-check-input" id="exampleRadios18"/>
+                                <label class="form-check-label" for="exampleRadios18">non</label>
                             </div> 
                         </div> 
 
@@ -356,7 +352,7 @@
                                 <tr><th>nombre de paquet de tabac</th></tr>
                                 <tr>
                                     <td>    
-                                        <input type="text"   name="nombrepaquettabac" id="nombredepaquetdetabac"/>
+                                        <input type="text"   name="nombrepaquettabac" id="nombredepaquetdetabac" pattern="[0-9]"/>
                                     </td>
                                 </tr>
                             </table>
@@ -369,13 +365,13 @@
 
                         <div class="form-check form-check-inline">
                               <label class="form-check-label" style="margin-right:295px">prenez-vous des médicaments?</label> 
-                            <div class="custom-control custom-radio" id="divd1">
-                                <input type="radio"    name="medoc_en_cours"  value="oui"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios19"/>
-                                <label class="custom-control-label" for="exampleRadios19">oui</label>
+                            <div class="form-check form-check-inline" id="divd1">
+                                <input type="radio"    name="medoc_en_cours"  value="oui"   onclick="signedigstif()" class="form-check-input" id="exampleRadios19"/>
+                                <label class="form-check-label" for="exampleRadios19">oui</label>
                             </div>
-                            <div   class="custom-control custom-radio"  id="divd1">
-                                <input type="radio"    name="medoc_en_cours"  value="non"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios20"/>
-                                <label class="custom-control-label" for="exampleRadios20">non</label>
+                            <div class="form-check form-check-inline"  id="divd1">
+                                <input type="radio"    name="medoc_en_cours"  value="non"   onclick="signedigstif()" class="form-check-input" id="exampleRadios20"/>
+                                <label class="form-check-label" for="exampleRadios20">non</label>
                             </div> 
                               
                          </div>
@@ -400,27 +396,27 @@
 
                         <div class="form-check form-check-inline">
                              <label class="form-check-label" style="margin-right:213px">prenez-vous des médicaments traditionnels ?</label>  
-                            <div   class="custom-control custom-radio"  id="divd1">
-                                <input type="radio"    name="prise_therap_tarditionnelle"  value="oui"    class="custom-control-input" id="exampleRadios21"/>
-                                <label class="custom-control-label" for="exampleRadios21">oui</label>
+                            <div class="form-check form-check-inline"  id="divd1">
+                                <input type="radio"    name="prise_therap_tarditionnelle"  value="oui"    class="form-check-input" id="exampleRadios21"/>
+                                <label class="form-check-label" for="exampleRadios21">oui</label>
                             </div>
-                            <div class="custom-control custom-radio"  id="divd1">
-                                <input type="radio"    name="prise_therap_tarditionnelle"  value="non"   class="custom-control-input" id="exampleRadios22"/>
-                                <label class="custom-control-label" for="exampleRadios22">non</label>
+                            <div class="form-check form-check-inline"  id="divd1">
+                                <input type="radio"    name="prise_therap_tarditionnelle"  value="non"   class="form-check-input" id="exampleRadios22"/>
+                                <label class="form-check-label" for="exampleRadios22">non</label>
                             </div> 
                         </div>
                     </div>
 
                     <div class="p-2 g-col-6" >
                         <div class="form-check form-check-inline" >
-                              <label class="form-check-label" style="margin-right:179px">Bilan biologique antérieur à la consultation initiale </label> 
-                            <div  class="custom-control custom-radio"  id="divg1">
-                                <input type="radio"    name="Bilanbiologiqueant"  value="oui"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios23"/>
-                                <label class="custom-control-label" for="exampleRadios23">oui</label>
+                              <label class="form-check-label" style="margin-right:180px">Bilan biologique antérieur à la consultation initiale </label> 
+                            <div class="form-check form-check-inline"   id="divg1">
+                                <input type="radio"    name="Bilanbiologiqueant"  value="oui"   onclick="signedigstif()" class="form-check-input" id="exampleRadios23"/>
+                                <label class="form-check-label" for="exampleRadios23">oui</label>
                             </div>
-                            <div class="custom-control custom-radio"  id="divd1">
-                                <input type="radio"    name="Bilanbiologiqueant"  value="non"   onclick="signedigstif()" class="custom-control-input" id="exampleRadios24"/>
-                                <label class="custom-control-label" for="exampleRadios24">non</label>
+                            <div class="form-check form-check-inline"   id="divd1">
+                                <input type="radio"    name="Bilanbiologiqueant"  value="non"   onclick="signedigstif()" class="form-check-input" id="exampleRadios24"/>
+                                <label class="form-check-label" for="exampleRadios24">non</label>
                             </div> 
                         </div> 
                             <div id="Bilanbiologiqueanterieur" class="test">
@@ -432,13 +428,13 @@
                                                 <tr><th>résultat</th> <th>date</th></tr>
                                                 <tr>
                                                     <td>    
-                                                        <div  class="custom-control custom-radio">
-                                                            <input type="radio"    name="aghbs"  value="positif"    class="custom-control-input" id="exampleRadios25"/>
-                                                            <label class="custom-control-label" for="exampleRadios25">positif</label>
+                                                        <div  class="form-check">
+                                                            <input type="radio"    name="aghbs"  value="positif"    class="form-check-input" id="exampleRadios25"/>
+                                                            <label class="form-check-label" for="exampleRadios25">positif</label>
                                                         </div>
-                                                        <div  class="custom-control custom-radio">
-                                                            <input type="radio"    name="aghbs"  value="négatif"   class="custom-control-input" id="exampleRadios26"/>
-                                                            <label class="custom-control-label" for="exampleRadios26">négatif</label>
+                                                        <div  class="form-check">
+                                                            <input type="radio"    name="aghbs"  value="négatif"   class="form-check-input" id="exampleRadios26"/>
+                                                            <label class="form-check-label" for="exampleRadios26">négatif</label>
                                                         </div> 
                                                     </td>
 
@@ -457,13 +453,13 @@
                                                 <tr><th>résultat</th> <th>date</th></tr>
                                                 <tr>
                                                     <td>    
-                                                        <div  class="custom-control custom-radio">
-                                                            <input type="radio"    name="acanti_vhc"  value="positif"    class="custom-control-input" id="exampleRadios27"/>
-                                                            <label class="custom-control-label" for="exampleRadios27">positif</label>
+                                                        <div  class="form-check">
+                                                            <input type="radio"    name="acanti_vhc"  value="positif"    class="form-check-input" id="exampleRadios27"/>
+                                                            <label class="form-check-label" for="exampleRadios27">positif</label>
                                                         </div>
-                                                        <div class="custom-control custom-radio">
-                                                            <input type="radio"    name="acanti_vhc"  value="négatif"   class="custom-control-input" id="exampleRadios28"/>
-                                                            <label class="custom-control-label" for="exampleRadios28">négatif</label>
+                                                        <div class="form-check">
+                                                            <input type="radio"    name="acanti_vhc"  value="négatif"   class="form-check-input" id="exampleRadios28"/>
+                                                            <label class="form-check-label" for="exampleRadios28">négatif</label>
                                                         </div> 
                                                     </td>
 
@@ -481,13 +477,13 @@
                                                 <tr><th>résultat</th> <th>date</th></tr>
                                                 <tr>
                                                     <td>    
-                                                        <div  class="custom-control custom-radio">
-                                                            <input type="radio"    name="acanti_vhd"  value="positif"    class="custom-control-input" id="exampleRadios29"/>
-                                                            <label class="custom-control-label" for="exampleRadios29">positif</label>
+                                                        <div  class="form-check">
+                                                            <input type="radio"    name="acanti_vhd"  value="positif"    class="form-check-input" id="exampleRadios29"/>
+                                                            <label class="form-check-label" for="exampleRadios29">positif</label>
                                                         </div>
-                                                        <div  class="custom-control custom-radio">
-                                                            <input type="radio"    name="acanti_vhd"  value="négatif"   class="custom-control-input" id="exampleRadios30"/>
-                                                            <label class="custom-control-label" for="exampleRadios30">négatif</label>
+                                                        <div  class="form-check">
+                                                            <input type="radio"    name="acanti_vhd"  value="négatif"   class="form-check-input" id="exampleRadios30"/>
+                                                            <label class="form-check-label" for="exampleRadios30">négatif</label>
                                                         </div>
             
                                                     </td>
@@ -513,18 +509,7 @@
                                                     </td>
                                                 </tr>
                                             </table>
-
-                                            <!--<div  class="custom-control custom-radio">
-                                                <input type="radio"    name="transaminase"  value="positif"    class="custom-control-input" id="exampleRadios31"/>
-                                                <label class="custom-control-label" for="exampleRadios31">positif</label>
-                                            </div>
-                                            <div class="custom-control custom-radio">
-                                                <input type="radio"    name="transaminase"  value="négatif"   class="custom-control-input" id="exampleRadios32"/>
-                                                <label class="custom-control-label" for="exampleRadios32">négatif</label>
-                                            </div>--> 
                                         </div> 
-
-
                                         <div class="table-container ">
                                               <label > sérologie rétrovirale </label>
                                               <table class="tablecont">
@@ -532,13 +517,13 @@
                                                 <tr>
 
                                                     <td>    
-                                                        <div  class="custom-control custom-radio">
-                                                            <input type="radio"    name="serologie_retrovi"  value="positif"    class="custom-control-input" id="exampleRadios33"/>
-                                                            <label class="custom-control-label" for="exampleRadios33">positif</label>
+                                                        <div  class="form-check">
+                                                            <input type="radio"    name="serologie_retrovi"  value="positif"    class="form-check-input" id="exampleRadios33"/>
+                                                            <label class="form-check-label" for="exampleRadios33">positif</label>
                                                         </div>
-                                                        <div  class="custom-control custom-radio">
-                                                            <input type="radio"    name="serologie_retrovi"  value="négatif"   class="custom-control-input" id="exampleRadios34"/>
-                                                            <label class="custom-control-label" for="exampleRadios34">négatif</label>
+                                                        <div  class="form-check">
+                                                            <input type="radio"    name="serologie_retrovi"  value="négatif"   class="form-check-input" id="exampleRadios34"/>
+                                                            <label class="form-check-label" for="exampleRadios34">négatif</label>
                                                         </div>
                                                     </td>
 
@@ -556,17 +541,121 @@
 
                             </div>
         </div>
-
+                   
     </div>  
+    <div>
+        <div>
+            <nav class="divcontenunav">signe physique</nav>
+        </div>  
+
+        <div>
+            <div class="p-2 g-col-6">
+
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label" style="margin-right:280px">signe insuffisance hépatocéllulaire</label>
+                    <div class="form-check form-check-inline" id="divd1">
+                        <input type="radio" name="sih" value="oui" class="form-check-input" id="exampleRadios60" />
+                        <label class="form-check-label" for="exampleRadios60">oui</label>
+                    </div>
+                    <div class="form-check form-check-inline" id="divd1">
+                        <input type="radio" name="sih" value="non" class="form-check-input" id="exampleRadios61" />
+                        <label class="form-check-label" for="exampleRadios61">non</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-2 g-col-6">
+
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label" style="margin-right:405px">toucher rectal</label>
+
+                    <div class="form-check form-check-inline" id="divd1">
+                        <input type="radio" name="resultattoucherectal1" value="oui" onclick="val()" class="form-check-input"  id="exampleRadios64" />
+                        <label class="form-check-label" for="exampleRadios64">oui</label>
+                    </div>
+                    <div class="form-check form-check-inline" id="divd1">
+                        <input type="radio" name="resultattoucherectal1" value="non" onclick="val()" class="form-check-input"  id="exampleRadios65" />
+                        <label class="form-check-label" for="exampleRadios65">non</label>
+                    </div>
+                </div>
+
+                <div class="test" id="touch" style="display: none;">
+                    <div class="divsortie">
+                        <label class="form-check-label" style="margin-left:24px">résultat</label>
+                        <textarea id="resultatToucherRectal" name="resultattoucherectal" placeholder="résultat"></textarea>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="p-2 g-col-6">
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label" style="margin-right:320px">signe hypertension portable</label>
+                    <div class="form-check form-check-inline" id="divd1">
+                        <input type="radio" name="shp" value="oui" class="form-check-input" id="exampleRadios62" />
+                        <label class="form-check-label" for="exampleRadios62">oui</label>
+                    </div>
+                    <div class="form-check form-check-inline" id="divd1">
+                        <input type="radio" name="shp" value="non" class="form-check-input" id="exampleRadios63" />
+                        <label class="form-check-label" for="exampleRadios63">non</label>
+                    </div>
+                </div>
+            </div>
+
+            <div  style="margin-left:15px" class="p-2 g-col-6">
+                <div class="divsortie">
+                    <label>Etat de conscience</label>
+                    <div  class="form-check form-check-inline" style=" margin-left:410px">
+                        <input type="radio"  name="etat_de_conscience"  value="Conscience normale"   class="form-check-input"  id="exampleRadios12"/>
+                        <label class="form-check-label" for="exampleRadios12">Conscience normale </label>
+                    </div>
+
+                    <div  class="form-check" style=" margin-left:323px">
+                        <input type="radio"  name="etat_de_conscience"  value="Astérixis"    class="form-check-input" id="exampleRadios13"/>
+                        <label class="form-check-label" for="exampleRadios13">Astérixis </label>
+                    </div>
+                    <div  class="form-check" style=" margin-left:415px">
+                        <input type="radio"  name="etat_de_conscience"  value="Syndrome confusionnel"    class="form-check-input" id="exampleRadios14"/>
+                        <label class="form-check-label" for="exampleRadios14">Syndrome confusionnel </label>
+                    </div>
+                    <div  class="form-check" style=" margin-left:303px">
+                        <input type="radio"  name="etat_de_conscience"  value="Coma"    class="form-check-input" id="exampleRadios15"/>
+                        <label class="form-check-label" for="exampleRadios15">Coma</label>
+                    </div>
+                </div>
+            </div>
+
+            <div style="overflow:hidden; margin-left:25px" class="p-2 g-col-6">
+                <div class="contentleft2">
+                    <label>Flèche hépatique</label>
+                </div>
+                <div class="contentleft1">
+                    <input type="text" placeholder="lmc" name="lmc" id="lmc" />
+                    <input type="text" placeholder="lxo" name="lxo" id="lxo" />
+                </div>
+            </div> 
+            
+            
     
+
+            <div class="p-2 g-col-6">
+                <div class="divsortie">
+                    <label style="margin-left:23px">observation</label>
+                    <textarea name="observation" placeholder="observation" rows="5" cols="30"></textarea>
+                </div>
+            </div>
+
+        </div> 
     <div>
         <div>
           <nav class="divcontenunav">diagnostique retenu</nav>
         </div><br/>    
         <div class="divsortie">
-        <label class="form-check-label" style="margin-left:34.5px">diagnostique retenu</label>
-        <textarea name="diagnostique_retenu" placeholder="diagnostique retenu" rows="5" cols="30"></textarea>
+            <label class="form-check-label" style="margin-left:28px">diagnostique retenu</label>
+            <textarea name="diagnostique_retenu" placeholder="diagnostique retenu" rows="5" cols="30"></textarea>
+
         </div>  
+
         </div>
     <input type="hidden"   name="patient"  value="{{ patient_id }}"/>
     {% if request.user.is_authenticated %}
@@ -739,7 +828,35 @@ function signedigstif() {
 
                 
 }
+var afficheRadio10 = document.getElementsByName('resultattoucherectal1');
+function val() {
+    for (var i = 0; i < afficheRadio10.length; i++) {
+        if (afficheRadio10[i].checked) {
+            var inputField = document.getElementById("touch");
+            var textarea = document.getElementById("resultatToucherRectal");
 
+            switch (afficheRadio10[i].value) {
+                case 'oui':
+                    inputField.style.display = "block";
+                    break;
+                case 'non':
+                    inputField.style.display = "none";
+                    textarea.value = ""; // Effacer le contenu du textarea
+                    break;
+            }
+        }
+    }
+}
+
+function restrictInput(elementId) {
+    document.getElementById(elementId).addEventListener('input', function () {
+        this.value = this.value.replace(/[^0-9]/g, '');
+    });
+}
+
+// Appliquer la fonction à chaque champ
+restrictInput('lmc');
+restrictInput('lxo');
 </script>
 {% endblock %}
 

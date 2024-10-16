@@ -4,9 +4,10 @@
 {% block formbilanbio %}
 <center>
 <form method="post" action=""  class="formcontenutab">
-<div>
-<nav class="divcontenunav">bilan biologique</nav>
-</div>
+
+  <div>
+    <nav class="divcontenunav">bilan biologique</nav>
+  </div>
 {% csrf_token %}
   <fieldset>
 
@@ -19,73 +20,54 @@
     <table id="yes" class="table1">
         <tr>
             <th>Type d'examen</th>
-            <th>Résultat numérique</th>
             <th>unités</th>
+            <th>Résultat numérique</th>
+            <th>Résultat modalité</th>
             <th>prix</th>
-            <th>Résultat</th>
-            <th>Date</th>
         </tr>
 
       <tr> 
           <td>  
-            <div >
-                <select name="typeexamen" required>
-                        <option>choisir</option>
-                        <option value="Sérologie rétroviral">Sérologie rétroviral</option>
-                        <option value="IgG anti VHE">IgG anti VHE</option>
-                        <option value="IgM anti VHE">IgM anti VHE</option>
-                        <option value="Ac anti VHD">Ac anti VHD</option>
-                        <option value="Ac anti HBe">Ac anti HBe</option>
-                        <option value="Ag HBe">Ag HBe</option>
-                </select>
-              </div>
+           <div class="divsortie">
+            <select name="examens_bio[]"  id="examens_bio" >
+                {% for examens_bio in examens_bios %}
+                <option value='{{ examens_bio.idexamen }}'>{{ examens_bio.typeexamen}}</option>
+                {% endfor %}
+            </select>
+          </div>
           </td> 
-
-
           <td> 
-            <div >
-              <input  type="text" name="resultatnumerique">
-            </div>
-         </td> 
-
-          <td> 
-            <div>
-              <select name="unite"  required>
-                      <option>choisir</option>
-                      <option value="UI/ ml">UI/ ml</option>
-                      <option value="mmol/ l">mmol/ l</option>
-                      <option value="g/l">g/l</option>
-                      <option value="/mm3">/mm3</option>
-                      <option value="mmol/l">mmol/l</option>
-                      <option value="%">%</option>
+            <div class="divsortie">
+              <select name="unite[]"  id="unite" >
+                  {% for examens_bio in examens_bios %}
+                  <option value='{{ examens_bio.unite }}'>{{ examens_bio.unite}}</option>
+                  {% endfor %}
               </select>
             </div>
           </td> 
 
+          <td> 
+            <div >
+              <input  type="text" name="resultatnumerique[]" required/>
+            </div>
+         </td> 
+         <td> 
+          <div>
+            <input  type="text" name="resultatmodalite[]" required/>
+          </div>
+       </td> 
+
         <td> 
           <div>
-            <input  type="text" name="prix">
+            <input  type="text" name="prix[]" required/>
           </div>
         </td> 
-
-        <td> 
-            <div>
-              <input  type="text" name="resultatdubilan">
-            </div>
-        </td> 
-
-        <td> 
-            <div>
-              <input  type="date" name="datedubilan">
-            </div>
-        </td> 
-
       </tr> 
     </table>
     <div style="margin-left:620px">
       <input type="checkbox"   name="ajout"  value="oui1" onclick="ajouter()"/>Ajouter un nouvel examen
     </div>
-    <input type="text"  name="consultation"  value="{{derniere_consultation_id}}"/>
+    <input type="hidden"  name="patient"  value="{{derniere_consultation_id}}"/>
     </fieldset>
     <input type="submit"  name="validbilanimg"  value="Enregister" class="btn btn-primary"/>
 </form>
@@ -105,47 +87,38 @@
                 var cell4 = newRow.insertCell(2);
                 var cell5 = newRow.insertCell(3);
                 var cell6 = newRow.insertCell(4);
-                var cell7 = newRow.insertCell(5);
 
-                cell1.innerHTML = `<div>
-                    <select name="typeexamen" required>
-                        <option>choisir</option>
-                        <option value="Sérologie rétroviral">Sérologie rétroviral</option>
-                        <option value="IgM anti VHE">IgM anti VHE</option>
-                        <option value="Ac anti VHD">Ac anti VHD</option>
-                        <option value="Ac anti HBe">Ac anti HBe</option>
-                        <option value="Ag HBe">Ag HBe</option>
-                    </select>
-                </div>`;
+                cell1.innerHTML = `<div class="divsortie">
+           
+            <select name="examens_bio[]"  id="typeexamen" >
+                <option>Choisir un examen</option>
+                {% for examens_bio in examens_bios %}
+                <option value='{{ examens_bio.idexamen }}'>{{ examens_bio.typeexamen}}</option>
+                {% endfor %}
+            </select>
+          </div>`;
 
-                cell2.innerHTML = `<div>
-                    <input type="text" name="resultatnumerique">
-                </div>`;
+                cell2.innerHTML = `<div class="divsortie">
+              
+              <select name="unite[]"  id="unite" >
+                  <option>Choisir une unité</option>
+                  {% for examens_bio in examens_bios %}
+                  <option value='{{ examens_bio.unite }}'>{{ examens_bio.unite}}</option>
+                  {% endfor %}
+              </select>
+            </div>`;
 
-                cell4.innerHTML = `<div>
-                    <select name="unite" required>
-                        <option>choisir</option>
-                        <option value="UI/ ml">UI/ ml</option>
-                        <option value="mmol/ l">mmol/ l</option>
-                        <option value="g/l">g/l</option>
-                        <option value="/mm3">/mm3</option>
-                        <option value="mmol/l">mmol/l</option>
-                        <option value="%">%</option>
-                    </select>
-                </div>`;
+                cell4.innerHTML = `<div >
+              <input  type="text" name="resultatnumerique[]"required/>
+            </div>`;
 
                 cell5.innerHTML = `<div>
-                    <input type="text" name="prix">
-                </div>`;
+            <input  type="text" name="resultatmodalite[] " required/>
+          </div>`;
 
                 cell6.innerHTML = `<div>
-              <input  type="text" name="resultatdubilan">
-            </div>`;
-
-                cell7.innerHTML = `<div>
-              <input  type="date" name="datedubilan">
-            </div>`;
-
+            <input  type="text" name="prix[]"required/>
+          </div>`;
             var finalRowCount = inputField1.rows.length;
             if (finalRowCount > initialRowCount) {
                 affichecheckbox[i].checked = false;
@@ -153,5 +126,22 @@
         }
     }
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+  const dateField = document.getElementById('dateField');
+
+  // Obtenir la date d'aujourd'hui
+  const today = new Date();
+  
+  // Formater la date au format YYYY-MM-DD
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, '0'); // Les mois commencent à 0
+  const day = String(today.getDate()).padStart(2, '0');
+
+  const formattedDate = `${year}-${month}-${day}`;
+  
+  // Afficher la date dans le champ
+  dateField.value = formattedDate;
+});
 </script>
-{% endblock %}                                                                           
+{% endblock %}                                                                          

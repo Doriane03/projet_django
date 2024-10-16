@@ -3,7 +3,7 @@
 {% block formconstante %}
 <center>
 
-<form method="post" action="{% url 'constante' idpatient  medecin_id %}"  class="formcontenu">
+<form method="post" action="{% url 'constante' idpatient  medecin_id cst %}"  class="formcontenu">
 {% if form_errors %}
   <ul>
   {% for field, errors in form_errors.items %}
@@ -16,68 +16,44 @@
 </div>
     {% csrf_token %}
     <fieldset>
-        
         {% if error_message %}
                 <p class="p1">{{ error_message }}</p>
         {% endif %}
           <div class="divsortie">
-              <label >Poids</label>
+              <label for="poids" >Poids</label>
               <input type="text"   placeholder="poids en  kg" name="poids" id="poids" class="inputcontenu" oninput="calculateIMC()"/>
           </div>
           <div class="divsortie">
-            <label >Taille</label>
-            <input type="text"   placeholder="taille en  m" name="taille"  id="taille" class="inputcontenu" oninput="calculateIMC()"/>
+            <label for="taille" >Taille</label>
+            <input type="text"   placeholder="taille en cm" name="taille"  id="taille" class="inputcontenu"  pattern="[0-9]{3}" oninput="calculateIMC()"/>
           </div>
 
           <div class="divsortie">
-            <label >Imc</label>
+            <label for="imc">IMC</label>
             <input type="text"   id="imc" placeholder="IMC kg/m²" name="imc" class="inputcontenu" readonly/>
           </div>
 
           <div class="divsortie">
-            <label >Température</label>
-            <input type="text" placeholder="température en C°" name="temperature" class="inputcontenu"/>
+            <label for="temperature">Température</label>
+            <input type="text" placeholder="température en C°" name="temperature" id="temperature" class="inputcontenu"/>
           </div> 
             <!--<input type="text"   placeholder="imc kg/m2 " name="imc" class="inputcontenu"/>-->
               
             <div class="content">
               <label>tension artérielle</label>  
                   <div class="leftconts">
-                  <input type="text"   placeholder="TAS" name="tas" class="inputcontenu" />
+                  <input type="text"   placeholder="TAS" name="tas" id="tas" class="inputcontenu" />
                   </div>
                   <div class="rightconts">
-                    <input type="text"   placeholder="TAD" name="tad" class="inputcontenu"/>
+                    <input type="text"   placeholder="TAD" name="tad"  id="tad" class="inputcontenu"/>
                   </div>
             </div>
 
             <div class="divsortie">
-                <label >pouls</label>
-                <input type="text" placeholder="pouls en  battements/mn " name="pouls" class="inputcontenu"/>
-            </div>
-            {% if resul %}
-            <div class="divsortie">
-              <label>signe insuffisance hépatocéllulaire</label>
-              <input type="text" placeholder="pouls en  battements/mn " name="sih" class="inputcontenu"/>
-            </div>
-            <div class="divsortie">
-              <label>signe hypertension portable</label>
-              <input type="text"  name="shp" class="inputcontenu"/>
-            </div>
-            <div class="content">
-              <label>Flèche hépatique</label>  
-                  <div class="leftconts">
-                  <input type="text"   placeholder="lmc" name="lmc" class="inputcontenu" />
-                  </div>
-                  <div class="rightconts">
-                    <input type="text"   placeholder="lxo" name="lxo" class="inputcontenu"/>
-                  </div>
+                <label  for="pouls">pouls</label>
+                <input type="text" placeholder="pouls en  battements/mn " name="pouls"  id="pouls" class="inputcontenu"/>
             </div>
 
-            <div class="divsortie">
-              <label>toucher rectal</label>
-              <input type="text" name="resultattoucherectal" class="inputcontenu"/>
-            </div>
-            {% endif %}
             <input type="hidden" id="patient" name="patient" value="{{idpatient}}" />
     </fieldset>
     <input type="submit"  name="valideconstante"  value="Enregister" class="btn btn-primary"/>
@@ -97,6 +73,22 @@ function calculateIMC(){
 
   document.getElementById('imc').value = imc;
 }
+
+
+// Fonction pour empêcher la saisie de caractères non numériques
+function restrictInput(elementId) {
+  document.getElementById(elementId).addEventListener('input', function () {
+      this.value = this.value.replace(/[^0-9]/g, '');
+  });
+}
+
+// Appliquer la fonction à chaque champ
+restrictInput('poids');
+restrictInput('taille');
+restrictInput('temperature');
+restrictInput('pouls');
+restrictInput('tas');
+restrictInput('tad'); // Assurez-vous que cet ID existe dans votre HTML
 </Script>
 
 

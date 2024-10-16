@@ -1,0 +1,80 @@
+{% extends 'listings/template.html' %}
+
+{% block formhospi %}
+<center style="overflow:hidden">
+    <form method="post" action="{% url 'attributionlit' %}" class="formcontenu" >
+        <div>
+            <nav class="divcontenunav">Créer une hospitalisation</nav>
+        </div>
+        {% csrf_token %}
+        <fieldset>
+            <div class="divsortie">
+                <label for="num">Numéro du patient</label>
+                <input type="text" placeholder="Numéro du patient" name="numeropatient" id="num" class="inputcontenu" required/>
+            </div>
+            
+            <div class="divsortie">
+                <label for="patientNom">Nom et prénom</label>
+                <input type="text" name="patientNom" id="patientNom" class="inputcontenu"/>
+            </div>
+            <div class="divsexe">
+                <label>Sexe</label>
+                <div><input type="radio" name="sexe" value="masculin"  id="msc" /><label for="msc"required  >Masculin</label></div>
+                <div><input type="radio" name="sexe" value="féminin"  id ="fem" /><label for="fem" required>Féminin</label></div>
+            </div>
+    
+            <div class="divsortie">
+                <label for="email" >Email</label>
+                <input type="email" placeholder="Email" name="email" id="email" class="inputcontenu"  pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"/>
+            </div>
+            
+            <div class="divsortie">
+                <label for="age" >Âge</label>
+                <input type="text" placeholder="Âge" name="age" id="age" class="inputcontenu"  title="Veuillez entrer uniquement des chiffres" minlength="1" maxlength="3" required/>
+            </div>
+    
+            <div class="divsortie">
+                <label for="contact1" >Contact 1</label>
+                <input type="tel"  placeholder="Numéro 1" name="contact1" id="contact1" class="inputcontenu" minlength="10" maxlength="20" required/>
+            </div>
+
+            <div class="divsortie">
+                <label for="lit">Numéro de lit</label>
+                <select name="lit" id="lit">
+                    {% for lit in lits %}
+                    <option value='{{ lit.reflit }}'>Lit {{ lit.numlit }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="divsortie">
+                <label for="liresultattribt">Date  l'hospitalisation</label>
+                <input type="date" name="dateoccupation" id="dateField" class="inputcontenu" readonly/>
+            </div>
+            <div class="divsortie">
+                <label for="profession" >Origine</label>
+                <select name="origine"  id="origine" required>
+                    <option value="consultation externe">consultation externe</option>
+                    <option value="service des urgences">service des urgences</option>
+                    <option value="chirurgie digestive">chirurgie digestive</option>
+                    <option value="autre service CHU de Cocody">autre service CHU de Cocody</option>
+                </select>
+            </div>
+        </fieldset>
+        <input type="hidden" name="patient" id="patientId" class="inputcontenu" readonly/>
+        <input type="submit" name="creer" value="Créer" class="btn btn-primary"/>
+    </form>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const dateField = document.getElementById('dateField');
+        
+        // Obtenir la date d'aujourd'hui
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        dateField.value = `${year}-${month}-${day}`;
+    });
+    </script>
+</center>
+{% endblock %}

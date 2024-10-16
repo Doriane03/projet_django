@@ -2,9 +2,6 @@
 {% extends 'listings/template.html' %}
 {% block content %}
     <h1>Détails du Patient</h1>
-    <p>Nom : {{ patient.nom }}</p>
-    <!-- Affichez les autres informations du patient ici -->
-
-    <!-- Lien pour afficher le PDF dans un nouvel onglet -->
-    <a href="{% url 'patient_pdf' patient.idpatient %}" class="btn btn-primary" target="_blank">Afficher la fiche PDF</a>
+    <a href="{% url 'docpts' patient.idpatient %}" class="btn btn-primary" target="_blank">Afficher la fiche PDF</a>
+    <!--<a href="{% url 'patient_pdf' patient.idpatient %}" class="btn btn-primary" target="_blank">Afficher la fiche PDF</a>-->
 {% endblock %}

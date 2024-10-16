@@ -1,16 +1,26 @@
 {% extends 'listings/template.html' %}
 
 {% block choix %}     
-<center>
+
     <div class="box-row">
+        <div class="box-container">
+            <a href="{% url 'listehospi' %}?creation=creation"  class="box">creer une hospitalisation</a>
+        </div>
+
+        <div class="box-container">
+            <a href="{% url 'listehospi' %}?suivie=suivie"  class="box">Suivie</a>
+        </div>
+
+        
+    
         <div class="box-container">
             <a href="{% url 'listehospi' %}?autorisation=autorisation"  class="box">Autoriser une sortie</a>
         </div>
 
         <div class="box-container">
-        <a href="{% url 'listehospi' %}?suivie=suivie"  class="box">Suivie</a>
+            <a href="{% url 'listehospi' %}?surveillance=surveillance"  class="box">Évaluation de l'État de Santé</a>
         </div>
+        
     </div>
-   
-</center>
+
 {% endblock %}

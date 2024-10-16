@@ -1,10 +1,10 @@
 {% extends 'listings/template.html' %}
 {% block tableaudocpatient %}
 <center> 
-    <h1>Liste des Patients</h1>
+    <h1>Liste des  dossiers patients</h1>
     <div class="patient-links">
     {% for patient in patients %}
-        <a href="?doc=ok&pk={{ patient.idpatient }}" class="patient-link">
+        <a href="?doc=ok&pk={{ patient.idpatient }}&detaille=ok" class="patient-link">
             (Patient : {{ patient.numeropatient }})<i class="fas fa-folder icon"></i>
         </a>
     {% empty %}

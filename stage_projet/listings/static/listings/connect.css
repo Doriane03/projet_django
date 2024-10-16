@@ -31,7 +31,7 @@ html {
 body {
     background-color: #F8FAF9;
     font-weight: normal;
-    color: #7D7D83;
+    color: #000000;
     line-height: 1.6;
     -webkit-transition: background .2s ease-in-out;
     -moz-transition: background .2s ease-in-out;
@@ -658,11 +658,12 @@ h6 {
     top: 0;
     bottom: 0;
     padding: 30px;
-    box-shadow: 0 0 1.25rem hsl(208, 91%, 46%);;
+    box-shadow: 0 0 1.25rem  deepskyblue;
     -webkit-transition: background .2s ease-in-out;
     -moz-transition: background .2s ease-in-out;
     -o-transition: background .2s ease-in-out;
     transition: background .2s ease-in-out;
+    /*hsl(208, 91%, 46%);*/
 }
 
 .slimScrollDiv,

@@ -4,21 +4,35 @@
     {% if resul == "suivie" %}
         <div class="box-row">
             <div class="box-container">
-                <a href="{% url 'bilanimg' cst='hospi' %}" class="box">
+                <a href="{% url 'bilanimg' cst %}" class="box">
                     <p>Bilan imagerie</p>
                 </a>
             </div>
+            <div class="box-container">
+                <a href="{% url 'sph' cst %}" class="box">
+                    <p>Examen physique</p>
+                </a>
+            </div>
             
+                <div class="box-container">
+                    <a href="{% url 'constante' idpatient medecin_id cst %}" class="box">
+                        <p>Constante</p>
+                    </a>
+                </div>
+
         </div>
         <div class="box-row">
             
             <div class="box-container">
-                <a href="{% url 'bilanbio' cst='hospi' %}" class="box">
+                <a href="{% url 'bilanbio' cst %}" class="box">
                     <p>Bilan biologique</p>
                 </a>
             </div>
+
+            
+
             <div class="box-container">
-                <a href="{% url 'ordonnance' cst='hospi' %}" class="box">
+                <a href="{% url 'ordonnance' cst %}" class="box">
                     <p>Ordonnance</p>
                 </a>
             </div>

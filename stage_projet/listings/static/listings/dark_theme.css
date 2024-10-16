@@ -2,14 +2,15 @@
 
 body.dark-theme {
     background: #1F2128;
-    color: #5E606E;
+    color: #000000;
 }
 
 /* Sidebar */
 
 .dark-theme .page-sidebar {
-    background:hsl(208, 91%, 46%);
+    background:  deepskyblue;
     box-shadow: 0 0 .5rem rgba(0,0,0,.1);
+    /*hsl(208, 91%, 46%);*/
 }
 
 .dark-theme .accordion-menu > li > a {
@@ -46,7 +47,7 @@ body.dark-theme {
 }
 
 .dark-theme.compact-sidebar .page-sidebar:before {
-    background: hsl(195,100%,50%);
+    background: deepskyblue;
     box-shadow: 0 0 .5rem rgba(0,0,0,.1);
 }
 
@@ -615,7 +616,7 @@ body.dark-theme {
 }
 
 .dark-theme .popover .popover-body {
-    color: #5E606E;
+    color: #000000;
 }
 
 .dark-theme .bs-popover-auto[x-placement^=right] > .arrow::after,

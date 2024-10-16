@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="fr">
     <head>
@@ -25,6 +26,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script> 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/locale/fr.js"></script>
+        
         <!-- Theme Styles -->
         <link href="{% static 'listings/connect.min.css' %}" rel="stylesheet"/>
         <link href="{% static 'listings/admin3.css' %}" rel="stylesheet"/>
@@ -32,7 +34,9 @@
         <link href="{% static 'listings/custom.css' %}" rel="stylesheet"/>
 
         <link rel="stylesheet" href="{% static 'listings/style.css' %}"/>
-        
+        {% load bootstrap5 %}
+        {% bootstrap_css %}
+        {% bootstrap_javascript %}
 
     </head>
         <body>
@@ -53,22 +57,22 @@
                                 {% if request.user.type_personnel_soignant.nompersog == "INFIRMIERE" or request.user.type_personnel_soignant.nompersog == "INFIRMIER" %}
                                     <ul class="accordion-menu">
                                         <li>
-                                            <a href="{% url 'calendar' %}" class="active" id="n2">
+                                            <a href="{% url 'calendar' %}" class="active anav" id="n2">
                                                 <i class="material-icons-outlined">calendar_today</i>Rendez-vous
                                             </a>
                                         </li>
                                         <li>
-                                            <a id="click1" href="{% url 'patient' %}">
+                                            <a id="click1" href="{% url 'patient' cst="cst" %}" class="anav">
                                                 <i class="material-icons-outlined">save</i>Enregistrer un patient
                                             </a>
                                         </li>
-                                        <li>
-                                            <a href="{% url 'facture' %}">
+                                        <!-- <li>
+                                            <a href="{% url 'facture' %}" class="anav">
                                                 <i class="material-icons-outlined">save</i>Facture
                                             </a>
-                                        </li>
+                                        </li>-->
                                         <li>
-                                            <a href="{% url 'logout' %}">
+                                            <a href="{% url 'logout' %}" class="anav">
                                                 <i class="material-icons">logout</i>Déconnexion
                                             </a>
                                         </li>
@@ -77,58 +81,80 @@
                                     <ul class="accordion-menu">
 
                                         <li>
-                                            <a href="{% url 'listetraitement' hospi='hospi' %}">
-                                                <i class="material-icons">night_shelter</i>hospitalisation
+                                            <a href="{% url 'listetraitement' hospi='hospi' %}" class="anav">
+                                                <i class="material-icons">airline_seat_individual_suite</i>hospitalisation
                                             </a>
                                         </li>
                                         
                                         <li>
-                                            <a href="{% url 'tableauconsultation' cst='cst' %}" id="n1">
-                                                <i class="material-icons-outlined">visibility</i>Consultation
+                                            <a href="{% url 'tableauconsultation' cst='cst' %}" id="n1" class="anav">
+                                                <i class="material-icons-outlined">visibility</i>Consultation externe
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="{% url 'docpts' %}" class="anav">
+                                                <i class="material-icons-outlined">folder</i>Dossier patients
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="{% url 'docpatient' %}">
-                                                <i class="material-icons-outlined">folder</i>Consulter un dossier patients
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{% url 'logout' %}">
+                                            <a href="{% url 'logout' %}" class="anav">
                                                 <i class="material-icons">logout</i>Déconnexion
                                             </a>
                                         </li>
-
-                                        <!--<li>
-                                            <a href="{% url 'sortie_patient' %}">
-                                                <i class="material-icons-outlined">directions_walk</i>Autoriser une sortie
-                                            </a>
-                                        </li>-->
-
                                     </ul>
                                 {% elif request.user.type_personnel_soignant.nompersog == "ADMIN" %}
                                     <ul class="accordion-menu">
                                         <li>
-                                            <a href="{% url 'adminform' %}">
-                                                <i class="material-icons">person_edit</i>Créer un utilisateur
+                                            <a href="{% url 'adminform' %}" class="anav">
+                                                <i class="material-icons">edit</i>Créer un utilisateur
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="{% url 'modificationmdp' %}" class="active">
+                                            <a href="{% url 'modificationmdp' %}" class="anav">
                                                 <i class="material-icons-outlined">update</i>Changer un mot de passe
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="{% url 'chart' %}" id="n3">
-                                                <i class="material-icons-outlined">show_chart</i>Afficher le tableau de bord
+                                            <a href="{% url 'chart' %}" id="n3" class="anav">
+                                                <i class="material-icons-outlined">show_chart</i>Tableau de bord
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="{% url 'disponibilite' %}">
-                                                <i class="material-icons-outlined">person-check</i>Médecin disponible
+                                            <a href="{% url 'disponibilite' %}" class="anav">
+                                                <i class="material-icons-outlined">check</i>Médecin disponible
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="{% url 'logout' %}">
+                                            <a href="{% url 'logout' %}" class="anav">
+                                                <i class="material-icons">logout</i>Déconnexion
+                                            </a>
+                                        </li>
+                                    </ul>
+                                {% elif user.is_superuser %}
+                                    <ul class="accordion-menu">
+                                        <li>
+                                            <a href="{% url 'adminform' %}" class="anav">
+                                                <i class="material-icons">edit</i>Créer un utilisateur
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'modificationmdp' %}" class="anav">
+                                                <i class="material-icons-outlined">update</i>Changer un mot de passe
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'admin:index' %}" id="n3" class="anav">
+                                                <i class="material-icons-outlined">show_chart</i>index admin
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="anav">
+                                                <i class="material-icons-outlined">check</i>Export de base de données
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'logout' %}" class="anav">
                                                 <i class="material-icons">logout</i>Déconnexion
                                             </a>
                                         </li>
@@ -157,6 +183,7 @@
                                         <!--profil image fin-->
                                     </ul>
                                     <!--rechercher-->
+                                    {% if request.user.type_personnel_soignant.nompersog == "MEDECIN" %}
                                     <div class="collapse navbar-collapse" id="navbarNav"></div>
                                     <div class="navbar-search">
                                         <form>
@@ -165,13 +192,14 @@
                                             </div>
                                         </form>
                                     </div>
+                                    {% endif %}
                                     <!--rechercher fin-->
                                 </nav>
                             </div>
                             <div class="row">
                                 <div class="col-xl">
-                                    <div class="card1">
-                                        <div class="card-body1">
+                                    <div class="card">
+                                        <div class="card-body">
                                             {% block box %}{% endblock %}
                                             {% block chart %}{% endblock %}
                                             {% block tableaudisponibilites %}{% endblock %}
@@ -197,7 +225,11 @@
                                             {% block affiche %}{% endblock %}
                                             {% block boxhospi %}{% endblock %}
                                             {% block listehospital %}{% endblock %}
-                                            {% block choix %}{% endblock %}
+                                            {% block choix %} {% endblock %}
+                                            {% block formsp %} {% endblock %}
+                                            {% block dossierpatient %}{% endblock %}
+                                            {% block formhospi %}  {% endblock %}
+                                            {% block frmsurv %} {% endblock %}
                                         </div>
                                     </div>
                                 </div>
@@ -216,8 +248,6 @@
                     <script src="{% static 'listings/assets/plugins/flot/jquery.flot.time.min.js' %}"></script>
                     <script src="{% static 'listings/assets/plugins/flot/jquery.flot.symbol.min.js' %}"></script>
                     <script src="{% static 'listings/assets/plugins/flot/jquery.flot.resize.min.js' %}"></script>
-                    <script src="{% static 'listings/assets/plugins/flot/jquery.flot.tooltip.min.js' %}"></script>
-            
-                      
+                    <script src="{% static 'listings/assets/plugins/flot/jquery.flot.tooltip.min.js' %}"></script>            
         </body>
 </html>

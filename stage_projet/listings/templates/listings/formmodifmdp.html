@@ -26,12 +26,24 @@
         </div>
         <div class="divsortie">
         <label>nouveau mot de passe</label>
-        <input  type="password" name="mdp" required/>
+        <input type="password" placeholder="mot de passe" name="mdp" id="password"  required />
         </div>
         
     </fieldset>
     <input  type="submit" name="validantchir" value="Valider" class="btn btn-primary" >
 </form>
 </center>
+<script>
+    // Fonction pour restreindre l'entrée pour le mot de passe
+    function restrictPasswordInput(elementId) {
+        document.getElementById(elementId).addEventListener('input', function () {
+            // On remplace les caractères non autorisés et limite à 8 caractères
+            this.value = this.value.replace(/[^A-Za-z\d@$!%*?&]/g, '').slice(0, 8);
+        });
+    }
+
+    // Appliquer les fonctions à chaque champ
+    restrictPasswordInput('password');
+</script>
 {% endblock %}
 

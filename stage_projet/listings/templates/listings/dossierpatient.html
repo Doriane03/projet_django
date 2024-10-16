@@ -1,0 +1,450 @@
+{% extends 'listings/template.html' %}
+{% load static %}
+{% block dossierpatient %}
+<style>
+td {
+    vertical-align: top; /* Aligne le contenu en haut */
+    padding: 10px; /* Rembourrage uniforme */
+    border: 0px solid #ccc; /* Bordure pour visibilité */
+}
+</style>
+<center>
+<table>       
+        <tr> 
+            <td>
+                    {% for dnpatient in dnpatients %}
+                        <nav class="divcontenunav">Informations Personnelles</nav>
+                        
+                        {% if dnpatient.nom %}
+                            <p class="signe_physique">Nom : {{ dnpatient.nom }}</p>
+                        {% endif %}
+                        
+                        {% if dnpatient.age %}
+                            <p class="signe_physique">Âge : {{ dnpatient.age }} an(s)</p>
+                        {% endif %}
+                        
+                        {% if dnpatient.sexe %}
+                            <p class="signe_physique">Sexe : {{ dnpatient.sexe }}</p>
+                        {% endif %}
+                        
+                        {% if dnpatient.contact1 %}
+                            <p class="signe_physique">Téléphone 1 : 0{{ dnpatient.contact1 }}</p>
+                        {% endif %}
+                        
+                        {% if dnpatient.contact2 %}
+                            <p class="signe_physique">Téléphone 2 : 0{{ dnpatient.contact2 }}</p>
+                        {% endif %}
+                        
+                        {% if dnpatient.profession %}
+                            <p class="signe_physique">Profession : {{ dnpatient.profession }}</p>
+                        {% endif %}
+                        
+                        {% if dnpatient.email %}
+                            <p class="signe_physique">Email: {{ dnpatient.email }}</p>
+                        {% endif %}
+                        
+                        {% if dnpatient.ville %}
+                            <p class="signe_physique">Adresse : {{ dnpatient.ville }}</p>
+                        {% endif %}
+                        
+                        {% if dnpatient.commune %}
+                            <p class="signe_physique">Commune : {{ dnpatient.commune }}</p>
+                        {% endif %}
+                        
+                        {% if dnpatient.quartier %}
+                            <p class="signe_physique">Quartier : {{ dnpatient.quartier }}</p>
+                        {% endif %}
+                        
+                        {% if dnpatient.nationalite %}
+                            <p class="signe_physique">Nationalité : {{ dnpatient.nationalite }}</p>
+                        {% endif %}
+                        
+                        {% if dnpatient.situation_matrimoniale %}
+                            <p class="signe_physique">Situation Matrimoniale : {{ dnpatient.situation_matrimoniale }}</p>
+                        {% endif %}
+                        
+                        {% if dnpatient.nombre_enfant %}
+                            <p class="signe_physique">Nombre d'enfants : {{ dnpatient.nombre_enfant }}</p>
+                        {% endif %}
+                        
+                        {% if dnpatient.personne_a_contacter %}
+                            <p class="signe_physique">Personne à contacter : {{ dnpatient.personne_a_contacter }}</p>
+                        {% endif %}
+                        
+                        {% if dnpatient.telephone_cpu %}
+                            <p class="signe_physique">Numéro de la personne à contacter : 0{{ dnpatient.telephone_cpu }}</p>
+                        {% endif %}
+                    {% endfor %}
+            </td>    
+            <td style="overflow:hidden;">
+                        <div style="float:left;display:inline-block">
+                            <nav class="divcontenunav">Bilan biologique</nav>
+                            {% for bilan_biologiqueexamen in bilan_biologiqueexamens %}
+                                <p class="signe_physique">examen : {{ bilan_biologiqueexamen.examens_bio.typeexamen}}</p>
+                                <p class="signe_physique">unité : {{ bilan_biologiqueexamen.examens_bio.unite}}</p>
+                                <p class="signe_physique">resultatnumerique : {{ bilan_biologiqueexamen.resultatnumerique }}</p>
+                                <p class="signe_physique">resultatmodalite : {{ bilan_biologiqueexamen.resultatmodalite }}</p>
+                                <p class="signe_physique">prix : {{ bilan_biologiqueexamen.prix }}</p>
+                                <p class="signe_physique">date : {{ bilan_biologiqueexamen.date }}</p>
+                                
+                            {% endfor %}
+                        </div>
+                        <div style="margin-left:150px"> 
+                            <form method="POST" action="{% url 'docpts' %}?doc=ok&pk={{ pk }}&detaille=bilan_biologique">
+                                {% csrf_token %}
+                                {% for idbil in idbils %}
+                                    <label style="display: block; text-align: start; margin-left:5px ;width:250px">
+                                        <input type="radio" name="datebilbio" value="{{ idbil.numbilanbio }}" required/>
+                                        {{ idbil.date }}
+                                    </label>
+                                {% endfor %}
+                                <input type="submit" value="Afficher" name="Recherche" class="btn btn-primary"/>
+                            </form>
+                        </div>
+            </td>
+
+            <td style="overflow:hidden">
+                
+                <div style="float:left;display:inline-block">
+                    <nav class="divcontenunav">Bilan imagerie</nav>
+                    {% for valeursimg in valeursimgs %}
+                        {% if valeursimg.radiographie and not valeursimg.echographie %}
+                            <p class="signe_physique">radiographie : {{ valeursimg.radiographie }}</p>
+                        {% elif not valeursimg.radiographie and valeursimg.echographie %}
+                            <p class="signe_physique">échographie : {{ valeursimg.echographie }} </p>
+                        {% elif valeursimg.radiographie and valeursimg.echographie %}
+                            <p class="signe_physique">radiographie : {{ valeursimg.radiographie }}</p>
+                            <p class="signe_physique">échographie : {{ valeursimg.echographie }}</p>
+                        {% endif %}
+                        <p class="signe_physique">
+                            Résultat : {{ valeursimg.resultat }}
+                        </p>
+                        
+                        <p class="signe_physique">date examen : {{ valeursimg.dateexam }}</p>
+                        <p class="signe_physique">renseignement clinique: {{ valeursimg.rensignementclinique }}</p>
+                        <p class="signe_physique">service : {{ valeursimg.service }} </p>
+                    {% endfor %}
+
+                </div>
+                <div style="margin-left:150px"> 
+                    <form method="POST" action="{% url 'docpts' %}?doc=ok&pk={{ pk }}&detaille=bilan_imagerie">
+                        {% csrf_token %}
+                        {% for blimgid in blimgids %}
+                            <label style="display: block; text-align: start; margin-left:5px ;width:250px">
+                                <input type="radio" name="datesbilmg" value="{{ blimgid.numbilimg }}" required/>
+                                {{ blimgid.dateajout }}
+                            </label>
+                        {% endfor %}
+                        <input type="submit" value="Afficher" name="Recherche" class="btn btn-primary"/>
+                    </form>
+                </div>
+           
+            </td>
+        </tr>
+        
+        <tr>
+            <td style="overflow:hidden">
+                <div style="float:left;display:inline-block">
+                    <nav class="divcontenunav">Constantes</nav>
+                    {% for constantepatient in constantepatients %}
+                        <p class="signe_physique">Poids : {{ constantepatient.poids }} kg</p>
+                        <p class="signe_physique">Taille : {{ constantepatient.taille }} m</p>
+                        <p class="signe_physique">Température : {{ constantepatient.temperature }} °C</p>
+                        <p class="signe_physique">IMC : {{ constantepatient.imc }}</p>
+                        <p class="signe_physique">Tension artérielle : {{ constantepatient.tas }}/{{ constantepatient.tad }} mm Hg</p>
+                        <p class="signe_physique">Pouls : {{ constantepatient.pouls }} bpm</p>
+                    {% endfor %}
+                </div>
+                <div style="margin-left:150px"> 
+                    <form method="POST" action="{% url 'docpts' %}?doc=ok&pk={{ pk }}&detaille=constante">
+                        {% csrf_token %}
+                        {% for id in ids %}
+                        <label style="display: block; text-align: start; margin-left:5px ;width:250px">
+                                <input type="radio" name="datesconst" value="{{ id.refconst }}" required/>
+                                {{ id.dateajout }}
+                            </label>
+                        {% endfor %}
+                        <input type="submit" value="Afficher" name="Recherche" class="btn btn-primary"/>
+                    </form>
+                </div>
+            </td>
+
+            <td style="overflow:hidden">
+                <div style="float:left;display:inline-block">
+                    <nav class="divcontenunav">Signes Physiques</nav>
+                    {% for valeursph in valeursphs %}
+                        {% if valeursph.resultattoucherectal %}
+                            <p class="signe_physique">Résultat toucher rectal : {{ valeursph.resultattoucherectal }}</p>
+                        {% endif %}
+                        
+                        {% if valeursph.lxo %}
+                            <p class="signe_physique">LXO : {{ valeursph.lxo }} </p>
+                        {% endif %}
+                        
+                        {% if valeursph.lmc %}
+                            <p class="signe_physique">LMC : {{ valeursph.lmc }}</p>
+                        {% endif %}
+                        
+                        {% if valeursph.shp %}
+                            <p class="signe_physique">Signe hypertension portable : {{ valeursph.shp }}</p>
+                        {% endif %}
+                        
+                        {% if valeursph.sih %}
+                            <p class="signe_physique">Signe insuffisance hépatocellulaire : {{ valeursph.sih }}</p>
+                        {% endif %}
+                        
+                        {% if valeursph.observation %}
+                            <p class="signe_physique">Observation : {{ valeursph.observation }}</p>
+                        {% endif %}
+                        
+                        {% if valeursph.etat_de_conscience %}
+                            <p class="signe_physique">Etat de conscience : {{ valeursph.etat_de_conscience }}</p>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div style="margin-left:150px"> 
+                    <form method="POST" action="{% url 'docpts' %}?doc=ok&pk={{ pk }}&detaille=signe_physique">
+                        {% csrf_token %}
+                        {% for sphid in sphids %}
+                            <label style="display: block; text-align: start; margin-left:5px">
+                                <input type="radio" name="datesph" value="{{ sphid.idExamen_physique }}" required/>
+                                    {{ sphid.date }}
+                            </label>
+                        {% endfor %}
+                        <input type="submit" value="Afficher" name="Recherche" class="btn btn-primary"/>
+                    </form>
+                </div>
+            </td>
+       
+            <td style="overflow:hidden">
+                
+                <div style="float:left;display:inline">
+                    <nav class="divcontenunav">Médicament</nav>
+                    {% for ordonnances_medicament in ordonnances_medicaments %}
+                        <p class="signe_physique">medicament : {{ ordonnances_medicament.medicament.nommedicament}}</p>
+                        <p class="signe_physique">quantite : {{ ordonnances_medicament.quantite }}</p>
+                        <p class="signe_physique">dosage : {{ordonnances_medicament.medicament.dosage }}</p>
+                    {% endfor %}
+                </div>
+
+                <div style="margin-left:150px"> 
+                    <form method="POST" action="{% url 'docpts' %}?doc=ok&pk={{ pk }}&detaille=médicament">
+                        {% csrf_token %}
+                        {% for ordid in ordids %}
+                        <label style="display: block; text-align: start; margin-left:5px ;width:250px">
+                                <input type="radio" name="dateord" value="{{ ordid.reford }}" required/>
+                                {{ ordid.date }}
+                            </label>
+                        {% endfor %}
+                        <input type="submit" value="Afficher" name="Recherche" class="btn btn-primary"/>
+                    </form>
+                </div>
+            </td>
+        </tr>
+
+            <tr>
+                <td>
+                
+                <div>
+                    <div>
+                        <nav class="divcontenunav">Gynécologie</nav>
+                    </div>
+                    {% for valeurgenecologique in valeurgenecologiques %}
+                        {% if valeurgenecologique.prisecontraceptif %}
+                            <p class="signe_physique">Prise de contraceptif : {{ valeurgenecologique.prisecontraceptif }}</p>
+                        {% endif %}
+                        
+                        {% if valeurgenecologique.cesarienne %}
+                            <p class="signe_physique">Césarienne : {{ valeurgenecologique.cesarienne }}</p>
+                        {% endif %}
+                        
+                        {% if valeurgenecologique.datecesarienne %}
+                            <p class="signe_physique">Date de la césarienne : {{ valeurgenecologique.datecesarienne }}</p>
+                        {% endif %}
+                        
+                        {% if valeurgenecologique.parite %}
+                            <p class="signe_physique">Parité : {{ valeurgenecologique.parite }}</p>
+                        {% endif %}
+                        
+                        {% if valeurgenecologique.gestite %}
+                            <p class="signe_physique">Gestite : {{ valeurgenecologique.gestite }}</p>
+                        {% endif %}
+                        
+                        {% if valeurgenecologique.datederniereregle %}
+                            <p class="signe_physique">Date des dernières règles : {{ valeurgenecologique.datederniereregle }}</p>
+                        {% endif %}
+                    {% endfor %}
+
+                </div></td>
+            <td><div >
+                <div>
+                    <nav class="divcontenunav">Médicale</nav>
+                </div>
+                   
+                    {% for valeursmedical in valeursmedicals %}
+                        {% if valeursmedical.dyslipidemie %}
+                            <p class="signe_physique">Dyslipidémie : {{ valeursmedical.dyslipidemie }}</p>
+                        {% endif %}
+                        
+                        {% if valeursmedical.cirrhose %}
+                            <p class="signe_physique">Cirrhose : {{ valeursmedical.cirrhose }}</p>
+                        {% endif %}
+                        
+                        {% if valeursmedical.hepatiteviraleb %}
+                            <p class="signe_physique">Hépatite virale B : {{ valeursmedical.hepatiteviraleb }}</p>
+                        {% endif %}
+                        
+                        {% if valeursmedical.datehepvirb %}
+                            <p class="signe_physique">Date hépatite virale B : {{ valeursmedical.datehepvirb }}</p>
+                        {% endif %}
+                        
+                        {% if valeursmedical.hepatiteviralec %}
+                            <p class="signe_physique">Hépatite virale C : {{ valeursmedical.hepatiteviralec }}</p>
+                        {% endif %}
+                        
+                        {% if valeursmedical.datehepvirc %}
+                            <p class="signe_physique">Date hépatite virale C : {{ valeursmedical.datehepvirc }}</p>
+                        {% endif %}
+                        
+                        {% if valeursmedical.hepatiteviraled %}
+                            <p class="signe_physique">Hépatite virale D : {{ valeursmedical.hepatiteviraled }}</p>
+                        {% endif %}
+                        
+                        {% if valeursmedical.datehepvird %}
+                            <p class="signe_physique">Date hépatite virale D : {{ valeursmedical.datehepvird }}</p>
+                        {% endif %}
+                        
+                        {% if valeursmedical.vaccination_vhb %}
+                            <p class="signe_physique">Vaccination VHB : {{ valeursmedical.vaccination_vhb }}</p>
+                        {% endif %}
+                        
+                        {% if valeursmedical.dosevhb %}
+                            <p class="signe_physique">Dose VHB : {{ valeursmedical.dosevhb }}</p>
+                        {% endif %}
+                        
+                        {% if valeursmedical.vaccination_vha %}
+                            <p class="signe_physique">Vaccination VHA : {{ valeursmedical.vaccination_vha }}</p>
+                        {% endif %}
+                        
+                        {% if valeursmedical.dosevha %}
+                            <p class="signe_physique">Dose VHA : {{ valeursmedical.dosevha }}</p>
+                        {% endif %}
+                        
+                        {% if valeursmedical.transfusion_sanguine %}
+                            <p class="signe_physique">Transfusion sanguine : {{ valeursmedical.transfusion_sanguine }}</p>
+                        {% endif %}
+                        
+                        {% if valeursmedical.datransing %}
+                            <p class="signe_physique">Date de la transfusion : {{ valeursmedical.datransing }}</p>
+                        {% endif %}
+                        
+                        {% if valeursmedical.ictere %}
+                            <p class="signe_physique">Ictère : {{ valeursmedical.ictere }}</p>
+                        {% endif %}
+                        
+                        {% if valeursmedical.rapportsexuelnonprotege %}
+                            <p class="signe_physique">Rapport sexuel non protégé : {{ valeursmedical.rapportsexuelnonprotege }}</p>
+                        {% endif %}
+                        
+                        {% if valeursmedical.partageobjettoilette %}
+                            <p class="signe_physique">Partage d'objet de toilette : {{ valeursmedical.partageobjettoilette }}</p>
+                        {% endif %}
+                        
+                        {% if valeursmedical.accidexposang %}
+                            <p class="signe_physique">Accident exposition au sang : {{ valeursmedical.accidexposang }}</p>
+                        {% endif %}
+                        
+                        {% if valeursmedical.toxicomanie %}
+                            <p class="signe_physique">Toxicomanie : {{ valeursmedical.toxicomanie }}</p>
+                        {% endif %}
+                        
+                        {% if valeursmedical.diabete %}
+                            <p class="signe_physique">Diabète : {{ valeursmedical.diabete }}</p>
+                        {% endif %}
+                        
+                        {% if valeursmedical.hta %}
+                            <p class="signe_physique">HTA : {{ valeursmedical.hta }}</p>
+                        {% endif %}
+                        
+                        {% if valeursmedical.transplanhepatique %}
+                            <p class="signe_physique">Transplantation hépatique : {{ valeursmedical.transplanhepatique }}</p>
+                        {% endif %}
+                        
+                        {% if valeursmedical.ulceregastroduodenal %}
+                            <p class="signe_physique">Ulcère gastroduodénal : {{ valeursmedical.ulceregastroduodenal }}</p>
+                        {% endif %}
+                        
+                        {% if valeursmedical.epigastralgies %}
+                            <p class="signe_physique">Épigastralgies : {{ valeursmedical.epigastralgies }}</p>
+                        {% endif %}
+                        
+                        {% if valeursmedical.hemorragiedigestive %}
+                            <p class="signe_physique">Hémorragie digestive : {{ valeursmedical.hemorragiedigestive }}</p>
+                        {% endif %}
+                        
+                        {% if valeursmedical.precisionautre %}
+                            <p class="signe_physique">Autre : {{ valeursmedical.precisionautre }}</p>
+                        {% endif %}
+                    {% endfor %}
+
+                </div>
+            </td>
+            <td>
+                <div>
+                <div>
+                    <nav class="divcontenunav">Familial</nav>
+                </div>
+                    
+                    {% for valeursmedicale in valeursmedicales %}
+                        <label>Ascendant</label>
+                        <p class="signe_physique">Hépatite virale : {{ valeursmedicale.hepatie_vir_ASC }}</p>
+                        <p class="signe_physique">Cirrhose : {{ valeursmedicale.cirrhose_ASC }}</p>
+                        <p class="signe_physique">CPF : {{ valeursmedicale.cpf_ASC }}</p>
+                        <label>Déscendant</label>
+                        <p class="signe_physique">Hépatite virale : {{ valeursmedicale.hepatie_vir_DSC }}</p>
+                        <p class="signe_physique">Cirrhose : {{ valeursmedicale.cirrhose_DSC }}</p>
+                        <p class="signe_physique">CPF : {{ valeursmedicale.cpf_DSC }}</p>
+                        <label>Collatéral</label>
+                        <p class="signe_physique">Hépatite virale : {{ valeursmedicale.hepatie_vir_COL }}</p>
+                        <p class="signe_physique">Cirrhose : {{ valeursmedicale.cirrhose_COL }}</p>
+                        <p class="signe_physique">CPF : {{ valeursmedicale.cpf_COL }}</p>
+                    {% endfor %}
+                </div>
+            </td></tr>
+            <tr> 
+                <td>
+                <div>
+                <div>
+                    <nav class="divcontenunav">Chirurgical</nav>
+                </div>
+                   
+                    {% for valeurschirurgicale in valeurschirurgicales %}
+                        
+                        
+                        {% if valeurschirurgicale.operachir %}
+                            <p class="signe_physique">Opération chirurgicale : {{ valeurschirurgicale.operachir }}</p>
+                        {% endif %}
+                        
+                        {% if valeurschirurgicale.datoperachir %}
+                            <p class="signe_physique">Date de l'opération chirurgicale : {{ valeurschirurgicale.datoperachir }}</p>
+                        {% endif %}
+                        
+                        {% if valeurschirurgicale.avp %}
+                            <p class="signe_physique">AVP : {{ valeurschirurgicale.avp }}</p>
+                        {% endif %}
+                        
+                        {% if valeurschirurgicale.dateavp %}
+                            <p class="signe_physique">Date AVP : {{ valeurschirurgicale.dateavp }}</p>
+                        {% endif %}
+                        
+                        {% if valeurschirurgicale.autre %}
+                            <p class="signe_physique">Autre : {{ valeurschirurgicale.autre }}</p>
+                        {% endif %}
+                    {% endfor %}
+
+                </div>
+            </td>
+        </tr>
+</table>
+</center>
+{% endblock %}

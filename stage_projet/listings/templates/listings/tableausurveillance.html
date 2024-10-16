@@ -1,0 +1,106 @@
+{% extends 'listings/template.html' %}
+{% block frmsurv %}
+<center>
+<style>
+    table {
+        border-collapse: collapse;
+        width: 80%;
+        margin: 20px 0;
+        font-size: 1em;
+        text-align: left;
+    }
+    th, td {
+        border: 1px solid #dddddd;
+        padding: 8px;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+    tr:hover {
+        background-color: #f1f1f1;
+    }
+</style>
+
+<table>
+    <thead>
+        <tr>
+            <th>Variables</th>
+            {% for constantepatient in constantepatients %}
+                <th>{{ constantepatient.dateajout|date:"d/m/Y" }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Pouls</td>
+            {% for constantepatient in constantepatients %}
+                <td>{{ constantepatient.pouls }} bpm</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <td>Tension artérielle</td>
+            {% for constantepatient in constantepatients %}
+                <td>{{ constantepatient.tas }}/{{ constantepatient.tad }} mm Hg</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <td>Température</td>
+            {% for constantepatient in constantepatients %}
+                <td>{{ constantepatient.temperature }} °C</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <td>Fréquence cardiaque</td>
+            {% for constantepatient in constantepatients %}
+                <td>{{ constantepatient.frequence_cardiaque }} bpm</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <td>Fréquence respiratoire</td>
+            {% for constantepatient in constantepatients %}
+                <td>{{ constantepatient.frequence_respiratoire }} cycles/min</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <td>Saturation d'oxygène</td>
+            {% for constantepatient in constantepatients %}
+                <td>{{ constantepatient.saturation }}%</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <td>Diurèse</td>
+            {% for constantepatient in constantepatients %}
+                <td>{{ constantepatient.diurese }} mL</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <td>État de conscience</td>
+            {% for sph in sphs %}
+                <td>{{ sph.etat_de_conscience }}</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <td>Nombre de selles/jour</td>
+            {% for constantepatient in constantepatients %}
+                <td>{{ constantepatient.nombre_selles }}</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <td>EVA douleur</td>
+            {% for constantepatient in constantepatients %}
+                <td>{{ constantepatient.eva_douleur }}</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <td>Nombre de vomissements/jour</td>
+            {% for constantepatient in constantepatients %}
+                <td>{{ constantepatient.nombre_vomissements }}</td>
+            {% endfor %}
+        </tr>
+    </tbody>
+</table>
+</center>
+{% endblock %}

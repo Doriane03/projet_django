@@ -1,5 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 from celery import shared_task
+from stage_projet.celery import app# c'est 
 from django.core.mail import send_mail
 from stage_projet import settings
 from django.utils import timezone
@@ -12,7 +13,7 @@ import logging
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)  # Ajustez le niveau de log si nécessaire
 
-@shared_task
+@app.task
 def relance():
     aujourd_hui = timezone.now().date()
     demain = aujourd_hui + timedelta(days=1)

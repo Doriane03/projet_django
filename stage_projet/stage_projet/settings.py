@@ -3,7 +3,7 @@
 import os
 from pathlib import Path
 import environ
-
+from celery.schedules import crontab # pour celery
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MEDIA_URL = '/media/'
@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'listings',
     'django_celery_beat',  # pour l'email celery
     'django_celery_results',  # pour l'email celery
+    'bootstrap5',
 ]
 
 MIDDLEWARE = [
@@ -100,8 +101,11 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 LANGUAGE_CODE = 'fr'
+
 TIME_ZONE = 'UTC'
+
 USE_I18N = True
+
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
@@ -123,39 +127,20 @@ EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'celery<josephinedorianekouadio@gmail.com>'
 
 # Celery configuration
+
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
 CELERY_RESULT_BACKEND = 'django-db'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'UTC'  # ou votre fuseau horaire
-CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+CELERY_TIMEZONE = 'UTC'  # fuseau horaire
 
-# Configuration de la journalisation
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': False,
-#     'handlers': {
-#         'console': {
-#             'level': 'INFO',
-#             'class': 'logging.StreamHandler',
-#         },
-#         'file': {
-#             'level': 'DEBUG',
-#             'class': 'logging.FileHandler',
-#             'filename': os.path.join(BASE_DIR, 'django_debug.log'),
-#         },
-#     },
-#     'loggers': {
-#         'django': {
-#             'handlers': ['console', 'file'],
-#             'level': 'DEBUG',
-#             'propagate': True,
-#         },
-#         'stage_projet': {
-#             'handlers': ['console', 'file'],
-#             'level': 'DEBUG',
-#             'propagate': True,
-#         },
-#     },
-# }
+CELERY_BEAT_SCHEDULER ={
+   'send-email-every-day-at-17':{
+       'task':'stage_projet.tasks.relance',
+       'schedule': crontab(minute=00,hour=17),
+   }
+}
+#demander
+
+#tache
