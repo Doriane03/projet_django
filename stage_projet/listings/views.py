@@ -989,7 +989,7 @@ def attributionlit(request):
         form = hospitalisationlitForm(request.POST)
 
         # Récupérer les valeurs du formulaire
-        patient_nom = request.POST.get('patientNom')
+        patient_nom = request.POST.get('nom')
         sexe = request.POST.get('sexe')
         email = request.POST.get('email')
         age = request.POST.get('age')
