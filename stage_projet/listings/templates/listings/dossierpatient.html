@@ -7,6 +7,39 @@ td {
     padding: 10px; /* Rembourrage uniforme */
     border: 0px solid #ccc; /* Bordure pour visibilité */
 }
+img {
+    max-width: 100%; /* Pour rendre l'image responsive */
+}
+/* Styles pour la fenêtre modale */
+.modal {
+    display: none; /* Cachée par défaut */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8); /* Fond semi-transparent */
+}
+.modal-content {
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Largeur de la modale */
+}
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+.close:hover,
+.close:focus {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
 </style>
 <center>
 <table>       
@@ -82,8 +115,8 @@ td {
                             {% for bilan_biologiqueexamen in bilan_biologiqueexamens %}
                                 <p class="signe_physique">examen : {{ bilan_biologiqueexamen.examens_bio.typeexamen}}</p>
                                 <p class="signe_physique">unité : {{ bilan_biologiqueexamen.examens_bio.unite}}</p>
-                                <p class="signe_physique">resultatnumerique : {{ bilan_biologiqueexamen.resultatnumerique }}</p>
-                                <p class="signe_physique">resultatmodalite : {{ bilan_biologiqueexamen.resultatmodalite }}</p>
+                                <p class="signe_physique">résultat numérique : {{ bilan_biologiqueexamen.resultatnumerique }}</p>
+                                <p class="signe_physique">résultat modalité : {{ bilan_biologiqueexamen.resultatmodalite }}</p>
                                 <p class="signe_physique">prix : {{ bilan_biologiqueexamen.prix }}</p>
                                 <p class="signe_physique">date : {{ bilan_biologiqueexamen.date }}</p>
                                 
@@ -98,13 +131,12 @@ td {
                                         {{ idbil.date }}
                                     </label>
                                 {% endfor %}
-                                <input type="submit" value="Afficher" name="Recherche" class="btn btn-primary"/>
+                                <input type="submit" value="Afficher" name="Recherche" class"inp1"/>
                             </form>
                         </div>
             </td>
 
-            <td style="overflow:hidden">
-                
+            <td style="overflow:hidden">                
                 <div style="float:left;display:inline-block">
                     <nav class="divcontenunav">Bilan imagerie</nav>
                     {% for valeursimg in valeursimgs %}
@@ -117,7 +149,16 @@ td {
                             <p class="signe_physique">échographie : {{ valeursimg.echographie }}</p>
                         {% endif %}
                         <p class="signe_physique">
-                            Résultat : {{ valeursimg.resultat }}
+                            <map name="primary">
+                                <area target="_parent" alt="image" coords="" shape="" class="area" />
+                            </map>
+                            Résultat :  <img usemap="#primary" src="{{ valeursimg.resultat.url }}" width="100px" alt="Image" id="myImage" />
+                            <div id="myModal" class="modal">
+                                <span class="close">&times;</span>
+                                <div class="modal-content">
+                                    <img id="modalImage" src="{{ valeursimg.resultat.url }}" alt="Image agrandie" style="width: 100%;">
+                                </div>
+                            </div>
                         </p>
                         
                         <p class="signe_physique">date examen : {{ valeursimg.dateexam }}</p>
@@ -130,12 +171,12 @@ td {
                     <form method="POST" action="{% url 'docpts' %}?doc=ok&pk={{ pk }}&detaille=bilan_imagerie">
                         {% csrf_token %}
                         {% for blimgid in blimgids %}
-                            <label style="display: block; text-align: start; margin-left:5px ;width:250px">
+                            <label style="display: block; text-align: start; margin-left:5px;width:250px">
                                 <input type="radio" name="datesbilmg" value="{{ blimgid.numbilimg }}" required/>
                                 {{ blimgid.dateajout }}
                             </label>
                         {% endfor %}
-                        <input type="submit" value="Afficher" name="Recherche" class="btn btn-primary"/>
+                        <input type="submit" value="Afficher" name="Recherche" class"inp1"/>
                     </form>
                 </div>
            
@@ -164,7 +205,7 @@ td {
                                 {{ id.dateajout }}
                             </label>
                         {% endfor %}
-                        <input type="submit" value="Afficher" name="Recherche" class="btn btn-primary"/>
+                        <input type="submit" value="Afficher" name="Recherche" class"inp1"/>
                     </form>
                 </div>
             </td>
@@ -200,18 +241,42 @@ td {
                         {% if valeursph.etat_de_conscience %}
                             <p class="signe_physique">Etat de conscience : {{ valeursph.etat_de_conscience }}</p>
                         {% endif %}
+
+
+                        {% if valeursph.frequence_cardiaque %}
+                            <p class="signe_physique">Fréquence cardiaque : {{ valeursph.frequence_cardiaque }}</p>
+                        {% endif %}
+                        {% if valeursph.frequence_respiratoire %}
+                            <p class="signe_physique">Fréquence respiratoire: {{ valeursph.frequence_respiratoire }}</p>
+                        {% endif %}
+                        {% if valeursph.saturation_doxygene %}
+                            <p class="signe_physique">Saturation d'oxygène: {{ valeursph.saturation_doxygene }}</p>
+                        {% endif %}
+                        {% if valeursph.diurese %}
+                            <p class="signe_physique">Diurèse: {{ valeursph.diurese }}</p>
+                        {% endif %}
+                        {% if valeursph.nombre_de_selles %}
+                            <p class="signe_physique">Nombre de selles: {{ valeursph.nombre_de_selles }}</p>
+                        {% endif %}
+                        {% if valeursph.eva_douleur %}
+                            <p class="signe_physique">EVA douleur: {{ valeursph.eva_douleur }}</p>
+                        {% endif %}
+                        {% if valeursph.nombre_de_vomissements %}
+                            <p class="signe_physique">Nombre de vomissements: {{ valeursph.nombre_de_vomissements }}</p>
+                        {% endif %}
+
                     {% endfor %}
                 </div>
                 <div style="margin-left:150px"> 
                     <form method="POST" action="{% url 'docpts' %}?doc=ok&pk={{ pk }}&detaille=signe_physique">
                         {% csrf_token %}
                         {% for sphid in sphids %}
-                            <label style="display: block; text-align: start; margin-left:5px">
+                            <label style="display: block; text-align: start; margin-left:5px;width:250px">
                                 <input type="radio" name="datesph" value="{{ sphid.idExamen_physique }}" required/>
                                     {{ sphid.date }}
                             </label>
                         {% endfor %}
-                        <input type="submit" value="Afficher" name="Recherche" class="btn btn-primary"/>
+                        <input type="submit" value="Afficher" name="Recherche" class"inp1"/>
                     </form>
                 </div>
             </td>
@@ -221,8 +286,8 @@ td {
                 <div style="float:left;display:inline">
                     <nav class="divcontenunav">Médicament</nav>
                     {% for ordonnances_medicament in ordonnances_medicaments %}
-                        <p class="signe_physique">medicament : {{ ordonnances_medicament.medicament.nommedicament}}</p>
-                        <p class="signe_physique">quantite : {{ ordonnances_medicament.quantite }}</p>
+                        <p class="signe_physique">médicament : {{ ordonnances_medicament.medicament.nommedicament}}</p>
+                        <p class="signe_physique">quantité : {{ ordonnances_medicament.quantite }}</p>
                         <p class="signe_physique">dosage : {{ordonnances_medicament.medicament.dosage }}</p>
                     {% endfor %}
                 </div>
@@ -231,51 +296,54 @@ td {
                     <form method="POST" action="{% url 'docpts' %}?doc=ok&pk={{ pk }}&detaille=médicament">
                         {% csrf_token %}
                         {% for ordid in ordids %}
-                        <label style="display: block; text-align: start; margin-left:5px ;width:250px">
+                        <label style="display: block; text-align: start; margin-left:5px;width:250px">
                                 <input type="radio" name="dateord" value="{{ ordid.reford }}" required/>
                                 {{ ordid.date }}
                             </label>
                         {% endfor %}
-                        <input type="submit" value="Afficher" name="Recherche" class="btn btn-primary"/>
+                        <input type="submit" value="Afficher" name="Recherche" class"inp1"/>
                     </form>
                 </div>
             </td>
         </tr>
 
             <tr>
-                <td>
-                
-                <div>
-                    <div>
-                        <nav class="divcontenunav">Gynécologie</nav>
-                    </div>
-                    {% for valeurgenecologique in valeurgenecologiques %}
-                        {% if valeurgenecologique.prisecontraceptif %}
-                            <p class="signe_physique">Prise de contraceptif : {{ valeurgenecologique.prisecontraceptif }}</p>
-                        {% endif %}
+                {% if sexe == "féminin" %}
+                        <td>
                         
-                        {% if valeurgenecologique.cesarienne %}
-                            <p class="signe_physique">Césarienne : {{ valeurgenecologique.cesarienne }}</p>
-                        {% endif %}
-                        
-                        {% if valeurgenecologique.datecesarienne %}
-                            <p class="signe_physique">Date de la césarienne : {{ valeurgenecologique.datecesarienne }}</p>
-                        {% endif %}
-                        
-                        {% if valeurgenecologique.parite %}
-                            <p class="signe_physique">Parité : {{ valeurgenecologique.parite }}</p>
-                        {% endif %}
-                        
-                        {% if valeurgenecologique.gestite %}
-                            <p class="signe_physique">Gestite : {{ valeurgenecologique.gestite }}</p>
-                        {% endif %}
-                        
-                        {% if valeurgenecologique.datederniereregle %}
-                            <p class="signe_physique">Date des dernières règles : {{ valeurgenecologique.datederniereregle }}</p>
-                        {% endif %}
-                    {% endfor %}
+                        <div>
+                            <div>
+                                <nav class="divcontenunav">Gynécologie</nav>
+                            </div>
+                            {% for valeurgenecologique in valeurgenecologiques %}
+                                {% if valeurgenecologique.prisecontraceptif %}
+                                    <p class="signe_physique">Prise de contraceptif : {{ valeurgenecologique.prisecontraceptif }}</p>
+                                {% endif %}
+                                
+                                {% if valeurgenecologique.cesarienne %}
+                                    <p class="signe_physique">Césarienne : {{ valeurgenecologique.cesarienne }}</p>
+                                {% endif %}
+                                
+                                {% if valeurgenecologique.datecesarienne %}
+                                    <p class="signe_physique">Date de la césarienne : {{ valeurgenecologique.datecesarienne }}</p>
+                                {% endif %}
+                                
+                                {% if valeurgenecologique.parite %}
+                                    <p class="signe_physique">Parité : {{ valeurgenecologique.parite }}</p>
+                                {% endif %}
+                                
+                                {% if valeurgenecologique.gestite %}
+                                    <p class="signe_physique">Gestite : {{ valeurgenecologique.gestite }}</p>
+                                {% endif %}
+                                
+                                {% if valeurgenecologique.datederniereregle %}
+                                    <p class="signe_physique">Date des dernières règles : {{ valeurgenecologique.datederniereregle }}</p>
+                                {% endif %}
+                            {% endfor %}
 
-                </div></td>
+                        </div>
+                    </td>
+            {% endif %}
             <td><div >
                 <div>
                     <nav class="divcontenunav">Médicale</nav>
@@ -446,5 +514,54 @@ td {
             </td>
         </tr>
 </table>
+<script>
+    const img = document.getElementById('myImage');
+    const area = document.querySelector('.area');
+    const modal = document.getElementById('myModal');
+    const closeModal = document.querySelector('.close');
+
+    img.addEventListener('click', (event) => {
+        // Récupérer les coordonnées cliquées
+        const x = event.offsetX;
+        const y = event.offsetY;
+
+        // Variables pour les coordonnées
+        let coords = '';
+        let shape = '';
+
+        // Exemple de valeurs prédéfinies
+        if (Math.random() < 0.5) {
+            // Remplir pour un rectangle
+            const width = 50; // Largeur du rectangle
+            const height = 30; // Hauteur du rectangle
+            coords = `${x},${y},${x + width},${y + height}`;
+            shape = 'rect';
+        } else {
+            // Remplir pour un cercle
+            const radius = 25; // Rayon du cercle
+            coords = `${x},${y},${radius}`;
+            shape = 'circle';
+        }
+
+        // Mettre à jour les attributs de la balise area avec les valeurs trouvées
+        area.setAttribute('coords', coords);
+        area.setAttribute('shape', shape);
+
+        // Ouvrir la fenêtre modale pour afficher l'image en taille réelle
+        modal.style.display = "block";
+    });
+
+    // Fermer la modale lorsqu'on clique sur le 'x'
+    closeModal.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // Fermer la modale lorsqu'on clique en dehors de la modale
+    window.onclick = function(event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
 </center>
 {% endblock %}

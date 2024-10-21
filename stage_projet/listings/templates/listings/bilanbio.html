@@ -69,7 +69,7 @@
     </div>
     <input type="hidden"  name="patient"  value="{{derniere_consultation_id}}"/>
     </fieldset>
-    <input type="submit"  name="validbilanimg"  value="Enregister" class="btn btn-primary"/>
+    <input type="submit"  name="validbilanimg"  value="Enregister" class="inp2"/>
 </form>
 </center>
 <script>
@@ -109,15 +109,15 @@
             </div>`;
 
                 cell4.innerHTML = `<div >
-              <input  type="text" name="resultatnumerique[]"required/>
+              <input  type="text" name="resultatnumerique[]" required/>
             </div>`;
 
                 cell5.innerHTML = `<div>
-            <input  type="text" name="resultatmodalite[] " required/>
+            <input  type="text" name="resultatmodalite[]" required/>
           </div>`;
 
                 cell6.innerHTML = `<div>
-            <input  type="text" name="prix[]"required/>
+            <input  type="text" name="prix[]" required/>
           </div>`;
             var finalRowCount = inputField1.rows.length;
             if (finalRowCount > initialRowCount) {

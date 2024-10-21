@@ -9,7 +9,7 @@
     {% csrf_token %}
     <fieldset>   
         {% if success %}
-        <p class="p2">Mot de passe mis à jour avec succès pour l'utilisateur.</p>
+        <p class="p2">Mot de passe mis à jour avec succès.</p>
         {% endif %}
         {% if error_message %}
                 <p class="p1">{{ error_message }}</p>
@@ -30,7 +30,7 @@
         </div>
         
     </fieldset>
-    <input  type="submit" name="validantchir" value="Valider" class="btn btn-primary" >
+    <input  type="submit" name="validantchir" value="Modifier"  class="inp2"/>
 </form>
 </center>
 <script>

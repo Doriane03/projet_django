@@ -2,12 +2,14 @@
 
 {% block formhospi %}
 <center style="overflow:hidden">
-    <form method="post" action="{% url 'attributionlit' %}" class="formcontenu" >
-        <div>
-            <nav class="divcontenunav">Créer une hospitalisation</nav>
-        </div>
+    <form method="post" action="{% url 'attributionlit' %}" class="formcontenutab" id="hospitalForm">
+        
         {% csrf_token %}
-        <fieldset>
+        <fieldset style="overflow:hidden">
+        <div style="float:left;">
+            <div>
+                <nav class="divcontenunav">Informations sur le patient</nav>
+            </div>
             <div class="divsortie">
                 <label for="num">Numéro du patient</label>
                 <input type="text" placeholder="Numéro du patient" name="numeropatient" id="num" class="inputcontenu" required/>
@@ -15,29 +17,98 @@
             
             <div class="divsortie">
                 <label for="patientNom">Nom et prénom</label>
-                <input type="text" name="patientNom" id="patientNom" class="inputcontenu"/>
+                <input type="text" name="nom" id="patientNom" class="inputcontenu"/>
             </div>
             <div class="divsexe">
                 <label>Sexe</label>
-                <div><input type="radio" name="sexe" value="masculin"  id="msc" /><label for="msc"required  >Masculin</label></div>
-                <div><input type="radio" name="sexe" value="féminin"  id ="fem" /><label for="fem" required>Féminin</label></div>
+                <div>
+                    <input type="radio" name="sexe" value="masculin" id="msc" /><label for="msc">Masculin</label>
+                </div>
+                <div>
+                    <input type="radio" name="sexe" value="féminin" id="fem" /><label for="fem">Féminin</label>
+                </div>
             </div>
-    
+
             <div class="divsortie">
-                <label for="email" >Email</label>
-                <input type="email" placeholder="Email" name="email" id="email" class="inputcontenu"  pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"/>
+                <label for="email">Email</label>
+                <input type="email" placeholder="Email" name="email" id="email" class="inputcontenu" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"/>
+            </div>
+
+            <div class="divsortie">
+                <label for="age">Âge</label>
+                <input type="text" placeholder="Âge" name="age" id="age" class="inputcontenu" title="Veuillez entrer uniquement des chiffres" minlength="1" maxlength="3" required/>
             </div>
             
             <div class="divsortie">
-                <label for="age" >Âge</label>
-                <input type="text" placeholder="Âge" name="age" id="age" class="inputcontenu"  title="Veuillez entrer uniquement des chiffres" minlength="1" maxlength="3" required/>
+                <label for="contact1">Contact 1</label>
+                <input type="tel" placeholder="Numéro 1" name="contact1" id="contact1" class="inputcontenu" minlength="10" maxlength="20" required/>
             </div>
-    
             <div class="divsortie">
-                <label for="contact1" >Contact 1</label>
-                <input type="tel"  placeholder="Numéro 1" name="contact1" id="contact1" class="inputcontenu" minlength="10" maxlength="20" required/>
+                <label for="contact2">Contact 2</label>
+                <input type="tel" placeholder="Numéro 2" name="contact2" id="contact2" class="inputcontenu" minlength="10" maxlength="20" required/>
             </div>
 
+            <div class="divsortie">
+                <label for="ville">Ville</label>
+                <input type="text" placeholder="Ville" name="ville" id="ville" class="inputcontenu" />
+            </div>
+            <div class="divsortie">
+                <label for="commune">Commune</label>
+                <input type="text" placeholder="Commune" name="commune" id="commune" class="inputcontenu" />
+            </div>
+            <div class="divsortie">
+                <label for="quartier">Quartier</label>
+                <input type="text" placeholder="Quartier" name="quartier" id="quartier" class="inputcontenu" />
+            </div>
+
+            <div class="divsortie">
+                <label for="profession">Profession</label>
+                <select name="profession" id="profession" required>
+                    <option value="Agriculteurs exploitants">Agriculteurs exploitants</option>
+                    <option value="Artisans">Artisans</option>
+                    <option value="Commerçants">Commerçants</option>
+                    <option value="Chefs d'entreprise">Chefs d'entreprise</option>
+                    <option value="Cadres et professions intellectuelles supérieures">Cadres et professions intellectuelles supérieures</option>
+                    <option value="Professions intermédiaires">Professions intermédiaires</option>
+                    <option value="Employés">Employés</option>
+                    <option value="Ouvriers">Ouvriers</option>
+                    <option value="Retraités">Retraités</option>
+                    <option value="Autres personnes sans activité professionnelle">Autres personnes sans activité professionnelle</option>
+                    <option value="Élèves et étudiants">Élèves et étudiants</option>
+                </select>
+            </div>
+            
+            <div class="divsortie">
+                <label for="nationalite">Nationalité</label>
+                <input type="text" placeholder="Nationalité" name="nationalite" id="nationalite" class="inputcontenu" />
+            </div>
+            <div class="divsortie">
+                <label for="situation_matrimoniale">Situation matrimoniale</label>
+                <select name="situation_matrimoniale" id="situation_matrimoniale">
+                    <option value="Célibataire">Célibataire</option>
+                    <option value="Divorcé">Divorcé</option>
+                    <option value="Marié">Marié</option>
+                    <option value="Veuf (ve)">Veuf (ve)</option>
+                </select>
+            </div>
+            <div class="divsortie">
+                <label for="nombre_enfant">Nombre d'enfant</label>
+                <input type="text" placeholder="Nombre d'enfant" name="nombre_enfant" id="nombre_enfant" class="inputcontenu" minlength="1" maxlength="3"/>
+            </div>
+            <div class="divsortie">
+                <label for="personne_a_contacter">Personne à contacter</label>
+                <input type="text" placeholder="Personne à contacter" name="personne_a_contacter" id="personne_a_contacter" class="inputcontenu" required/>
+            </div>
+            <div class="divsortie">
+                <label for="telephone_cpu">Contact de la personne à contacter</label>
+                <input type="tel" placeholder="Contact de la personne à contacter" name="telephone_cpu" id="telephone_cpu" class="inputcontenu" minlength="10" maxlength="20" required/>
+            </div>
+        </div>
+
+        <div style="margin-left:500px">
+            <div>
+                <nav class="divcontenunav">Attribution de lit</nav>
+            </div>
             <div class="divsortie">
                 <label for="lit">Numéro de lit</label>
                 <select name="lit" id="lit">
@@ -48,33 +119,112 @@
             </div>
 
             <div class="divsortie">
-                <label for="liresultattribt">Date  l'hospitalisation</label>
+                <label for="liresultattribt">Date d'hospitalisation</label>
                 <input type="date" name="dateoccupation" id="dateField" class="inputcontenu" readonly/>
             </div>
             <div class="divsortie">
-                <label for="profession" >Origine</label>
-                <select name="origine"  id="origine" required>
-                    <option value="consultation externe">consultation externe</option>
-                    <option value="service des urgences">service des urgences</option>
-                    <option value="chirurgie digestive">chirurgie digestive</option>
-                    <option value="autre service CHU de Cocody">autre service CHU de Cocody</option>
+                <label for="origine">Origine</label>
+                <select name="origine" id="origine" required>
+                    <option value="consultation externe">Consultation externe</option>
+                    <option value="service des urgences">Service des urgences</option>
+                    <option value="chirurgie digestive">Chirurgie digestive</option>
+                    <option value="autre service CHU de Cocody">Autre service CHU de Cocody</option>
                 </select>
             </div>
+        </div>
         </fieldset>
         <input type="hidden" name="patient" id="patientId" class="inputcontenu" readonly/>
-        <input type="submit" name="creer" value="Créer" class="btn btn-primary"/>
+        <input type="submit" name="creer" value="Créer"  class="inp2"/>
     </form>
+
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const dateField = document.getElementById('dateField');
-        
-        // Obtenir la date d'aujourd'hui
-        const today = new Date();
-        const year = today.getFullYear();
-        const month = String(today.getMonth() + 1).padStart(2, '0');
-        const day = String(today.getDate()).padStart(2, '0');
-        dateField.value = `${year}-${month}-${day}`;
-    });
+        document.addEventListener('DOMContentLoaded', function() {
+            const dateField = document.getElementById('dateField');
+            const numeroPatientInput = document.getElementById('num');
+            let timeoutId;
+
+            // Obtenir la date d'aujourd'hui
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            dateField.value = `${year}-${month}-${day}`;
+
+            // Écouter les changements sur le champ numéro du patient
+            numeroPatientInput.addEventListener('input', function() {
+                clearTimeout(timeoutId);
+                timeoutId = setTimeout(() => {
+                    const numeroPatient = numeroPatientInput.value;
+
+                    if (numeroPatient) {
+                        fetch(`/api/patient/${numeroPatient}/`)
+                            .then(response => {
+                                console.log(response); // Pour déboguer
+                                if (!response.ok) {
+                                    return response.json().then(data => {
+                                        console.log(data); // Pour déboguer
+                                        if (data.error) {
+                                            alert(data.error); // Affiche l'erreur si présente
+                                        }
+                                        clearPatientFields();
+                                        throw new Error('Patient non trouvé');
+                                    });
+                                }
+                                return response.json();
+                            })
+                            .then(data => {
+                                if (data) {
+                                    const sexeRadio = document.querySelector(`input[name="sexe"][value="${data.sexe}"]`);
+                                    if (sexeRadio) {
+                                        sexeRadio.checked = true;
+                                    }
+
+                                    document.getElementById('patientNom').value = data.nom;
+                                    document.getElementById('age').value = data.age;
+                                    document.getElementById('contact1').value = data.contact1;
+                                    document.getElementById('email').value = data.email;
+                                    document.getElementById('contact2').value = data.contact2;
+                                    document.getElementById('ville').value = data.ville;
+                                    document.getElementById('quartier').value = data.quartier;
+                                    document.getElementById('personne_a_contacter').value = data.personne_a_contacter;
+                                    document.getElementById('telephone_cpu').value = data.telephone_cpu;
+                                    document.getElementById('commune').value = data.commune;
+                                    document.getElementById('profession').value = data.profession;
+                                    document.getElementById('nationalite').value = data.nationalite;
+                                    document.getElementById('situation_matrimoniale').value = data.situation_matrimoniale;
+                                    document.getElementById('nombre_enfant').value = data.nombre_enfant;
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Erreur:', error);
+                                //alert('Une erreur s\'est produite lors de la récupération des données du patient.');
+                            });
+                    } else {
+                        clearPatientFields();
+                    }
+                }, 300); // Délai de 300 ms avant de faire la requête
+            });
+
+            function clearPatientFields() {
+                document.getElementById('patientNom').value = '';
+                document.getElementById('age').value = '';
+                document.getElementById('contact1').value = '';
+                document.getElementById('email').value = '';
+                document.getElementById('contact2').value = '';
+                document.getElementById('ville').value = '';
+                document.getElementById('quartier').value = '';
+                document.getElementById('personne_a_contacter').value = '';
+                document.getElementById('telephone_cpu').value = '';
+                document.getElementById('commune').value = '';
+                document.getElementById('profession').value = '';
+                document.getElementById('nationalite').value = '';
+                document.getElementById('situation_matrimoniale').value = '';
+                document.getElementById('nombre_enfant').value = '';
+
+                const sexeRadios = document.querySelectorAll('input[name="sexe"]');
+                sexeRadios.forEach(radio => radio.checked = false);
+            }
+        });
     </script>
 </center>
 {% endblock %}

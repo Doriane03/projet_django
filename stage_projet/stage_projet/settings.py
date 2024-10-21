@@ -22,7 +22,16 @@ AUTH_USER_MODEL = "listings.CustomUser"
 # Quick-start development settings - unsuitable for production
 SECRET_KEY = 'django-insecure-4*mw^d-76p=hr633o94b02ar!&)yqik)u!ca2kp%9=ped%9+#e'
 DEBUG = True  
+
 ALLOWED_HOSTS = ['*']
+#ALLOWED_HOSTS =["http://",'http://172.0.0.1:4001','127.0.0.1','http://127.0.0.1:8000']
+# = ["http://",'http://127.0.0.1:4001','127.0.0.1','http://127.0.0.1:8000']
+#CSRF_TRUSTED_ORIGINS =[
+   # 'http://127.0.0.1:4001',  # Adjust the port if you're using a different one
+   # 'http://localhost:4001',
+   # 'http://127.0.0.1:8000',   # Add localhost for good measure
+#]
+#CRSF_COOKIE_SECURE = int(0)
 
 # Application definition
 INSTALLED_APPS = [
@@ -71,17 +80,28 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'stage_projet.wsgi.application'
 
-# Database configuration
+#Database configuration
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'projet_stage',
         'USER': 'postgres',
         'PASSWORD': 'stage',
-        'HOST': 'localhost',
+        'HOST': 'localhost',#192.168.80.27
         'PORT': '5432',
     }
 }
+
+#DATABASES = {
+    #'default': {
+        #'ENGINE': 'django.db.backends.postgresql',
+        #'NAME': os.getenv('DB_NAME'),
+        #'USER': os.getenv('DB_USER'),
+        #'PASSWORD': os.getenv('PASSWORD'),
+        #'HOST': os.getenv('DB_HOST'),
+        #'PORT': os.getenv('DB_PORT', '5432'),  # 5432 par défaut
+   #}
+#}
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -99,7 +119,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# Internationalization
+#Internationalization
 LANGUAGE_CODE = 'fr'
 
 TIME_ZONE = 'UTC'
@@ -109,7 +129,8 @@ USE_I18N = True
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
-STATIC_URL = '/static/'
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'listings'),
@@ -135,12 +156,12 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'UTC'  # fuseau horaire
 
-CELERY_BEAT_SCHEDULER ={
-   'send-email-every-day-at-17':{
-       'task':'stage_projet.tasks.relance',
-       'schedule': crontab(minute=00,hour=17),
-   }
-}
+#CELERY_BEAT_SCHEDULER ={
+   #'send-email-every-day-at-17':{
+       #'task':'stage_projet.tasks.relance',
+       #'schedule': crontab('*/15'),
+  # }
+#}
 #demander
 
 #tache

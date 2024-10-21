@@ -38,6 +38,18 @@
         {% bootstrap_css %}
         {% bootstrap_javascript %}
 
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const currentUrl = window.location.href;
+            
+                // Vérifie si "docpts" est présent dans l'URL et si les paramètres ne sont pas présents
+                if (currentUrl.includes("docpts") && !currentUrl.includes("?doc=ok&pk=7&detaille=ok")) {
+                    const navbr = document.getElementById('navbr');
+                    navbr.style.display = 'block'; // Affiche la div si les conditions sont remplies
+                }
+            });
+        </script>
+
     </head>
         <body>
                     <!--début menu-->
@@ -149,7 +161,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#" class="anav">
+                                            <a href="{% url 'export_csv' %}" class="anav">
                                                 <i class="material-icons-outlined">check</i>Export de base de données
                                             </a>
                                         </li>
@@ -183,16 +195,16 @@
                                         <!--profil image fin-->
                                     </ul>
                                     <!--rechercher-->
-                                    {% if request.user.type_personnel_soignant.nompersog == "MEDECIN" %}
-                                    <div class="collapse navbar-collapse" id="navbarNav"></div>
-                                    <div class="navbar-search">
-                                        <form>
-                                            <div class="form-group">
-                                                <input type="text" id="nav-search" name="query" value="{{ query }}" placeholder="Recherche">
-                                            </div>
-                                        </form>
+                                    <div id="navbr" style="display:none;margin-left:65%">
+                                        <div class="collapse navbar-collapse" id="navbarNav"></div>
+                                        <div class="navbar-search">
+                                            <form>
+                                                <div class="form-group">
+                                                    <input type="text" id="nav-search" name="query" value="{{ query }}" placeholder="Recherche">
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
-                                    {% endif %}
                                     <!--rechercher fin-->
                                 </nav>
                             </div>

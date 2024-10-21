@@ -1,7 +1,0 @@
-<!-- affichagedocpatient.html -->
-{% extends 'listings/template.html' %}
-{% block content %}
-    <h1>Détails du Patient</h1>
-    <a href="{% url 'docpts' patient.idpatient %}" class="btn btn-primary" target="_blank">Afficher la fiche PDF</a>
-    <!--<a href="{% url 'patient_pdf' patient.idpatient %}" class="btn btn-primary" target="_blank">Afficher la fiche PDF</a>-->
-{% endblock %}

@@ -119,7 +119,7 @@ class CategorieAdmin(admin.ModelAdmin):#nouveau
     list_display=('idcat', 'libcat')
 
 class Examen_physiqueAdmin(admin.ModelAdmin):#nouveau
-    list_display=('idExamen_physique','patient' ,'sih','shp','lmc','lxo','resultattoucherectal','etat_de_conscience','observation','date')
+    list_display=('idExamen_physique', 'eva_douleur', 'nombre_de_selles',  'diurese', 'saturation_doxygene', 'frequence_respiratoire', 'frequence_cardiaque', 'sih', 'shp', 'lmc', 'lxo', 'resultattoucherectal', 'observation', 'etat_de_conscience', 'patient',  'date', 'nombre_de_vomissements')
 #fin
 #pour ma bd
 admin.site.register(Antecedant_medical,Antecedant_medicalAdmin) #nouveau

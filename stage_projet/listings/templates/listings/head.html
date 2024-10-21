@@ -6,12 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>mon site</title>
         <link rel="icon" type="image/x-icon" href="{% static 'listings/favicon.ico' %}">
-        
         <link href="{% static 'listings/assets/plugins/bootstrap/css/bootstrap.min.css'%}" rel="stylesheet"/>
         <link href="{% static 'listings/assets/plugins/font-awesome/css/all.min.css'%}" rel="stylesheet"/>
-
-      
-        <!-- Theme Styles -->
         <link href="{% static 'listings/connect.min.css' %}" rel="stylesheet"/>
         <link href="{% static 'listings/admin3.css' %}" rel="stylesheet"/>
         <link href="{% static 'listings/dark_theme.css' %}" rel="stylesheet"/>
@@ -26,7 +22,7 @@
   
   <div class="image">  
     <div class="div1"><img src="{% static 'listings/homme.png'  %}" width="100" alt="photo1"/></div>
-    <div class="div2"><img src="{% static 'listings/logochu.jpg' %}"  width="100"  alt="photo2"/></div>
+    <div><img src="{% static 'listings/logochu.jpg' %}"  width="60"  alt="photo2" class="div2"/></div>
     <div class="text">{% block cnx %}{% endblock %}</div>
   </div>
     

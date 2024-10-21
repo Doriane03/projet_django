@@ -8,19 +8,25 @@
         margin: 20px 0;
         font-size: 1em;
         text-align: left;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
     th, td {
         border: 1px solid #dddddd;
-        padding: 8px;
+        padding: 12px 15px;
+        text-align: center;
     }
     th {
-        background-color: #f2f2f2;
+        background-color: #4CAF50; /* Une couleur plus vive */
+        color: white;
     }
     tr:nth-child(even) {
         background-color: #f9f9f9;
     }
     tr:hover {
         background-color: #f1f1f1;
+    }
+    tbody tr {
+        transition: background-color 0.3s;
     }
 </style>
 
@@ -54,26 +60,26 @@
         </tr>
         <tr>
             <td>Fréquence cardiaque</td>
-            {% for constantepatient in constantepatients %}
-                <td>{{ constantepatient.frequence_cardiaque }} bpm</td>
+            {% for sph in sphs %}
+                <td>{{ sph.frequence_cardiaque }}</td>
             {% endfor %}
         </tr>
         <tr>
             <td>Fréquence respiratoire</td>
-            {% for constantepatient in constantepatients %}
-                <td>{{ constantepatient.frequence_respiratoire }} cycles/min</td>
+            {% for sph in sphs %}
+                <td>{{ sph.frequence_respiratoire }} cycles/min</td>
             {% endfor %}
         </tr>
         <tr>
             <td>Saturation d'oxygène</td>
-            {% for constantepatient in constantepatients %}
-                <td>{{ constantepatient.saturation }}%</td>
+            {% for sph in sphs %}
+                <td>{{ sph.saturation_doxygene }}</td>
             {% endfor %}
         </tr>
         <tr>
             <td>Diurèse</td>
-            {% for constantepatient in constantepatients %}
-                <td>{{ constantepatient.diurese }} mL</td>
+            {% for sph in sphs %}
+                <td>{{ sph.diurese }}</td>
             {% endfor %}
         </tr>
         <tr>
@@ -84,20 +90,20 @@
         </tr>
         <tr>
             <td>Nombre de selles/jour</td>
-            {% for constantepatient in constantepatients %}
-                <td>{{ constantepatient.nombre_selles }}</td>
+            {% for sph in sphs %}
+                <td>{{ sph.nombre_de_selles }}</td>
             {% endfor %}
         </tr>
         <tr>
             <td>EVA douleur</td>
-            {% for constantepatient in constantepatients %}
-                <td>{{ constantepatient.eva_douleur }}</td>
+            {% for sph in sphs %}
+                <td>{{ sph.eva_douleur }}</td>
             {% endfor %}
         </tr>
         <tr>
             <td>Nombre de vomissements/jour</td>
-            {% for constantepatient in constantepatients %}
-                <td>{{ constantepatient.nombre_vomissements }}</td>
+            {% for sph in sphs %}
+                <td>{{ sph.nombre_de_vomissements }}</td>
             {% endfor %}
         </tr>
     </tbody>

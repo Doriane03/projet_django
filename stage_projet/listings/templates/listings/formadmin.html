@@ -7,12 +7,12 @@
 <div>
 <nav class="divcontenunav">ajout personnel soignant</nav>
 </div>
-{% if success %}
+    {% if success %}
             <p class="p2">Utilisateur crée.</p>
         {% endif %}
         {% if error_message %}
                 <p class="p1">{{ error_message }}</p>
-        {% endif %}
+    {% endif %}
     {% csrf_token %}
     <fieldset class="fieldsetgd">
         
@@ -60,7 +60,7 @@
 
             
     </fieldset>
-    <input type="submit"  name="ceercompte"  value="CREER LE COMPTE" class="btn btn-primary"/>
+    <input type="submit"  name="ceercompte"  value="Créer" class="inp2" />
 </form>
 </center>
 <script>

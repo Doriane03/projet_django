@@ -35,8 +35,6 @@ urlpatterns = [
     path ('admin/', admin.site.urls),
     path ('',views.index,name='index'),
     path ('login/',CustomLoginView.as_view(), name="login"),
-    #path('boxhospi/',views.boxhospi, name="boxhospi"),
-    #path ('pdf/<int:pk>/', patient_pdf, name='patient_pdf'),
     path ('patient/<str:cst>/',views.patient,name='patient'),
     path ('constante/<int:idpatient>/<int:medecin_id>/<str:cst>/',views.constante,name='constante'),
     path ('disponibilite/',views.disponibilite,name='disponibilite'),
@@ -53,7 +51,6 @@ urlpatterns = [
     path ('modificationmdp/',views.modificationmdp,name='modificationmdp'),
     path ('bilanimg/<str:cst>/',views.bilanimg,name='bilanimg'), 
     path ('bilanbio/<str:cst>/',views.bilanbio,name='bilanbio'),
-    #path ('docpatient/',views.docpatient,name='docpatient'),
     path ('tableauconsultation/<str:cst>/',views.tableauconsultation,name='tableauconsultation'),
     path ('box/<str:pt>/<str:cst>/', views.box, name='box'),
     path ('dossier/', views.dossier, name='dossier'),
@@ -61,19 +58,12 @@ urlpatterns = [
     path ('api/jestfullcalendar/', views.jestfullcalendar, name='jestfullcalendar'),
     path ('logout/',views.custom_logout, name='logout'),
     path ('envoiemail/',views.envoiemail, name='envoiemail'),
+    path('export/',views.export_csv, name='export_csv'),
     path ('listehospi/',views.listehospi, name='listehospi'),
     path ('listetraitement/<str:hospi>',views.listetraitement, name='listetraitement'),
     path ('listetraitement1/<int:pk>/<str:resul>/',views.listetraitement1, name='listetraitement1'),
     path ('sph/<str:cst>/',views.sph,name='sph'),
     path ('docpts/',views.docpts,name='docpts'),
     path ('attributionlit/',views.attributionlit,name='attributionlit'),
-    #path ('taitementlien/<int:pk>/',views.taitementlien,name='taitementlien'),
-    
-    
-    
-    
-     
-    #menu
-    #fin
-    
+    path ('api/patient/<str:numero_patient>/',views.get_patient,name='get_patient'), 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

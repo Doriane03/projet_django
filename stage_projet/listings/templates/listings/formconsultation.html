@@ -634,17 +634,42 @@
                     <input type="text" placeholder="lxo" name="lxo" id="lxo" />
                 </div>
             </div> 
-            
-            
-    
-
+            <div  style="margin-left:25px" class="p-2 g-col-6">
+                <div class="divsortie" >
+                    <label for="frequence_cardiaque" >Fréquence cardiaque</label>
+                    <input type="text" placeholder="fréquence cardiaque" name="frequence_cardiaque" id="frequence_cardiaque" class="inputcontenu"  />
+                </div>
+            </div>
+            <div class="divsortie"  style="margin-left:30px" class="p-2 g-col-6">
+                <label for="frequence_respiratoire" >Fréquence respiratoire</label>
+                <input type="text" placeholder="fréquence respiratoire" name="frequence_respiratoire" id="frequence_respiratoire" class="inputcontenu"  />
+            </div>
+            <div class="divsortie"  style="margin-left:30px" class="p-2 g-col-6">
+                <label for="saturation_doxygene" >Saturation d'oxygène</label>
+                <input type="text" placeholder="Saturation d'oxygène" name="saturation_doxygene" id="saturation_doxygene" class="inputcontenu"/>
+            </div>
+            <div class="divsortie"  style="margin-left:30px" class="p-2 g-col-6">
+                <label for="diurese">Diurèse</label>
+                <input type="text" placeholder="Diurèse" name="diurese" id="diurese" class="inputcontenu"/>
+            </div>
+            <div class="divsortie"  style="margin-left:30px" class="p-2 g-col-6">
+                <label for="nombre_de_vomissements" >Nombre de vomissements</label>
+                <input type="text" placeholder="Nombre de vomissements" name="nombre_de_vomissements" id="nombre_de_vomissements" class="inputcontenu"/>
+            </div>
+            <div class="divsortie"  style="margin-left:30px" class="p-2 g-col-6">
+                <label for="nombre_de_selles" >Nombre de selles</label>
+                <input type="text" placeholder="Nombre de selles" name="nombre_de_selles" id="nombre_de_selles" class="inputcontenu"/>
+            </div>
+            <div class="divsortie"  style="margin-left:30px" class="p-2 g-col-6">
+                <label for="eva_douleur" >EVA douleur</label>
+                <input type="text" placeholder="EVA douleur" name="eva_douleur" id="eva_douleur" class="inputcontenu"/>
+            </div>
             <div class="p-2 g-col-6">
                 <div class="divsortie">
                     <label style="margin-left:23px">observation</label>
                     <textarea name="observation" placeholder="observation" rows="5" cols="30"></textarea>
                 </div>
             </div>
-
         </div> 
     <div>
         <div>
@@ -664,7 +689,7 @@
     {% endif %}
     {% endif %}
     </fieldset>
-    <input type="submit"  name=""  value="Enregistrer" class="btn btn-primary" class="frominput"/>
+    <input type="submit"  name=""  value="Enregistrer" class="inp2"/>
 </form></center>
 
 <script>
@@ -680,9 +705,6 @@ function pourlecheckbox() {
         }
     }
 }
-
-
-
 
 function signedigstif() {
     var afficheRadio1= document.getElementsByName('signe_digestifs');

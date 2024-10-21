@@ -18,7 +18,7 @@
                 <div class="modal-body">
                     <p><strong>Titre:</strong> <span id="eventTitle"></span></p>
                     <p><strong>Description:</strong> <span id="eventDescription"></span></p>
-                    <p><strong>Début:</strong> <span id="eventStart"></span></p>
+                    <p><strong>Date:</strong> <span id="eventStart"></span></p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
@@ -27,6 +27,22 @@
         </div>
     </div>
 </center>
+
+<style>
+    #calendar {
+        width: 80%; /* Ajuste la largeur */
+        height: 600px; /* Ajuste la hauteur */
+        margin: auto; /* Centre le calendrier */
+        overflow: hidden; /* Évite le débordement */
+    }
+
+    /* Styles pour centrer la modale */
+    .modal-dialog {
+        margin: auto; /* Centre la modale horizontalement */
+        top: 50%; /* Positionne à 50% de la hauteur de la fenêtre */
+        transform: translateY(-50%); /* Ajuste pour centrer verticalement */
+    }
+</style>
 
 <script>
     $(document).ready(function() {
@@ -43,25 +59,16 @@
                     }
                 }
             ],
-
-            // Applique la classe CSS personnalisée aux événements
             eventRender: function(event, element) {
                 $(element).addClass('custom-event');
             },
-
-            // Fonction appelée lorsqu'un événement est cliqué
             eventClick: function(event, jsEvent, view) {
-                // Met à jour les informations dans la modale
                 $('#eventTitle').text(event.title);
-                $('#eventDescription').text(event.description || 'Aucune description');
-                $('#eventStart').text(event.start.format('YYYY-MM-DD HH:mm'));
-                //$('#eventEnd').text(event.end ? event.end.format('YYYY-MM-DD HH:mm') : 'Non défini');
-
-                // Affiche la modale
+                $('#eventDescription').html(event.description || 'Aucune description');
+                $('#eventStart').text(event.start.format('YYYY-MM-DD'));
                 $('#eventModal').modal('show');
             }
         });
     });
 </script>
-
 {% endblock %}

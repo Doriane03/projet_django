@@ -6,6 +6,8 @@ from django.forms import ModelForm # type: ignore
 from django.core.validators import MaxValueValidator,MinValueValidator # type: ignore
 from datetime import datetime,date
 from django.utils import formats
+import os
+from django.utils.timezone import now
 #class sans clé secondaire    
 class Patient(models.Model): #modifie
     idpatient=models.fields.AutoField(primary_key=True)
@@ -214,7 +216,7 @@ class CustomUser(AbstractUser):
     type_personnel_soignant=models.ForeignKey(Type_personnel_soignant, on_delete=models.CASCADE, null=True, blank=True)
     disponible=models.fields.BooleanField(default=False)
     USERNAME_FIELD='nom'
-    REQUIRED_FIELDS=['username','contact','email']
+    REQUIRED_FIELDS=['username','email']
     def __str__(self):
         return self.nom 
 class CustomUserForm(ModelForm):
@@ -263,7 +265,6 @@ class Consultation(models.Model): #modifie
     acanti_vhd=models.fields.CharField(max_length=7,choices=MAYBECHOICE,null=True, blank=True)
     serologie_retrovi=models.fields.CharField(max_length=7,choices=MAYBECHOICE,null=True, blank=True)
     transaminase=models.fields.DateTimeField(null=True, blank=True)
-
     datetransa=models.fields.DateTimeField(null=True, blank=True)
     dateacanti_vhc=models.fields.DateTimeField(null=True, blank=True) 
     dateacanti_vhd=models.fields.DateTimeField(null=True, blank=True)
@@ -318,10 +319,11 @@ class Sortie(models.Model):#migration
     rdvdate=models.fields.DateField(null=True, blank=True)
     nompracticien=models.fields.CharField(max_length=60,null=False, blank=False)
 #fin
+    date= models.fields.DateTimeField(default=timezone.now)
     patient=models.ForeignKey(Patient, on_delete=models.CASCADE)
     customUser=models.ForeignKey(CustomUser,on_delete=models.CASCADE)                                                                                
     def __str__(self):
-        return f'{self.refsortie} {self.datesortie} {self.patient} {self.motifsortie} {self.customUser} {self.datedetransfert}  {self.numerodedossierdanslecentredetransfert} {self.nouveaucentredesuivi} {self.raison} {self.commentaire}  {self.typedenouvelle} {self.typederelance}  {self.datederniererelance}  {self.datedernierevisite} {self.daterefus}  {self.remplipar}   {self.datedeces}  {self.causedudeces} {self.lieudeces} {self.nompracticien} {self.decesliea} {self.rdvdate} '
+        return f'{self.refsortie} {self.datesortie} {self.patient} {self.motifsortie} {self.customUser} {self.datedetransfert}  {self.numerodedossierdanslecentredetransfert} {self.nouveaucentredesuivi} {self.raison} {self.commentaire}  {self.typedenouvelle} {self.typederelance}  {self.datederniererelance}  {self.datedernierevisite} {self.daterefus}  {self.remplipar}   {self.datedeces}  {self.causedudeces} {self.lieudeces} {self.nompracticien} {self.decesliea} {self.rdvdate} {self.date} '
 
 class SortieForm(ModelForm):
     class Meta:
@@ -462,11 +464,16 @@ class OrdonnancemedicamentForm(ModelForm):
         fields = ['ordonnance' ,'medicament','quantite']
 #fin class sans clé secondaire
 
+
+def get_upload_to(instance, filename):
+    # Utilisez une logique pour définir le chemin, par exemple en fonction de l'instance
+    return os.path.join('uploads', now().strftime('%Y/%m/%d'), filename)
+
 class Bilan_imagerie(models.Model):
     numbilimg=models.fields.AutoField(primary_key=True)
     radiographie=models.fields.TextField(null=True, blank=True)#new
     echographie=models.fields.TextField(null=True, blank=True)#new
-    resultat=models.ImageField(upload_to='images/', null=True, blank=True) 
+    resultat=models.ImageField(upload_to=get_upload_to, null=True, blank=True) 
     dateexam=models.DateTimeField(null=True, blank=True) 
     service=models.fields.TextField(null=True, blank=True)#new
     rensignementclinique=models.fields.TextField(null=True, blank=True)#new
@@ -581,15 +588,25 @@ class Examen_physique(models.Model):
     resultattoucherectal=models.fields.TextField(null=True, blank=True)#new
     observation=models.fields.TextField(null=True, blank=True)#new
     etat_de_conscience=models.fields.CharField(max_length=25,null=True, blank=True)#new
+
+
+    frequence_cardiaque=models.fields.CharField(max_length=40,null=True, blank=True)
+    frequence_respiratoire=models.fields.CharField(max_length=40,null=True, blank=True)
+    saturation_doxygene=models.fields.CharField(max_length=40,null=True, blank=True)
+    diurese=models.fields.CharField(max_length=40,null=True, blank=True)
+    nombre_de_selles=models.fields.CharField(max_length=40,null=True, blank=True)	
+    eva_douleur=models.fields.CharField(max_length=40,null=True, blank=True)	
+    nombre_de_vomissements=models.fields.CharField(max_length=40,null=True, blank=True)
+
     patient=models.ForeignKey(Patient, on_delete=models.CASCADE)
     date=models.DateField(auto_now=True)
     def __str__(self):
-        return f'{self.idExamen_physique} {self.sih} {self.shp} {self.lmc} {self.lxo} {self.resultattoucherectal} {self.observation} {self.etat_de_conscience} {self.patient} {self.date}'     
+        return f'{self.idExamen_physique} {self.eva_douleur} {self.nombre_de_selles}  {self.diurese} {self.saturation_doxygene} {self.frequence_respiratoire} {self.frequence_cardiaque} {self.sih} {self.shp} {self.lmc} {self.lxo} {self.resultattoucherectal} {self.observation} {self.etat_de_conscience} {self.patient}  {self.date} {self.nombre_de_vomissements}'     
 
 class Examen_physiqueForm(ModelForm):
     class Meta:
         model = Examen_physique
-        fields = ['patient' ,'sih','shp','lmc','lxo','resultattoucherectal','observation','etat_de_conscience']
+        fields = ['patient' ,'nombre_de_vomissements','eva_douleur','nombre_de_selles','diurese','saturation_doxygene','frequence_respiratoire','frequence_cardiaque','sih','shp','lmc','lxo','resultattoucherectal','observation','etat_de_conscience']
 
 
 
