@@ -188,7 +188,7 @@ def constante(request,idpatient,medecin_id,cst):
                 constante.patient = patient  # Lier la constante au patient
                 constante.save()
                 success = True  # Assuming success after saving
-
+                return redirect('listetraitement1',kp,"suivie")
             else:
                 error_message = 'Le formulaire contient des erreurs.'
         else:
@@ -269,7 +269,6 @@ def consultation(request, cst):
                         observation=observation,
                         patient=patient,
                         etat_de_conscience=etat_de_conscience,
-                        
                         frequence_cardiaque=frequence_cardiaque,
                         frequence_respiratoire=frequence_respiratoire,
                         saturation_doxygene=saturation_doxygene,
@@ -279,7 +278,6 @@ def consultation(request, cst):
                         nombre_de_vomissements=nombre_de_vomissements,
                     )
                     examen_physique.save()
-
                 # Récupérer les motifs sélectionnés
                 motifs = request.POST.getlist('motifdeconsultation[]')
                 motifs_str = ','.join(motifs)
@@ -289,7 +287,7 @@ def consultation(request, cst):
                 consultation.motifdeconsultation = motifs_str
                 consultation.signe_asso_gene = motifs_str1
                 consultation.save()
-                success = True
+                success=True
                 return redirect('box',pt,cst)
 
             else:
@@ -325,7 +323,6 @@ def antecedantmedical(request):#fais
                 error_message = 'Les antécédents médicaux ont déjà été enregistrés pour ce patient.'
             else:
                 form.save()
-                success =True
                 return redirect('box',pt,cst)
         else:
             print(form.errors)
@@ -351,7 +348,7 @@ def antecedantchirurgical(request):
                 antecedant = form.save(commit=False)
                 antecedant.patient = patient
                 antecedant.save()
-                success = True
+                success=True
                 return redirect('box',pt,cst)
         else:
             print(form.errors)
@@ -539,27 +536,39 @@ def tableauconsultation(request, cst):
 
 
 @login_required
-def antecedantfamilial(request):#fais
+def antecedantfamilial(request):
     success = False
     error_message = None
-    patient_name=request.session.get('numeropatient', 'Nom du patient non trouvé')
-    patient = Patient.objects.get(numeropatient=patient_name)
-    patient_id1 = patient.idpatient
-    pt=patient_name
-    cst="cst"
+    patient_name = request.session.get('numeropatient', 'Nom du patient non trouvé')
+    try:
+        patient = Patient.objects.get(numeropatient=patient_name)
+        patient_id1 = patient.idpatient
+    except Patient.DoesNotExist:
+        error_message = 'Patient non trouvé.'
+        return render(request, 'listings/formantfamille.html', {'error_message': error_message, 'success': success})
+
     if request.method == 'POST':
         form = Antecedant_familialForm(request.POST)
         if form.is_valid():
             if Antecedant_familial.objects.filter(patient=patient).exists():
                 error_message = 'Les antécédents familiaux ont déjà été enregistrés pour ce patient.'
             else:
-                form.save()
-                success =True
-                return redirect('box',pt,cst)
-            return render(request, 'listings/formantfamille.html', context={'success': success})
+                try:
+                    form.save()  # Tentative de sauvegarde
+                    success = True
+                    return redirect('box', patient_name, "cst")  # Redirection après succès
+                except Exception as e:
+                    error_message = f'Erreur lors de l\'enregistrement : {str(e)}'
         else:
-            error_message = 'antécédant familial non enregistré.'
-    return render(request,'listings/formantfamille.html',{"patient_id1":patient_id1,'error_message':error_message,'success':success}) 
+            error_message = 'Antécédent familial non enregistré.'
+
+    # Rendu du template après le traitement du formulaire
+    return render(request, 'listings/formantfamille.html', {
+        "patient_id1": patient_id1,
+        'error_message': error_message,
+        'success': success,
+    })
+
 
 @login_required
 def box(request,pt,cst):
@@ -623,6 +632,7 @@ def bilanimg(request,cst):
             if form.is_valid():
                 form.save()
                 success = True
+                return redirect('listetraitement1',pk,"suivie")
             else:
                 print(form.errors)
                 error_message = 'Bilan imagerie  d"hospi non enregistré.'
@@ -667,17 +677,13 @@ def bilanbio(request, cst):
                 try:
                     with transaction.atomic():
                         patient_1 = get_object_or_404(Patient, pk=patient_id)
-                        bilan_biologique = Bilan_biologique.objects.create(patient=patient_1)
-
+                        bilan_biologique = Bilan_biologique.objects.create(patient=patient_1,resultatnumerique=resultatnumerique,resultatmodalite=resultatmodalite,prix=prix)
                         for examens_bio_id, resultatnumerique, resultatmodalite, prix in zip(examens_bio_ids, resultatnumeriques, resultatmodalites, prixs):
                             if examens_bio_id:
                                 examens_bio = get_object_or_404(Examens_bio, pk=examens_bio_id)
                                 Bilan_biologiqueexamens.objects.create(
                                     bilan_biologique=bilan_biologique,
                                     examens_bio=examens_bio,
-                                    resultatnumerique=resultatnumerique,
-                                    resultatmodalite=resultatmodalite,
-                                    prix=prix,
                                 )
                         success = True
                         return redirect('box',pt,cst)
@@ -698,19 +704,16 @@ def bilanbio(request, cst):
                 try:
                     with transaction.atomic():
                         patient_2 = get_object_or_404(Patient, pk=patient_id)
-                        bilan_biologique = Bilan_biologique.objects.create(patient=patient_2)
-                        
-                        for examens_bio_id, resultatnumerique, resultatmodalite, prix in zip(examens_bio_ids, resultatnumeriques, resultatmodalites, prixs):
+                        bilan_biologique = Bilan_biologique.objects.create(patient=patient_2,resultatnumerique=resultatnumerique,resultatmodalite=resultatmodalite,prix=prix)
+                        for examens_bio_id, resultatnumerique, resultatmodalite, prix in zip(examens_bio_ids,resultatnumeriques, resultatmodalites, prixs):
                             if examens_bio_id:
                                 examens_bio = get_object_or_404(Examens_bio, pk=examens_bio_id)
                                 Bilan_biologiqueexamens.objects.create(
                                     bilan_biologique=bilan_biologique,
                                     examens_bio=examens_bio,
-                                    resultatnumerique=resultatnumerique,
-                                    resultatmodalite=resultatmodalite,
-                                    prix=prix,
                                 )
                         success = True
+                        return redirect('listetraitement1',kp,"suivie")
                 except Exception as e:
                     print(e)
                     error_message = 'Erreur lors de l\'enregistrement du bilan biologique.'
@@ -798,10 +801,6 @@ def chart(request):
         'graph_image': image_base64,
     })
 
-#@login_required
-#def template(request):
-    #return render(request,'listings/template.html')
-
 @login_required
 def dossier(request):
     return render(request,'listings/dossierpatient.html')
@@ -815,19 +814,20 @@ def ordonnance(request,cst):
         patient_name = request.session.get('numeropatient', 'Nom du patient non trouvé')
         patient = get_object_or_404(Patient, numeropatient=patient_name)
         patient_id1 = patient.idpatient
-        pt=patient_name
         if request.method == 'POST':
             # Récupération des données du formulaire
             patient_id = request.POST.get('patient')
             medicaments_ids = request.POST.getlist('nommedicament[]')
             quantites = request.POST.getlist('quantite[]')
             dosages = request.POST.getlist('dosage[]')
+            customUser=request.POST.get('customUser')
             # Validation des données
             if patient_id and medicaments_ids:
                 try:
                     # Créer une instance de Ordonnance
                     patient_1= Patient.objects.get(pk=patient_id)
-                    ordonnance = Ordonnance.objects.create(patient=patient_1)
+                    customUser_1=CustomUser.objects.get(refpersoignant=customUser)
+                    ordonnance = Ordonnance.objects.create(patient=patient_1,customUser=customUser_1)
 
                     # Ajouter les médicaments via la table de liaison
                     for medicament_id, quantite in zip(medicaments_ids, quantites):
@@ -839,7 +839,7 @@ def ordonnance(request,cst):
                                 quantite=quantite
                             )
                     success = True
-                    return redirect('box',pt,cst)
+                    return redirect('box',patient_name,cst)
                 except Exception as e:
                     print(e)
                     error_message = 'Erreur lors de l\'enregistrement de l\'ordonnance.'
@@ -851,14 +851,14 @@ def ordonnance(request,cst):
             medicaments_ids = request.POST.getlist('nommedicament[]')
             quantites = request.POST.getlist('quantite[]')
             dosages = request.POST.getlist('dosage[]')
-
+            customUser=request.POST.get('customUser')
             # Validation des données
             if patient_id and medicaments_ids:
                 try:
                     # Créer une instance de Ordonnance
                     patient_2 = Patient.objects.get(pk=patient_id)
-                    ordonnance = Ordonnance.objects.create(patient=patient_2)
-
+                    customUser_1=CustomUser.objects.get(refpersoignant=customUser)
+                    ordonnance = Ordonnance.objects.create(patient=patient_1,customUser=customUser_1)
                     # Ajouter les médicaments via la table de liaison
                     for medicament_id, quantite in zip(medicaments_ids, quantites):
                         if medicament_id and quantite:
@@ -868,8 +868,8 @@ def ordonnance(request,cst):
                                 medicament=medicament,
                                 quantite=quantite
                             )
-                    
                     success = True
+                    return redirect('listetraitement1',kp,"suivie")
                 except Exception as e:
                     print(e)
                     error_message = 'Erreur lors de l\'enregistrement de l\'ordonnance.'
@@ -889,7 +889,7 @@ def ordonnance(request,cst):
 
 
 @login_required
-def facture(request):#fais
+def facture(request):
     success = False
     error_message = None
     if request.method == 'POST':
@@ -966,22 +966,6 @@ from django.core.mail import send_mail
 def envoiemail(request):
     relance.delay()
     return HttpResponse("done")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 #import json
@@ -1062,6 +1046,7 @@ def attributionlit(request):
         lit_id = request.POST.get('lit')
         dateoccupation = request.POST.get('dateoccupation')
         origine= request.POST.get('origine')
+        duree=request.POST.get('duree')
 
         # Vérifier si le patient existe
         patient, created = Patient.objects.get_or_create(
@@ -1104,13 +1089,13 @@ def attributionlit(request):
         patientid = patient.idpatient  # Récupérer l'identifiant du patient
         if origine:
             patient_1 = Patient.objects.get(pk=patientid)
-            hospitalisation = Hospitalisation.objects.create(patient=patient_1)
+            hospitalisation = Hospitalisation.objects.create(patient=patient_1,origine=origine)
             lit = Lit.objects.get(pk=lit_id)
             hospitalisationlit.objects.create(
                         hospitalisation=hospitalisation,
-                        lit=lit,
                         dateoccupation=dateoccupation,
-                        origine=origine
+                        duree=duree,
+                        lit=lit,
                     )
             success = True
     return render(request, 'listings/formhospi.html', context={'creation': creation, 'lits': lits, 'success': success, 'error_message': error_message})
@@ -1178,7 +1163,8 @@ def docpts(request):
     pk = request.GET.get('pk', '')
     detaille = request.GET.get('detaille')
     if doc == 'ok' and pk and detaille=="ok":
-        sexe=Patient.objects.filter(idpatient=pk).values('sexe')
+        sexe=Patient.objects.get(idpatient=pk).sexe
+        print(sexe)
         dnpatients = Patient.objects.filter(idpatient=pk)
         #dates = Constante.objects.filter(patient_id=pk).order_by('dateajout').values('dateajout')
         #ids = Constante.objects.filter(patient_id=pk).values('refconst')
@@ -1194,7 +1180,7 @@ def docpts(request):
         if dnpatients:
             return render(request, 'listings/dossierpatient.html', {'idbils':idbils,'dnpatients': dnpatients,'ordids':ordids,'sphids':sphids,'pk':pk,'ids':ids,'valeursmedicales':valeursmedicales,'valeurgenecologiques':valeurgenecologiques,'valeurschirurgicales':valeurschirurgicales,'valeursmedicals':valeursmedicals,'blimgids':blimgids,'sexe':sexe})
     elif doc == 'ok' and pk and detaille=="gynécologique":
-        sexe=Patient.objects.filter(idpatient=pk).values('sexe')
+        sexe=Patient.objects.get(idpatient=pk).sexe
         dnpatients = Patient.objects.filter(idpatient=pk)
         valeursmedicales=Antecedant_familial.objects.filter(patient_id=pk)
         #dates = Constante.objects.filter(patient_id=pk).order_by('dateajout').values('dateajout')
@@ -1209,7 +1195,7 @@ def docpts(request):
         idbils=Bilan_biologique.objects.filter(patient_id=pk).values('numbilanbio','date')
         return render(request, 'listings/dossierpatient.html', {'idbils':idbils,'dnpatients': dnpatients, 'ordids':ordids,'valeursmedicales': valeursmedicales,'sphids':sphids,'pk':pk,'ids':ids,'valeurgenecologiques':valeurgenecologiques,'valeurschirurgicales':valeurschirurgicales,'valeursmedicals':valeursmedicals,'blimgids':blimgids,'sexe':sexe})
     elif doc == 'ok' and pk and detaille=="Médicale":
-        sexe=Patient.objects.filter(idpatient=pk).values('sexe')
+        sexe=Patient.objects.get(idpatient=pk).sexe
         dnpatients = Patient.objects.filter(idpatient=pk)
         valeursmedicales=Antecedant_familial.objects.filter(patient_id=pk)
         #dates = Constante.objects.filter(patient_id=pk).order_by('dateajout').values('dateajout')
@@ -1223,7 +1209,7 @@ def docpts(request):
         idbils=Bilan_biologique.objects.filter(patient_id=pk).values('numbilanbio','date')
         return render(request, 'listings/dossierpatient.html', {'idbils':idbils,'dnpatients': dnpatients,'sphids':sphids,'ordids':ordids,'valeursmedicales': valeursmedicales,'pk':pk,'ids':ids,'valeurgenecologiques':valeurgenecologiques,'valeurschirurgicales':valeurschirurgicales,'valeursmedicals':valeursmedicals,'blimgids':blimgids,'sexe':sexe})
     elif doc == 'ok' and pk and detaille=="constante":
-        sexe=Patient.objects.filter(idpatient=pk).values('sexe')
+        sexe=Patient.objects.get(idpatient=pk).sexe
         val = request.POST['datesconst']
         print(val)
         dnpatients = Patient.objects.filter(idpatient=pk)
@@ -1243,7 +1229,7 @@ def docpts(request):
         idbils=Bilan_biologique.objects.filter(patient_id=pk).values('numbilanbio','date')
         return render(request, 'listings/dossierpatient.html', {'idbils':idbils,'dnpatients': dnpatients,'sphids':sphids,'ordids':ordids,'valeursmedicales': valeursmedicales,'pk':pk,'constantepatients':constantepatients,'ids':ids,'valeurgenecologiques':valeurgenecologiques,'valeurschirurgicales':valeurschirurgicales,'valeursmedicals':valeursmedicals,'sphids':sphids,'blimgids':blimgids,'sexe':sexe})
     elif doc == 'ok' and pk and detaille=="signe_physique":
-        sexe=Patient.objects.filter(idpatient=pk).values('sexe')
+        sexe=Patient.objects.get(idpatient=pk).sexe
         val1 = request.POST['datesph']
         print(val1)
         dnpatients = Patient.objects.filter(idpatient=pk)
@@ -1264,7 +1250,7 @@ def docpts(request):
         idbils=Bilan_biologique.objects.filter(patient_id=pk).values('numbilanbio','date')
         return render(request, 'listings/dossierpatient.html', {'idbils':idbils,'dnpatients': dnpatients,'sphids':sphids,'ordids':ordids,'valeursmedicales': valeursmedicales,'pk':pk,'ids':ids,'valeurgenecologiques':valeurgenecologiques,'valeurschirurgicales':valeurschirurgicales,'valeursmedicals':valeursmedicals,'sphids':sphids,'blimgids':blimgids,'valeursphs':valeursphs,'sexe':sexe})
     elif doc == 'ok' and pk and detaille=="bilan_imagerie": 
-        sexe=Patient.objects.filter(idpatient=pk).values('sexe')
+        sexe=Patient.objects.get(idpatient=pk).sexe
         val2 = request.POST['datesbilmg']
         print(val2)
         dnpatients = Patient.objects.filter(idpatient=pk)
@@ -1281,7 +1267,7 @@ def docpts(request):
         ordids=Ordonnance.objects.filter(patient_id=pk).values('reford','date')
         return render(request, 'listings/dossierpatient.html', {'idbils':idbils,'dnpatients': dnpatients,'sphids':sphids,'valeursmedicales': valeursmedicales,'pk':pk,'ids':ids,'ordids':ordids,'valeurgenecologiques':valeurgenecologiques,'valeurschirurgicales':valeurschirurgicales,'valeursmedicals':valeursmedicals,'sphids':sphids,'blimgids':blimgids,'valeursimgs':valeursimgs,'sexe':sexe})
     elif doc == 'ok' and pk and detaille=="bilan_biologique": 
-        sexe=Patient.objects.filter(idpatient=pk).values('sexe')
+        sexe=Patient.objects.get(idpatient=pk).sexe
         val4 = request.POST['datebilbio']
         dnpatients = Patient.objects.filter(idpatient=pk)
         valeursmedicales=Antecedant_familial.objects.filter(patient_id=pk)
@@ -1301,7 +1287,7 @@ def docpts(request):
         return render(request, 'listings/dossierpatient.html', {'dnpatients': dnpatients,'sphids':sphids,'valeursmedicales': valeursmedicales,'pk':pk,'ids':ids,'valeurgenecologiques':valeurgenecologiques,'valeurschirurgicales':valeurschirurgicales,'valeursmedicals':valeursmedicals,'sphids':sphids,'blimgids':blimgids,'ordids':ordids,'idbils':idbils,'bilan_biologiqueexamens':bilan_biologiqueexamens,'sexe':sexe})
     
     elif doc == 'ok' and pk and detaille=="médicament": 
-        sexe=Patient.objects.filter(idpatient=pk).values('sexe')
+        sexe=Patient.objects.get(idpatient=pk).sexe
         dnpatients = Patient.objects.filter(idpatient=pk)
         valeursmedicales=Antecedant_familial.objects.filter(patient_id=pk)
         ids = Constante.objects.filter(patient_id=pk).values('refconst','dateajout')

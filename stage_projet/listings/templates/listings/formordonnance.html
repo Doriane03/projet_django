@@ -11,10 +11,10 @@
     {% csrf_token %}
     <fieldset>
         {% if success %}
-        <p class="p2">Ordonnance enregistrée.</p>
+        <p class="alert alert-success">Ordonnance enregistrée.</p>
         {% endif %}
         {% if error_message %}
-            <p class="p1">{{ error_message }}</p>
+            <p class="alert alert-danger">{{ error_message }}</p>
         {% endif %}
         <table id="true" class="table1">
             <tr>
@@ -53,6 +53,11 @@
         <div style="margin-left:620px">
             <input type="checkbox" name="ajout" value="oui" onclick="ajouter()" /> Ajouter un médicament
         </div>
+        {% if request.user.is_authenticated %}
+            {% if user.type_personnel_soignant.nompersog == "MEDECIN" %}
+                <input type="hidden"   name="customUser"  value="{{ user.refpersoignant }}"/>
+            {% endif %}
+        {% endif %}
         <input type="hidden" id="patient" name="patient" value="{{derniere_consultation_id}}">
     </fieldset>
     <input type="submit" name="valideconstante" value="Enregistrer"  class="inp2"/>
@@ -103,8 +108,6 @@
             }
         }
     }
-
-
 
     document.addEventListener('DOMContentLoaded', function() {
         const dateField = document.getElementById('dateField');

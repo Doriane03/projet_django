@@ -17,7 +17,7 @@
     {% csrf_token %}
     <fieldset>
         {% if error_message %}
-                <p class="p1">{{ error_message }}</p>
+                <p class="alert alert-danger">{{ error_message }}</p>
         {% endif %}
           <div class="divsortie">
               <label for="poids" >Poids</label>

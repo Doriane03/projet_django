@@ -13,7 +13,7 @@
         width: 100%;
     }
     .td_div {
-        margin-left: 125px;
+        margin-left:108px;
         width: 49%;
     }
 </style>
@@ -26,10 +26,10 @@
 {% csrf_token %}
     <fieldset>
         {% if success %}
-        <p class="p2">bilan imagerie enregistré.</p>
+        <p class="alert alert-success">bilan imagerie enregistré.</p>
         {% endif %}
         {% if error_message %}
-        <p class="p1">{{ error_message }}</p>
+        <p class="alert alert-danger">{{ error_message }}</p>
         {% endif %}
         <div class="divsortie">
             <label>Choix</label>
@@ -105,5 +105,22 @@
             }
         }
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const dateField = document.getElementById('dateField');
+    
+        // Obtenir la date d'aujourd'hui
+        const today = new Date();
+        
+        // Formater la date au format YYYY-MM-DD
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0'); // Les mois commencent à 0
+        const day = String(today.getDate()).padStart(2, '0');
+    
+        const formattedDate = `${year}-${month}-${day}`;
+        
+        // Afficher la date dans le champ
+        dateField.value = formattedDate;
+    });
 </script>
 {% endblock %}

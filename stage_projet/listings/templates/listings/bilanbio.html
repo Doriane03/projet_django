@@ -12,10 +12,10 @@
   <fieldset>
 
         {% if success %}
-        <p class="p2">bilan biologique enregistré.</p>
+        <p class="alert alert-success">bilan biologique enregistré.</p>
         {% endif %}
         {% if error_message %}
-                <p class="p1">{{ error_message }}</p>
+                <p class="alert alert-danger">{{ error_message }}</p>
         {% endif %}
     <table id="yes" class="table1">
         <tr>

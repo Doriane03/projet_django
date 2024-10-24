@@ -555,24 +555,13 @@ border-top-right-radius:5px;
 .ok{
   overflow: hidden;
 }
-.p1{
-color: rgb(0, 0, 0);
-text-align: center;
-background-color: rgb(250, 8, 8);
-}
+
 
 .p3{
-  color: rgb(0, 0, 0);
   text-align: center;
-  background-color: rgb(250, 8, 8);
-  width:300px; margin: 0; padding: 10px;
-  opacity: 1;
-  }
-
-.p2{
-  color: rgb(0, 0, 0); 
-  text-align: center;
-  background-color: rgb(33, 241, 33);
+  width:300px;
+  margin: 0;
+  padding: 10px;
 }
 
 .untest1{

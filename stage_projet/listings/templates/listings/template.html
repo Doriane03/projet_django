@@ -43,7 +43,7 @@
                 const currentUrl = window.location.href;
             
                 // Vérifie si "docpts" est présent dans l'URL et si les paramètres ne sont pas présents
-                if (currentUrl.includes("docpts") && !currentUrl.includes("?doc=ok&pk=7&detaille=ok")) {
+                if (currentUrl.includes("docpts") && !currentUrl.includes("?")) {
                     const navbr = document.getElementById('navbr');
                     navbr.style.display = 'block'; // Affiche la div si les conditions sont remplies
                 }

@@ -3,20 +3,21 @@
 <center>
     <form method="POST" action="{% url 'login' %}" class="formcnx">
     {% csrf_token %}
+    {% if form.errors %}
+        <p class="alert alert-danger p3" >vérifiez le mot de passe</p>
+    {% endif %}
+    <h3 style="text-align: center;">GASTRO-ENTEROLOGIE</h3>
     <fieldset>
             <input type="text"   placeholder="nom et prénom" name="username" class="inputformcnx" required/>
             <input type="password"  placeholder="mot de passe" name="password" class="inputformcnx" required/>
-    {% if form.errors %}
-            <p class="p3">vérifiez le mot de passe</p>
-    {% endif %}
-    {% if messages %}
+    <!--{% if messages %}
         <ul>
         {% for message in messages %}
             <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
         {% endfor %}
         
         </ul>
-    {% endif %}
+    {% endif %}-->
     </fieldset>
     
     <input type="submit"  name="connexion"  value="Connexion" class="inp1"/>

@@ -8,10 +8,10 @@
     {% csrf_token %}
     <fieldset>
         {% if success %}
-        <p class="p2">Patient a été créé et assigné au médecin {{medecin.nom}}.</p>
+        <p class="alert alert-success">Patient a été créé et assigné au médecin {{medecin.nom}}.</p>
         {% endif %}
         {% if error_message %}
-                <p class="p1">{{ error_message }}</p>
+                <p class="alert alert-danger">{{ error_message }}</p>
         {% endif %}
 
         <div class="divsortie">

@@ -15,10 +15,10 @@
     {% csrf_token %}
     <fieldset>   
         {% if success %}
-        <p class="p2">sortie  enregistrée.</p>
+        <p class="alert alert-success">sortie  enregistrée.</p>
         {% endif %}
         {% if error_message %}
-                <p class="p1">{{ error_message }}</p>
+                <p class="alert alert-danger">{{ error_message }}</p>
         {% endif %}
         <div  class="divsortie">
             <label > Fiche remplie par</label>
@@ -213,9 +213,7 @@
 
         </div>
 
-        <table class="test" id="rdvdate" style="display:block;
-        width:50%;
-        margin-left:120px;">
+        <table class="test" id="rdvdate" style="width:50%;margin-left:120px;">
                         <tr><th>Date</th>  <th>Médecin</th></tr>
                         <tr>
                             <td>   
@@ -252,77 +250,70 @@
 <script>
     // Fonction pour gérer l'affichage des champs en fonction du motif de sortie
     function sortie() {
-        var afficheRadio = document.getElementsByName("motifsortie");
-        var inputField1 = document.getElementById("motif1");
-        var inputField2 = document.getElementById("motif2");
-        var inputField3 = document.getElementById("motif3");
-        var inputField4 = document.getElementById("motif4");
-        var inputField5 = document.getElementById("raison");
-        var inputField6 = document.getElementById("datedernierevisite");
-        var inputField8 = document.getElementById("afficheref");
+        const afficheRadio = document.getElementsByName("motifsortie");
+        const fields = {
+            décès: document.getElementById("motif1"),
+            perdu: document.getElementById("motif2"),
+            transfert: document.getElementById("motif3"),
+            refus: document.getElementById("motif4"),
+            raison: document.getElementById("raison"),
+            derniereVisite: document.getElementById("datedernierevisite"),
+            afficheref: document.getElementById("afficheref"),
+        };
 
         function hideAllFields() {
-            inputField1.style.display = "none";
-            inputField2.style.display = "none";
-            inputField3.style.display = "none";
-            inputField4.style.display = "none";
-            inputField5.style.display = "none";
-            inputField6.style.display = "none";
-            inputField8.style.display=  "none";
+            for (const field in fields) {
+                if (fields[field]) {
+                    fields[field].style.display = "none";
+                }
+            }
         }
 
         function clearInputs() {
-            var fields = [inputField1, inputField2, inputField3, inputField4, inputField5, inputField6];
-            fields.forEach(function(field) {
+            Object.values(fields).forEach(field => {
                 if (field) {
-                    var inputs = field.getElementsByTagName("input");
-                    for (var i = 0; i < inputs.length; i++) {
-                        if (inputs[i].type === "radio") {
-                            inputs[i].checked = false;
-                        } else if(inputs[i].type === "text") {
-                            inputs[i].value = "";
-                        }else if(inputs[i].type === "date") {
-                            inputs[i].value = "";
+                    const inputs = field.getElementsByTagName("input");
+                    for (const input of inputs) {
+                        if (input.type === "radio") {
+                            input.checked = false;
+                        } else {
+                            input.value = "";
                         }
                     }
                 }
             });
         }
 
-        // Initialisation de l'état
         hideAllFields();
 
-        // Traiter les boutons radio pour le motif
-        for (var i = 0; i < afficheRadio.length; i++) {
-            afficheRadio[i].addEventListener('change', function() {
-                hideAllFields(); // Masquer tous les champs avant d'afficher les champs pertinents
-                clearInputs(); // Vider les champs
-
+        for (const radio of afficheRadio) {
+            radio.addEventListener('change', function() {
+                hideAllFields();
+                clearInputs();
                 if (this.checked) {
                     switch (this.value) {
                         case 'décès':
-                            inputField1.style.display = "block";
+                            fields.décès.style.display = "block";
                             break;
                         case 'perdu de vue':
-                            inputField2.style.display = "block";
-                            inputField5.style.display = "block";
-                            inputField6.style.display = "block";
+                            fields.perdu.style.display = "block";
+                            fields.raison.style.display = "block";
+                            fields.derniereVisite.style.display = "block";
                             break;
                         case 'transfert de dossier':
-                            inputField3.style.display = "block";
-                            inputField5.style.display = "block";
-                            inputField8.style.display = "block";
+                            fields.transfert.style.display = "block";
+                            fields.raison.style.display = "block";
+                            fields.afficheref.style.display = "block";
                             break;
                         case 'refus de suivi':
-                            inputField4.style.display = "block";
-                            inputField5.style.display = "block";
-                            inputField6.style.display = "block";
-                            inputField8.style.display = "block";
-                        break;
-
+                            fields.refus.style.display = "block";
+                            fields.raison.style.display = "block";
+                            fields.derniereVisite.style.display = "block";
+                            fields.afficheref.style.display = "block";
+                            break;
                         case 'guéri':
-                            inputField8.style.display = "block";
-                        break;
+                            fields.afficheref.style.display = "block";
+                            break;
                     }
                 }
             });
@@ -331,44 +322,31 @@
 
     // Fonction pour gérer l'affichage du rendez-vous
     function rdv() {
-        var inputField7 = document.getElementById("rdvdate");
-        var afficheRadio1 = document.getElementsByName("rdv");
+        const inputField7 = document.getElementById("rdvdate");
+        const afficheRadio1 = document.getElementsByName("rdv");
 
-        // Assurez-vous que le champ est masqué au départ
         inputField7.style.display = "none";
 
-        // Traiter les boutons radio pour le rendez-vous
-        for (var j = 0; j < afficheRadio1.length; j++) {
-            afficheRadio1[j].addEventListener('change', function() {
-                if (this.checked) {
-                    switch (this.value) {
-                        case 'oui':
-                            inputField7.style.display = "block";
-                            break;
-                        case 'non':
-                            inputField7.style.display = "none";
-                            document.getElementById("val").value = ""; // Réinitialiser la valeur
-                            break;
-                    }
+        for (const radio of afficheRadio1) {
+            radio.addEventListener('change', function() {
+                inputField7.style.display = this.value === 'oui' ? "block" : "none";
+                if (this.value === 'non') {
+                    document.getElementById("val").value = ""; // Réinitialiser la valeur
                 }
             });
         }
     }
 
-    
-    // Assurez-vous d'appeler les fonctions lors du chargement de la page
     document.addEventListener('DOMContentLoaded', function() {
         sortie();
         rdv();
     });
-    //pour le input date de rdv
-    const today = new Date().toISOString().split('T')[0];
-        
-        // Définir l'attribut 'min' pour empêcher la sélection des dates antérieures
-    document.getElementById('val').setAttribute('min', today);
 
-    
+    // Pour le input date de rdv
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('val').setAttribute('min', today);
 </script>
+
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 </center>
 {% endblock %}

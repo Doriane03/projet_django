@@ -54,7 +54,7 @@ class Type_personnel_soignantAdmin(admin.ModelAdmin):
     list_display=('idpersoignant','nompersog','date') # type: ignore
 
 class HospitalisationAdmin(admin.ModelAdmin):
-    list_display=('idhospitalisation','date','patient') # type: ignore
+    list_display=('idhospitalisation','date','patient','origine') # type: ignore
     inlines = [hospitalisationlitInline]
 
 class SortieAdmin(admin.ModelAdmin):
@@ -85,14 +85,14 @@ class ConsultationAdmin(admin.ModelAdmin):
     list_display=('Numconsulta', 'motifdeconsultation', 'prescripteur_consultation', 'debut_signe', 'signe_digestifs', 'signe_extra_digestif', 'signe_asso_gene', 'nombredeverre_alcool', 'nombrepaquettabac', 'medoc_en_cours', 'prise_therap_tarditionnelle', 'aghbs', 'acanti_vhc', 'acanti_vhd', 'serologie_retrovi', 'transaminase','dateserologie_retrovi','dateaghbs','dateacanti_vhd','dateacanti_vhc','datetransa', 'date','Bilanbiologiqueant','diagnostique_retenu','typealcool','frequence','patient', 'customUser') # type: ignore
 
 class OrdonnanceAdmin(admin.ModelAdmin):
-    list_display=('reford','patient','date') # type: ignore
+    list_display=('reford','patient','customUser') # type: ignore
     inlines = [OrdonnancemedicamentInline]
 
 class Bilan_imagerieAdmin(admin.ModelAdmin):
     list_display=('numbilimg','resultat' ,'dateexam','patient','dateajout','service','echographie','rensignementclinique','radiographie') # type: ignore
 
 class Bilan_biologiqueAdmin(admin.ModelAdmin):
-    list_display=('numbilanbio', 'date','patient') # type: ignore
+    list_display=('numbilanbio','patient','prix','resultatnumerique','resultatmodalite') # type: ignore
     inlines = [Bilan_biologiqueexamensInline]
     
 class Examens_bioAdmin(admin.ModelAdmin):

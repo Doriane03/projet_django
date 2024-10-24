@@ -23,10 +23,10 @@
     {% csrf_token %}
 <fieldset style="overflow:hidden">
         {% if success %}
-        <p class="p2">antécédant médical enregistré.</p>
+        <p class="alert alert-success">antécédant médical enregistré.</p>
         {% endif %}
         {% if error_message %}
-                <p class="p1">{{ error_message }}</p>
+                <p class="alert alert-danger">{{ error_message }}</p>
         {% endif %}
 <div style="float:left; margin-left:5px">
             <div class="p-2 g-col-6">

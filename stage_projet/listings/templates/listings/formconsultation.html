@@ -3,46 +3,41 @@
 <style>
     .contentleft1 {
         display: flex; /* Utiliser Flexbox */
-        gap:5px; /* Espace entre les inputs */
+        gap:1px; /* Espace entre les inputs */
         float:right;
-        margin-right:115px;
+        margin-right:119px;
     }
     .contentleft1 input {
-        width:190px; /* Largeur fixe pour les inputs */
+        width:185.6px; /* Largeur fixe pour les inputs */
         padding: 8px; /* Espacement intérieur */
         box-sizing: border-box; 
     }
     .contentleft3{
-        margin-right: 100px;
+        margin-right:100px;
         float: left;
-    }
-    table {
-        border-collapse: separate; /* Permet d'utiliser border-spacing */
-        border-spacing:8px; /* Ajustez la valeur selon vos besoins */
-        width: 100%;
     }
     th, td {
         padding:0px;
         margin:0px;
         text-align: left;
-        width:100%;
     }
 </style>
 <center> <form method="POST" action="{% url 'consultation' cst='cst' %}" class="formcontenu">
 
     {% csrf_token %}
     <fieldset>
-        {% if success %}
-        <p class="p2">Consultation enregistrée.</p>
-        {% endif %}
-        {% if error_message %}
-                <p class="p1">{{ error_message }}</p>
-        {% endif %} 
+        
        
         <div>
             <div>
               <nav class="divcontenunav">motif de consultation</nav>
             </div>
+            {% if success %}
+            <p class="alert alert-success">Consultation enregistrée.</p>
+            {% endif %}
+            {% if error_message %}
+                    <p class="alert alert-danger">{{ error_message }}</p>
+            {% endif %} 
 
                         <div class="divfrmconsul">
 
@@ -325,7 +320,7 @@
                                     </td>
 
                                     <td>
-                                    <input type="text"   name="frequence" />
+                                        <input type="text"   name="frequence" />
                                     </td>
                                 </tr>
                             </table>
@@ -364,7 +359,7 @@
                     <div class="p-2 g-col-6">
 
                         <div class="form-check form-check-inline">
-                              <label class="form-check-label" style="margin-right:295px">prenez-vous des médicaments?</label> 
+                              <label class="form-check-label" style="margin-right:295px">prenez-vous des médicaments</label> 
                             <div class="form-check form-check-inline" id="divd1">
                                 <input type="radio"    name="medoc_en_cours"  value="oui"   onclick="signedigstif()" class="form-check-input" id="exampleRadios19"/>
                                 <label class="form-check-label" for="exampleRadios19">oui</label>
@@ -395,7 +390,7 @@
                     <div class="p-2 g-col-6">
 
                         <div class="form-check form-check-inline">
-                             <label class="form-check-label" style="margin-right:213px">prenez-vous des médicaments traditionnels ?</label>  
+                             <label class="form-check-label" style="margin-right:213px">prenez-vous des médicaments traditionnels </label>  
                             <div class="form-check form-check-inline"  id="divd1">
                                 <input type="radio"    name="prise_therap_tarditionnelle"  value="oui"    class="form-check-input" id="exampleRadios21"/>
                                 <label class="form-check-label" for="exampleRadios21">oui</label>
@@ -684,9 +679,9 @@
         </div>
     <input type="hidden"   name="patient"  value="{{ patient_id }}"/>
     {% if request.user.is_authenticated %}
-    {% if user.type_personnel_soignant.nompersog == "MEDECIN" %}
-        <input type="hidden"   name="customUser"  value="{{ user.refpersoignant }}"/>
-    {% endif %}
+        {% if user.type_personnel_soignant.nompersog == "MEDECIN" %}
+            <input type="hidden"   name="customUser"  value="{{ user.refpersoignant }}"/>
+        {% endif %}
     {% endif %}
     </fieldset>
     <input type="submit"  name=""  value="Enregistrer" class="inp2"/>

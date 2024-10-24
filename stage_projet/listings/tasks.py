@@ -35,13 +35,11 @@ def relance():
                     rendez_vous_par_medecin[nom_medecin] = []
                 
                 rendez_vous_par_medecin[nom_medecin].append(patient)
-
                 # Envoyer un email à chaque patient
                 message_patient = (
                     f'Bonjour {patient.nom},\n\n'
                     f'Nous vous rappelons que vous avez un rendez-vous avec Dr {nom_medecin} le {demain}.'
                 )
-                
                 try:
                     send_mail(
                         'Rappel de rendez-vous',
@@ -58,18 +56,16 @@ def relance():
             for nom_medecin, patients in rendez_vous_par_medecin.items():
                 try:
                     # Rechercher le médecin basé sur le nom
-                    medecin = CustomUser.objects.get(nom=nom_medecin)  # Supposons que nom_medecin est le username
-                    
+                    medecin = CustomUser.objects.get(nom=nom_medecin)#Supposons que nom_medecin est le username
                     # Rechercher le type de personnel soignant
                     type_personnel = medecin.type_personnel_soignant
                     if type_personnel and type_personnel.nompersog == 'MEDECIN':
                         patients_list = ', '.join([patient.nom for patient in patients])
                         message_medecin = (
-                            f'Bonjour Dr {medecin.username},\n\n'
+                            f'Bonjour Dr {medecin.nom},\n\n'
                             f'Vous avez des rendez-vous avec les patients suivants le {demain}:\n'
                             f'{patients_list}.'
                         )
-                        
                         try:
                             send_mail(
                                 'Rappel de rendez-vous',
@@ -82,7 +78,7 @@ def relance():
                         except Exception as e:
                             logger.error(f'Erreur lors de l\'envoi de l\'email à {medecin.email}: {e}')
                     else:
-                        logger.warning(f'{medecin.username} n\'est pas un médecin.')
+                        logger.warning(f'{medecin.nom} n\'est pas un médecin.')
 
                 except CustomUser.DoesNotExist:
                     logger.warning(f'Médecin avec le nom {nom_medecin} non trouvé.')

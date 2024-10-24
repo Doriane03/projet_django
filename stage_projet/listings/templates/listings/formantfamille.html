@@ -3,40 +3,36 @@
 <center>
 <form method="post" action="" class="formcontenu">
 <div>
-<nav class="divcontenunav">Antécédents familial</nav>
+    <nav class="divcontenunav">Antécédents familial</nav>
 </div>
+        {% if success %}
+            <p class="alert alert-success">antécédant familial enregistré.</p>
+        {% endif %}
+        {% if error_message %}
+                <p class="alert alert-danger">{{ error_message }}</p>
+        {% endif %}
 <div style="margin-top:20px">
-
     {% csrf_token %}
     <fieldset>
 
-        {% if success %}
-        <p class="p2">antécédant familial enregistré.</p>
-        {% endif %}
-        {% if error_message %}
-                <p class="p1">{{ error_message }}</p>
-        {% endif %}
-
-            <div>
-                
-                    <p style="color:deepskyblue;font-weight:bold;text-decoration:underline;text-transform:uppercase;text-align: start;
-  margin-left: 5px;">Ascendants</p>
+        <div>
+            <p style="color:deepskyblue;font-weight:bold;text-decoration:underline;text-transform:uppercase;text-align: start;margin-left: 5px;">Ascendants</p>
                
             <div>
                 <label  class="form-check-label" style="margin-right:250px">hépatite</label>
                 <div class="form-check form-check-inline" style="margin-right:50px">
                     <input class="form-check-input" type="radio" name="hepatie_vir_ASC" id="inlineRadio1" value="oui"/>
                     <label class="form-check-label" for="inlineRadio1">oui</label>
-                </div>
-                <div class="form-check form-check-inline" style="margin-right:50px">
+            </div>
+            <div class="form-check form-check-inline" style="margin-right:50px">
                     <input class="form-check-input" type="radio" name="hepatie_vir_ASC" id="inlineRadio2" value="non"/>
                     <label class="form-check-label" for="inlineRadio2">non</label>
-                </div>
-                <div class="form-check form-check-inline" style="margin-right:50px">
+            </div>
+            <div class="form-check form-check-inline" style="margin-right:50px">
                     <input class="form-check-input" type="radio" name="hepatie_vir_ASC" id="inlineRadio3" value="ne sait pas"/>
                     <label class="form-check-label" for="inlineRadio3">ne sait pass</label>
-                </div>
             </div>
+        </div>
     
     
             <div class="p-2 g-col-6">
@@ -78,7 +74,7 @@
                 
                     <p style="color:deepskyblue;font-weight:bold;text-decoration:underline;text-transform:uppercase;
   text-align: start;
-  margin-left: 5px;">Déscendants</p>
+  margin-left: 5px;">Descendants</p>
                 
              <div class="p-2 g-col-6" >
                 <label  class="form-check-label" style="margin-right:250px">hépatite</label> 

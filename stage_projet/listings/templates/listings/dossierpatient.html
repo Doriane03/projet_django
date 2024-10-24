@@ -308,45 +308,12 @@ img {
         </tr>
 
             <tr>
-                {% if sexe == "féminin" %}
-                        <td>
-                        
-                        <div>
-                            <div>
-                                <nav class="divcontenunav">Gynécologie</nav>
-                            </div>
-                            {% for valeurgenecologique in valeurgenecologiques %}
-                                {% if valeurgenecologique.prisecontraceptif %}
-                                    <p class="signe_physique">Prise de contraceptif : {{ valeurgenecologique.prisecontraceptif }}</p>
-                                {% endif %}
-                                
-                                {% if valeurgenecologique.cesarienne %}
-                                    <p class="signe_physique">Césarienne : {{ valeurgenecologique.cesarienne }}</p>
-                                {% endif %}
-                                
-                                {% if valeurgenecologique.datecesarienne %}
-                                    <p class="signe_physique">Date de la césarienne : {{ valeurgenecologique.datecesarienne }}</p>
-                                {% endif %}
-                                
-                                {% if valeurgenecologique.parite %}
-                                    <p class="signe_physique">Parité : {{ valeurgenecologique.parite }}</p>
-                                {% endif %}
-                                
-                                {% if valeurgenecologique.gestite %}
-                                    <p class="signe_physique">Gestite : {{ valeurgenecologique.gestite }}</p>
-                                {% endif %}
-                                
-                                {% if valeurgenecologique.datederniereregle %}
-                                    <p class="signe_physique">Date des dernières règles : {{ valeurgenecologique.datederniereregle }}</p>
-                                {% endif %}
-                            {% endfor %}
-
-                        </div>
-                    </td>
-            {% endif %}
-            <td><div >
+                
+            <td>
+                
                 <div>
-                    <nav class="divcontenunav">Médicale</nav>
+                <div>
+                    <nav class="divcontenunav">Antécédant Médicale</nav>
                 </div>
                    
                     {% for valeursmedical in valeursmedicals %}
@@ -460,7 +427,7 @@ img {
             <td>
                 <div>
                 <div>
-                    <nav class="divcontenunav">Familial</nav>
+                    <nav class="divcontenunav">Antécédant Familial</nav>
                 </div>
                     
                     {% for valeursmedicale in valeursmedicales %}
@@ -478,12 +445,11 @@ img {
                         <p class="signe_physique">CPF : {{ valeursmedicale.cpf_COL }}</p>
                     {% endfor %}
                 </div>
-            </td></tr>
-            <tr> 
-                <td>
+            </td>
+            <td>
                 <div>
                 <div>
-                    <nav class="divcontenunav">Chirurgical</nav>
+                    <nav class="divcontenunav">Antécédant Chirurgical</nav>
                 </div>
                    
                     {% for valeurschirurgicale in valeurschirurgicales %}
@@ -512,7 +478,46 @@ img {
 
                 </div>
             </td>
+        
         </tr>
+            {% if sexe == "féminin" %}
+                <tr> 
+                        <td>
+                            
+                            <div>
+                                <div>
+                                    <nav class="divcontenunav"> Antécédant  Gynécologique</nav>
+                                </div>
+                                {% for valeurgenecologique in valeurgenecologiques %}
+                                    {% if valeurgenecologique.prisecontraceptif %}
+                                        <p class="signe_physique">Prise de contraceptif : {{ valeurgenecologique.prisecontraceptif }}</p>
+                                    {% endif %}
+                                    
+                                    {% if valeurgenecologique.cesarienne %}
+                                        <p class="signe_physique">Césarienne : {{ valeurgenecologique.cesarienne }}</p>
+                                    {% endif %}
+                                    
+                                    {% if valeurgenecologique.datecesarienne %}
+                                        <p class="signe_physique">Date de la césarienne : {{ valeurgenecologique.datecesarienne }}</p>
+                                    {% endif %}
+                                    
+                                    {% if valeurgenecologique.parite %}
+                                        <p class="signe_physique">Parité : {{ valeurgenecologique.parite }}</p>
+                                    {% endif %}
+                                    
+                                    {% if valeurgenecologique.gestite %}
+                                        <p class="signe_physique">Gestite : {{ valeurgenecologique.gestite }}</p>
+                                    {% endif %}
+                                    
+                                    {% if valeurgenecologique.datederniereregle %}
+                                        <p class="signe_physique">Date des dernières règles : {{ valeurgenecologique.datederniereregle }}</p>
+                                    {% endif %}
+                                {% endfor %}
+
+                            </div>
+                        </td> 
+                </tr>
+        {% endif %}
 </table>
 <script>
     const img = document.getElementById('myImage');

@@ -8,10 +8,10 @@
 <nav class="divcontenunav">ajout personnel soignant</nav>
 </div>
     {% if success %}
-            <p class="p2">Utilisateur crée.</p>
+            <p class="alert alert-success">Utilisateur crée.</p>
         {% endif %}
         {% if error_message %}
-                <p class="p1">{{ error_message }}</p>
+                <p class="alert alert-danger">{{ error_message }}</p>
     {% endif %}
     {% csrf_token %}
     <fieldset class="fieldsetgd">

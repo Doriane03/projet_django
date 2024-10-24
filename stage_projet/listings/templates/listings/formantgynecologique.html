@@ -8,10 +8,10 @@
     {% csrf_token %}
     <fieldset>     
         {% if success %}
-        <p class="p2">antécédant gynécologique enregistré.</p>
+        <p class="alert alert-success">antécédant gynécologique enregistré.</p>
         {% endif %}
         {% if error_message %}
-                <p class="p1">{{ error_message }}</p>
+                <p class="alert alert-danger">{{ error_message }}</p>
         {% endif %}
 
             <div class="divsortie">
