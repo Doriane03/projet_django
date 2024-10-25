@@ -92,7 +92,7 @@ class Bilan_imagerieAdmin(admin.ModelAdmin):
     list_display=('numbilimg','resultat' ,'dateexam','patient','dateajout','service','echographie','rensignementclinique','radiographie') # type: ignore
 
 class Bilan_biologiqueAdmin(admin.ModelAdmin):
-    list_display=('numbilanbio','patient','prix','resultatnumerique','resultatmodalite') # type: ignore
+    list_display=('numbilanbio','patient') # type: ignore
     inlines = [Bilan_biologiqueexamensInline]
     
 class Examens_bioAdmin(admin.ModelAdmin):

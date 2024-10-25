@@ -22,6 +22,7 @@ import io
 import base64
 import csv
 from django.db import connection
+from django.db.models import Count, Q
 #fin
 
 
@@ -677,13 +678,17 @@ def bilanbio(request, cst):
                 try:
                     with transaction.atomic():
                         patient_1 = get_object_or_404(Patient, pk=patient_id)
-                        bilan_biologique = Bilan_biologique.objects.create(patient=patient_1,resultatnumerique=resultatnumerique,resultatmodalite=resultatmodalite,prix=prix)
+                        bilan_biologique = Bilan_biologique.objects.create(patient=patient_1)
                         for examens_bio_id, resultatnumerique, resultatmodalite, prix in zip(examens_bio_ids, resultatnumeriques, resultatmodalites, prixs):
                             if examens_bio_id:
                                 examens_bio = get_object_or_404(Examens_bio, pk=examens_bio_id)
                                 Bilan_biologiqueexamens.objects.create(
                                     bilan_biologique=bilan_biologique,
                                     examens_bio=examens_bio,
+                                    resultatnumerique=resultatnumerique,
+                                    resultatmodalite=resultatmodalite,
+                                    prix=prix,
+                                    date = timezone.now()
                                 )
                         success = True
                         return redirect('box',pt,cst)
@@ -704,13 +709,17 @@ def bilanbio(request, cst):
                 try:
                     with transaction.atomic():
                         patient_2 = get_object_or_404(Patient, pk=patient_id)
-                        bilan_biologique = Bilan_biologique.objects.create(patient=patient_2,resultatnumerique=resultatnumerique,resultatmodalite=resultatmodalite,prix=prix)
+                        bilan_biologique = Bilan_biologique.objects.create(patient=patient_2)
                         for examens_bio_id, resultatnumerique, resultatmodalite, prix in zip(examens_bio_ids,resultatnumeriques, resultatmodalites, prixs):
+                            
                             if examens_bio_id:
                                 examens_bio = get_object_or_404(Examens_bio, pk=examens_bio_id)
                                 Bilan_biologiqueexamens.objects.create(
                                     bilan_biologique=bilan_biologique,
                                     examens_bio=examens_bio,
+                                    resultatnumerique=resultatnumerique,
+                                    resultatmodalite=resultatmodalite,
+                                    prix=prix,
                                 )
                         success = True
                         return redirect('listetraitement1',kp,"suivie")
@@ -857,8 +866,8 @@ def ordonnance(request,cst):
                 try:
                     # Créer une instance de Ordonnance
                     patient_2 = Patient.objects.get(pk=patient_id)
-                    customUser_1=CustomUser.objects.get(refpersoignant=customUser)
-                    ordonnance = Ordonnance.objects.create(patient=patient_1,customUser=customUser_1)
+                    customUser_2=CustomUser.objects.get(refpersoignant=customUser)
+                    ordonnance = Ordonnance.objects.create(patient=patient_2,customUser=customUser_2)
                     # Ajouter les médicaments via la table de liaison
                     for medicament_id, quantite in zip(medicaments_ids, quantites):
                         if medicament_id and quantite:
@@ -976,7 +985,7 @@ def envoiemail(request):
 
 
 #hospitalisation
-from django.db.models import Count, Q
+
 
 @login_required
 def listehospi(request):
@@ -992,9 +1001,11 @@ def listehospi(request):
     
     # Requête ORM pour obtenir les résultats
     results = Patient.objects.filter(
-            Q(hospitalisation__hospitalisationlit__dateoccupation__isnull=False) &
-            Q(hospitalisation__hospitalisationlit__dateliberation__isnull=True)
-        ).values('idpatient', 'nom')
+    hospitalisation__hospitalisationlit__dateoccupation__isnull=False,
+    hospitalisation__hospitalisationlit__dateliberation__isnull=True
+    ).values('idpatient', 'nom')
+
+    print(results)
     # Décider de rendre la page avec ou sans contexte
     if suivie == 'suivie':
         return render(request, 'listings/affichelistehospi.html', context={'results': results,'suivie':suivie})
@@ -1101,9 +1112,6 @@ def attributionlit(request):
     return render(request, 'listings/formhospi.html', context={'creation': creation, 'lits': lits, 'success': success, 'error_message': error_message})
 
 
-
-
-
 @login_required
 def listetraitement1(request,pk,resul):
     if pk and resul=="suivie":
@@ -1175,8 +1183,10 @@ def docpts(request):
         valeurschirurgicales=Antecedant_chirurgical.objects.filter(patient_id=pk)
         valeursmedicals=Antecedant_medical.objects.filter(patient_id=pk)
         blimgids = Bilan_imagerie.objects.filter(patient_id=pk).values('numbilimg','dateajout')
-        ordids=Ordonnance.objects.filter(patient_id=pk).values('reford','date')
-        idbils=Bilan_biologique.objects.filter(patient_id=pk).values('numbilanbio','date')
+        ordids=Ordonnance.objects.filter(patient_id=pk).values('reford', 'date')
+        print(ordids)
+        idbils=Bilan_biologique.objects.filter(patient_id=pk).values('numbilanbio', 'date')
+        print(idbils)
         if dnpatients:
             return render(request, 'listings/dossierpatient.html', {'idbils':idbils,'dnpatients': dnpatients,'ordids':ordids,'sphids':sphids,'pk':pk,'ids':ids,'valeursmedicales':valeursmedicales,'valeurgenecologiques':valeurgenecologiques,'valeurschirurgicales':valeurschirurgicales,'valeursmedicals':valeursmedicals,'blimgids':blimgids,'sexe':sexe})
     elif doc == 'ok' and pk and detaille=="gynécologique":
@@ -1190,9 +1200,9 @@ def docpts(request):
         ids = Constante.objects.filter(patient_id=pk).values('refconst','dateajout')
         valeurschirurgicales=Antecedant_chirurgical.objects.filter(patient_id=pk)
         valeursmedicals=Antecedant_medical.objects.filter(patient_id=pk)
-        ordids=Ordonnance.objects.filter(patient_id=pk).values('reford','date')
+        ordids=Ordonnance.objects.filter(patient_id=pk).values('reford', 'date')
         blimgids = Bilan_imagerie.objects.filter(patient_id=pk).values('numbilimg','dateajout')
-        idbils=Bilan_biologique.objects.filter(patient_id=pk).values('numbilanbio','date')
+        idbils=Bilan_biologique.objects.filter(patient_id=pk).values('numbilanbio', 'date')
         return render(request, 'listings/dossierpatient.html', {'idbils':idbils,'dnpatients': dnpatients, 'ordids':ordids,'valeursmedicales': valeursmedicales,'sphids':sphids,'pk':pk,'ids':ids,'valeurgenecologiques':valeurgenecologiques,'valeurschirurgicales':valeurschirurgicales,'valeursmedicals':valeursmedicals,'blimgids':blimgids,'sexe':sexe})
     elif doc == 'ok' and pk and detaille=="Médicale":
         sexe=Patient.objects.get(idpatient=pk).sexe
@@ -1204,9 +1214,9 @@ def docpts(request):
         ids = Constante.objects.filter(patient_id=pk).values('refconst','dateajout')
         valeurschirurgicales=Antecedant_chirurgical.objects.filter(patient_id=pk)
         valeursmedicals=Antecedant_medical.objects.filter(patient_id=pk)
-        ordids=Ordonnance.objects.filter(patient_id=pk).values('reford','date')
+        ordids=Ordonnance.objects.filter(patient_id=pk).values('reford', 'date')
         blimgids = Bilan_imagerie.objects.filter(patient_id=pk).values('numbilimg','dateajout')
-        idbils=Bilan_biologique.objects.filter(patient_id=pk).values('numbilanbio','date')
+        idbils=Bilan_biologique.objects.filter(patient_id=pk).values('numbilanbio', 'date')
         return render(request, 'listings/dossierpatient.html', {'idbils':idbils,'dnpatients': dnpatients,'sphids':sphids,'ordids':ordids,'valeursmedicales': valeursmedicales,'pk':pk,'ids':ids,'valeurgenecologiques':valeurgenecologiques,'valeurschirurgicales':valeurschirurgicales,'valeursmedicals':valeursmedicals,'blimgids':blimgids,'sexe':sexe})
     elif doc == 'ok' and pk and detaille=="constante":
         sexe=Patient.objects.get(idpatient=pk).sexe
@@ -1224,9 +1234,9 @@ def docpts(request):
         valeursmedicals=Antecedant_medical.objects.filter(patient_id=pk)
         blimgids = Bilan_imagerie.objects.filter(patient_id=pk).values('numbilimg','dateajout')
         #selection des valeurs don la date est val
-        ordids=Ordonnance.objects.filter(patient_id=pk).values('reford','date')
+        ordids=Ordonnance.objects.filter(patient_id=pk).values('reford', 'date')
         constantepatients = Constante.objects.filter(patient_id=pk,refconst=val)
-        idbils=Bilan_biologique.objects.filter(patient_id=pk).values('numbilanbio','date')
+        idbils=Bilan_biologique.objects.filter(patient_id=pk).values('numbilanbio', 'date')
         return render(request, 'listings/dossierpatient.html', {'idbils':idbils,'dnpatients': dnpatients,'sphids':sphids,'ordids':ordids,'valeursmedicales': valeursmedicales,'pk':pk,'constantepatients':constantepatients,'ids':ids,'valeurgenecologiques':valeurgenecologiques,'valeurschirurgicales':valeurschirurgicales,'valeursmedicals':valeursmedicals,'sphids':sphids,'blimgids':blimgids,'sexe':sexe})
     elif doc == 'ok' and pk and detaille=="signe_physique":
         sexe=Patient.objects.get(idpatient=pk).sexe
@@ -1245,9 +1255,9 @@ def docpts(request):
         valeursmedicals=Antecedant_medical.objects.filter(patient_id=pk)
         blimgids = Bilan_imagerie.objects.filter(patient_id=pk).values('numbilimg','dateajout')
         #selection des valeurs don la date est val
-        ordids=Ordonnance.objects.filter(patient_id=pk).values('reford','date')
+        ordids=Ordonnance.objects.filter(patient_id=pk).values('reford', 'date')
         #constantepatients = Constante.objects.filter(patient_id=pk,refconst=val)
-        idbils=Bilan_biologique.objects.filter(patient_id=pk).values('numbilanbio','date')
+        idbils=Bilan_biologique.objects.filter(patient_id=pk).values('numbilanbio', 'date')
         return render(request, 'listings/dossierpatient.html', {'idbils':idbils,'dnpatients': dnpatients,'sphids':sphids,'ordids':ordids,'valeursmedicales': valeursmedicales,'pk':pk,'ids':ids,'valeurgenecologiques':valeurgenecologiques,'valeurschirurgicales':valeurschirurgicales,'valeursmedicals':valeursmedicals,'sphids':sphids,'blimgids':blimgids,'valeursphs':valeursphs,'sexe':sexe})
     elif doc == 'ok' and pk and detaille=="bilan_imagerie": 
         sexe=Patient.objects.get(idpatient=pk).sexe
@@ -1263,8 +1273,8 @@ def docpts(request):
         valeursmedicals=Antecedant_medical.objects.filter(patient_id=pk)
         blimgids = Bilan_imagerie.objects.filter(patient_id=pk).values('numbilimg','dateajout')
         valeursimgs = Bilan_imagerie.objects.filter(patient_id=pk,numbilimg=val2)
-        idbils=Bilan_biologique.objects.filter(patient_id=pk).values('numbilanbio','date')
-        ordids=Ordonnance.objects.filter(patient_id=pk).values('reford','date')
+        idbils=Bilan_biologique.objects.filter(patient_id=pk).values('numbilanbio', 'date')
+        ordids=Ordonnance.objects.filter(patient_id=pk).values('reford', 'date')
         return render(request, 'listings/dossierpatient.html', {'idbils':idbils,'dnpatients': dnpatients,'sphids':sphids,'valeursmedicales': valeursmedicales,'pk':pk,'ids':ids,'ordids':ordids,'valeurgenecologiques':valeurgenecologiques,'valeurschirurgicales':valeurschirurgicales,'valeursmedicals':valeursmedicals,'sphids':sphids,'blimgids':blimgids,'valeursimgs':valeursimgs,'sexe':sexe})
     elif doc == 'ok' and pk and detaille=="bilan_biologique": 
         sexe=Patient.objects.get(idpatient=pk).sexe
@@ -1279,11 +1289,11 @@ def docpts(request):
         valeursmedicals=Antecedant_medical.objects.filter(patient_id=pk)
         blimgids = Bilan_imagerie.objects.filter(patient_id=pk).values('numbilimg','dateajout')
 
-        idbils=Bilan_biologique.objects.filter(patient_id=pk).values('numbilanbio','date')
+        idbils=Bilan_biologique.objects.filter(patient_id=pk).values('numbilanbio', 'date')
 
         bilan_biologiqueexamens = Bilan_biologiqueexamens.objects.filter(bilan_biologique__numbilanbio__in=val4)
 
-        ordids=Ordonnance.objects.filter(patient_id=pk).values('reford','date')
+        ordids=Ordonnance.objects.filter(patient_id=pk).values('reford', 'date')
         return render(request, 'listings/dossierpatient.html', {'dnpatients': dnpatients,'sphids':sphids,'valeursmedicales': valeursmedicales,'pk':pk,'ids':ids,'valeurgenecologiques':valeurgenecologiques,'valeurschirurgicales':valeurschirurgicales,'valeursmedicals':valeursmedicals,'sphids':sphids,'blimgids':blimgids,'ordids':ordids,'idbils':idbils,'bilan_biologiqueexamens':bilan_biologiqueexamens,'sexe':sexe})
     
     elif doc == 'ok' and pk and detaille=="médicament": 
@@ -1294,10 +1304,10 @@ def docpts(request):
         sphids = Examen_physique.objects.filter(patient_id=pk).values('idExamen_physique','date')
         #valeursphs = Examen_physique.objects.filter(patient_id=pk,idExamen_physique=val1)
         val3=request.POST['dateord']
-        ordids=Ordonnance.objects.filter(patient_id=pk).values('reford','date')
+        ordids=Ordonnance.objects.filter(patient_id=pk).values('reford', 'date')
         # Récupérer les Ordonnancemedicament liés aux ordonnances
         ordonnances_medicaments = Ordonnancemedicament.objects.filter(ordonnance__reford__in=val3)
-        idbils=Bilan_biologique.objects.filter(patient_id=pk).values('numbilanbio','date')
+        idbils=Bilan_biologique.objects.filter(patient_id=pk).values('numbilanbio', 'date')
         valeurgenecologiques=Antecedant_genecologique.objects.filter(patient_id=pk)
         valeurschirurgicales=Antecedant_chirurgical.objects.filter(patient_id=pk)
         valeursmedicals=Antecedant_medical.objects.filter(patient_id=pk)

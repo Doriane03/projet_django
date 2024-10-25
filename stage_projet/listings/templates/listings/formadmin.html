@@ -2,7 +2,7 @@
 
 {% block formadmin %}
 <center>
-<form method="post" action="{% url 'adminform' %}" class="formcontenu">
+<form method="POST" action="{% url 'adminform' %}" class="formcontenu">
        
 <div>
 <nav class="divcontenunav">ajout personnel soignant</nav>
@@ -14,7 +14,7 @@
                 <p class="alert alert-danger">{{ error_message }}</p>
     {% endif %}
     {% csrf_token %}
-    <fieldset class="fieldsetgd">
+    <fieldset>
         
         <div class="divsortie">
             <label >Nom</label>

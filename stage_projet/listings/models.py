@@ -430,9 +430,9 @@ class ConstanteForm(ModelForm):
 class Ordonnance(models.Model):
     reford=models.fields.AutoField(primary_key=True) 
     patient=models.ForeignKey(Patient, on_delete=models.CASCADE) 
-    customUser=models.ForeignKey(CustomUser,on_delete=models.CASCADE)  
+    customUser=models.ForeignKey(CustomUser,on_delete=models.CASCADE)
     peut_contenir=models.ManyToManyField(Medicament, through="Ordonnancemedicament")
-    #date = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return f'{self.reford} {self.patient} {self.peut_contenir} {self.customUser}'
 
@@ -448,9 +448,9 @@ class Ordonnancemedicament(models.Model):# nouvel ajout c'est la table de liaiso
     medicament = models.ForeignKey(Medicament, on_delete=models.CASCADE)
     quantite = models.PositiveIntegerField(null=True, blank=True)
     #raison=models.fields.CharField(max_length=18)#new
-    dateajout= models.DateTimeField(auto_now_add=True)#correspond à la date de presciption
+    dateajout= models.DateTimeField(auto_now_add=True)
     def __str__(self):
-        return f"{self.medicament} x {self.quantite} dans {self.ordonnance} {self.dateajout}"
+        return f"{self.medicament} x {self.quantite}x {self.dateajout} dans {self.ordonnance} "
 
 class OrdonnancemedicamentForm(ModelForm):
     class Meta:
@@ -508,33 +508,34 @@ class Examens_bio(models.Model):#new
 
 class Bilan_biologique(models.Model):
     numbilanbio=models.fields.AutoField(primary_key=True) 
-    resultatnumerique=models.fields.CharField(max_length=100)
-    resultatmodalite= models.fields.CharField(max_length=7)
-    prix=models.fields.CharField(max_length=100) 
     peut_contenir=models.ManyToManyField(Examens_bio, through="Bilan_biologiqueexamens")
-    patient=models.ForeignKey(Patient, on_delete=models.CASCADE)                                         
+    patient=models.ForeignKey(Patient, on_delete=models.CASCADE) 
+    date = models.DateTimeField(auto_now_add=True)                                       
     #consultation=models.ForeignKey(Consultation, on_delete=models.CASCADE)
     def __str__(self):
-        return f"{self.numbilanbio}{self.prix}{self.resultatnumerique}{self.resultatmodalite}{self.peut_contenir}{self.patient}"
+        return f"{self.numbilanbio}{self.peut_contenir}{self.patient}"
        
 class Bilan_biologiqueForm(ModelForm):
     class Meta:
         model = Bilan_biologique
-        fields = ['numbilanbio' ,'patient','peut_contenir','prix','resultatnumerique','resultatmodalite']
+        fields = ['numbilanbio' ,'patient','peut_contenir']
 
 
 
 class Bilan_biologiqueexamens(models.Model): #new
     bilan_biologique=models.ForeignKey(Bilan_biologique, on_delete=models.CASCADE)
     examens_bio = models.ForeignKey(Examens_bio, on_delete=models.CASCADE) 
+    resultatnumerique=models.fields.CharField(max_length=100)
+    resultatmodalite= models.fields.CharField(max_length=7)
+    prix=models.fields.CharField(max_length=100) 
     date= models.DateTimeField(auto_now_add=True) 
     def __str__(self):
-        return f"{self.examens_bio} {self.date} {self.bilan_biologique}"
+        return f"{self.examens_bio} {self.date} {self.bilan_biologique} {self.resultatnumerique} {self.resultatmodalite} {self.prix}"
 
 class Bilan_biologiqueexamensForm(ModelForm):
     class Meta:
         model = Bilan_biologiqueexamens
-        fields = ['bilan_biologique' ,'examens_bio']
+        fields = ['bilan_biologique' ,'examens_bio','resultatnumerique','resultatmodalite','prix']
 
 
 class Notification(models.Model):
