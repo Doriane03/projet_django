@@ -1,18 +1,61 @@
 {% extends 'listings/template.html' %}
 {% block chart %}
-<form method="post" action="{% url 'chart' %}">
-    {% csrf_token %}
-        <div>
-            <label>Date Début
-                <input type="date" name="datedebut" required/>
-            </label>
-            <label >Date Fin
-                <input type="date" name="datefin" required/>
-            </label>
+<style>
+    label{display:block;}
+    div1{
+        width:200px;  
+    }
+
+    #np{
+        margin-left:20px;
+    }
+</style>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("nr").addEventListener("change", function() {
+            const dateDebut = this.value; // Récupère la valeur de l'input 'nr'
+            const dateFinInput = document.getElementById('np');
+
+            if (dateDebut) {
+                // Définit la date minimale pour l'input 'np' et l'active
+                dateFinInput.setAttribute('min', dateDebut);
+            } else {
+                // Enlève l'attribut min et désactive 'np' si aucune date n'est sélectionnée
+                dateFinInput.removeAttribute('min');
+                
+            }
+        });
+    });
+</script>
+
+
+<div class="row stats-row">
+    <div class="col-lg-4 col-md-12">
+        <div class="card card-transparent stats-card">
+            <div class="card-body">
+                
+                <div class="div1">
+                    <div>
+                        <nav class="divcontenunav">choisir la date</nav>
+                    </div>
+                    <form method="post" action="{% url 'chart' %}">
+                        {% csrf_token %}
+                            <fieldset>
+                                <label>Date Début
+                                    <input type="date" name="datedebut" id="nr" required/>
+                                </label>
+                
+                                <label>Date Fin
+                                    <input type="date" name="datefin" required  id="np"/>
+                                </label>
+                            <input type="submit" name="ok" value="Afficher"/>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
         </div>
-       
-        <input type="submit" name="ok" value="Afficher"  class="inp2"/>
-</form>
+    </div> 
+</div>
 
   <div class="row stats-row">
       <div class="col-lg-4 col-md-12">
@@ -61,6 +104,10 @@
       </div>
   </div>
 
+
+
+
+ 
   <div class="row stats-row">
     <div class="col-lg-4 col-md-12">
         <div class="card card-transparent stats-card">
@@ -93,10 +140,10 @@
         <div class="card card-transparent stats-card">
             <div class="card-body">
                 <div class="stats-info">
-                    
+                        <p class="card-title">{{average_age}}</p>
                         <p class="stats-text">la moyenne de l'age</p>
                     
-                    <p class="card-title">{{average_age}}</p>
+                    
                 </div>
                 
             </div>
@@ -106,13 +153,9 @@
         <div class="card card-transparent stats-card">
             <div class="card-body">
                 <div class="stats-info">
-                    
-                        <p class="stats-text">Nonbre de patients en consultation reguliere</p>
-                   
                     <p class="card-title">{{consulreg}}</p>
-                    
+                    <p class="stats-text">Nonbre de patient en consultation regulière</p>
                 </div>
-                
             </div>
         </div>
     </div>
@@ -121,7 +164,7 @@
 
   <div class="row">
      
-      <div class="col-lg-8">
+      <div class="col-lg-6">
           <div class="card">
             <img src="data:image/png;base64,{{ graph_image }}" alt="Graphique des Patients"/>
           </div>

@@ -741,7 +741,7 @@ def bilanbio(request, cst):
         'derniere_consultation_id': patient_id1,
     })
 
-
+from datetime import timedelta
 
 @login_required
 def chart(request):
@@ -759,8 +759,8 @@ def chart(request):
     plt.figure(figsize=(10, 6))
     plt.bar(annees, nombres, color='skyblue')
     plt.xlabel('Année')
-    plt.ylabel('Nombre de Patients')
-    plt.title('Nombre de Patients par Année')
+    plt.ylabel('Nombre de Patient')
+    plt.title('Nombre de Patient par Année')
     
     # Initialize variables for the image and patient counts
     image_base64 = None
@@ -771,34 +771,55 @@ def chart(request):
     average_age = 0
     hospitalisation_count = 0
     consulreg = 0
-
-    if request.method == 'POST':
-        if annee_debut:
-            plt.xlim(left=annee_debut - 1)  # Optionnel: pour commencer un peu avant la première année
-            start_date = request.POST.get('datedebut')
-            end_date = request.POST.get('datefin')
+   
+    if annee_debut:
+        plt.xlim(left=annee_debut - 1)  # Optionnel: pour commencer un peu avant la première année
+        start_date = request.POST.get('datedebut')
+        end_date = request.POST.get('datefin')
 
             # Configurer l'axe des X pour utiliser des entiers
-            plt.gca().xaxis.set_major_locator(plt.MaxNLocator(integer=True))
+        plt.gca().xaxis.set_major_locator(plt.MaxNLocator(integer=True))
 
             # Convertir le graphique en image PNG
-            buffer = io.BytesIO()
-            plt.savefig(buffer, format='png')
-            buffer.seek(0)
-            image_base64 = base64.b64encode(buffer.getvalue()).decode('utf-8')
-            buffer.close()
-
+        buffer = io.BytesIO()
+        plt.savefig(buffer, format='png')
+        buffer.seek(0)
+        image_base64 = base64.b64encode(buffer.getvalue()).decode('utf-8')
+        buffer.close()
+        if request.method == 'POST':
             # Calculer les statistiques
             nombre_de_patients = Patient.objects.filter(date__range=[start_date, end_date]).count()
             nombre_patients_feminins = Patient.objects.filter(sexe='féminin',date__range=[start_date, end_date]).count()
             masculin_count = Patient.objects.filter(sexe='masculin',date__range=[start_date, end_date]).count()
             nombre_deces = Sortie.objects.filter(motifsortie="décès",date__range=[start_date, end_date]).count()
             average_age =Patient.objects.filter(date__range=[start_date, end_date]).aggregate(average_age=Avg('age'))['average_age']
-            hospitalisation_count = Hospitalisation.objects.filter().count()
+            if  average_age is None:
+                average_age=0
+            hospitalisation_count = Hospitalisation.objects.filter(date__range=[start_date, end_date]).count()
             consulreg = Patient.objects.filter(
-                Q(hospitalisation__hospitalisationlit__dateoccupation__isnull=True) & 
-                Q(hospitalisation__hospitalisationlit__dateliberation__isnull=True) ,date__range=[start_date, end_date]
-            ).distinct().count()
+                    Q(hospitalisation__hospitalisationlit__dateoccupation__isnull=True) & 
+                    Q(hospitalisation__hospitalisationlit__dateliberation__isnull=True) ,date__range=[start_date, end_date]
+                ).distinct().count()
+        else:
+            now = timezone.now()
+            start_date=now-timedelta(days=5)
+            end_date=now
+            #print(end_date,start_date)
+            nombre_de_patients = Patient.objects.filter(date__range=[start_date, end_date]).count()
+            nombre_patients_feminins = Patient.objects.filter(sexe='féminin',date__range=[start_date, end_date]).count()
+            masculin_count = Patient.objects.filter(sexe='masculin',date__range=[start_date, end_date]).count()
+            nombre_deces = Sortie.objects.filter(motifsortie="décès",date__range=[start_date, end_date]).count()
+            average_age =Patient.objects.filter(date__range=[start_date, end_date]).aggregate(average_age=Avg('age'))['average_age']
+            #average_age =Patient.objects.filter(date__range=[start_date, end_date]).aggregate(average_age=Avg('age'))['average_age']
+            if average_age is None:
+                average_age=0
+            hospitalisation_count = Hospitalisation.objects.filter(date__range=[start_date, end_date]).count()
+
+            consulreg = Patient.objects.filter(
+                    Q(hospitalisation__hospitalisationlit__dateoccupation__isnull=True) & 
+                    Q(hospitalisation__hospitalisationlit__dateliberation__isnull=True) ,date__range=[start_date, end_date]
+                ).distinct().count()
+            
     return render(request, 'listings/chart.html', {
         'nombre_de_patients': nombre_de_patients,
         'nombre_patients_feminins': nombre_patients_feminins,
