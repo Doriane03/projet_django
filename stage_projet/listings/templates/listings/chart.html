@@ -2,8 +2,13 @@
 {% block chart %}
 <style>
     label{display:block;}
-    div1{
-        width:200px;  
+    .div0{
+       float:left;
+       margin-top:50px;
+    }
+    .div01{
+        float:right;
+        margin-left:50px;
     }
 
     #np{
@@ -29,12 +34,9 @@
 </script>
 
 
-<div class="row stats-row">
-    <div class="col-lg-4 col-md-12">
-        <div class="card card-transparent stats-card">
-            <div class="card-body">
-                
-                <div class="div1">
+
+<div style="overflow:hidden">  
+                <div class="div0">
                     <div>
                         <nav class="divcontenunav">choisir la date</nav>
                     </div>
@@ -52,11 +54,15 @@
                         </fieldset>
                     </form>
                 </div>
-            </div>
-        </div>
-    </div> 
-</div>
+                <div>
+                    
+                        <div class="card">
+                        <img src="data:image/png;base64,{{ graph_image }}" alt="Graphique des Patients" class="div01"/>
+                        </div>
+                    
+                </div>
 
+</div>
   <div class="row stats-row">
       <div class="col-lg-4 col-md-12">
           <div class="card card-transparent stats-card">
@@ -154,22 +160,24 @@
             <div class="card-body">
                 <div class="stats-info">
                     <p class="card-title">{{consulreg}}</p>
-                    <p class="stats-text">Nonbre de patient en consultation regulière</p>
+                    <p class="stats-text">Nonbre de patients en consultation reguliere</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-
-  <div class="row">
+<!--<div>
      
-      <div class="col-lg-6">
-          <div class="card">
-            <img src="data:image/png;base64,{{ graph_image }}" alt="Graphique des Patients"/>
-          </div>
-      </div>
-  </div>
+    <div class="col-lg-8">
+        <div class="card">
+        <img src="data:image/png;base64,{{ graph_image }}" alt="Graphique des Patients"/>
+        </div>
+    </div>
+
+    
+</div>-->
+  
 
   
 {% endblock %}

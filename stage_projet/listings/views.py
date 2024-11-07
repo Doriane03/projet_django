@@ -259,7 +259,7 @@ def consultation(request, cst):
                 eva_douleur=request.POST.get('eva_douleur')
                 nombre_de_vomissements=request.POST.get('nombre_de_vomissements')
 
-                # Créer l'instance d'Examen_physique si au moins un champ est rempli
+                # Créer'instance d'Examen_physique si au moins un champ est rempli
                 if any([sih, shp, lmc, lxo, resultattoucherectal, observation,etat_de_conscience]):
                     examen_physique = Examen_physique(
                         sih=sih,
@@ -480,7 +480,8 @@ def adminform(request):#fais
                     print(error_message)
     else :
         type_personnel_soignants=Type_personnel_soignant.objects.all()
-    return render(request, 'listings/formadmin.html', context={'services': services, 'type_personnel_soignants': type_personnel_soignants,'success':success,'error_message':error_message})
+    return render(request, 'listings/formadmin.html', context={'services': services, 
+    'type_personnel_soignants': type_personnel_soignants,'success':success,'error_message':error_message})
 
 
 @login_required 
@@ -746,7 +747,9 @@ from datetime import timedelta
 @login_required
 def chart(request):
     # Récupérer les données
-    data = Patient.objects.annotate(annee=models.functions.ExtractYear('date')).values('annee').annotate(nombre=Count('idpatient')).order_by('annee')
+    data = Patient.objects.annotate(annee=models.functions.ExtractYear('date')).values('annee').annotate(
+        nombre=Count('idpatient')
+        ).order_by('annee')
 
     # Préparer les données pour le graphique
     annees = [entry['annee'] for entry in data]
@@ -756,9 +759,9 @@ def chart(request):
     annee_debut = min(annees) if annees else None
 
     # Créer le graphique
-    plt.figure(figsize=(10, 6))
+    plt.figure(figsize=(10,4))
     plt.bar(annees, nombres, color='skyblue')
-    plt.xlabel('Année')
+    plt.xlabel('Années')
     plt.ylabel('Nombre de Patient')
     plt.title('Nombre de Patient par Année')
     
@@ -1337,7 +1340,7 @@ def docpts(request):
     if query:
         patients = Patient.objects.filter(numeropatient__icontains=query)
     else:
-        patients = Patient.objects.all()
+        patients =Patient.objects.filter(notification__customUser=request.user)
     return render(request, 'listings/tableaudocpatient.html', {'patients': patients, 'query': query})
 
 def get_patient(request, numero_patient):
