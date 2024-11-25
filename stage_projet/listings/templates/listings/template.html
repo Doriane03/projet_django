@@ -43,7 +43,7 @@
                 const currentUrl = window.location.href;
             
                 // Vérifie si "docpts" est présent dans l'URL et si les paramètres ne sont pas présents
-                if (currentUrl.includes("docpts") && !currentUrl.includes("?")) {
+                if ((currentUrl.includes("docpts") && !currentUrl.includes("?") )|| (currentUrl.includes("docpts/?query=")) || (currentUrl.includes("listehospi/?surveillance=surveillance")) ||  (currentUrl.includes("listehospi/?suivie=suivie")) || (currentUrl.includes("listehospi/?autorisation=autorisation")) ) {
                     const navbr = document.getElementById('navbr');
                     navbr.style.display = 'block'; // Affiche la div si les conditions sont remplies
                 }

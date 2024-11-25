@@ -364,6 +364,7 @@ def antecedantchirurgical(request):
 
 @login_required
 def sortie_patient(request):
+    
     success = False
     error_message = None
     autorisation="autorisation"
@@ -380,7 +381,7 @@ def sortie_patient(request):
                 hospitalisations = Hospitalisation.objects.filter(patient_id=idp)
                 hospi_id= hospitalisations
                 print(hospi_id)
-                if hospi_id: 
+                if hospi_id:
                     for hospi in hospi_id:
 
                     # Vérifiez s'il y a des enregistrements à mettre à jour
@@ -1338,9 +1339,12 @@ def docpts(request):
         blimgids = Bilan_imagerie.objects.filter(patient_id=pk).values('numbilimg','dateajout')
         return render(request, 'listings/dossierpatient.html', {'dnpatients': dnpatients,'sphids':sphids,'valeursmedicales': valeursmedicales,'pk':pk,'ids':ids,'valeurgenecologiques':valeurgenecologiques,'valeurschirurgicales':valeurschirurgicales,'valeursmedicals':valeursmedicals,'sphids':sphids,'blimgids':blimgids,'ordids':ordids,'idbils':idbils,'ordonnances_medicaments':ordonnances_medicaments,'sexe':sexe})
     if query:
-        patients = Patient.objects.filter(numeropatient__icontains=query)
+        patients = Patient.objects.filter(
+            Q(nom__icontains=query) | Q(numeropatient__icontains=query)|Q(contact1__icontains=query)|Q(contact2__icontains=query)
+        )
+        print(query)
     else:
-        patients =Patient.objects.filter(notification__customUser=request.user)
+        patients =Patient.objects.all()
     return render(request, 'listings/tableaudocpatient.html', {'patients': patients, 'query': query})
 
 def get_patient(request, numero_patient):
