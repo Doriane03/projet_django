@@ -364,7 +364,6 @@ def antecedantchirurgical(request):
 
 @login_required
 def sortie_patient(request):
-    
     success = False
     error_message = None
     autorisation="autorisation"
@@ -1014,6 +1013,7 @@ def envoiemail(request):
 
 @login_required
 def listehospi(request):
+    query = request.GET.get('query', '')
     # Récupération des paramètres de l'URL
     suivie = request.GET.get('suivie')
     autorisation = request.GET.get('autorisation')
@@ -1033,13 +1033,14 @@ def listehospi(request):
     print(results)
     # Décider de rendre la page avec ou sans contexte
     if suivie == 'suivie':
+       
         return render(request, 'listings/affichelistehospi.html', context={'results': results,'suivie':suivie})
     elif autorisation == 'autorisation':
         return render(request, 'listings/affichelistehospi.html', context={'results': results,'autorisation':autorisation})
     elif creation == 'creation':
         return render(request, 'listings/formhospi.html', context={'creation':creation,'lits':lits})
     elif surveillance == 'surveillance':
-        return render(request,'listings/affichelistehospi.html', context={'results': results,'surveillance':surveillance})   
+        return render(request,'listings/affichelistehospi.html', context={'results': results,'surveillance':surveillance,'query': query})
     else:
         # Vous pouvez aussi choisir de passer un message ou une autre information dans le contexte si nécessaire
         return render(request, 'listings/affichelistehospi.html', context={})
