@@ -13,6 +13,8 @@ services:
       - media_volume:/home/app/backend/media
     expose:
       - 8000
+    ports: 
+      - "5433:5432"
     env_file:
       - ./stage_projet/stage_projet/.env  
 
@@ -55,18 +57,18 @@ services:
       - static_volume:/home/app/backend/static
       - media_volume:/home/app/backend/media
 
-  #db:
-   # container_name: postgres
-   # image: postgres:latest
-    #restart: always
-    #environment:
-      #POSTGRES_USER: postgres
-     # POSTGRES_PASSWORD: stage
-      #POSTGRES_DB: projet_stage
-    #ports:
-     # - "5432:5432"
-    #volumes:
-      #- pg_data:/var/lib/postgresql/data
+  db:
+    container_name: postgres
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: stage
+      POSTGRES_DB: projet_stage
+    ports:
+      - "5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
 
 volumes:
   static_volume: {}

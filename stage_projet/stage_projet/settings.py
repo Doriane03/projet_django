@@ -23,15 +23,15 @@ AUTH_USER_MODEL = "listings.CustomUser"
 SECRET_KEY = 'django-insecure-4*mw^d-76p=hr633o94b02ar!&)yqik)u!ca2kp%9=ped%9+#e'
 DEBUG = True  
 
-ALLOWED_HOSTS = ['*']
-#ALLOWED_HOSTS =["http://",'http://172.0.0.1:4001','127.0.0.1','http://127.0.0.1:8000']
-# = ["http://",'http://127.0.0.1:4001','127.0.0.1','http://127.0.0.1:8000']
-#CSRF_TRUSTED_ORIGINS =[
-   # 'http://127.0.0.1:4001',  # Adjust the port if you're using a different one
-   # 'http://localhost:4001',
-   # 'http://127.0.0.1:8000',   # Add localhost for good measure
-#]
-#CRSF_COOKIE_SECURE = int(0)
+LLOWED_HOSTS = ['*']
+
+CSRF_TRUSTED_ORIGINS =[
+    'http://127.0.0.1:4001',  # Adjust the port if you're using a different one
+    'http://localhost:4001',
+    'http://127.0.0.1:8000',   # Add localhost for good measure
+    'http://0.0.0.0:8000',
+]
+CRSF_COOKIE_SECURE = int(0)
 
 # Application definition
 INSTALLED_APPS = [
@@ -87,7 +87,7 @@ DATABASES = {
         'NAME': 'projet_stage',
         'USER': 'postgres',
         'PASSWORD': 'stage',
-        'HOST': 'localhost',#192.168.80.27
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }
@@ -160,7 +160,7 @@ CELERY_TIMEZONE = 'UTC'  # fuseau horaire
    #'send-email-every-day-at-17':{
        #'task':'stage_projet.tasks.relance',
        #'schedule': crontab('*/15'),
-  # }
+   #}
 #}
 #demander
 
