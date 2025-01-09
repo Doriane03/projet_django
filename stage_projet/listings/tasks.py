@@ -84,7 +84,7 @@ def relance():
                     logger.warning(f'Médecin avec le nom {nom_medecin} non trouvé.')
 
         else:
-            logger.info('Aucun rendez-vous trouvé pour demain.')
+            logger.info('Aucun rendez-vous pour demain.')
 
     except Exception as e:
         logger.error(f'Erreur lors de l\'exécution de la tâche relance: {e}')
