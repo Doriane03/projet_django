@@ -209,7 +209,7 @@ from django.contrib.auth.models import AbstractUser
 class CustomUser(AbstractUser):
     refpersoignant=models.fields.AutoField(primary_key=True)
     nom=models.fields.CharField(max_length=100, null=True, blank=True,unique=True)
-    contact=models.fields.PositiveIntegerField(null=True, blank=True)
+    contact=models.fields.CharField(max_length=20)
     email=models.fields.EmailField(max_length =100, null=True, blank=True,)
     date= models.fields.DateTimeField(default=timezone.now, null=True, blank=True)                                                                                
     service=models.ForeignKey(Service, on_delete=models.CASCADE, null=True, blank=True)
