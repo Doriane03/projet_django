@@ -7,62 +7,62 @@
 <div>
 <nav class="divcontenunav">ajout personnel soignant</nav>
 </div>
+
     {% if success %}
-            <p class="alert alert-success">Utilisateur crée.</p>
-        {% endif %}
-        {% if error_message %}
-                <p class="alert alert-danger">{{ error_message }}</p>
+        <p class="alert alert-success">{{ success }}</p>
     {% endif %}
+    {% if error_message %}
+        <p class="alert alert-danger">{{ error_message }}</p>
+    {% endif %}
+    
     {% csrf_token %}
     <fieldset>
         
         <div class="divsortie">
-            <label >Nom</label>
-            <input type="text"   placeholder="nom" name="nom" />
+            <label for="nom">Nom</label>
+            <input type="text" placeholder="Nom" name="nom" id="nom" required autofocus />
         </div>
 
         <div class="divsortie">
-            <label >Email</label>
-            <input type="email"   placeholder="email" name="email"/>
+            <label for="email">Email</label>
+            <input type="email" placeholder="Email" name="email" id="email" required />
         </div>
 
         <div class="divsortie">
-            <label >Contact</label>
-            <input type="tel"  placeholder="contact"  id="contact" class="inputcontenu" name="contact" />
+            <label for="contact">Contact</label>
+            <input type="tel" placeholder="Contact" id="contact" class="inputcontenu" name="contact" required />
         </div>
 
-        
         <div class="divsortie">
             <label for="password">Mot de passe</label>
-            <input type="password" placeholder="mot de passe" name="mdp" id="password"  required />
+            <input type="password" placeholder="Mot de passe" name="mdp" id="password" required />
         </div>
 
         <div class="divsortie">
-            <label >Fonction</label>
-            <select name="type_personnel_soignant" required>
-                <option >choisir la fonction</option>
-                 {% for type_personnel_soignant in type_personnel_soignants %}
-                    <option value="{{type_personnel_soignant.idpersoignant}}">{{type_personnel_soignant.nompersog}}</option>
-                 {% endfor %}
+            <label for="type_personnel_soignant">Fonction</label>
+            <select name="type_personnel_soignant" id="type_personnel_soignant" required>
+                <option>Choisir la fonction</option>
+                {% for type_personnel_soignant in type_personnel_soignants %}
+                    <option value="{{ type_personnel_soignant.idpersoignant }}">{{ type_personnel_soignant.nompersog }}</option>
+                {% endfor %}
             </select>
         </div>
 
-            <div class="divsortie">
-            <label >service</label>
-            <select name="service"  required>
-                <option >choisir le service</option>
-                 {% for service in services %}
-                    <option value='{{service.refservice}}'>{{service.nomservice}}</option>
-                 {% endfor %}
-
+        <div class="divsortie">
+            <label for="service">Service</label>
+            <select name="service" id="service" required>
+                <option>Choisir le service</option>
+                {% for service in services %}
+                    <option value="{{ service.refservice }}">{{ service.nomservice }}</option>
+                {% endfor %}
             </select>
-            </div>
-
-            
+        </div>
+        
     </fieldset>
-    <input type="submit"  name="ceercompte"  value="Créer" class="inp2" />
+    <input type="submit" name="ceercompte" value="Créer" class="inp2" />
 </form>
 </center>
+
 <script>
     // Fonction pour restreindre l'entrée pour le mot de passe
     function restrictPasswordInput(elementId) {
@@ -83,7 +83,6 @@
     // Appliquer les fonctions à chaque champ
     restrictPasswordInput('password');
     restrictContactInput('contact');
-
 </script>
 
 {% endblock %}

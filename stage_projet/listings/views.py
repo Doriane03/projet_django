@@ -446,43 +446,52 @@ def modificationmdp(request):#fais
     })
 from django.db import IntegrityError
 @login_required
-def adminform(request):#fais
-    success = False
+def adminform(request):
+    success = None
     error_message = None
     services = Service.objects.all()
-    admin_exists = CustomUser.objects.filter(type_personnel_soignant__nompersog='ADMIN').exists()
+    type_personnel_soignants = Type_personnel_soignant.objects.all()
+    admin_exists = CustomUser.objects.filter(type_personnel_soignant__nompersog='ADMIN1').exists()
     if admin_exists:
-        type_personnel_soignants = Type_personnel_soignant.objects.exclude(nompersog='ADMIN')
-        if request.method == 'POST':
-            nom = request.POST['nom']
-            contact = request.POST['contact']
-            email = request.POST['email']
-            mdp = make_password(request.POST['mdp'])
-            service1 = request.POST['service']
-            type_personnel_soignant1 = request.POST['type_personnel_soignant']
-            if CustomUser.objects.filter(username=nom).exists():
-                error_message = "Le nom d'utilisateur existe déjà. Veuillez en choisir un autre."
-            elif service1 and type_personnel_soignant1:
-                try:
-                    # Création de l'utilisateur
-                    new_user = CustomUser.objects.create(
-                        username=nom,  # Doit être unique
-                        nom=nom,
-                        password=mdp,
-                        contact=contact,
-                        email=email,
-                        service_id=service1,
-                        type_personnel_soignant_id=type_personnel_soignant1
-                    )
-                    new_user.save()
-                    success = True
-                except IntegrityError:
-                    error_message = "Une erreur s'est produite lors de la création de l'utilisateur."
-                    print(error_message)
-    else :
-        type_personnel_soignants=Type_personnel_soignant.objects.all()
-    return render(request, 'listings/formadmin.html', context={'services': services, 
-    'type_personnel_soignants': type_personnel_soignants,'success':success,'error_message':error_message})
+        type_personnel_soignants = Type_personnel_soignant.objects.exclude(nompersog='ADMIN1')
+    if request.method == 'POST':
+        nom = request.POST['nom']
+        contact = request.POST['contact']
+        email = request.POST['email']
+        mdp = make_password(request.POST['mdp'])
+        service1 = request.POST['service']
+        type_personnel_soignant1 = request.POST['type_personnel_soignant']
+
+        # Validation des données
+        if CustomUser.objects.filter(username=nom).exists():
+            error_message = "Le nom d'utilisateur existe déjà. Veuillez en choisir un autre."
+        elif service1 and type_personnel_soignant1:
+            try:
+                # Création de l'utilisateur
+                new_user = CustomUser.objects.create(
+                    username=nom,  # Doit être unique
+                    nom=nom,
+                    password=mdp,
+                    contact=contact,
+                    email=email,
+                    service_id=service1,
+                    type_personnel_soignant_id=type_personnel_soignant1,
+                )
+                new_user.save()
+                success = "Utilisateur créé avec succès."
+            except IntegrityError as e:
+                error_message = f"Une erreur s'est produite lors de la création de l'utilisateur : {str(e)}"
+                print(error_message)
+        else:
+            error_message = "Le service ou la fonction doivent être sélectionnés."
+
+    return render(request, 'listings/formadmin.html', context={
+        'services': services, 
+        'type_personnel_soignants': type_personnel_soignants,
+        'success': success,
+        'error_message': error_message
+    })
+
 
 
 @login_required 
