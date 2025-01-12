@@ -1,6 +1,23 @@
 {% extends 'listings/template.html' %}
 
 {% block formconstante %}
+
+
+<style>
+  .contentleft1 {
+       border: 0px solid #f0f0f0;
+       padding: 10px;
+       margin-right:10px; 
+       width:60%;
+  }
+  .contentleft1 input {
+      width:42.5% ;/*fixe pour les inputs */
+      padding:8px; /* Espacement intérieur */
+      box-sizing: border-box; 
+  } 
+
+</style>
+
 <center>
 
 <form method="post" action="{% url 'constante' idpatient  medecin_id cst %}"  class="formcontenu">
@@ -38,19 +55,21 @@
             <input type="text" placeholder="température en C°" name="temperature" id="temperature" class="inputcontenu"/>
           </div> 
             <!--<input type="text"   placeholder="imc kg/m2 " name="imc" class="inputcontenu"/>-->
-              
-            <div class="content">
-              <label>tension artérielle</label>  
-                  <div class="leftconts">
-                  <input type="text"   placeholder="TAS" name="tas" id="tas" class="inputcontenu" />
-                  </div>
-                  <div class="rightconts">
-                    <input type="text"   placeholder="TAD" name="tad"  id="tad" class="inputcontenu"/>
-                  </div>
+            <div > 
+                <div class="contentleft2">
+                  <label style="text-align: start;margin-left:10px">tension artérielle</label> 
+                </div>
+
+                <div class="contentleft1">
+                    <input type="text"   placeholder="TAS" name="tas" id="tas"/>
+                    <input type="text"   placeholder="TAD" name="tad"  id="tad"/>
+                </div>
+                
             </div>
 
+
             <div class="divsortie">
-                <label  for="pouls">pouls</label>
+                <label  for="pouls" >pouls</label>
                 <input type="text" placeholder="pouls en  battements/mn " name="pouls"  id="pouls" class="inputcontenu"/>
             </div>
 

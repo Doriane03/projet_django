@@ -629,6 +629,7 @@ def bilanimg(request,cst):
             form = Bilan_imagerieForm(request.POST, request.FILES)
             if form.is_valid():
                 form.save()
+                print(form)
                 success = True
                 return redirect('box',pt,cst)
             else:
@@ -984,7 +985,7 @@ class CustomLoginView(LoginView):
                     return reverse('calendar')  # Redirige vers le calendrier
                 elif user.type_personnel_soignant.nompersog == "MEDECIN":
                     return reverse('tableauconsultation',kwargs={'cst':'cst'})  # Redirige vers le tableau de consultation
-                elif user.type_personnel_soignant.nompersog == "ADMIN":
+                elif user.type_personnel_soignant.nompersog == "ADMIN1":
                     return reverse('chart')  # Redirige vers la page de l'admin utilisateur
             # Si l'utilisateur est authentifié mais n'est pas un super utilisateur ni un type personnel soignant
             return reverse('index')  # Redirige vers l'index par défaut

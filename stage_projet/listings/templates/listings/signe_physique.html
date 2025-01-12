@@ -2,21 +2,21 @@
 {% block formsp %}
 <style>
     .contentleft1 {
-        display: flex; /* Utiliser Flexbox */
-        gap:5px; /* Espace entre les inputs */
-        float:right;
-        margin-right:125px;
+         border: 0px solid #f0f0f0;
+         padding: 10px;
+         margin-left: 253px; 
+         width:60%;
     }
     .contentleft1 input {
-        width:179.7px; /* Largeur fixe pour les inputs */
+        width:42.4% ;/*fixe pour les inputs */
         padding: 8px; /* Espacement intérieur */
         box-sizing: border-box; 
     }
-    .contentleft3{
-        margin-right: 100px;
-        float: left;
-    }
     
+    .sp{
+        text-align: start;
+    }
+
     
 </style>
 
@@ -34,16 +34,16 @@
         {% if error_message %}
         <p class="alert alert-danger">{{ error_message }}</p>
         {% endif %}
-        <div>
+        <div class="sp">
             <div class="p-2 g-col-6">
 
-                <div class="form-check form-check-inline">
-                        <label class="form-check-label" style="margin-right:280px">signe insuffisance hépatocéllulaire</label>
-                        <div class="form-check form-check-inline" id="divd1">
+                <div >
+                        <label class="sp" style="margin-right:280px">signe insuffisance hépatocéllulaire</label>
+                        <div class="form-check form-check-inline" style=" margin-right:247px">
                             <input type="radio" name="sih" value="oui" class="form-check-input" id="exampleRadios60" />
                             <label class="form-check-label" for="exampleRadios60">oui</label>
                         </div>
-                        <div class="form-check form-check-inline" id="divd1">
+                        <div class="form-check form-check-inline" >
                             <input type="radio" name="sih" value="non" class="form-check-input" id="exampleRadios61" />
                             <label class="form-check-label" for="exampleRadios61">non</label>
                         </div>
@@ -52,14 +52,14 @@
 
             <div class="p-2 g-col-6">
 
-                <div class="form-check form-check-inline">
-                    <label class="form-check-label" style="margin-right:405px">toucher rectal</label>
+                <div >
+                    <label class="sp" style="margin-right:405px">toucher rectal</label>
 
-                    <div class="form-check form-check-inline" id="divd1">
+                    <div class="form-check form-check-inline" style=" margin-right:247px">
                         <input type="radio" name="resultattoucherectal1" value="oui" onclick="val()" class="form-check-input"  id="exampleRadios64" />
                         <label class="form-check-label" for="exampleRadios64">oui</label>
                     </div>
-                    <div class="form-check form-check-inline" id="divd1">
+                    <div class="form-check form-check-inline" >
                         <input type="radio" name="resultattoucherectal1" value="non" onclick="val()" class="form-check-input"  id="exampleRadios65" />
                         <label class="form-check-label" for="exampleRadios65">non</label>
                     </div>
@@ -75,86 +75,90 @@
             </div>
 
             <div class="p-2 g-col-6">
-                <div class="form-check form-check-inline">
-                    <label class="form-check-label" style="margin-right:320px">signe hypertension portable</label>
-                    <div class="form-check form-check-inline" id="divd1">
+                <div >
+                    <label class="sp" style="margin-right:320px">signe hypertension portable</label>
+                    <div class="form-check form-check-inline" style=" margin-right:247px">
                         <input type="radio" name="shp" value="oui" class="form-check-input" id="exampleRadios62" />
                         <label class="form-check-label" for="exampleRadios62">oui</label>
                     </div>
-                    <div class="form-check form-check-inline" id="divd1">
+                    <div class="form-check form-check-inline" ><!--id="divd1"--> 
                         <input type="radio" name="shp" value="non" class="form-check-input" id="exampleRadios63" />
                         <label class="form-check-label" for="exampleRadios63">non</label>
                     </div>
                 </div>
             </div>
 
-            <div  style="margin-left:15px" class="p-2 g-col-6">
-                <div class="divsortie">
-                    <label>Etat de conscience</label>
-                    <div  class="form-check form-check-inline" style=" margin-left:410px">
-                        <input type="radio"  name="etat_de_conscience"  value="Conscience normale"   class="form-check-input"  id="exampleRadios12"/>
-                        <label class="form-check-label" for="exampleRadios12">Conscience normale </label>
+           
+                <div  class="p-2 g-col-6"  style="overflow:hidden">
+                    <div style="float:left">
+                        <label>Etat de conscience</label>
                     </div>
+                    <div style=" margin-left:247px;">
+                        <div  class="form-check" style=" margin-left:247px">
+                            <input type="radio"  name="etat_de_conscience"  value="Conscience normale"   class="form-check-input"  id="exampleRadios12"/>
+                            <label class="form-check-label" for="exampleRadios12">Conscience normale </label>
+                        </div>
 
-                    <div  class="form-check" style=" margin-left:323px">
-                        <input type="radio"  name="etat_de_conscience"  value="Astérixis"    class="form-check-input" id="exampleRadios13"/>
-                        <label class="form-check-label" for="exampleRadios13">Astérixis </label>
-                    </div>
-                    <div  class="form-check" style=" margin-left:415px">
-                        <input type="radio"  name="etat_de_conscience"  value="Syndrome confusionnel"    class="form-check-input" id="exampleRadios14"/>
-                        <label class="form-check-label" for="exampleRadios14">Syndrome confusionnel </label>
-                    </div>
-                    <div  class="form-check" style=" margin-left:303px">
-                        <input type="radio"  name="etat_de_conscience"  value="Coma"    class="form-check-input" id="exampleRadios15"/>
-                        <label class="form-check-label" for="exampleRadios15">Coma</label>
+                        <div  class="form-check" style=" margin-left:247px">
+                            <input type="radio"  name="etat_de_conscience"  value="Astérixis"    class="form-check-input" id="exampleRadios13"/>
+                            <label class="form-check-label" for="exampleRadios13">Astérixis </label>
+                        </div>
+                        <div  class="form-check" style=" margin-left:247px">
+                            <input type="radio"  name="etat_de_conscience"  value="Syndrome confusionnel"    class="form-check-input" id="exampleRadios14"/>
+                            <label class="form-check-label" for="exampleRadios14">Syndrome confusionnel </label>
+                        </div>
+                        <div  class="form-check" style=" margin-left:247px">
+                            <input type="radio"  name="etat_de_conscience"  value="Coma"    class="form-check-input" id="exampleRadios15"/>
+                            <label class="form-check-label" for="exampleRadios15">Coma</label>
+                        </div>
                     </div>
                 </div>
-            </div>
+            
 
-            <div style="overflow:hidden; margin-left:30px" class="p-2 g-col-6">
+            <div >
                 <div class="contentleft2">
-                    <label>Flèche hépatique</label>
+                    <label style="text-align: start;margin-left:10px" >Flèche hépatique</label>
                 </div>
                 <div class="contentleft1">
                     <input type="text" placeholder="lmc" name="lmc" id="lmc" />
                     <input type="text" placeholder="lxo" name="lxo" id="lxo" />
                 </div>
             </div> 
-            <div  style="margin-left:25px" class="p-2 g-col-6">
+            
+            
                 <div class="divsortie" >
                     <label for="frequence_cardiaque" >Fréquence cardiaque</label>
                     <input type="text" placeholder="fréquence cardiaque" name="frequence_cardiaque" id="frequence_cardiaque" class="inputcontenu"  />
                 </div>
-            </div>
-            <div class="divsortie"  style="margin-left:30px" class="p-2 g-col-6">
+            
+            <div class="divsortie"  class="p-2 g-col-6">
                 <label for="frequence_respiratoire" >Fréquence respiratoire</label>
                 <input type="text" placeholder="fréquence respiratoire" name="frequence_respiratoire" id="frequence_respiratoire" class="inputcontenu"  />
             </div>
-            <div class="divsortie"  style="margin-left:30px" class="p-2 g-col-6">
+            <div class="divsortie"   class="p-2 g-col-6">
                 <label for="saturation_doxygene" >Saturation d'oxygène</label>
                 <input type="text" placeholder="Saturation d'oxygène" name="saturation_doxygene" id="saturation_doxygene" class="inputcontenu"/>
             </div>
-            <div class="divsortie"  style="margin-left:30px" class="p-2 g-col-6">
+            <div class="divsortie"   class="p-2 g-col-6">
                 <label for="diurese">Diurèse</label>
                 <input type="text" placeholder="Diurèse" name="diurese" id="diurese" class="inputcontenu"/>
             </div>
-            <div class="divsortie"  style="margin-left:30px" class="p-2 g-col-6">
+            <div class="divsortie"   class="p-2 g-col-6">
                 <label for="nombre_de_vomissements" >Nombre de vomissements</label>
                 <input type="text" placeholder="Nombre de vomissements" name="nombre_de_vomissements" id="nombre_de_vomissements" class="inputcontenu"/>
             </div>
-            <div class="divsortie"  style="margin-left:30px" class="p-2 g-col-6">
+            <div class="divsortie"   class="p-2 g-col-6">
                 <label for="nombre_de_selles" >Nombre de selles</label>
                 <input type="text" placeholder="Nombre de selles" name="nombre_de_selles" id="nombre_de_selles" class="inputcontenu"/>
             </div>
-            <div class="divsortie"  style="margin-left:30px" class="p-2 g-col-6">
+            <div class="divsortie"  class="p-2 g-col-6">
                 <label for="eva_douleur" >EVA douleur</label>
                 <input type="text" placeholder="EVA douleur" name="eva_douleur" id="eva_douleur" class="inputcontenu"/>
             </div>
-            <div class="p-2 g-col-6">
-                <div class="divsortie">
-                    <label style="margin-left:23px">observation</label>
+
+            <div class="divsortie" >
+                <label >observation</label>
                     <textarea name="observation" placeholder="observation" rows="5" cols="30"></textarea>
-                </div>
             </div>
 
         </div>

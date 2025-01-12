@@ -24,9 +24,9 @@ img {
 }
 .modal-content {
     margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; /* Largeur de la modale */
+    /*padding: 20px;*/
+    border: 0px solid #888;
+    width: 70%; /* Largeur de la modale */
 }
 .close {
     color: #aaa;
@@ -118,7 +118,7 @@ img {
                                 <p class="signe_physique">résultat numérique : {{ bilan_biologiqueexamen.resultatnumerique }}</p>
                                 <p class="signe_physique">résultat modalité : {{ bilan_biologiqueexamen.resultatmodalite }}</p>
                                 <p class="signe_physique">prix : {{ bilan_biologiqueexamen.prix }}</p>
-                                <p class="signe_physique">date : {{ bilan_biologiqueexamen.date }}</p>
+                                <p class="signe_physique">date : {{ bilan_biologiqueexamen.date }}</p><hr/>
                                 
                             {% endfor %}
                         </div>
@@ -163,7 +163,7 @@ img {
                         
                         <p class="signe_physique">date examen : {{ valeursimg.dateexam }}</p>
                         <p class="signe_physique">renseignement clinique: {{ valeursimg.rensignementclinique }}</p>
-                        <p class="signe_physique">service : {{ valeursimg.service }} </p>
+                        <p class="signe_physique">service : {{ valeursimg.service }} </p><hr/>
                     {% endfor %}
 
                 </div>
@@ -288,7 +288,7 @@ img {
                     {% for ordonnances_medicament in ordonnances_medicaments %}
                         <p class="signe_physique">médicament : {{ ordonnances_medicament.medicament.nommedicament}}</p>
                         <p class="signe_physique">quantité : {{ ordonnances_medicament.quantite }}</p>
-                        <p class="signe_physique">dosage : {{ordonnances_medicament.medicament.dosage }}</p>
+                        <p class="signe_physique">dosage : {{ordonnances_medicament.medicament.dosage }}</p><hr/>
                     {% endfor %}
                 </div>
 
@@ -506,7 +506,7 @@ img {
                                     {% endif %}
                                     
                                     {% if valeurgenecologique.gestite %}
-                                        <p class="signe_physique">Gestite : {{ valeurgenecologique.gestite }}</p>
+                                        <p class="signe_physique">Gestité : {{ valeurgenecologique.gestite }}</p>
                                     {% endif %}
                                     
                                     {% if valeurgenecologique.datederniereregle %}

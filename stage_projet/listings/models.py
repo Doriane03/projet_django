@@ -216,7 +216,7 @@ class CustomUser(AbstractUser):
     type_personnel_soignant=models.ForeignKey(Type_personnel_soignant, on_delete=models.CASCADE, null=True, blank=True)
     disponible=models.fields.BooleanField(default=False)
     USERNAME_FIELD='nom'
-    REQUIRED_FIELDS=['username','email']
+    REQUIRED_FIELDS=['username','email','contact']
     def __str__(self):
         return self.nom 
 class CustomUserForm(ModelForm):
@@ -467,7 +467,7 @@ class Bilan_imagerie(models.Model):
     numbilimg=models.fields.AutoField(primary_key=True)
     radiographie=models.fields.TextField(null=True, blank=True)#new
     echographie=models.fields.TextField(null=True, blank=True)#new
-    resultat=models.ImageField(upload_to=get_upload_to, null=True, blank=True) 
+    resultat=models.ImageField(upload_to=get_upload_to) 
     dateexam=models.DateTimeField(null=True, blank=True) 
     service=models.fields.TextField(null=True, blank=True)#new
     rensignementclinique=models.fields.TextField(null=True, blank=True)#new
