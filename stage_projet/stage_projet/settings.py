@@ -24,14 +24,18 @@ SECRET_KEY = 'django-insecure-4*mw^d-76p=hr633o94b02ar!&)yqik)u!ca2kp%9=ped%9+#e
 DEBUG = True  
 
 ALLOWED_HOSTS = ['*']
-#ALLOWED_HOSTS =["http://",'http://172.0.0.1:4001','127.0.0.1','http://127.0.0.1:8000']
-# = ["http://",'http://127.0.0.1:4001','127.0.0.1','http://127.0.0.1:8000']
-#CSRF_TRUSTED_ORIGINS =[
-   # 'http://127.0.0.1:4001',  # Adjust the port if you're using a different one
-   # 'http://localhost:4001',
-   # 'http://127.0.0.1:8000',   # Add localhost for good measure
+#ALLOWED_HOSTS = [
+    #"172.0.0.1:4001",          # IP address without the 'http://'
+    #"127.0.0.1:8000 ",  # Localhost IP
+    #"localhost",                # Optionally, you can include this for general localhost access.          # Add your actual domain if applicable.
 #]
-#CRSF_COOKIE_SECURE = int(0)
+
+#CSRF_TRUSTED_ORIGINS =[
+    #'http://127.0.0.1:4001',  # Adjust the port if you're using a different one
+    #'http://localhost:4001',
+    #'http://127.0.0.1:8000',   # Add localhost for good measure
+#]
+CRSF_COOKIE_SECURE = int(0)
 
 # Application definition
 INSTALLED_APPS = [
@@ -154,13 +158,16 @@ CELERY_RESULT_BACKEND = 'django-db'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'UTC'  # fuseau horaire
+CELERY_TIMEZONE = 'UTC'
 
-#CELERY_BEAT_SCHEDULER ={
-   #'send-email-every-day-at-17':{
-       #'task':'stage_projet.tasks.relance',
-       #'schedule': crontab('*/15'),
-  # }
+# Utilisation du planificateur de base de données pour Celery Beat
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+# Définir les tâches planifiées ici
+#CELERY_BEAT_SCHEDULE = {
+    #'send-email-every-minute': {
+        #'task': 'stage_projet.tasks.relance',
+        #'schedule': crontab(minute='*/1'),  # Exécuter la tâche toutes les minutes
+    #},
 #}
 #demander
 

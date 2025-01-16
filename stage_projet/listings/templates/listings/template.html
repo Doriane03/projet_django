@@ -7,6 +7,8 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta name="author" content="kouadio josephine-doriane">
+
         <!-- The above 6 meta tags *must* come first in the head; any other head content must come *after* these tags -->
         
         <!-- Title -->
@@ -41,11 +43,14 @@
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 const currentUrl = window.location.href;
-            
                 // Vérifie si "docpts" est présent dans l'URL et si les paramètres ne sont pas présents
-                if ((currentUrl.includes("docpts") && !currentUrl.includes("?") )|| (currentUrl.includes("docpts/?query=")) || (currentUrl.includes("listehospi/?surveillance=surveillance")) ||  (currentUrl.includes("listehospi/?suivie=suivie")) || (currentUrl.includes("listehospi/?autorisation=autorisation")) ) {
+                if ((currentUrl.includes("docpts") && !currentUrl.includes("?") )|| (currentUrl.includes("docpts/?query="))){
                     const navbr = document.getElementById('navbr');
                     navbr.style.display = 'block'; // Affiche la div si les conditions sont remplies
+                }else if ( (currentUrl.includes("listehospi") && !currentUrl.includes("?") )|| (currentUrl.includes("listehospi/?surveillance=surveillance")) ||  (currentUrl.includes("listehospi/?suivie=suivie")) || 
+                (currentUrl.includes("listehospi/?autorisation=autorisation")) || (currentUrl.includes("listehospi/?query1="))) {
+                    const navbr1 = document.getElementById('navbr1');
+                    navbr1.style.display = 'block'; // Affiche la div si les conditions sont remplies
                 }
             });
         </script>
@@ -201,11 +206,24 @@
                                         <div class="navbar-search">
                                             <form>
                                                 <div class="form-group">
-                                                    <input type="text" id="nav-search" name="query" value="{{ query }}" placeholder="Recherche">
+                                                    <input type="text" id="nav-search" name="query" value="{{ query }}" placeholder="Recherche1">
                                                 </div>
                                             </form>
                                         </div>
                                     </div>
+
+
+                                    <div id="navbr1" style="display:none;margin-left:65%">
+                                        <div class="collapse navbar-collapse" id="navbarNav"></div>
+                                        <div class="navbar-search">
+                                            <form>
+                                                <div class="form-group">
+                                                    <input type="text" id="nav-search" name="query1" value="{{ query1 }}" placeholder="Recherche2">
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+
                                     <!--rechercher fin-->
                                 </nav>
                             </div>

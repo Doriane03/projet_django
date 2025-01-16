@@ -1022,38 +1022,57 @@ def envoiemail(request):
 #hospitalisation
 
 
+from django.shortcuts import render
+from django.db.models import Q
+from django.contrib.auth.decorators import login_required
+from .models import Patient, Lit
+
 @login_required
 def listehospi(request):
     # Récupération des paramètres de l'URL
+    query1 = request.GET.get('query1', '')
     suivie = request.GET.get('suivie')
     autorisation = request.GET.get('autorisation')
-    creation=request.GET.get('creation')
-    surveillance=request.GET.get('surveillance')
-    lits=Lit.objects.all()
-    # Affichage pour débogage
-    print(f"suivie: '{suivie}'")
-    print(f"autorisation: '{autorisation}'")
+    creation = request.GET.get('creation')
+    surveillance = request.GET.get('surveillance')
+    
+    lits = Lit.objects.all()
     
     # Requête ORM pour obtenir les résultats
     results = Patient.objects.filter(
-    hospitalisation__hospitalisationlit__dateoccupation__isnull=False,
-    hospitalisation__hospitalisationlit__dateliberation__isnull=True
+        hospitalisation__hospitalisationlit__dateoccupation__isnull=False,
+        hospitalisation__hospitalisationlit__dateliberation__isnull=True
     ).values('idpatient', 'nom')
-
-    print(results)
-    # Décider de rendre la page avec ou sans contexte
+    
+    # Affichage pour débogage
+    print(f"suivie: '{suivie}'")
+    print(f"autorisation: '{autorisation}'")
+    print(f"query1: '{query1}'")
+    
+    # Gérer la recherche par query
+    
+        # Décider de rendre la page avec ou sans contexte
     if suivie == 'suivie':
-        return render(request, 'listings/affichelistehospi.html', context={'results': results,'suivie':suivie})
+        return render(request, 'listings/affichelistehospi.html', context={'results': results, 'suivie': suivie})
     elif autorisation == 'autorisation':
-        return render(request, 'listings/affichelistehospi.html', context={'results': results,'autorisation':autorisation})
+        return render(request, 'listings/affichelistehospi.html', context={'results': results, 'autorisation': autorisation,})
     elif creation == 'creation':
-        return render(request, 'listings/formhospi.html', context={'creation':creation,'lits':lits})
+        return render(request, 'listings/formhospi.html', context={'creation': creation, 'lits': lits})
     elif surveillance == 'surveillance':
-        return render(request,'listings/affichelistehospi.html', context={'results': results,'surveillance':surveillance})   
+        return render(request, 'listings/affichelistehospi.html', context={'results': results, 'surveillance': surveillance})
+    
+    if query1:
+        results = results.filter(
+            Q(nom__icontains=query1) | Q(numeropatient__icontains=query1) | Q(contact1__icontains=query1) | Q(contact2__icontains=query1)
+        )
+        return render(request, 'listings/affichelistehospi.html', context={'results': results})
     else:
-        # Vous pouvez aussi choisir de passer un message ou une autre information dans le contexte si nécessaire
-        return render(request, 'listings/affichelistehospi.html', context={})
+        results = Patient.objects.filter(
+        hospitalisation__hospitalisationlit__dateoccupation__isnull=False,
+        hospitalisation__hospitalisationlit__dateliberation__isnull=True
+        ).values('idpatient', 'nom')
 
+        return render(request, 'listings/affichelistehospi.html', context={'results': results,'query1': query1})
 
 @login_required
 def listetraitement(request,hospi):

@@ -259,14 +259,19 @@ border-bottom:1px solid black;
 display:block;
 overflow:hidden;
 }
-
-.divfrmconsul1{
-  display:block;
-  overflow:hidden;
+.débutdesigne{
   display: flex;
-  justify-content: center; /* Centre horizontalement */
-  align-items: center;  
-  width:354px;   /* Centre verticalement */
+  flex-direction: column; /* Alignement vertical */
+  align-items: flex-start; /* Alignement à gauche */
+  justify-content: flex-start; /* Alignement en haut */
+  margin-left: 10px;
+}
+.divfrmconsul1{
+  display: flex;
+  flex-direction: column; /* Alignement vertical */
+  align-items: flex-start; /* Alignement à gauche */
+  justify-content: flex-start; /* Alignement en haut */
+  margin-left: 10px;
   }
 
 .leftconts{
@@ -432,6 +437,11 @@ border: 0px solid black;
   float:left;
   border: 0px solid black;
   width:49%;
+  display: flex;
+  flex-direction: column; /* Alignement vertical */
+  align-items: flex-start; /* Alignement à gauche */
+  justify-content: flex-start; 
+  margin-left: 10px;
 }
 
 .rightconsul{

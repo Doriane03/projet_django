@@ -1,6 +1,8 @@
 services:
   app:
     container_name: server
+    depends_on:
+      - db
     restart: always
     build:
       context: .
@@ -53,20 +55,36 @@ services:
       - static_volume:/home/app/backend/static
       - media_volume:/home/app/backend/media
 
-  #db:
-   # container_name: postgres
-   # image: postgres:latest
-    #restart: always
-    #environment:
-      #POSTGRES_USER: postgres
-     # POSTGRES_PASSWORD: stage
-      #POSTGRES_DB: projet_stage
-    #ports:
-     # - "5432:5432"
+  db:
+    image: postgres:latest
+    container_name: postgres_container
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: test1
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  #celery:
+   # build: ./stage_projet
+    #command: celery -A stage_projet.celery worker --loglevel=info
     #volumes:
-      #- pg_data:/var/lib/postgresql/data
+      #- ./stage_projet/usr/src/app/
+   # depends_on:
+     # - redis
+  #celery-beat:
+   # build: ./project
+   # command: celery -A stage_projet.celery beat --loglevel=info
+   # volumes:
+    #  - ./stage_projet/usr/src/app/
+    #depends_on:
+    #  - redis
+     # - app
 
 volumes:
-  static_volume: {}
-  media_volume: {}
-  pg_data: {}
+  static_volume:
+  media_volume:
+  db_data:

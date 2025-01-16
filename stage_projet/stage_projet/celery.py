@@ -19,13 +19,9 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 app.autodiscover_tasks()
 
 app.conf.beat_schedule= {
-    'send-email-every-day-at-17':{
-        'task':'stage_projet.tasks.relance',
-        'schedule': crontab(minute='*/1'),
-        'args':()
-    }
-}
-
-@app.task(bind=True)
-def debug_task(self):
-    print(f'Request: {self.request!r}')
+   'send-email-every-day-at-17':{
+       'task':'stage_projet.tasks.relance',
+       'schedule': crontab(minute='*/1'),
+       'args':()
+   }
+  }

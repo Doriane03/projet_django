@@ -1,8 +1,10 @@
 FROM ubuntu:22.04
-
+# Create working directory
+#c'est le dossier ou docker va stocker mes informations
+WORKDIR /home/app  
 # Set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
 # Update package repository and install required packages
 ARG DEBIAN_FRONTEND=noninteractive
@@ -15,10 +17,6 @@ RUN apt-get install -y python3 python3-pip supervisor postgresql-client postgres
 # Upgrade pip and install gunicorn
 RUN pip3 install --upgrade pip && pip3 install gunicorn
 
-# Create working directory
-#c'est le dossier ou docker va stocker mes informations
-WORKDIR /home/app  
- 
 # Copy requirements and install them
 COPY ./requirements.txt /home/app/
 RUN pip3 install -r requirements.txt

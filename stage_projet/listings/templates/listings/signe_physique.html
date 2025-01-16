@@ -16,6 +16,10 @@
     .sp{
         text-align: start;
     }
+    #position{
+    width:50%;
+    margin-left: 260px
+    }
 
     
 </style>
@@ -37,13 +41,13 @@
         <div class="sp">
             <div class="p-2 g-col-6">
 
-                <div >
-                        <label class="sp" style="margin-right:280px">signe insuffisance hépatocéllulaire</label>
-                        <div class="form-check form-check-inline" style=" margin-right:247px">
+                <div>
+                        <label class="sp" style="margin-right:100px">signe insuffisance hépatocéllulaire</label>
+                        <div class="form-check form-check-inline" style=" margin-right:120px">
                             <input type="radio" name="sih" value="oui" class="form-check-input" id="exampleRadios60" />
                             <label class="form-check-label" for="exampleRadios60">oui</label>
                         </div>
-                        <div class="form-check form-check-inline" >
+                        <div class="form-check form-check-inline">
                             <input type="radio" name="sih" value="non" class="form-check-input" id="exampleRadios61" />
                             <label class="form-check-label" for="exampleRadios61">non</label>
                         </div>
@@ -53,9 +57,9 @@
             <div class="p-2 g-col-6">
 
                 <div >
-                    <label class="sp" style="margin-right:405px">toucher rectal</label>
+                    <label class="sp" style="margin-right:227px">toucher rectal</label>
 
-                    <div class="form-check form-check-inline" style=" margin-right:247px">
+                    <div class="form-check form-check-inline" style=" margin-right:120px">
                         <input type="radio" name="resultattoucherectal1" value="oui" onclick="val()" class="form-check-input"  id="exampleRadios64" />
                         <label class="form-check-label" for="exampleRadios64">oui</label>
                     </div>
@@ -65,10 +69,11 @@
                     </div>
                 </div>
 
-                <div class="test" id="touch" style="display: none;">
-                    <div class="divsortie">
-                        <label class="form-check-label" style="margin-left:24px">résultat</label>
-                        <textarea id="resultatToucherRectal" name="resultattoucherectal" placeholder="résultat"></textarea>
+                <div class="test" id="touch" 
+                style="border:0px solid black;">
+                    <div id="position"  style="border:0px solid black;">
+                        <label class="form-check-label">résultat</label><br/>
+                        <textarea id="resultatToucherRectal" name="resultattoucherectal" placeholder="résultat" rows="3" cols="43"></textarea>
                     </div>
                 </div>
 
@@ -76,8 +81,8 @@
 
             <div class="p-2 g-col-6">
                 <div >
-                    <label class="sp" style="margin-right:320px">signe hypertension portable</label>
-                    <div class="form-check form-check-inline" style=" margin-right:247px">
+                    <label class="sp" style="margin-right:141px">signe hypertension portable</label>
+                    <div class="form-check form-check-inline" style=" margin-right:120px">
                         <input type="radio" name="shp" value="oui" class="form-check-input" id="exampleRadios62" />
                         <label class="form-check-label" for="exampleRadios62">oui</label>
                     </div>
@@ -93,7 +98,7 @@
                     <div style="float:left">
                         <label>Etat de conscience</label>
                     </div>
-                    <div style=" margin-left:247px;">
+                    <div style=" margin-left:240px;">
                         <div  class="form-check" style=" margin-left:247px">
                             <input type="radio"  name="etat_de_conscience"  value="Conscience normale"   class="form-check-input"  id="exampleRadios12"/>
                             <label class="form-check-label" for="exampleRadios12">Conscience normale </label>

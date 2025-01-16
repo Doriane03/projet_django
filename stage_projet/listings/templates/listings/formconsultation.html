@@ -2,26 +2,67 @@
 {% block consultationform %}
 <style>
     .contentleft1 {
-        display: flex; /* Utiliser Flexbox */
-        gap:1px; /* Espace entre les inputs */
-        float:right;
-        margin-right:119px;
+        border: 0px solid #f0f0f0;
+        padding: 10px;
+        margin-left: 253px; 
+        width:60%;
+   }
+   .contentleft1 input {
+       width:42.4% ;/*fixe pour les inputs */
+       padding: 8px; /* Espacement intérieur */
+       box-sizing: border-box; 
+   }
+   
+   .sp{
+       text-align:start;
+   }
+   #position{
+   width:50%;
+   margin-left: 260px
+   }
+
+
+    th{
+        text-align:start;
+        text-indent:10px;
+        border:0px solid black;
     }
-    .contentleft1 input {
-        width:185.6px; /* Largeur fixe pour les inputs */
-        padding: 8px; /* Espacement intérieur */
-        box-sizing: border-box; 
+
+    td *{
+        width: 100%;
+        border: 0px solid black;
+        padding: 0;
+        box-sizing: border-box;
+        display: flex;           /* Utilise Flexbox */
+        flex-direction: row;     /* Disposition en ligne (par défaut) */
+        justify-content: flex-start; /* Aligne les éléments à gauche (par défaut) */
     }
-    .contentleft3{
-        margin-right:100px;
-        float: left;
+
+    td input[type="date"]{
+        
+        border: 1px solid black;
+    
     }
-    th, td {
-        padding:0px;
-        margin:0px;
-        text-align: left;
+    td textarea{
+        
+        border: 1px solid black;
+    
     }
+
+    td input[type="text"]{
+        
+        border: 1px solid black;
+    
+    }
+
+    
+    
+    
+    
+    
 </style>
+
+
 <center> <form method="POST" action="{% url 'consultation' cst='cst' %}" class="formcontenu">
 
     {% csrf_token %}
@@ -105,7 +146,7 @@
                             <tr><th>précisez le motif</th></tr>
                             <tr>
                                 <td>    
-                                    <input type="text" name="motifdeconsultation[]"  placeholder="précisser"/>
+                                    <input type="text" name="motifdeconsultation[]"  placeholder="précisser" id="amt"/>
                                 </td>
                             </tr>
                         </table>
@@ -115,7 +156,7 @@
             <div>
               <nav class="divcontenunav">prescripteur de la consultation</nav>
             </div>
-                <div class="divfrmconsul">
+                <div class="divfrmconsul1">
                     
                             <div style="margin-right:68%;" class="form-check">
                                 <input type="radio"  name="prescripteur_consultation"  value="Hépato-Gastroentérologue" class="form-check-input" id="exampleRadios1"/>
@@ -146,11 +187,11 @@
             
         </div>
   
-        <div class="débutdesigne">
+        <div >
             <div>
               <nav  class="divcontenunav">début de signe </nav>
             </div>
-            
+            <div class="débutdesigne"> 
                     <div style="margin-right:75.5%;" class="form-check">
                         <input type="radio"  name="debut_signe"  value="Inférieur à 6 mois" class="form-check-input" id="exampleRadios6"/>
                         <label class="form-check-label" for="exampleRadios6">Inférieur à 6 mois</label>
@@ -160,6 +201,7 @@
                         <label class="form-check-label" for="exampleRadios7">Supérieur ou égal à 6 mois</label>
                     </div>
             
+           </div>
         </div>
   
         <div class="ok">
@@ -169,74 +211,73 @@
                 <div>
                     
                     <div class="p-2 g-col-6">
-
-                        <div class="form-check form-check-inline">
-                        <label class="form-check-label" style="margin-right:410px">signe digestif </label>  
-                        <div  class="form-check form-check-inline" id="divd1">
-                            <input type="radio"  name="signe_digestifs"  value="oui"   onclick="signedigstif()" class="form-check-input" id="exampleRadios8"/>
-                            <label class="form-check-label" for="exampleRadios8">oui</label>
+                        <div class="sp">
+                            <label style=" margin-left:3px" >signe digestif </label> 
+                            <div class="form-check form-check-inline" > 
+                                <div  class="form-check form-check-inline"  style=" margin-left:383px">
+                                    <input type="radio"  name="signe_digestifs"  value="oui"   onclick="signedigstif()" class="form-check-input" id="exampleRadios8"/>
+                                    <label class="form-check-label" for="exampleRadios8">oui</label>
+                                </div>
+                                <div class="form-check form-check-inline" >
+                                    <input type="radio"  name="signe_digestifs"  value="non"   onclick="signedigstif()" class="form-check-input" id="exampleRadios9"/>
+                                    <label class="form-check-label" for="exampleRadios9">non</label>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-check form-check-inline" id="divd1">
-                            <input type="radio"  name="signe_digestifs"  value="non"   onclick="signedigstif()" class="form-check-input" id="exampleRadios9"/>
-                            <label class="form-check-label" for="exampleRadios9">non</label>
-                        </div>
-                    </div>
-
                     
                         <table class="test" id="signedigestifs" >
                             <tr><th>précisez le signe</th></tr>
                             <tr>
                                 <td>    
-                                    <input type="text" id="signedigestifs" name="signe_digestifs" />
+                                    <input type="text" id="sd" name="signe_digestifs" />
                                 </td>
                             </tr>
-                        </table>
-                     
-                        
+                        </table>  
                     
-                    
-                </div>
+                    </div>
          
                 <div class="p-2 g-col-6">
 
-                    <div class="form-check form-check-inline">
-                
-                    <label class="form-check-label" style="margin-right:375px">signe extradigestif </label> 
-                            <div  class="form-check form-check-inline" id="divd1">
-                                <input type="radio"  name="signe_extra_digestif"  value="oui"   onclick="signedigstif()" class="form-check-input" id="exampleRadios10"/>
-                                <label class="form-check-label" for="exampleRadios10">oui</label>
-                            </div>
-                            <div  class="form-check form-check-inline"  id="divd1">
-                                <input type="radio"  name="signe_extra_digestif"  value="non"   onclick="signedigstif()" class="form-check-input" id="exampleRadios11"/>
-                                <label class="form-check-label" for="exampleRadios11">non</label>
+                        <div class="sp">
+                            <label  style="margin-right:100px;margin-left:2px" >signe extradigestif </label> 
+                            <div class="form-check form-check-inline">
+                                <div  class="form-check form-check-inline" style="margin-left:250px">
+                                    <input type="radio"  name="signe_extra_digestif"  value="oui"   onclick="signedigstif()" class="form-check-input" id="exampleRadios10"/>
+                                    <label class="form-check-label" for="exampleRadios10">oui</label>
+                                </div>
+                                <div  class="form-check form-check-inline">
+                                    <input type="radio"  name="signe_extra_digestif"  value="non"   onclick="signedigstif()" class="form-check-input" id="exampleRadios11"/>
+                                    <label class="form-check-label" for="exampleRadios11">non</label>
+                                </div>
                             </div>
                         </div>
 
-                    </div> 
+                </div> 
                         <table class="test" id="signeextradigestif" >
                             <tr><th>précisez le signe</th></tr>
                             <tr>
                                 <td>    
-                                    <input type="text"    name="signe_extra_digestif"/>
+                                    <input type="text"    name="signe_extra_digestif" id="sed"/>
                                 </td>
                             </tr>
                         </table>
                 </div>
                 <div> 
                     <div class="p-2 g-col-6">
+                        <div class="sp">
+                            <label class="form-check-label" style="margin-left:2px">signe associé généraux</label>
+                            <div class="form-check form-check-inline">
+                                <div  class="form-check form-check-inline" style="margin-left:323px">
+                                    <input type="radio"  name="signe_asso_gene"  value="oui"   onclick="signedigstif()" class="form-check-input" id="exampleRadios12"/>
+                                    <label class="form-check-label" for="exampleRadios12">oui</label>
+                                </div>
 
-                        <div class="form-check form-check-inline">
-                    
-                        <label class="form-check-label" style="margin-right:345px">signe associé généraux</label>
-                            <div  class="form-check form-check-inline" id="divd1">
-                                <input type="radio"  name="signe_asso_gene"  value="oui"   onclick="signedigstif()" class="form-check-input" id="exampleRadios12"/>
-                                <label class="form-check-label" for="exampleRadios12">oui</label>
+                                <div  class="form-check form-check-inline" >
+                                    <input type="radio"  name="signe_asso_gene"  value="non"   onclick="signedigstif()" class="form-check-input" id="exampleRadios13"/>
+                                    <label class="form-check-label" for="exampleRadios13">non</label>
+                                </div>  
+                            
                             </div>
-                            <div  class="form-check form-check-inline" id="divd1">
-                                <input type="radio"  name="signe_asso_gene"  value="non"   onclick="signedigstif()" class="form-check-input" id="exampleRadios13"/>
-                                <label class="form-check-label" for="exampleRadios13">non</label>
-                            </div>  
-                        
                         </div>
 
                         <div> 
@@ -286,19 +327,19 @@
                     
                     <div class="p-2 g-col-6">
 
-                        <div class="form-check form-check-inline">
-                            <label class="form-check-label" style="margin-right:342px">buvez-vous de l'alcool ?</label>
+                        <div class="sp">
+                            <label class="form-check-label" style="margin-left:2px">buvez-vous de l'alcool ?</label>
+                            <div class="form-check form-check-inline" >
+                                <div class="form-check form-check-inline" style="margin-left:320px" >
+                                    <input type="radio"    name="nombredeverre_alcool"  value="oui"   onclick="signedigstif()" class="form-check-input" id="exampleRadios15"/>
+                                    <label class="form-check-label" for="exampleRadios15">oui</label>
+                                </div>
 
-                            <div class="form-check form-check-inline" id="divd1" >
-                                <input type="radio"    name="nombredeverre_alcool"  value="oui"   onclick="signedigstif()" class="form-check-input" id="exampleRadios15"/>
-                                <label class="form-check-label" for="exampleRadios15">oui</label>
+                                <div class="form-check form-check-inline" >
+                                    <input type="radio"    name="nombredeverre_alcool"  value="non"   onclick="signedigstif()" class="form-check-input" id="exampleRadios16"/>
+                                    <label class="form-check-label" for="exampleRadios16">non</label>
+                                </div>
                             </div>
-
-                            <div class="form-check form-check-inline"  id="divd1">
-                                <input type="radio"    name="nombredeverre_alcool"  value="non"   onclick="signedigstif()" class="form-check-input" id="exampleRadios16"/>
-                                <label class="form-check-label" for="exampleRadios16">non</label>
-                            </div>
-                            
                         </div>
                         
                             <table class="test" id="nombredeverredalcool">
@@ -306,7 +347,6 @@
                                 <tr>
                                     <td>    
                                         <select name="typealcool" required>
-                                                <option>Choisir un type d'alcool</option>
                                                 <option value='bière'>bière</option>
                                                 <option value='vin'>vin</option>
                                                 <option value='liqeur'>liqeur</option>
@@ -316,11 +356,11 @@
                                     </td>
 
                                     <td>
-                                        <input type="text"   name="nombredeverre_alcool" id="nombredeverredalcool"  />
+                                        <input type="text"   name="nombredeverre_alcool" id="ndal"  />
                                     </td>
 
                                     <td>
-                                        <input type="text"   name="frequence" />
+                                        <input type="text"   name="frequence" id="fr"/>
                                     </td>
                                 </tr>
                             </table>
@@ -329,25 +369,27 @@
                     
                     <div class="p-2 g-col-6">
 
-                        <div class="form-check form-check-inline">
-                          <label class="form-check-label" style="margin-right:345px" >prenez-vous du tabac ?</label> 
-                            <div class="form-check form-check-inline"  id="divd1">
-                                <input type="radio"    name="nombrepaquettabac"  value="oui"   onclick="signedigstif()" class="form-check-input" id="exampleRadios17"/>
-                                <label class="form-check-label" for="exampleRadios17">oui</label>
-                            </div>
-                            <div class="form-check form-check-inline"  id="divd1">
-                                <input type="radio"    name="nombrepaquettabac"  value="non"   onclick="signedigstif()" class="form-check-input" id="exampleRadios18"/>
-                                <label class="form-check-label" for="exampleRadios18">non</label>
+                        <div class="sp">
+                            <label class="form-check-label" style="margin-left:2px" >prenez-vous du tabac ?</label> 
+                            <div class="form-check form-check-inline">
+                            
+                                <div class="form-check form-check-inline" style="margin-left:323px">
+                                    <input type="radio"    name="nombrepaquettabac"  value="oui"   onclick="signedigstif()" class="form-check-input" id="exampleRadios17"/>
+                                    <label class="form-check-label" for="exampleRadios17">oui</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio"    name="nombrepaquettabac"  value="non"   onclick="signedigstif()" class="form-check-input" id="exampleRadios18"/>
+                                    <label class="form-check-label" for="exampleRadios18">non</label>
+                                </div> 
                             </div> 
                         </div> 
-
                         
 
                             <table class="test" id="nombredepaquetdetabac">
                                 <tr><th>nombre de paquet de tabac</th></tr>
                                 <tr>
                                     <td>    
-                                        <input type="text"   name="nombrepaquettabac" id="nombredepaquetdetabac" pattern="[0-9]"/>
+                                        <input type="text"   name="nombrepaquettabac" id="npt" pattern="[0-9]"/>
                                     </td>
                                 </tr>
                             </table>
@@ -357,26 +399,27 @@
 
 
                     <div class="p-2 g-col-6">
-
-                        <div class="form-check form-check-inline">
-                              <label class="form-check-label" style="margin-right:295px">prenez-vous des médicaments</label> 
-                            <div class="form-check form-check-inline" id="divd1">
-                                <input type="radio"    name="medoc_en_cours"  value="oui"   onclick="signedigstif()" class="form-check-input" id="exampleRadios19"/>
-                                <label class="form-check-label" for="exampleRadios19">oui</label>
+                        <div class="sp">
+                            <label class="form-check-label" style="margin-left:2px">prenez-vous des médicaments</label> 
+                            <div class="form-check form-check-inline">
+                                
+                                <div class="form-check form-check-inline" style="margin-left:275px">
+                                    <input type="radio"    name="medoc_en_cours"  value="oui"   onclick="signedigstif()" class="form-check-input" id="exampleRadios19"/>
+                                    <label class="form-check-label" for="exampleRadios19">oui</label>
+                                </div>
+                                <div class="form-check form-check-inline"  >
+                                    <input type="radio"    name="medoc_en_cours"  value="non"   onclick="signedigstif()" class="form-check-input" id="exampleRadios20"/>
+                                    <label class="form-check-label" for="exampleRadios20">non</label>
+                                </div> 
+                                
                             </div>
-                            <div class="form-check form-check-inline"  id="divd1">
-                                <input type="radio"    name="medoc_en_cours"  value="non"   onclick="signedigstif()" class="form-check-input" id="exampleRadios20"/>
-                                <label class="form-check-label" for="exampleRadios20">non</label>
-                            </div> 
-                              
                          </div>
-                        
 
                             <table class="test" id="medocencours">
                                 <tr><th>précisez les medicaments</th></tr>
                                 <tr>
                                     <td>   
-                                        <textarea name="medoc_en_cours" rows="5" cols="30"></textarea> 
+                                        <textarea name="medoc_en_cours" id="mdoc" rows="3" cols="43"></textarea> 
                                     </td>
                                 </tr>
                             </table>
@@ -388,30 +431,35 @@
                     
                     
                     <div class="p-2 g-col-6">
-
-                        <div class="form-check form-check-inline">
-                             <label class="form-check-label" style="margin-right:213px">prenez-vous des médicaments traditionnels </label>  
-                            <div class="form-check form-check-inline"  id="divd1">
-                                <input type="radio"    name="prise_therap_tarditionnelle"  value="oui"    class="form-check-input" id="exampleRadios21"/>
-                                <label class="form-check-label" for="exampleRadios21">oui</label>
+                        <div class="sp">
+                            <label class="form-check-label" style="margin-left:2px">prenez-vous des médicaments traditionnels </label>  
+                            <div class="form-check form-check-inline">
+                                
+                                <div class="form-check form-check-inline"  style="margin-left:191px">
+                                    <input type="radio"    name="prise_therap_tarditionnelle"  value="oui"    class="form-check-input" id="exampleRadios21"/>
+                                    <label class="form-check-label" for="exampleRadios21">oui</label>
+                                </div>
+                                <div class="form-check form-check-inline"  >
+                                    <input type="radio"    name="prise_therap_tarditionnelle"  value="non"   class="form-check-input" id="exampleRadios22"/>
+                                    <label class="form-check-label" for="exampleRadios22">non</label>
+                                </div> 
                             </div>
-                            <div class="form-check form-check-inline"  id="divd1">
-                                <input type="radio"    name="prise_therap_tarditionnelle"  value="non"   class="form-check-input" id="exampleRadios22"/>
-                                <label class="form-check-label" for="exampleRadios22">non</label>
-                            </div> 
                         </div>
                     </div>
 
                     <div class="p-2 g-col-6" >
-                        <div class="form-check form-check-inline" >
-                              <label class="form-check-label" style="margin-right:180px">Bilan biologique antérieur à la consultation initiale </label> 
-                            <div class="form-check form-check-inline"   id="divg1">
-                                <input type="radio"    name="Bilanbiologiqueant"  value="oui"   onclick="signedigstif()" class="form-check-input" id="exampleRadios23"/>
-                                <label class="form-check-label" for="exampleRadios23">oui</label>
-                            </div>
-                            <div class="form-check form-check-inline"   id="divd1">
-                                <input type="radio"    name="Bilanbiologiqueant"  value="non"   onclick="signedigstif()" class="form-check-input" id="exampleRadios24"/>
-                                <label class="form-check-label" for="exampleRadios24">non</label>
+                        <div class="sp">
+                            <label class="form-check-label" style="margin-left:2px">Bilan biologique antérieur à la consultation initiale </label>
+                            <div class="form-check form-check-inline" >
+                                
+                                <div class="form-check form-check-inline" style="margin-left:149px">
+                                    <input type="radio"    name="Bilanbiologiqueant"  value="oui"   onclick="signedigstif()" class="form-check-input" id="exampleRadios23"/>
+                                    <label class="form-check-label" for="exampleRadios23">oui</label>
+                                </div>
+                                <div class="form-check form-check-inline"   >
+                                    <input type="radio"    name="Bilanbiologiqueant"  value="non"   onclick="signedigstif()" class="form-check-input" id="exampleRadios24"/>
+                                    <label class="form-check-label" for="exampleRadios24">non</label>
+                                </div> 
                             </div> 
                         </div> 
                             <div id="Bilanbiologiqueanterieur" class="test">
@@ -434,7 +482,7 @@
                                                     </td>
 
                                                     <td>    
-                                                        <input type="date"   name="dateaghbs"/>
+                                                        <input type="date"   name="dateaghbs" id="dt5"/>
                                                     </td>
                                                 </tr>
                                             </table>
@@ -459,7 +507,7 @@
                                                     </td>
 
                                                     <td>    
-                                                        <input type="date"   name="dateacanti_vhc"/>
+                                                        <input type="date" id="dt4"  name="dateacanti_vhc"/>
                                                     </td>
                                                 </tr>
                                             </table>
@@ -484,7 +532,7 @@
                                                     </td>
 
                                                     <td>    
-                                                        <input type="date"   name="dateacanti_vhd"/>
+                                                        <input type="date"  id="dt3" name="dateacanti_vhd"/>
                                                     </td>
                                                 </tr>
                                             </table>
@@ -500,7 +548,7 @@
                                                 <tr><th>date</th></tr>
                                                 <tr>
                                                     <td>    
-                                                        <input type="date"   name="datetransa"/>
+                                                        <input type="date" id="dt1"  name="datetransa"/>
                                                     </td>
                                                 </tr>
                                             </table>
@@ -523,7 +571,7 @@
                                                     </td>
 
                                                     <td>    
-                                                        <input type="date"   name="dateserologie_retrovi"/>
+                                                        <input type="date"  id="dt2"  name="dateserologie_retrovi"/>
                                                     </td>
                                                     
                                                 </tr>
@@ -542,141 +590,146 @@
         <div>
             <nav class="divcontenunav">signe physique</nav>
         </div>  
-
-        <div>
+        <div class="sp">
             <div class="p-2 g-col-6">
 
-                <div class="form-check form-check-inline">
-                    <label class="form-check-label" style="margin-right:280px">signe insuffisance hépatocéllulaire</label>
-                    <div class="form-check form-check-inline" id="divd1">
-                        <input type="radio" name="sih" value="oui" class="form-check-input" id="exampleRadios60" />
-                        <label class="form-check-label" for="exampleRadios60">oui</label>
-                    </div>
-                    <div class="form-check form-check-inline" id="divd1">
-                        <input type="radio" name="sih" value="non" class="form-check-input" id="exampleRadios61" />
-                        <label class="form-check-label" for="exampleRadios61">non</label>
-                    </div>
+                <div >
+                        <label class="sp" style="margin-right:100px">signe insuffisance hépatocéllulaire</label>
+                        <div class="form-check form-check-inline" style=" margin-right:120px">
+                            <input type="radio" name="sih" value="oui" class="form-check-input" id="exampleRadios60" />
+                            <label class="form-check-label" for="exampleRadios60">oui</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input type="radio" name="sih" value="non" class="form-check-input" id="exampleRadios61" />
+                            <label class="form-check-label" for="exampleRadios61">non</label>
+                        </div>
                 </div>
             </div>
 
             <div class="p-2 g-col-6">
 
-                <div class="form-check form-check-inline">
-                    <label class="form-check-label" style="margin-right:405px">toucher rectal</label>
+                <div >
+                    <label class="sp" style="margin-right:227px">toucher rectal</label>
 
-                    <div class="form-check form-check-inline" id="divd1">
+                    <div class="form-check form-check-inline" style="margin-right:120px">
                         <input type="radio" name="resultattoucherectal1" value="oui" onclick="val()" class="form-check-input"  id="exampleRadios64" />
                         <label class="form-check-label" for="exampleRadios64">oui</label>
                     </div>
-                    <div class="form-check form-check-inline" id="divd1">
+                    <div class="form-check form-check-inline" >
                         <input type="radio" name="resultattoucherectal1" value="non" onclick="val()" class="form-check-input"  id="exampleRadios65" />
                         <label class="form-check-label" for="exampleRadios65">non</label>
                     </div>
                 </div>
 
-                <div class="test" id="touch" style="display: none;">
-                    <div class="divsortie">
-                        <label class="form-check-label" style="margin-left:24px">résultat</label>
-                        <textarea id="resultatToucherRectal" name="resultattoucherectal" placeholder="résultat"></textarea>
+                <div class="test" id="touch" 
+                style="border:0px solid black;">
+                    <div id="position"  style="border:0px solid black;">
+                        <label class="form-check-label">résultat</label><br/>
+                        <textarea id="resultatToucherRectal" name="resultattoucherectal" placeholder="résultat" rows="3" cols="43"></textarea>
                     </div>
                 </div>
 
             </div>
 
             <div class="p-2 g-col-6">
-                <div class="form-check form-check-inline">
-                    <label class="form-check-label" style="margin-right:320px">signe hypertension portable</label>
-                    <div class="form-check form-check-inline" id="divd1">
+                <div >
+                    <label class="sp" style="margin-right:141px">signe hypertension portable</label>
+                    <div class="form-check form-check-inline" style=" margin-right:120px">
                         <input type="radio" name="shp" value="oui" class="form-check-input" id="exampleRadios62" />
                         <label class="form-check-label" for="exampleRadios62">oui</label>
                     </div>
-                    <div class="form-check form-check-inline" id="divd1">
+                    <div class="form-check form-check-inline" ><!--id="divd1"--> 
                         <input type="radio" name="shp" value="non" class="form-check-input" id="exampleRadios63" />
                         <label class="form-check-label" for="exampleRadios63">non</label>
                     </div>
                 </div>
             </div>
 
-            <div  style="margin-left:15px" class="p-2 g-col-6">
-                <div class="divsortie">
-                    <label>Etat de conscience</label>
-                    <div  class="form-check form-check-inline" style=" margin-left:410px">
-                        <input type="radio"  name="etat_de_conscience"  value="Conscience normale"   class="form-check-input"  id="exampleRadios12"/>
-                        <label class="form-check-label" for="exampleRadios12">Conscience normale </label>
+           
+                <div  class="p-2 g-col-6"  style="overflow:hidden">
+                    <div style="float:left">
+                        <label>Etat de conscience</label>
                     </div>
+                    <div style=" margin-left:240px;">
+                        <div  class="form-check" style=" margin-left:247px">
+                            <input type="radio"  name="etat_de_conscience"  value="Conscience normale"   class="form-check-input"  id="exampleRadios12"/>
+                            <label class="form-check-label" for="exampleRadios12">Conscience normale </label>
+                        </div>
 
-                    <div  class="form-check" style=" margin-left:323px">
-                        <input type="radio"  name="etat_de_conscience"  value="Astérixis"    class="form-check-input" id="exampleRadios13"/>
-                        <label class="form-check-label" for="exampleRadios13">Astérixis </label>
-                    </div>
-                    <div  class="form-check" style=" margin-left:415px">
-                        <input type="radio"  name="etat_de_conscience"  value="Syndrome confusionnel"    class="form-check-input" id="exampleRadios14"/>
-                        <label class="form-check-label" for="exampleRadios14">Syndrome confusionnel </label>
-                    </div>
-                    <div  class="form-check" style=" margin-left:303px">
-                        <input type="radio"  name="etat_de_conscience"  value="Coma"    class="form-check-input" id="exampleRadios15"/>
-                        <label class="form-check-label" for="exampleRadios15">Coma</label>
+                        <div  class="form-check" style=" margin-left:247px">
+                            <input type="radio"  name="etat_de_conscience"  value="Astérixis"    class="form-check-input" id="exampleRadios13"/>
+                            <label class="form-check-label" for="exampleRadios13">Astérixis </label>
+                        </div>
+                        <div  class="form-check" style=" margin-left:247px">
+                            <input type="radio"  name="etat_de_conscience"  value="Syndrome confusionnel"    class="form-check-input" id="exampleRadios14"/>
+                            <label class="form-check-label" for="exampleRadios14">Syndrome confusionnel </label>
+                        </div>
+                        <div  class="form-check" style=" margin-left:247px">
+                            <input type="radio"  name="etat_de_conscience"  value="Coma"    class="form-check-input" id="exampleRadios15"/>
+                            <label class="form-check-label" for="exampleRadios15">Coma</label>
+                        </div>
                     </div>
                 </div>
-            </div>
+            
 
-            <div style="overflow:hidden; margin-left:25px" class="p-2 g-col-6">
+            <div >
                 <div class="contentleft2">
-                    <label>Flèche hépatique</label>
+                    <label style="text-align: start;margin-left:10px" >Flèche hépatique</label>
                 </div>
                 <div class="contentleft1">
                     <input type="text" placeholder="lmc" name="lmc" id="lmc" />
                     <input type="text" placeholder="lxo" name="lxo" id="lxo" />
                 </div>
             </div> 
-            <div  style="margin-left:25px" class="p-2 g-col-6">
+            
+            
                 <div class="divsortie" >
                     <label for="frequence_cardiaque" >Fréquence cardiaque</label>
                     <input type="text" placeholder="fréquence cardiaque" name="frequence_cardiaque" id="frequence_cardiaque" class="inputcontenu"  />
                 </div>
-            </div>
-            <div class="divsortie"  style="margin-left:30px" class="p-2 g-col-6">
+            
+            <div class="divsortie"  class="p-2 g-col-6">
                 <label for="frequence_respiratoire" >Fréquence respiratoire</label>
                 <input type="text" placeholder="fréquence respiratoire" name="frequence_respiratoire" id="frequence_respiratoire" class="inputcontenu"  />
             </div>
-            <div class="divsortie"  style="margin-left:30px" class="p-2 g-col-6">
+            <div class="divsortie"   class="p-2 g-col-6">
                 <label for="saturation_doxygene" >Saturation d'oxygène</label>
                 <input type="text" placeholder="Saturation d'oxygène" name="saturation_doxygene" id="saturation_doxygene" class="inputcontenu"/>
             </div>
-            <div class="divsortie"  style="margin-left:30px" class="p-2 g-col-6">
+            <div class="divsortie"   class="p-2 g-col-6">
                 <label for="diurese">Diurèse</label>
                 <input type="text" placeholder="Diurèse" name="diurese" id="diurese" class="inputcontenu"/>
             </div>
-            <div class="divsortie"  style="margin-left:30px" class="p-2 g-col-6">
+            <div class="divsortie"   class="p-2 g-col-6">
                 <label for="nombre_de_vomissements" >Nombre de vomissements</label>
                 <input type="text" placeholder="Nombre de vomissements" name="nombre_de_vomissements" id="nombre_de_vomissements" class="inputcontenu"/>
             </div>
-            <div class="divsortie"  style="margin-left:30px" class="p-2 g-col-6">
+            <div class="divsortie"   class="p-2 g-col-6">
                 <label for="nombre_de_selles" >Nombre de selles</label>
                 <input type="text" placeholder="Nombre de selles" name="nombre_de_selles" id="nombre_de_selles" class="inputcontenu"/>
             </div>
-            <div class="divsortie"  style="margin-left:30px" class="p-2 g-col-6">
+            <div class="divsortie"  class="p-2 g-col-6">
                 <label for="eva_douleur" >EVA douleur</label>
                 <input type="text" placeholder="EVA douleur" name="eva_douleur" id="eva_douleur" class="inputcontenu"/>
             </div>
-            <div class="p-2 g-col-6">
-                <div class="divsortie">
-                    <label style="margin-left:23px">observation</label>
+
+            <div class="divsortie" >
+                <label >observation</label>
                     <textarea name="observation" placeholder="observation" rows="5" cols="30"></textarea>
-                </div>
             </div>
+
         </div> 
+
     <div>
         <div>
           <nav class="divcontenunav">diagnostique retenu</nav>
         </div><br/>    
         <div class="divsortie">
-            <label class="form-check-label" style="margin-left:28px">diagnostique retenu</label>
+            <label class="form-check-label">diagnostique retenu</label>
             <textarea name="diagnostique_retenu" placeholder="diagnostique retenu" rows="5" cols="30"></textarea>
-
         </div>  
 
-        </div>
+    </div>
     <input type="hidden"   name="patient"  value="{{ patient_id }}"/>
     {% if request.user.is_authenticated %}
         {% if user.type_personnel_soignant.nompersog == "MEDECIN" %}
@@ -690,161 +743,100 @@
 <script>
 
 function pourlecheckbox() {
-    var affichecheckbox= document.getElementsByName('motifdeconsultation[]');
+    var affichecheckbox = document.getElementsByName('motifdeconsultation[]');
     var inputField = document.getElementById("motifdeconsultation");
+    var displayInput = false;
+
+    // Vérifie si l'une des cases "Autre motif" est cochée
     for (var i = 0; i < affichecheckbox.length; i++) {
-        if (affichecheckbox[i].checked) {
-            if (affichecheckbox[i].value=='Autre motif') {
+        if (affichecheckbox[i].checked && affichecheckbox[i].value == 'Autre motif') {
+            displayInput = true;
+            break;
+        }
+    }
+
+    // Si une case "Autre motif" est cochée, afficher le champ, sinon le cacher
+    if (displayInput) {
+        inputField.style.display = "block";  
+    } else {
+        var inputField1 = document.getElementById("amt");
+        inputField.style.display = "none"; 
+        inputField1.value = ""; 
+    }
+}
+
+
+function signedigstif() {
+    // Sélection des groupes de boutons radio
+    var afficheRadio1 = document.getElementsByName('signe_digestifs');
+    var afficheRadio2 = document.getElementsByName('signe_extra_digestif');
+    var afficheRadio3 = document.getElementsByName('signe_asso_gene');
+    var afficheRadio4 = document.getElementsByName('nombredeverre_alcool');
+    var afficheRadio5 = document.getElementsByName('nombrepaquettabac');
+    var afficheRadio6 = document.getElementsByName('medoc_en_cours');
+    var afficheRadio7 = document.getElementsByName('Bilanbiologiqueant');
+    
+    // Traitement de chaque groupe de boutons radio
+    function handleRadioGroup(afficheRadio, inputFieldId, inputFieldId1, inputType = 'text') {
+        for (var i = 0; i < afficheRadio.length; i++) {
+            if (afficheRadio[i].checked) {
+                var inputField = document.getElementById(inputFieldId);
+                var inputField1= document.getElementById(inputFieldId1);
+                if (afficheRadio[i].value === 'oui') {
+                    inputField.style.display = "block";
+                } else if (afficheRadio[i].value === 'non') {
+                    inputField.style.display = "none";
+                    if (inputType === 'text') {
+                        inputField1.value = "";  // Réinitialiser la valeur pour un champ de texte
+                    } else if (inputType === 'checkbox') {
+                        var checkboxes = inputField.querySelectorAll('input[type="checkbox"]');
+                        checkboxes.forEach(function(checkbox) {
+                            checkbox.checked = false;  // Désélectionner les cases à cocher
+                        });
+                    } else if (inputType === 'radio') {
+                        var radios = inputField.querySelectorAll('input[type="radio"]');
+                        var inputField1= document.getElementById(inputFieldId1);
+                        radios.forEach(function(radio) {
+                            radio.checked = false;  // Désélectionner les boutons radio
+                            inputField1.value = "";
+                        });
+                    }
+                }
+            }
+        }
+    }
+
+    // Appel de la fonction handleRadioGroup pour chaque groupe de boutons radio
+    handleRadioGroup(afficheRadio1, "signedigestifs","sd");
+    handleRadioGroup(afficheRadio2, "signeextradigestif","sed");
+    handleRadioGroup(afficheRadio4, "nombredeverredalcool","ndal");
+    handleRadioGroup(afficheRadio4, "nombredeverredalcool","fr");
+    handleRadioGroup(afficheRadio5, "nombredepaquetdetabac","npt");
+    handleRadioGroup(afficheRadio6, "medocencours","mdoc");
+    handleRadioGroup(afficheRadio7, "Bilanbiologiqueanterieur",'dt1','radio');
+    handleRadioGroup(afficheRadio7, "Bilanbiologiqueanterieur",'dt2','radio');
+    handleRadioGroup(afficheRadio7, "Bilanbiologiqueanterieur",'dt3','radio');
+    handleRadioGroup(afficheRadio7, "Bilanbiologiqueanterieur",'dt4','radio');
+    handleRadioGroup(afficheRadio7, "Bilanbiologiqueanterieur",'dt5','radio');
+    
+    
+    // Gestion des cases à cocher (associées à "signe_asso_gene")
+    for (var i = 0; i < afficheRadio3.length; i++) {
+        if (afficheRadio3[i].checked) {
+            var inputField = document.getElementById("signeasso");
+            if (afficheRadio3[i].value === 'oui') {
                 inputField.style.display = "block";
+            } else if (afficheRadio3[i].value === 'non') {
+                inputField.style.display = "none";
+                var checkboxes = inputField.querySelectorAll('input[type="checkbox"]');
+                checkboxes.forEach(function(checkbox) {
+                    checkbox.checked = false;  // Désélectionner chaque case à cocher
+                });
             }
         }
     }
 }
 
-function signedigstif() {
-    var afficheRadio1= document.getElementsByName('signe_digestifs');
-    var afficheRadio2= document.getElementsByName('signe_extra_digestif');
-    var afficheRadio3= document.getElementsByName('signe_asso_gene');
-    var afficheRadio4= document.getElementsByName('nombredeverre_alcool');
-    var afficheRadio5= document.getElementsByName('nombrepaquettabac');
-    var afficheRadio6= document.getElementsByName('medoc_en_cours');
-    var afficheRadio7= document.getElementsByName('Bilanbiologiqueant');
-    for (var i = 0; i < afficheRadio1.length; i++) {
-        if (afficheRadio1[i].checked) {
-            switch(afficheRadio1[i].value){
-                case 'oui':
-                var inputField = document.getElementById("signedigestifs");
-                inputField.style.display = "block";
-                break;
-
-                case 'non':
-                var inputField = document.getElementById("signedigestifs");
-                inputField.style.display = "none";
-                inputField.value = "";
-                break;
-            }
-        }
-    }for (var i = 0; i < afficheRadio2.length; i++) {
-            if (afficheRadio2[i].checked) {
-                switch(afficheRadio2[i].value){
-                case 'oui':
-                var inputField = document.getElementById("signeextradigestif");
-                inputField.style.display = "block";
-                break;
-                case 'non':
-
-                var inputField = document.getElementById("signeextradigestif");
-                inputField.style.display = "none";
-                inputField.value = "";
-                break;
-
-                }
-            }
-        }
-        for (var i = 0; i < afficheRadio3.length; i++) {
-            if (afficheRadio3[i].checked) {
-                switch(afficheRadio3[i].value){
-                case 'oui':
-                var inputField = document.getElementById("signeasso");
-                inputField.style.display = "block";
-                break;
-                case 'non':
-                var inputField = document.getElementById("signeasso");
-                inputField.style.display = "none";
-
-                var checkboxes = inputField.querySelectorAll('input[type="checkbox"]');
-
-                checkboxes.forEach(function(checkbox) {
-                    checkbox.checked = false; // Désélectionner chaque case à cocher
-                });
-                break;
-
-                }
-            }
-        }
-
-        for (var i = 0; i < afficheRadio4.length; i++) {
-            if (afficheRadio4[i].checked) {
-                switch(afficheRadio4[i].value){
-                case 'oui':
-                var inputField = document.getElementById("nombredeverredalcool");
-                inputField.style.display = "block";
-                break;
-                case 'non':
-
-                var inputField = document.getElementById("nombredeverredalcool");
-                inputField.style.display = "none";
-                inputField.value = "";
-                break;
-
-                }
-            }
-        }
-
-        for (var i = 0; i < afficheRadio5.length; i++) {
-            if (afficheRadio5[i].checked) {
-                switch(afficheRadio5[i].value){
-                case 'oui':
-                var inputField = document.getElementById("nombredepaquetdetabac");
-                inputField.style.display = "block";
-                break;
-                case 'non':
-
-                var inputField = document.getElementById("nombredepaquetdetabac");
-                inputField.style.display = "none";
-                inputField.value = "";
-                break;
-
-                }
-            }
-        }
-
-
-        for (var i = 0; i < afficheRadio6.length; i++) {
-            if (afficheRadio6[i].checked) {
-                switch(afficheRadio6[i].value){
-                case 'oui':
-                var inputField = document.getElementById("medocencours");
-                inputField.style.display = "block";
-                break;
-                case 'non':
-
-                var inputField = document.getElementById("medocencours");
-                inputField.style.display = "none";
-                inputField.value = "";
-                break;
-
-                }
-            }
-        }
-
-
-        for (var i = 0; i < afficheRadio7.length; i++) {
-            if (afficheRadio7[i].checked) {
-                switch(afficheRadio7[i].value){
-                case 'oui':
-                var inputField = document.getElementById("Bilanbiologiqueanterieur");
-                inputField.style.display = "block";
-                break;
-                case 'non':
-
-                var inputField = document.getElementById("Bilanbiologiqueanterieur");
-                inputField.style.display = "none";
-                
-                var radios = inputField.querySelectorAll('input[type="radio"]');
-
-                radios.forEach(function(radio) {
-                    radio.checked = false; // Désélectionner chaque bouton radio
-                });
-                break;
-
-                }
-            }
-        }
-
-
-                
-}
 var afficheRadio10 = document.getElementsByName('resultattoucherectal1');
 function val() {
     for (var i = 0; i < afficheRadio10.length; i++) {

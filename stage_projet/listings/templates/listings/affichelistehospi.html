@@ -6,11 +6,10 @@
         {% if suivie %}
             {% for result in results %}
                 <a href="{% url 'listetraitement1' pk=result.idpatient resul=suivie %}" class="patient-link">{{ result.nom }}</a>
+                
             {% empty %}
                 <p>Aucun patient trouvé.</p>
             {% endfor %}
-
-
         {% elif autorisation %}
             {% for result in results %}
                 <a href="{% url 'listetraitement1' pk=result.idpatient  resul=autorisation %}" class="patient-link">{{ result.nom }}</a>
