@@ -23,12 +23,7 @@ AUTH_USER_MODEL = "listings.CustomUser"
 SECRET_KEY = 'django-insecure-4*mw^d-76p=hr633o94b02ar!&)yqik)u!ca2kp%9=ped%9+#e'
 DEBUG = True  
 
-#ALLOWED_HOSTS = ['*']
-ALLOWED_HOSTS = [
-    "172.0.0.1:4001",          # IP address without the 'http://'
-    "127.0.0.1:8000 ",  # Localhost IP
-    "localhost",                # Optionally, you can include this for general localhost access.          # Add your actual domain if applicable.
-]
+ALLOWED_HOSTS = ['*']
 
 CSRF_TRUSTED_ORIGINS =[
     'http://127.0.0.1:4001',  # Adjust the port if you're using a different one
