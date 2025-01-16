@@ -1,5 +1,12 @@
 {% extends 'listings/template.html' %}
 {% block formantchirurgical %}
+<style>
+th{
+    text-align:start;
+    text-indent:10px;
+    border:0px solid black;
+}
+</style>
 <center><form method="post" action="{% url 'antecedantchirurgical' %}" class="formcontenu">
     <div>
         <nav class="divcontenunav">antécédant chirurgical</nav>

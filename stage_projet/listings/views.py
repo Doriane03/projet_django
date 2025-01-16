@@ -816,7 +816,7 @@ def chart(request):
                 ).distinct().count()
         else:
             now = timezone.now()
-            start_date=now-timedelta(days=5)
+            start_date=now-timedelta(days=100000)
             end_date=now
             #print(end_date,start_date)
             nombre_de_patients = Patient.objects.filter(date__range=[start_date, end_date]).count()

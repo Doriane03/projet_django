@@ -23,18 +23,18 @@ AUTH_USER_MODEL = "listings.CustomUser"
 SECRET_KEY = 'django-insecure-4*mw^d-76p=hr633o94b02ar!&)yqik)u!ca2kp%9=ped%9+#e'
 DEBUG = True  
 
-ALLOWED_HOSTS = ['*']
-#ALLOWED_HOSTS = [
-    #"172.0.0.1:4001",          # IP address without the 'http://'
-    #"127.0.0.1:8000 ",  # Localhost IP
-    #"localhost",                # Optionally, you can include this for general localhost access.          # Add your actual domain if applicable.
-#]
+#ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    "172.0.0.1:4001",          # IP address without the 'http://'
+    "127.0.0.1:8000 ",  # Localhost IP
+    "localhost",                # Optionally, you can include this for general localhost access.          # Add your actual domain if applicable.
+]
 
-#CSRF_TRUSTED_ORIGINS =[
-    #'http://127.0.0.1:4001',  # Adjust the port if you're using a different one
-    #'http://localhost:4001',
-    #'http://127.0.0.1:8000',   # Add localhost for good measure
-#]
+CSRF_TRUSTED_ORIGINS =[
+    'http://127.0.0.1:4001',  # Adjust the port if you're using a different one
+    'http://localhost:4001',
+    'http://127.0.0.1:8000',   # Add localhost for good measure
+]
 CRSF_COOKIE_SECURE = int(0)
 
 # Application definition
@@ -85,27 +85,27 @@ TEMPLATES = [
 WSGI_APPLICATION = 'stage_projet.wsgi.application'
 
 #Database configuration
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'test1',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'localhost',#192.168.80.27
-        'PORT': '5432',
-    }
-}
-
 #DATABASES = {
     #'default': {
         #'ENGINE': 'django.db.backends.postgresql',
-        #'NAME': os.getenv('DB_NAME'),
-        #'USER': os.getenv('DB_USER'),
-        #'PASSWORD': os.getenv('PASSWORD'),
-        #'HOST': os.getenv('DB_HOST'),
-        #'PORT': os.getenv('DB_PORT', '5432'),  # 5432 par défaut
-   #}
+        #'NAME': 'test1',
+        #'USER': 'postgres',
+        #'PASSWORD': 'postgres',
+        #'HOST': 'localhost',#192.168.80.27
+        #'PORT': '5432',
+    #}
 #}
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': os.getenv('DB_PORT', '5432'),  # 5432 par défaut
+   }
+}
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -163,12 +163,12 @@ CELERY_TIMEZONE = 'UTC'
 # Utilisation du planificateur de base de données pour Celery Beat
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 # Définir les tâches planifiées ici
-#CELERY_BEAT_SCHEDULE = {
-    #'send-email-every-minute': {
-        #'task': 'stage_projet.tasks.relance',
-        #'schedule': crontab(minute='*/1'),  # Exécuter la tâche toutes les minutes
-    #},
-#}
+CELERY_BEAT_SCHEDULE = {
+    'send-email-every-minute': {
+        'task': 'stage_projet.tasks.relance',
+        'schedule': crontab(minute='*/1'),  # Exécuter la tâche toutes les minutes
+    },
+}
 #demander
 
 #tache

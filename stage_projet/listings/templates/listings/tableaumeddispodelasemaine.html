@@ -1,9 +1,9 @@
 {% extends 'listings/template.html' %}
 {% block tableaudisponibilites %}
 <center>
+    <h2>Liste des Médecins</h2> 
 <form method="post" action=""  class="formcontenu">
    {% csrf_token %}
-   
        {% for medecin in medecins %}
             <label style="display: block; text-align: start; margin-left:5px">
                 <input type="checkbox" name="medecins" value="{{ medecin.refpersoignant }}">

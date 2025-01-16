@@ -1,5 +1,12 @@
 {% extends 'listings/template.html' %}
 {% block formantgynecologique %}
+<style>
+    th{
+        text-align:start;
+        text-indent:10px;
+        border:0px solid black;
+    }
+</style>
 <center><form method="post" action="" class="formcontenu">
     <div>
         <nav class="divcontenunav">antécédant gynécologique</nav>
@@ -41,7 +48,6 @@
                     <input  class="form-check-input" type="radio" name="cesarienne" id="inlineRadio4" value="non" onclick="antecedantgyn()" />
                     <label class="form-check-label" for="inlineRadio4">non</label>
                 </div>
-                
                     <table class="test" id="resultat1">
                         <tr><th>date de la césarienne</th></tr>
                         <tr>
