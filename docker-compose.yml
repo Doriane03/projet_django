@@ -70,7 +70,7 @@ services:
 
   celery:
     build: ./stage_projet
-    command: celery -A stage_projet.celery worker --loglevel=info
+    command: celery -A stage_projet worker --loglevel=info
     volumes:
       - ./stage_projet/usr/src/app/
     depends_on:
@@ -78,7 +78,7 @@ services:
       - redis
   celery-beat:
     build: ./project
-    command: celery -A stage_projet.celery beat --loglevel=info
+    command: celery -A stage_projet beat --loglevel=info
     volumes:
       - ./stage_projet/usr/src/app/
     depends_on:
