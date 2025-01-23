@@ -1,15 +1,12 @@
 #!/bin/sh
 
-# Attendre que le répertoire backend soit disponible
 until cd /home/app/backend; do
     echo "Waiting for server volume..."
 done
 
-# Vérifier si la base de données est PostgreSQL
 if [ "$DATABASE" = "postgres" ]; then
     echo "Waiting for postgres..."
 
-    # Attendre que le service PostgreSQL soit en ligne
     while ! nc -z $SQL_HOST $SQL_PORT; do
         sleep 0.1
     done

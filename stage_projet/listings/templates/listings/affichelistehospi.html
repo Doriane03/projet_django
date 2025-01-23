@@ -3,30 +3,62 @@
 <center>
     <h1>Liste des Patients hospitalisés</h1>
     <div class="patient-links">
-        {% if suivie %}
+
+
+        {% if val == "suivie" and qry != "" %}
             {% for result in results %}
-                <a href="{% url 'listetraitement1' pk=result.idpatient resul=suivie %}" class="patient-link">{{ result.nom }}</a>
-                
-            {% empty %}
-                <p>Aucun patient trouvé.</p>
-            {% endfor %}
-        {% elif autorisation %}
-            {% for result in results %}
-                <a href="{% url 'listetraitement1' pk=result.idpatient  resul=autorisation %}" class="patient-link">{{ result.nom }}</a>
+                <a href="{% url 'listetraitement1' pk=result.idpatient resul=val %}" class="patient-link">{{ result.nom }}</a> 
             {% empty %}
                 <p>Aucun patient trouvé.</p>
             {% endfor %}
 
-        {% elif surveillance %}
+        {% elif val == "suivie" and  qry == "" %} 
+
             {% for result in results %}
-                <a href="{% url 'listetraitement1' pk=result.idpatient  resul=surveillance %}" class="patient-link">{{ result.nom }}</a>
+                <a href="{% url 'listetraitement1' pk=result.idpatient resul=val %}" class="patient-link">{{ result.nom }}</a>
             {% empty %}
                 <p>Aucun patient trouvé.</p>
             {% endfor %}
-                
         {% endif %}
-       
 
+
+
+        {% if val == "autorisation" and qry != "" %}
+            {% for result in results %}
+                <a href="{% url 'listetraitement1' pk=result.idpatient resul=val %}" class="patient-link">{{ result.nom }}</a> 
+            {% empty %}
+                <p>Aucun patient trouvé.</p>
+            {% endfor %}
+
+        {% elif val == "autorisation" and  qry == "" %} 
+
+            {% for result in results %}
+                <a href="{% url 'listetraitement1' pk=result.idpatient resul=val %}" class="patient-link">{{ result.nom }}</a>
+            {% empty %}
+                <p>Aucun patient trouvé.</p>
+            {% endfor %}
+        {% endif %}
+
+
+
+        {% if val == "surveillance" and qry != "" %}
+            {% for result in results %}
+                <a href="{% url 'listetraitement1' pk=result.idpatient resul=val %}" class="patient-link">{{ result.nom }}</a> 
+            {% empty %}
+                <p>Aucun patient trouvé.</p>
+            {% endfor %}
+
+        {% elif val == "surveillance" and  qry == "" %} 
+
+            {% for result in results %}
+                <a href="{% url 'listetraitement1' pk=result.idpatient resul=val %}" class="patient-link">{{ result.nom }}</a>
+            {% empty %}
+                <p>Aucun patient trouvé.</p>
+            {% endfor %}
+        {% endif %}
+
+
+        
     </div>
 </center>
 {% endblock %}

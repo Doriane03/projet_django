@@ -7,7 +7,7 @@ services:
     build:
       context: .
       dockerfile: ./docker/backend/Dockerfile
-    entrypoint: [ "/home/app/docker/backend/server-entrypoint.sh" ]
+    entrypoint: ["/home/app/docker/backend/server-entrypoint.sh" ]
     volumes:
       - static_volume:/home/app/backend/static
       - media_volume:/home/app/backend/media
@@ -45,7 +45,7 @@ services:
       context: .
       dockerfile: ./docker/backend/Dockerfile
     entrypoint: [ "/home/app/docker/backend/daemon-entrypoint.sh" ]
-    env_file:
+    env_file: 
       - ./stage_projet/stage_projet/.env
     depends_on:
       - app
@@ -68,22 +68,8 @@ services:
     volumes:
       - db_data:/var/lib/postgresql/data
 
-  celery:
-    build: ./stage_projet
-    command: celery -A stage_projet worker --loglevel=info
-    volumes:
-      - ./stage_projet/usr/src/app/
-    depends_on:
-      - app
-      - redis
-  celery-beat:
-    build: ./project
-    command: celery -A stage_projet beat --loglevel=info
-    volumes:
-      - ./stage_projet/usr/src/app/
-    depends_on:
-      - app
-      - redis
+
+ 
 
 volumes:
   static_volume:

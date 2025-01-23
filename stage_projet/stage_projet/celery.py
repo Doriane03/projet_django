@@ -17,11 +17,18 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 
 # Load task modules from all registered Django apps.
 app.autodiscover_tasks()
+#@app.task(bind=True)
+#def debug_task(self):
+    #print('Request: {0!r}'.format(self.request))
 
-#app.conf.beat_schedule= {
-   #'send-email-every-day-at-17':{
-   #    'task':'stage_projet.tasks.relance',
-    #   'schedule': crontab(minute='*/1'),
-    #   'args':()
-  # }
-  #}
+
+#app.conf.update(
+    #result_backend='django-db',  # Ou une autre solution comme django-db
+    #broker='redis://redis:6379/0',
+    #beat_schedule={
+        #'relance_email': {
+            #'task': 'stage_projet.tasks.relance',
+            #'schedule': crontab(minute='1'),  # Exemple d'une tâche qui s'exécute toutes les minutes
+        #},
+   # },
+#)

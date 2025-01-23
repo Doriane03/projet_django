@@ -80,27 +80,27 @@ TEMPLATES = [
 WSGI_APPLICATION = 'stage_projet.wsgi.application'
 
 #Database configuration
-#DATABASES = {
-    #'default': {
-        #'ENGINE': 'django.db.backends.postgresql',
-        #'NAME': 'test1',
-        #'USER': 'postgres',
-        #'PASSWORD': 'postgres',
-        #'HOST': 'localhost',#192.168.80.27
-        #'PORT': '5432',
-    #}
-#}
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME'),
-        'USER': os.getenv('DB_USER'),
-        'PASSWORD': os.getenv('PASSWORD'),
-        'HOST': os.getenv('DB_HOST'),
-        'PORT': os.getenv('DB_PORT', '5432'),  # 5432 par défaut
-   }
+        'NAME': 'test1',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'localhost',#192.168.80.27
+        'PORT': '5432',
+    }
 }
+
+#DATABASES = {
+    #'default': {
+       # 'ENGINE': 'django.db.backends.postgresql',
+        #'NAME': os.getenv('DB_NAME'),
+        #'USER': os.getenv('DB_USER'),
+       # 'PASSWORD': os.getenv('PASSWORD'),
+       # 'HOST': os.getenv('DB_HOST'),
+   #     'PORT': os.getenv('DB_PORT', '5432'),  # 5432 par défaut
+   #}
+#}
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -148,7 +148,7 @@ DEFAULT_FROM_EMAIL = 'celery<josephinedorianekouadio@gmail.com>'
 
 # Celery configuration
 
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_BROKER_URL = 'redis://redis:6379/0'  # Assurez-vous d'utiliser le nom du service Docker Redis
 CELERY_RESULT_BACKEND = 'django-db'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
@@ -156,14 +156,14 @@ CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'UTC'
 
 # Utilisation du planificateur de base de données pour Celery Beat
-CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+#CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 # Définir les tâches planifiées ici
-CELERY_BEAT_SCHEDULE = {
-    'send-email-every-minute': {
-        'task': 'stage_projet.tasks.relance',
-        'schedule': crontab(minute='*/1'),  # Exécuter la tâche toutes les minutes
-    },
-}
+#CELERY_BEAT_SCHEDULE = {
+    #'send_email': {
+      #  'task': 'listings.tasks.relance',
+       # 'schedule': crontab(minute='*/1'),
+    #},
+#}
 #demander
 
 #tache

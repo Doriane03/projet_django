@@ -364,10 +364,10 @@ def antecedantchirurgical(request):
 
 @login_required
 def sortie_patient(request):
-    
     success = False
     error_message = None
-    autorisation="autorisation"
+    val="autorisation"
+    qry= request.GET.get('qry', '')
     if request.method == 'POST':
         # Récupération de la valeur du datesortie
         datesortie = request.POST.get('datesortie')
@@ -391,11 +391,12 @@ def sortie_patient(request):
                         hospitalisationlits.update(dateliberation=datesortie)
                         form.save()  # Sauvegarder l'instance de formulaire après mise à jour des enregistrements
                         success = True
-                        results = Patient.objects.filter(
-                            Q(hospitalisation__hospitalisationlit__dateoccupation__isnull=False) &
-                            Q(hospitalisation__hospitalisationlit__dateliberation__isnull=True)
-                        ).values('idpatient', 'nom')
-                    return render(request, 'listings/affichelistehospi.html', context={'results': results,'autorisation':autorisation})
+                        #results = Patient.objects.filter(
+                            #Q(hospitalisation__hospitalisationlit__dateoccupation__isnull=False) &
+                            #Q(hospitalisation__hospitalisationlit__dateliberation__isnull=True)
+                        #).values('idpatient', 'nom')
+                    return redirect('listehospi',val)
+                    #return render(request, 'listings/affichelistehospi.html', context={'results': results, 'val': val,'qry':qry})
                 else:
                     error_message = "Aucune hospitalisation trouvée pour ce patient."
             else:
@@ -1028,51 +1029,58 @@ from django.contrib.auth.decorators import login_required
 from .models import Patient, Lit
 
 @login_required
-def listehospi(request):
+def listehospi(request,val):
     # Récupération des paramètres de l'URL
-    query1 = request.GET.get('query1', '')
-    suivie = request.GET.get('suivie')
-    autorisation = request.GET.get('autorisation')
-    creation = request.GET.get('creation')
-    surveillance = request.GET.get('surveillance')
-    
+    qry= request.GET.get('qry', '')
+    #suivie = request.GET.get('val')
+    #autorisation = request.GET.get('val')
+    #creation = request.GET.get('val')
+    #surveillance = request.GET.get('val')
     lits = Lit.objects.all()
     
     # Requête ORM pour obtenir les résultats
-    results = Patient.objects.filter(
-        hospitalisation__hospitalisationlit__dateoccupation__isnull=False,
-        hospitalisation__hospitalisationlit__dateliberation__isnull=True
-    ).values('idpatient', 'nom')
     
     # Affichage pour débogage
-    print(f"suivie: '{suivie}'")
-    print(f"autorisation: '{autorisation}'")
-    print(f"query1: '{query1}'")
-    
-    # Gérer la recherche par query
-    
-        # Décider de rendre la page avec ou sans contexte
-    if suivie == 'suivie':
-        return render(request, 'listings/affichelistehospi.html', context={'results': results, 'suivie': suivie})
-    elif autorisation == 'autorisation':
-        return render(request, 'listings/affichelistehospi.html', context={'results': results, 'autorisation': autorisation,})
-    elif creation == 'creation':
-        return render(request, 'listings/formhospi.html', context={'creation': creation, 'lits': lits})
-    elif surveillance == 'surveillance':
-        return render(request, 'listings/affichelistehospi.html', context={'results': results, 'surveillance': surveillance})
-    
-    if query1:
-        results = results.filter(
-            Q(nom__icontains=query1) | Q(numeropatient__icontains=query1) | Q(contact1__icontains=query1) | Q(contact2__icontains=query1)
-        )
-        return render(request, 'listings/affichelistehospi.html', context={'results': results})
-    else:
-        results = Patient.objects.filter(
+    print(f"suivie: '{val}'")
+    print(f"autorisation: '{val}'")
+    print(f"qry: '{qry}'")
+    results = Patient.objects.filter(
         hospitalisation__hospitalisationlit__dateoccupation__isnull=False,
         hospitalisation__hospitalisationlit__dateliberation__isnull=True
         ).values('idpatient', 'nom')
 
-        return render(request, 'listings/affichelistehospi.html', context={'results': results,'query1': query1})
+    #r1=results
+    #print(f"Résultats après la requête de base: {results}")
+    # Gérer la recherche par query
+    if val == 'creation':
+        return render(request, 'listings/formhospi.html', context={'val': val, 'lits': lits})
+        # Décider de rendre la page avec ou sans contexte
+    if qry and val != "creation":
+        results= results.filter(
+            Q(nom__icontains=qry) | Q(numeropatient__icontains=qry) | Q(contact1__icontains=qry) | Q(contact2__icontains=qry)
+        )
+        print(f"Résultats après le filtrage avec qry: {results}")
+        return render(request, 'listings/affichelistehospi.html', context={'val': val,'qry':qry,'results':results,})
+    else:
+        return render(request, 'listings/affichelistehospi.html', context={'results': results, 'val': val,'qry':qry})
+    #elif autorisation == 'autorisation':
+       # return render(request, 'listings/affichelistehospi.html', context={'results': results, 'autorisation': autorisation,})
+    
+    #elif surveillance == 'surveillance':
+        #return render(request, 'listings/affichelistehospi.html', context={'results': results, 'surveillance': surveillance})
+    
+    #if query1:
+        #results = results.filter(
+           # Q(nom__icontains=query1) | Q(numeropatient__icontains=query1) | Q(contact1__icontains=query1) | Q(contact2__icontains=query1)
+       # )
+        #return render(request, 'listings/affichelistehospi.html', context={'results': results})
+    #else:
+        #results = Patient.objects.filter(
+        #hospitalisation__hospitalisationlit__dateoccupation__isnull=False,
+        #hospitalisation__hospitalisationlit__dateliberation__isnull=True
+        #).values('idpatient', 'nom')
+
+        #return render(request, 'listings/affichelistehospi.html', context={'results': results,'query1': query1})
 
 @login_required
 def listetraitement(request,hospi):
@@ -1178,14 +1186,13 @@ def listetraitement1(request,pk,resul):
     # Vérifiez si l'utilisateur est un médecin
         request.session['pk'] = pk
         return render(request, 'listings/boxhospi.html',context={'resul':resul,'cst':cst,'idpatient':idpatient,'medecin_id':medecin_id})
-    
+
     if pk and resul=="autorisation":
         cst="hospi"
         idpatient=pk
         patient = Patient.objects.get(idpatient=idpatient)
         nom = patient.nom
         return render(request, 'listings/formsortie.html',context={'idpatient':idpatient,'nom':nom})
-    
     if pk and resul=="surveillance":
         constantepatients = Constante.objects.filter(patient_id=pk).order_by('dateajout')
         sphs=Examen_physique.objects.filter(patient_id=pk).order_by('date')
@@ -1478,3 +1485,11 @@ def export_csv(request):
 
     return response
 
+
+
+
+
+#from listings.tasks import relance
+
+#Appel de la tâche de manière asynchrone
+#relance.delay()

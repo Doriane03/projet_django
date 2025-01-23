@@ -1,19 +1,22 @@
 from __future__ import absolute_import, unicode_literals
 from celery import shared_task
-from stage_projet.celery import app# c'est 
+from stage_projet.celery import app # c'est 
 from django.core.mail import send_mail
-from stage_projet import settings
+#from stage_projet import settings
 from django.utils import timezone
 from datetime import timedelta
 from listings.models import Sortie
-from listings.models import CustomUser, Type_personnel_soignant  # Assurez-vous que ces modèles sont correctement importés
+from listings.models import CustomUser  # Assurez-vous que ces modèles sont correctement importés Type_personnel_soignant 
 import logging
 
 # Configuration du logger
 logger = logging.getLogger(__name__)
-logging.basicConfig(level=logging.INFO)  # Ajustez le niveau de log si nécessaire
-
-@app.task
+logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s', level=logging.INFO)
+#@shared_task
+#def task_one():
+   # print(" task one called and worker is running good")
+   # return "success"
+@shared_task
 def relance():
     aujourd_hui = timezone.now().date()
     demain = aujourd_hui + timedelta(days=1)

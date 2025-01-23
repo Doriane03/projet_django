@@ -47,8 +47,8 @@
                 if ((currentUrl.includes("docpts") && !currentUrl.includes("?") )|| (currentUrl.includes("docpts/?query="))){
                     const navbr = document.getElementById('navbr');
                     navbr.style.display = 'block'; // Affiche la div si les conditions sont remplies
-                }else if ( (currentUrl.includes("listehospi") && !currentUrl.includes("?") )|| (currentUrl.includes("listehospi/?surveillance=surveillance")) ||  (currentUrl.includes("listehospi/?suivie=suivie")) || 
-                (currentUrl.includes("listehospi/?autorisation=autorisation")) || (currentUrl.includes("listehospi/?query1="))) {
+                }else if ( (currentUrl.includes("listehospi") && !currentUrl.includes("?") && !currentUrl.includes("listehospi/creation") )|| (currentUrl.includes("listehospi/surveillance?qry="))|| 
+                (currentUrl.includes("listehospi/autorisation?qry=")) ||  (currentUrl.includes("listehospi/suivie?qry="))) {
                     const navbr1 = document.getElementById('navbr1');
                     navbr1.style.display = 'block'; // Affiche la div si les conditions sont remplies
                 }
@@ -206,7 +206,7 @@
                                         <div class="navbar-search">
                                             <form>
                                                 <div class="form-group">
-                                                    <input type="text" id="nav-search" name="query" value="{{ query }}" placeholder="Recherche1">
+                                                    <input type="text" id="nav-search" name="query" value="{{ query }}" placeholder="Recherche">
                                                 </div>
                                             </form>
                                         </div>
@@ -218,7 +218,7 @@
                                         <div class="navbar-search">
                                             <form>
                                                 <div class="form-group">
-                                                    <input type="text" id="nav-search" name="query1" value="{{ query1 }}" placeholder="Recherche2">
+                                                    <input type="text" id="nav-search" name="qry" value="{{ qry }}" placeholder="Recherche">
                                                 </div>
                                             </form>
                                         </div>
