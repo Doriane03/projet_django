@@ -158,12 +158,12 @@ CELERY_TIMEZONE = 'UTC'
 # Utilisation du planificateur de base de données pour Celery Beat
 #CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 # Définir les tâches planifiées ici
-#CELERY_BEAT_SCHEDULE = {
-    #'send_email': {
-      #  'task': 'listings.tasks.relance',
-       # 'schedule': crontab(minute='*/1'),
-    #},
-#}
+CELERY_BEAT_SCHEDULE = {
+    'send_email': {
+        'task': 'listings.tasks.relance',
+        'schedule': crontab(minute='*/1'),
+    },
+}
 #demander
 
 #tache
