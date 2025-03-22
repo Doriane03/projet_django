@@ -28,7 +28,9 @@ ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS =[
     'http://127.0.0.1:4001',  # Adjust the port if you're using a different one
     'http://localhost:4001',
-    'http://127.0.0.1:8000',   # Add localhost for good measure
+    'http://127.0.0.1:8000', 
+    'http://192.168.1.100:4001', 
+        # Add localhost for good measure
 ]
 CRSF_COOKIE_SECURE = int(0)
 
