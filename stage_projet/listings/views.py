@@ -1396,11 +1396,11 @@ def get_patient(request, numero_patient):
             Q(hospitalisation__patient_id=patient.idpatient)
         ).exists()
         #verification du motif de sortie
-        sortie = Sortie.objects.filter(patient_id=patient.idpatient, motifsortie="décès").first()
-        print(sortie)
-        #if sortie:
-           # print('patient mort.')
-           # return JsonResponse({'error': 'Le patient est mort.'}, status=400)
+        sortieverif = Sortie.objects.filter(patient_id=patient.idpatient, motifsortie="décès").first()
+        print(sortieverif)
+        if sortieverif:
+            print(f'patient mort.')
+            return JsonResponse({'error3': 'Le patient est mort.'}, status=400)
         if hospitalisation_active:
             print(f'Hospitalisation active pour le patient.')
             return JsonResponse({'error': 'Le patient a déjà une hospitalisation en cours.'}, status=400)

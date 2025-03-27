@@ -21,7 +21,7 @@ AUTH_USER_MODEL = "listings.CustomUser"
 
 # Quick-start development settings - unsuitable for production
 SECRET_KEY = 'django-insecure-4*mw^d-76p=hr633o94b02ar!&)yqik)u!ca2kp%9=ped%9+#e'
-DEBUG = False 
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -82,27 +82,27 @@ TEMPLATES = [
 WSGI_APPLICATION = 'stage_projet.wsgi.application'
 
 #Database configuration
-#DATABASES = {
-    #'default': {
-        #'ENGINE': 'django.db.backends.postgresql',
-        #'NAME': 'test1',
-        #'USER': 'postgres',
-       # 'PASSWORD': 'postgres',
-       #'HOST': 'localhost',#192.168.80.27
-       # 'PORT': '5432',
-    #}
-#}
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME'),
-        'USER': os.getenv('DB_USER'),
-        'PASSWORD': os.getenv('PASSWORD'),
-        'HOST': os.getenv('DB_HOST'),
-        'PORT': os.getenv('DB_PORT', '5432'),  # 5432 par défaut
-   }
+        'NAME': 'test1',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
 }
+
+#DATABASES = {
+    #'default': {
+        #'ENGINE': 'django.db.backends.postgresql',
+        #'NAME': os.getenv('DB_NAME'),
+        #'USER': os.getenv('DB_USER'),
+        #'PASSWORD': os.getenv('PASSWORD'),
+        #'HOST': os.getenv('DB_HOST'),
+        #'PORT': os.getenv('DB_PORT', '5432'),  # 5432 par défaut
+   #}
+#}
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -143,7 +143,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'josephinedorianekouadio@gmail.com'
-EMAIL_HOST_PASSWORD = 'qxig fhjz sjiq iehj'
+EMAIL_HOST_PASSWORD = 'qxig fhjz sjiq iehj' 
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'celery<josephinedorianekouadio@gmail.com>'
@@ -162,8 +162,8 @@ CELERY_TIMEZONE = 'UTC'
 # Définir les tâches planifiées ici
 CELERY_BEAT_SCHEDULE = {
     'send_email': {
-        'task': 'listings.tasks.relance',
-        'schedule': crontab(minute='*/1'),
+        'task': 'listings.tasks.relance', #ici listings est le non de mon application django
+        'schedule': crontab(minute='00', hour='23'),
     },
 }
 #demander

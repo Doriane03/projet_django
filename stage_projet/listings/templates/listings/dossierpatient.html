@@ -61,11 +61,11 @@ img {
                         {% endif %}
                         
                         {% if dnpatient.contact1 %}
-                            <p class="signe_physique">Téléphone 1 : 0{{ dnpatient.contact1 }}</p>
+                            <p class="signe_physique">Téléphone 1 : {{ dnpatient.contact1 }}</p>
                         {% endif %}
                         
                         {% if dnpatient.contact2 %}
-                            <p class="signe_physique">Téléphone 2 : 0{{ dnpatient.contact2 }}</p>
+                            <p class="signe_physique">Téléphone 2 : {{ dnpatient.contact2 }}</p>
                         {% endif %}
                         
                         {% if dnpatient.profession %}
@@ -105,7 +105,7 @@ img {
                         {% endif %}
                         
                         {% if dnpatient.telephone_cpu %}
-                            <p class="signe_physique">Numéro de la personne à contacter : 0{{ dnpatient.telephone_cpu }}</p>
+                            <p class="signe_physique">Numéro de la personne à contacter : {{ dnpatient.telephone_cpu }}</p>
                         {% endif %}
                     {% endfor %}
             </td>    

@@ -6,26 +6,26 @@
         <div id="calendar"></div>
     </div>
 
-    <div id="eventModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="eventModalLabel">Détails du rendez-vous</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+    <center> 
+                    <div id="eventModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="eventModalLabel">Détails du rendez-vous</h5>
+                                
+                            </div>
+                            <div class="modal-body">
+                                <p><strong>Titre:</strong> <span id="eventTitle"></span></p>
+                                <p><strong>Description:</strong> <br/><span id="eventDescription"></span><br/> </p>
+                                <p><strong>Date:</strong> <span id="eventStart"></span></p>
+                            </div> <br/>
+                            <div class="modal-footer"> 
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModalButton">Fermer</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    <p><strong>Titre:</strong> <span id="eventTitle"></span></p>
-                    <p><strong>Description:</strong> <span id="eventDescription"></span></p>
-                    <p><strong>Date:</strong> <span id="eventStart"></span></p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <center>
 </center>
 
 <style>
@@ -34,14 +34,26 @@
         height: 600px; /* Ajuste la hauteur */
         margin: auto; /* Centre le calendrier */
         overflow: hidden; /* Évite le débordement */
+       
+        
     }
+
+    
+      
 
     /* Styles pour centrer la modale */
     .modal-dialog {
-        margin: auto; /* Centre la modale horizontalement */
-        top: 50%; /* Positionne à 50% de la hauteur de la fenêtre */
-        transform: translateY(-50%); /* Ajuste pour centrer verticalement */
+        display: flex;
+        justify-content: center; /* Centre horizontalement */
+        align-items: center; /* Centre verticalement */
+        height: 100vh; /* Hauteur de la fenêtre */
+        width: 50%;
     }
+
+    p{ 
+        text-align:start;
+    }
+
 </style>
 
 <script>
@@ -70,5 +82,11 @@
             }
         });
     });
+
+    // Fermer le modal quand le bouton est cliqué
+    $('#closeModalButton').click(function() {
+        $('#eventModal').modal('hide');
+    });
+
 </script>
 {% endblock %}

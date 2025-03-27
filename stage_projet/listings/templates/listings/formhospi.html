@@ -169,8 +169,12 @@
                                         console.log(data); // Pour déboguer
                                         if (data.error) {
                                             alert(data.error); // Affiche l'erreur si présente
+                                            clearPatientFields();
+                                        }else if(data.error3){
+                                            alert(data.error3); // Affiche l'erreur si présente
+                                            clearPatientFields();
                                         }
-                                        clearPatientFields();
+                                        
                                         throw new Error('Patient non trouvé');
                                     });
                                 }
